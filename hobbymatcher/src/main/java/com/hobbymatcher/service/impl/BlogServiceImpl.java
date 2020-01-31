@@ -25,6 +25,7 @@ public class BlogServiceImpl implements BlogService {
     public List<Blog> listBlog() {
         List<Blog> blogs = blogDao.listBlog();
         if (blogs == null || blogs.size() == 0) {
+            
             return null;
         }
         for (Blog b : blogs
