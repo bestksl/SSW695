@@ -1,7 +1,8 @@
 # SSW-695
 Repo for SSW-695
 
-Authors
+Team Members
 * [Haoxuan Li](kslup7@gmail.com)
 * [Zhe Sun](zsun20@stevens.edu)
-* [Mohammad Hassany](jone30rw@gmail.com)
+* [Mohammad Hassany](mhassany@stevens.edu)
+* [Tanmay Bhoir](tbhoir@stevens.edu)
