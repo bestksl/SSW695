@@ -12,14 +12,15 @@ import static junit.framework.TestCase.assertEquals;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 // 告诉junit spring配置文件的位置
-@ContextConfiguration({"classpath:spring/spring-dao.xml", "classpath:spring/spring-service.xml"})
+@ContextConfiguration({ "classpath:spring/spring-dao.xml", "classpath:spring/spring-service.xml" })
 public class BaseTest {
-    @Test
-    public void testQueryEvents() {
-        assertEquals(2, 2);
-    }
-    @Test
-    public void testInsertEvents(){
-        assertEquals(2,2);
-    }
+	@Test
+	public void testQueryEvents() {
+		assertEquals(2, 2);
+	}
+
+	@Test
+	public void testInsertEvents() {
+		assertEquals(2, 2);
+	}
 }

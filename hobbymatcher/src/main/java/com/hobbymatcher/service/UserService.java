@@ -1,8 +1,8 @@
 package com.hobbymatcher.service;
 
-import com.hobbymatcher.entity.User;
-
 import java.util.List;
+
+import com.hobbymatcher.entity.User;
 
 public interface UserService {
     List<User> getUserList();

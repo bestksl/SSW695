@@ -1,12 +1,13 @@
 package com.hobbymatcher.service.impl;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.hobbymatcher.dao.BlogDao;
 import com.hobbymatcher.dao.UserDao;
 import com.hobbymatcher.entity.Blog;
 import com.hobbymatcher.service.BlogService;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class BlogServiceImpl implements BlogService {

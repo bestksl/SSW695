@@ -1,10 +1,11 @@
 package com.hobbymatcher.dao;
 
-import com.hobbymatcher.entity.Events;
-import org.apache.ibatis.annotations.Param;
-
 import java.time.LocalDateTime;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.hobbymatcher.entity.Events;
 
 public interface EventsDao {
     /**

@@ -1,13 +1,14 @@
 package com.hobbymatcher.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.hobbymatcher.dao.UserDao;
 import com.hobbymatcher.entity.User;
 import com.hobbymatcher.service.UserService;
 import com.hobbymatcher.util.Md5;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {

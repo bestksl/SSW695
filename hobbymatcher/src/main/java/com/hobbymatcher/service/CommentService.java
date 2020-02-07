@@ -1,9 +1,8 @@
 package com.hobbymatcher.service;
 
-import com.hobbymatcher.entity.Blog;
-import com.hobbymatcher.entity.Comment;
-
 import java.util.List;
+
+import com.hobbymatcher.entity.Comment;
 
 public interface CommentService {
 
