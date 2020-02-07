@@ -1,10 +1,9 @@
 package com.hobbymatcher.service;
 
-import com.hobbymatcher.entity.Events;
-
-import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import com.hobbymatcher.entity.Events;
 
 public interface EventsService {
     List<Events> getEventsList();

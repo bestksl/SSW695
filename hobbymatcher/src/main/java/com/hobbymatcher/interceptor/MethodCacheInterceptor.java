@@ -1,10 +1,11 @@
 package com.hobbymatcher.interceptor;
 
-import com.hobbymatcher.util.RedisUtil;
+import java.util.List;
+
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
-import java.util.List;
+import com.hobbymatcher.util.RedisUtil;
 
 public class MethodCacheInterceptor implements MethodInterceptor {
     private RedisUtil redisUtil;

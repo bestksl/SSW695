@@ -11,15 +11,13 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-
 public class EventsServiceTest extends BaseTest {
-    @Autowired
-    private EventsService eventsService;
+	@Autowired
+	private EventsService eventsService;
 
-    @Test
-    public void testGetEventsList() {
-        List<Events> eventsList = eventsService.getEventsList();
-        assertEquals("wxs", eventsList.get(0).getHolder());
-    }
-
+	@Test
+	public void testGetEventsList() {
+		List<Events> eventsList = eventsService.getEventsList();
+		assertEquals("wxs", eventsList.get(0).getHolder());
+	}
 }

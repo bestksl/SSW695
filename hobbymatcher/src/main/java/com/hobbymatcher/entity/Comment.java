@@ -1,7 +1,5 @@
 package com.hobbymatcher.entity;
 
-import java.sql.Timestamp;
-
 public class Comment {
     private int id;
     private String content;
