@@ -1,0 +1,141 @@
+/*CSS initialization*/
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background-color: #f3f5f7;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.clearfix::before,
+.clearfix::after {
+    content: "";
+    display: block;
+    height: 0px;
+    visibility: hidden;
+    overflow: hidden;
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+a {
+    color: #050505;
+    text-decoration: none;
+}
+/*CSS initialization DONE*/
+
+/*header start*/
+header {
+    height: 100px;
+    /* background-color: pink; */
+    overflow: hidden;
+    /*border: 1px solid yellow;*/
+}
+/*header finish*/
+
+nav {
+    width: 1366px;
+    height: 90px;
+    /* background-color: purple; */
+    margin: 5px auto;
+    /*border: 1px solid darkblue;*/
+}
+
+.navbar ul li {
+    list-style-type: none;
+    float: left;
+    font-size: 16px;
+}
+
+.logo {
+    float: left;
+    /*border: 1px solid red;*/
+    vertical-align: middle;
+}
+
+.navbar {
+    margin-left: 50px;
+    float: left;
+    line-height: 90px;
+    height: 90px;
+}
+
+.navbar ul li a {
+    padding: 0 12px;
+    display: block;
+    height: 55px;
+    font-weight: bold;
+    /* line-height: 42px; */
+}
+
+.navbar ul li a:hover {
+    border-bottom: 2px solid #00A4FF;
+}
+
+.search {
+    width: 410px;
+    height: 38px;
+    margin: 24px 0px 24px 15px;
+    border: 1px solid #00a4ff;
+    float: left;
+}
+
+.search form input[type="text"] {
+    width: 360px;
+    height: 38px;
+    padding-left: 15px;
+    /* background-color: pink; */
+    float: left;
+    border: 0px;
+    /* box-sizing: content-box; */
+    vertical-align: middle;
+    box-sizing: border-box;
+}
+
+.search form input[type="submit"] {
+    width: 50px;
+    height: 38px;
+    /* background-color: #00a4ff; */
+    float: left;
+    vertical-align: middle;
+    background: #00a4ff url(img/icons/buttonIcons/searchButton.png) center no-repeat;
+}
+
+/* My Info Start */
+.personal {
+    float: right;
+    height: 90px;
+    line-height: 90px;
+    margin: 0 15px 0 35px;
+    /* padding: 0 15px 0 15px; */
+    /* border: 1px solid red; */
+}
+
+.personal a {
+    /* margin: 0 auto; */
+    /* border: 1px solid grey; */
+    /* vertical-align:middle; */
+}
+
+
+
+.personal img {
+    /* border: 1px solid yellow; */
+    margin: 0 8px;
+    vertical-align:middle;
+}
+
+/* My Info End */
