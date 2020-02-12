@@ -1,7 +1,6 @@
+<!-- USE THIS PAGE AS AN EXAMPLE OF HOW TO CREATE A VUE COMPONENT -->
 <template>
-  <div class="hello">
-    {{ msg }}
-  </div>
+  <div class="hello">{{ msg }}</div>
 </template>
 
 <script lang="ts">
