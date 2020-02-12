@@ -1,0 +1,3 @@
+primevue (ui libraries): https://primefaces.org/primevue/#/
+formatting dates: https://www.npmjs.com/package/vue-filter-date-format
+font awecome (icon): https://github.com/FortAwesome/vue-fontawesome

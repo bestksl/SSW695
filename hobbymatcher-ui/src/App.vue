@@ -1,33 +1,48 @@
 <template>
   <div id="app">
-    <img src="./assets/logo-200x200.png">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <Header />
+    <div class="py-5 app-body">
+      <router-view />
     </div>
-    <router-view/>
+    <Footer />
+    <hr />
+    <div class="only-in-dev text-center">
+      <div>--- only in development ---</div>
+      <router-link to="/events/create">Create Event</router-link>
+      <span class="mx-2">|</span>
+      <router-link to="/events/view">View Event</router-link>
+    </div>
   </div>
 </template>
 
 <style lang="less">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+// import bootstrap css utility classes
+@import (less) './assets/stylesheets/bootstrap-utilities.min.css';
+
+// reset body
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
+  background-color: #34495e;
 }
 
-#nav {
-  padding: 30px;
+// fix unnecessary horizontal scroll
+.p-grid {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+.app-body {
+  background-color: white;
+}
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+.only-in-dev {
+  * {
+    color: white;
   }
 }
 </style>
