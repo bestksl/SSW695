@@ -1,15 +1,13 @@
 package com.hobbymatcher.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.hobbymatcher.dao.CommentDao;
 import com.hobbymatcher.dao.UserDao;
 import com.hobbymatcher.entity.Comment;
 import com.hobbymatcher.service.CommentService;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -17,7 +15,6 @@ public class CommentServiceImpl implements CommentService {
     private final CommentDao commentDao;
     private final UserDao userDao;
 
-    @Autowired
     public CommentServiceImpl(CommentDao commentDao, UserDao userDao) {
         this.commentDao = commentDao;
         this.userDao = userDao;

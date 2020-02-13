@@ -3,7 +3,6 @@ package com.hobbymatcher.test.service;
 import com.hobbymatcher.entity.User;
 import com.hobbymatcher.service.UserService;
 import com.hobbymatcher.test.BaseTest;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

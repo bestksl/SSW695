@@ -1,4 +1,4 @@
-package com.hobbymatcher.config.Dao;
+package com.hobbymatcher.config.dao;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.mybatis.spring.annotation.MapperScan;

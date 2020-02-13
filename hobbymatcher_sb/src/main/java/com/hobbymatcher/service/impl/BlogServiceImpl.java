@@ -1,22 +1,20 @@
 package com.hobbymatcher.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.hobbymatcher.dao.BlogDao;
 import com.hobbymatcher.dao.UserDao;
 import com.hobbymatcher.entity.Blog;
 import com.hobbymatcher.service.BlogService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class BlogServiceImpl implements BlogService {
 
+
     private final BlogDao blogDao;
     private final UserDao userDao;
 
-    @Autowired
     public BlogServiceImpl(BlogDao blogDao, UserDao userDao) {
         this.blogDao = blogDao;
         this.userDao = userDao;
@@ -27,7 +25,7 @@ public class BlogServiceImpl implements BlogService {
     public List<Blog> listBlog() {
         List<Blog> blogs = blogDao.listBlog();
         if (blogs == null || blogs.size() == 0) {
-
+            
             return null;
         }
         for (Blog b : blogs
