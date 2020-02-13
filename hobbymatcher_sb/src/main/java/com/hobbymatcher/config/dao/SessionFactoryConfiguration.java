@@ -1,4 +1,4 @@
-package com.hobbymatcher.config.Dao;
+package com.hobbymatcher.config.dao;
 
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
