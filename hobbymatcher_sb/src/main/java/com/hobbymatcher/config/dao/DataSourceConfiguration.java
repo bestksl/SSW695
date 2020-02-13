@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import java.beans.PropertyVetoException;
 
 @Configuration
-@MapperScan("com.hobbymatcher.dao")
+@MapperScan("com.hobbymatcher.Dao")
 public class DataSourceConfiguration {
 
     @Value("${jdbc.driver}")
