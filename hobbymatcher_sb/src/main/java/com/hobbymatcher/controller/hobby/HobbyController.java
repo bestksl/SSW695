@@ -31,7 +31,7 @@ public class HobbyController {
     @ResponseBody
     private Map<String, Object> listHobby(HttpServletResponse response) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        List<Hobby> list = new ArrayList<Hobby>();
+        List<Hobby> list;
         try {
             list = hobbyService.listHobby();
             modelMap.put("list", list);
@@ -102,5 +102,4 @@ public class HobbyController {
         }
         return modelMap;
     }
-
 }

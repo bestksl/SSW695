@@ -29,7 +29,7 @@ public class UserDaoTest {
     @Test
     public void testInsertUser() {
         User user = new User();
-        user.setEmail("kslup766@gmail.com");
+        user.setEmail("kslup76123136@gmail.com");
         user.setFirstName("fi");
         user.setLastName("la");
         user.setNickName("ksl");

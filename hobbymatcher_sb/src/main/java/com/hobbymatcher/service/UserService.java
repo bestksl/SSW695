@@ -16,4 +16,6 @@ public interface UserService {
     User findUserByEmail(String email);
 
     Boolean updateUser(User user);
+
+    User findUserById(String id);
 }
