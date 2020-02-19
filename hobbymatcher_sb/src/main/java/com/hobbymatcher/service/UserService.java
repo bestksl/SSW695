@@ -18,4 +18,6 @@ public interface UserService {
     Boolean updateUser(User user);
 
     User findUserById(String id);
+
+    User loadUserByUsername(String email);
 }

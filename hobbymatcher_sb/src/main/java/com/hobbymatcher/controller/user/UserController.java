@@ -2,8 +2,8 @@ package com.hobbymatcher.controller.user;
 
 import com.hobbymatcher.entity.User;
 import com.hobbymatcher.service.UserService;
-import com.hobbymatcher.util.Md5;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,12 +19,13 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-
+    private final PasswordEncoder encoder;
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, PasswordEncoder encoder) {
         this.userService = userService;
+        this.encoder = encoder;
     }
 
     // list user
@@ -57,13 +58,13 @@ public class UserController {
             modelMap.put("msg", "user object is null, login failed");
             return modelMap;
         }
-        String passwordByMd5 = Md5.MD5(user.getPassWord());
+        String encodePassword = encoder.encode(user.getPassword());
         user = userService.findUserByEmail(user.getEmail());
         request.getSession().setAttribute("user", user);
-        Boolean result = userService.login(user.getEmail(), passwordByMd5);
+        Boolean result = userService.login(user.getEmail(), encodePassword);
         modelMap.put("status", result);
         if (result) {
-            user.setPassWord(null);
+            user.setPassword(null);
             modelMap.put("user", user);
         }
         modelMap.put("msg", result ? "login success" : "login failed");
@@ -86,20 +87,19 @@ public class UserController {
 
     // register
     @PostMapping("/")
-    public Map<String, Object> add(User user, HttpServletResponse response) {
+    public Map<String, Object> add(@RequestBody User user, HttpServletResponse response) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
         if (user != null) {
             Boolean result = userService.register(user);
             modelMap.put("status", result);
             modelMap.put("msg", result ? "add success" : "add failed");
             response.setStatus(result ? 200 : 400);
-            return modelMap;
         } else {
             modelMap.put("status", false);
             modelMap.put("msg", "user object is null, add failed");
             response.setStatus(400);
-            return modelMap;
         }
+        return modelMap;
     }
 
     //delete user

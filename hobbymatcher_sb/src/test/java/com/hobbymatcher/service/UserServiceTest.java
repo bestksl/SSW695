@@ -37,7 +37,7 @@ public class UserServiceTest {
         user.setFirstName("fi");
         user.setLastName("la");
         user.setNickName("ksl");
-        user.setPassWord("123456");
+        user.setPassword("123456");
         // assertTrue(userService.register(user));
     }
 
@@ -45,5 +45,11 @@ public class UserServiceTest {
     public void testDelete() {
         assertTrue(userService.deleteUser("12"));
         // assertTrue(userService.login("sunzheshiwoerzi@gmail.com", "123456"));
+    }
+
+    @Test
+    public void testLoadUserByUsername() {
+        User user = userService.loadUserByUsername("kslup7@gmail.com");
+        System.out.println(user);
     }
 }

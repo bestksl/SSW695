@@ -1,5 +1,6 @@
 package com.hobbymatcher.dao;
 
+import com.hobbymatcher.entity.Permission;
 import com.hobbymatcher.entity.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -27,4 +28,5 @@ public interface UserDao {
 
     User findUserByEmail(@Param("email") String email);
 
+    List<Permission> findPermissionByEmail(String email);
 }

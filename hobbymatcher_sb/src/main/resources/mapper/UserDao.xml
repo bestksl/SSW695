@@ -55,4 +55,12 @@
         FROM user
         WHERE id = #{id}
     </delete>
+    <select id="findPermissionByEmail" parameterType="user" resultType="Permission">
+        select sp.*
+        from user
+                 inner join sys_user_role sur on user.id = sur.user_id
+                 inner join sys_role_permission srp on sur.role_id = srp.role_id
+                 inner join sys_permission sp on srp.perm_id = sp.id
+        where user.email = #{value};
+    </select>
 </mapper>

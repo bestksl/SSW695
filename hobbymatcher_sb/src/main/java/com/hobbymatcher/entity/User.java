@@ -1,8 +1,15 @@
 package com.hobbymatcher.entity;
 
-import java.util.Date;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
 
-public class User {
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+
+public class User implements UserDetails {
     // User Bean
     private String id;
     private String nickName;
@@ -15,6 +22,7 @@ public class User {
     private String status;
     private String hobbies;
     private String events;
+    private List<GrantedAuthority> authorities = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -56,13 +64,6 @@ public class User {
         this.email = email;
     }
 
-    public String getPassWord() {
-        return passWord;
-    }
-
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
-    }
 
     public Date getDob() {
         return dob;
@@ -105,4 +106,64 @@ public class User {
     }
 
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(List<GrantedAuthority> authorities) {
+        this.authorities= authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.passWord;
+    }
+
+    public void setPassword(String password) {
+        this.passWord = password;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", passWord='" + passWord + '\'' +
+                ", dob=" + dob +
+                ", gender='" + gender + '\'' +
+                ", status='" + status + '\'' +
+                ", hobbies='" + hobbies + '\'' +
+                ", events='" + events + '\'' +
+                ", authorities=" + authorities +
+                '}';
+    }
 }
