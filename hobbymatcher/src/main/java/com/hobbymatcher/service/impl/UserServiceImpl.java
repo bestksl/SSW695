@@ -1,8 +1,6 @@
 package com.hobbymatcher.service.impl;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
