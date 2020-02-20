@@ -3,13 +3,13 @@ package com.hobbymatcher.controller.user;
 import com.hobbymatcher.entity.User;
 import com.hobbymatcher.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,13 +19,14 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    private final PasswordEncoder encoder;
+
+
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService, PasswordEncoder encoder) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.encoder = encoder;
+
     }
 
     // list user
@@ -58,10 +59,9 @@ public class UserController {
             modelMap.put("msg", "user object is null, login failed");
             return modelMap;
         }
-        String encodePassword = encoder.encode(user.getPassword());
-        user = userService.findUserByEmail(user.getEmail());
+        user = userService.loadUserByUsername(user.getEmail());
         request.getSession().setAttribute("user", user);
-        Boolean result = userService.login(user.getEmail(), encodePassword);
+        Boolean result = userService.login(user.getEmail(), user.getPassword());
         modelMap.put("status", result);
         if (result) {
             user.setPassword(null);

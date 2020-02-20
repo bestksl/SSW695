@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -48,12 +47,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public boolean login(String email, String passWord) {
+        String encodePassword = encoder.encode(passWord);
         User user = userDao.findUserByEmailAndPwd(email, passWord);
-        if (user != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return user != null;
     }
 
     @Override
@@ -77,6 +73,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             user.setPassword(encoder.encode(user.getPassword()));
             return userDao.updateUser(user) == 1;
         } catch (Exception e) {
+           // System.out.println(e);
             return false;
         }
     }
@@ -96,7 +93,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             authorities.add(authority);
         }
         user.setAuthorities(authorities);
-        System.out.println(11+"  "+user);
         return user;
     }
 }
