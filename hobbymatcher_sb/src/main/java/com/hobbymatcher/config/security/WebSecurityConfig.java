@@ -11,6 +11,7 @@ import com.hobbymatcher.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -50,8 +51,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //.antMatchers("/**").permitAll()
-                // .antMatchers(HttpMethod.DELETE,"/user/*").hasAnyAuthority("DELETE_USER")
-                .antMatchers("/aaa").hasAnyAuthority("USER_DDD")
+                .antMatchers(HttpMethod.DELETE, "/user/*").hasAnyAuthority("DELETE_USER")
+                .antMatchers("/swagger-ui.html").permitAll()
+                .antMatchers("/webjars/**").permitAll()
+                .antMatchers("/v2/**").permitAll()
+                .antMatchers("/swagger-resources/**").permitAll()
                 .antMatchers("/**")
                 .fullyAuthenticated()
                 .anyRequest()
@@ -86,6 +90,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 resp.setContentType("application/json;charset=utf-8");
                 PrintWriter out = resp.getWriter();
                 RespBean respBean = RespBean.error("login failed!");
+                respBean.setStatus(403);
                 resp.setStatus(403);
                 out.write(new ObjectMapper().writeValueAsString(respBean));
                 out.flush();

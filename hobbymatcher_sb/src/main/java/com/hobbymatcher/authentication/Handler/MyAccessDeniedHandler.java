@@ -16,8 +16,9 @@ public class MyAccessDeniedHandler extends AccessDeniedHandlerImpl {
 
     @Override
     public void handle(HttpServletRequest req, HttpServletResponse resp, AccessDeniedException e) throws IOException, ServletException {
-        RespBean error = RespBean.error("权限不足，访问失败");
+        RespBean error = RespBean.error("Sorry you don't have this authentication，access denied");
         resp.setStatus(403);
+        error.setStatus(403);
         resp.setContentType("application/json;charset=utf-8");
         PrintWriter out = resp.getWriter();
         out.write(new ObjectMapper().writeValueAsString(error));
