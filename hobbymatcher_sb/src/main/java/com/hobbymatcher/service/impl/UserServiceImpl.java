@@ -95,7 +95,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 authorities.add(authority);
             }
             user.setAuthorities(authorities);
+            return user;
+        } else {
+            return new User();
         }
-        return user;
     }
+
 }
