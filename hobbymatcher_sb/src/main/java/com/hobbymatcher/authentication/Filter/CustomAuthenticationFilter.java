@@ -1,6 +1,8 @@
 package com.hobbymatcher.authentication.Filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hobbymatcher.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,6 +16,9 @@ import java.io.InputStream;
 import java.util.Map;
 
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+    @Autowired
+    UserService userService;
+
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         if (request.getContentType().equals(MediaType.APPLICATION_JSON_UTF8_VALUE) || request.getContentType().equals(MediaType.APPLICATION_JSON_VALUE)) {
@@ -21,7 +26,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
             UsernamePasswordAuthenticationToken authRequest = null;
             try (InputStream is = request.getInputStream()) {
                 Map<String, String> authenticationBean = mapper.readValue(is, Map.class);
-                authRequest = new UsernamePasswordAuthenticationToken(authenticationBean.get("email"), authenticationBean.get("passWord"));
+                authRequest = new UsernamePasswordAuthenticationToken(authenticationBean.get("email"), authenticationBean.get("password"));
             } catch (IOException e) {
                 e.printStackTrace();
                 authRequest = new UsernamePasswordAuthenticationToken("", "");
