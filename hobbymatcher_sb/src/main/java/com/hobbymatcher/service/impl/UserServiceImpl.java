@@ -37,8 +37,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public boolean register(User user) {
         try {
             user.setPassword(encoder.encode(user.getPassword()));
+            List<GrantedAuthority> authorities = (List<GrantedAuthority>) user.getAuthorities();
+            authorities.add(new SimpleGrantedAuthority("ROLE_USER_BASIC"));
             userDao.insertUser(user);
-            System.out.println(user.getPassword() + " " + user.toString());
             return true;
         } catch (Exception e) {
             return false;
@@ -73,7 +74,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             user.setPassword(encoder.encode(user.getPassword()));
             return userDao.updateUser(user) == 1;
         } catch (Exception e) {
-           // System.out.println(e);
+            // System.out.println(e);
             return false;
         }
     }
@@ -86,13 +87,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userDao.findUserByEmail(email);
-        List<Permission> permissionList = userDao.findPermissionByEmail(email);
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        for (Permission permission : permissionList) {
-            GrantedAuthority authority = new SimpleGrantedAuthority(permission.getPermTag());
-            authorities.add(authority);
+        if (user != null) {
+            List<Permission> permissionList = userDao.findPermissionByEmail(email);
+            List<GrantedAuthority> authorities = new ArrayList<>();
+            for (Permission permission : permissionList) {
+                GrantedAuthority authority = new SimpleGrantedAuthority(permission.getPermTag());
+                authorities.add(authority);
+            }
+            user.setAuthorities(authorities);
         }
-        user.setAuthorities(authorities);
         return user;
     }
 }
