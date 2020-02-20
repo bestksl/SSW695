@@ -1,22 +1,31 @@
 package com.hobbymatcher.service.impl;
 
 import com.hobbymatcher.dao.UserDao;
+import com.hobbymatcher.entity.Permission;
 import com.hobbymatcher.entity.User;
 import com.hobbymatcher.service.UserService;
-import com.hobbymatcher.util.Md5;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
-
+public class UserServiceImpl implements UserService, UserDetailsService {
+    Logger logger = Logger.getLogger(UserServiceImpl.class);
     private UserDao userDao;
+    private final PasswordEncoder encoder;
 
     @Autowired
-    public UserServiceImpl(UserDao userDao) {
+    public UserServiceImpl(UserDao userDao, PasswordEncoder encoder) {
         this.userDao = userDao;
+        this.encoder = encoder;
     }
 
     @Override
@@ -27,7 +36,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean register(User user) {
         try {
-            user.setPassWord(Md5.MD5(user.getPassWord()));
+            user.setPassword(encoder.encode(user.getPassword()));
+            List<GrantedAuthority> authorities = (List<GrantedAuthority>) user.getAuthorities();
+            authorities.add(new SimpleGrantedAuthority("ROLE_USER_BASIC"));
             userDao.insertUser(user);
             return true;
         } catch (Exception e) {
@@ -37,12 +48,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean login(String email, String passWord) {
+        String encodePassword = encoder.encode(passWord);
         User user = userDao.findUserByEmailAndPwd(email, passWord);
-        if (user != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return user != null;
     }
 
     @Override
@@ -63,9 +71,34 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean updateUser(User user) {
         try {
+            user.setPassword(encoder.encode(user.getPassword()));
             return userDao.updateUser(user) == 1;
         } catch (Exception e) {
+            // System.out.println(e);
             return false;
         }
     }
+
+    @Override
+    public User findUserById(String id) {
+        return userDao.findUserById(id);
+    }
+
+    @Override
+    public User loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userDao.findUserByEmail(email);
+        if (user != null) {
+            List<Permission> permissionList = userDao.findPermissionByEmail(email);
+            List<GrantedAuthority> authorities = new ArrayList<>();
+            for (Permission permission : permissionList) {
+                GrantedAuthority authority = new SimpleGrantedAuthority(permission.getPermTag());
+                authorities.add(authority);
+            }
+            user.setAuthorities(authorities);
+            return user;
+        } else {
+            return new User();
+        }
+    }
+
 }
