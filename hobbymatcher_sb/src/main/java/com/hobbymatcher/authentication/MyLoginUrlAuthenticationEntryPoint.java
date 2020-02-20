@@ -26,6 +26,7 @@ public class MyLoginUrlAuthenticationEntryPoint implements AuthenticationEntryPo
             respBean.setMsg("Please login!");
         }
         resp.setStatus(403);
+        respBean.setStatus(403);
         out.write(new ObjectMapper().writeValueAsString(respBean));
         out.flush();
         out.close();
