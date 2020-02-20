@@ -35,6 +35,7 @@ import java.io.PrintWriter;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserService userService;
+
     @Bean
     public BCryptPasswordEncoder bPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -59,8 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .exceptionHandling()
-                .accessDeniedHandler(new MyAccessDeniedHandler());
-       // .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint());
+                .accessDeniedHandler(new MyAccessDeniedHandler())
+                .authenticationEntryPoint(new MyLoginUrlAuthenticationEntryPoint());
         http.addFilterAt(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
@@ -85,6 +86,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 resp.setContentType("application/json;charset=utf-8");
                 PrintWriter out = resp.getWriter();
                 RespBean respBean = RespBean.error("login failed!");
+                resp.setStatus(403);
                 out.write(new ObjectMapper().writeValueAsString(respBean));
                 out.flush();
                 out.close();
