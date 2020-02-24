@@ -1,23 +1,23 @@
 package com.hobbymatcher.service;
 
-import com.hobbymatcher.entity.User;
-
 import java.util.List;
 
+import com.hobbymatcher.entity.User;
+
 public interface UserService {
-    List<User> getUserList();
+	List<User> getUserList();
 
-    boolean register(User user);
+	boolean register(User user);
 
-    boolean login(String email, String passWord);
+	boolean login(String email, String passWord);
 
-    boolean deleteUser(String id);
+	boolean deleteUser(String id);
 
-    User findUserByEmail(String email);
+	User findUserByEmail(String email);
 
-    Boolean updateUser(User user);
+	Boolean updateUser(User user);
 
-    User findUserById(String id);
+	User findUserById(String id);
 
-    User loadUserByUsername(String email);
+	User loadUserByUsername(String email);
 }
