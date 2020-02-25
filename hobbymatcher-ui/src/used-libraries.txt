@@ -6,3 +6,5 @@ font awecome (icon):
   - https://github.com/FortAwesome/vue-fontawesome
 vue-toasted: 
   - https://shakee93.github.io/vue-toasted/
+vee-validate:
+  - https://logaretm.github.io/vee-validate/
