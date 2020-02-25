@@ -1,4 +1,4 @@
-package com.hobbymatcher.authentication.Filter;
+package com.hobbymatcher.authentication.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hobbymatcher.service.UserService;
