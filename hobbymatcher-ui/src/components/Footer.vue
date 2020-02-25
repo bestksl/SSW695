@@ -4,6 +4,10 @@
       <router-link to="/">Home</router-link>
       <span>|</span>
       <router-link to="/about">About</router-link>
+      <span>|</span>
+      <router-link to="/signup">Sign Up</router-link>
+      <span>|</span>
+      <router-link to="/signin">Sign In</router-link>
     </div>
     <small class="d-inline-block pt-3">
       HobbyMatcher - 2020 All Right Reserved.

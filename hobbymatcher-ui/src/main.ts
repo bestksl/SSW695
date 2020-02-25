@@ -21,6 +21,7 @@ import Textarea from 'primevue/textarea'
 import Checkbox from 'primevue/checkbox'
 import FileUpload from 'primevue/fileupload'
 import Rating from 'primevue/rating'
+import Password from 'primevue/password'
 
 import 'primevue/resources/themes/nova-light/theme.css'
 import 'primevue/resources/primevue.min.css'
@@ -30,15 +31,21 @@ import 'primeflex/primeflex.css'
 // -- import vue-toast --
 import Toasted from 'vue-toasted'
 
+// -- import validation --
+import { ValidationProvider, ValidationObserver, localize, extend } from 'vee-validate'
+import en from 'vee-validate/dist/locale/en.json'
+import * as rules from 'vee-validate/dist/rules'
+
 // -- declare our components --
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
+import SignUpForm from './components/auth/SignUpForm.vue'
+import SignInForm from './components/auth/SignInForm.vue'
 import EventThumb from './components/events/EventThumb.vue'
 import EventThumbs from './components/events/EventThumbs.vue'
 import Reviews from './components/reviews/Reviews.vue'
 import ReviewForm from './components/reviews/ReviewForm.vue'
 import ReviewView from './components/reviews/ReviewView.vue'
-// ----------------------------
 
 Vue.use(VueFilterDateFormat)
 
@@ -50,7 +57,7 @@ Vue.component('Textarea', Textarea)
 Vue.component('Checkbox', Checkbox)
 Vue.component('FileUpload', FileUpload)
 Vue.component('Rating', Rating)
-// ---------------------------------
+Vue.component('Password', Password)
 
 // This will kick of the initial replacement of i to svg tags
 // and configure a MutationObserver
@@ -60,11 +67,20 @@ library.add(fab)
 library.add(far)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
+// -- register toast --
 Vue.use(Toasted)
+
+// -- register validation --
+Vue.component('ValidationProvider', ValidationProvider)
+Vue.component('ValidationObserver', ValidationObserver)
+Object.keys(rules).forEach((rule: any) => extend(rule, (rules as any)[rule]))
+localize({ en }) // Install English locales.
 
 // -- registring our components --
 Vue.component('Header', Header)
 Vue.component('Footer', Footer)
+Vue.component('SignUpForm', SignUpForm)
+Vue.component('SignInForm', SignInForm)
 Vue.component('EventThumb', EventThumb)
 Vue.component('EventThumbs', EventThumbs)
 Vue.component('Reviews', Reviews)
