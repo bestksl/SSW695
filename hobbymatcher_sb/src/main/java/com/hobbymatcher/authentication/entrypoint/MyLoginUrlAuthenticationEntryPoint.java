@@ -1,4 +1,4 @@
-package com.hobbymatcher.authentication;
+package com.hobbymatcher.authentication.entrypoint;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hobbymatcher.entity.RespBean;

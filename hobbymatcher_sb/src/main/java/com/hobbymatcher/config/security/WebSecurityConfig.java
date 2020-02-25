@@ -1,11 +1,11 @@
 package com.hobbymatcher.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hobbymatcher.authentication.Filter.CustomAuthenticationFilter;
-import com.hobbymatcher.authentication.Handler.MyAccessDeniedHandler;
-import com.hobbymatcher.authentication.Handler.MyAuthenticationFailureHandler;
-import com.hobbymatcher.authentication.Handler.MyAuthenticationSuccessHandler;
-import com.hobbymatcher.authentication.MyLoginUrlAuthenticationEntryPoint;
+import com.hobbymatcher.authentication.filter.CustomAuthenticationFilter;
+import com.hobbymatcher.authentication.handler.MyAccessDeniedHandler;
+import com.hobbymatcher.authentication.handler.MyAuthenticationFailureHandler;
+import com.hobbymatcher.authentication.handler.MyAuthenticationSuccessHandler;
+import com.hobbymatcher.authentication.entrypoint.MyLoginUrlAuthenticationEntryPoint;
 import com.hobbymatcher.entity.RespBean;
 import com.hobbymatcher.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.RestController;
 
