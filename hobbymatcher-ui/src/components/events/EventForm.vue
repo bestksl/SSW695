@@ -79,7 +79,18 @@
         />
       </div>
       <div class="p-col-8 p-offset-4 text-left">
-        <Button label="Back" icon="pi pi-check" class="p-button-primary" />
+        <Button
+          label="Back"
+          icon="pi pi-chevron-left"
+          class="p-button-secondary"
+          v-on:click="back()"
+        />
+        <Button
+          label="Save"
+          icon="pi pi-check"
+          class="p-button-primary"
+          v-on:click="save()"
+        />
       </div>
     </div>
   </div>
@@ -87,7 +98,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { Event } from './event'
+import { EventService } from './EventService'
+import { Event } from './Event'
 
 @Component
 export default class EventForm extends Vue {
@@ -103,6 +115,26 @@ export default class EventForm extends Vue {
     organizer: 'Stevens Institute of Technology Fun Club',
     coverPhotoId: '@/assets/images/logo-200x200.png'
   } as Event
+  api: EventService = new EventService()
+
+  mounted () {}
+
+  back () {
+    window.history.back()
+  }
+
+  save () {
+    this.api
+      .create(this.event)
+      .then((resp: any) => {
+        this.event = {} as Event
+        Vue.toasted.show('Event Created.', { duration: 5000 })
+      })
+      .catch((err: any) => {
+        Vue.toasted.show('Failed to save the event.', { duration: 5000 })
+        console.log(err)
+      })
+  }
 }
 </script>
 
