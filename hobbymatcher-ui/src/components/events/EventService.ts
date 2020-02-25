@@ -1,4 +1,4 @@
-import { http } from '../API'
+import { http } from '../Api'
 import { Event } from './Event'
 
 export class EventService {
