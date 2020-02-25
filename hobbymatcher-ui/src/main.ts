@@ -6,6 +6,7 @@ import store from './store'
 
 import VueFilterDateFormat from 'vue-filter-date-format'
 
+// -- import fontawesome --
 import { library, dom as fasdom } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
@@ -25,7 +26,9 @@ import 'primevue/resources/themes/nova-light/theme.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css'
-// ------------------------------
+
+// -- import vue-toast --
+import Toasted from 'vue-toasted'
 
 // -- declare our components --
 import Header from './components/Header.vue'
@@ -56,6 +59,8 @@ library.add(fas)
 library.add(fab)
 library.add(far)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+
+Vue.use(Toasted)
 
 // -- registring our components --
 Vue.component('Header', Header)
