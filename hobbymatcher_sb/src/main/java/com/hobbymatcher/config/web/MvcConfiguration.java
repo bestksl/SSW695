@@ -3,9 +3,11 @@ package com.hobbymatcher.config.web;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-public class MvcConfiguration extends WebMvcConfigurerAdapter implements ApplicationContextAware {
+public class MvcConfiguration implements WebMvcConfigurer, ApplicationContextAware {
+
+	@SuppressWarnings("unused")
 	private ApplicationContext applicationContext;
 
 	@Override

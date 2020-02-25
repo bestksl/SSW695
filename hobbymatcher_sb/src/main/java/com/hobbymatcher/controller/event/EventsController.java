@@ -26,7 +26,7 @@ import com.hobbymatcher.service.EventsService;
 import com.hobbymatcher.util.FileUtil;
 
 @CrossOrigin
-@SessionAttributes()
+@SessionAttributes
 @Controller
 @RequestMapping("/events")
 public class EventsController {
