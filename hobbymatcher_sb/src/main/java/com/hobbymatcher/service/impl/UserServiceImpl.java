@@ -39,6 +39,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             user.setPassword(encoder.encode(user.getPassword()));
             List<GrantedAuthority> authorities = (List<GrantedAuthority>) user.getAuthorities();
             authorities.add(new SimpleGrantedAuthority("ROLE_USER_BASIC"));
+            user.setAuthorities(authorities);
             userDao.insertUser(user);
             return true;
         } catch (Exception e) {
