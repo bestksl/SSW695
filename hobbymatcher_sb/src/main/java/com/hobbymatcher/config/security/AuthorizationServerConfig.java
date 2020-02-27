@@ -16,6 +16,16 @@ import org.springframework.security.oauth2.provider.ClientDetailsService;
 @Configuration
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
+    @Override
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        clients.inMemory().withClient("front_end_01")
+                .secret("123456")
+                //有效时间 2小时
+                .accessTokenValiditySeconds(72000)
+                //密码授权模式和刷新令牌
+                .authorizedGrantTypes("refresh_token","password")
+                .scopes( "all");
+    }
 
 }
  

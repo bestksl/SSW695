@@ -2,6 +2,7 @@ package com.hobbymatcher.authentication.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hobbymatcher.entity.RespBean;
+import com.hobbymatcher.service.UserService;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,8 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
 
     @Autowired
     AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
+    @Autowired
+    UserService userService;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse resp, Authentication authentication) throws IOException, ServletException {
