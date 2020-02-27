@@ -1,6 +1,7 @@
 package com.hobbymatcher.service;
 
 import com.hobbymatcher.entity.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
