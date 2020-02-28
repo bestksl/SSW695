@@ -23,9 +23,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 //有效时间 2小时
                 .accessTokenValiditySeconds(72000)
                 //密码授权模式和刷新令牌
-                .authorizedGrantTypes("refresh_token","password")
-                .scopes( "all");
+                .authorizedGrantTypes("refresh_token", "password")
+                .scopes("all", "read", "write");
     }
 
+    @Override
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        super.configure(endpoints);
+    }
 }
  
