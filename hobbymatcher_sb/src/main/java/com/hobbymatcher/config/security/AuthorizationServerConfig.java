@@ -21,7 +21,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         clients.inMemory().withClient("front_end_01")
                 .secret("123456")
                 //有效时间 2小时
-                .accessTokenValiditySeconds(72000)
+                .accessTokenValiditySeconds(3600)
                 //密码授权模式和刷新令牌
                 .authorizedGrantTypes("refresh_token", "password")
                 .scopes("all", "read", "write");
