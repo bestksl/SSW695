@@ -1,5 +1,5 @@
 import { http } from '../Api'
-import { Event } from './Event'
+import { Event } from './_Event'
 
 export class EventService {
   list () {
