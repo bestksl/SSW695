@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 @EnableAuthorizationServer
 @Configuration
@@ -26,8 +27,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Autowired
     private SecurityProperties securityProperties;
+
     @Autowired
-    private TokenStore tokenStore;
+    private TokenStore redisTokenStore;
+
+    @Autowired(required = false)
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -47,7 +52,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.userDetailsService(userDetailsService)
-                .tokenStore(tokenStore);
+                .tokenStore(redisTokenStore);
+        if (jwtAccessTokenConverter != null) {
+            endpoints.accessTokenConverter(jwtAccessTokenConverter);
+        }
     }
 }
  
