@@ -19,14 +19,11 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
     Logger logger = Logger.getLogger(UserServiceImpl.class);
-    private UserDao userDao;
-    private final PasswordEncoder encoder;
-
     @Autowired
-    public UserServiceImpl(UserDao userDao, PasswordEncoder encoder) {
-        this.userDao = userDao;
-        this.encoder = encoder;
-    }
+    private UserDao userDao;
+    @Autowired
+    private PasswordEncoder encoder;
+
 
     @Override
     public List<User> getUserList() {

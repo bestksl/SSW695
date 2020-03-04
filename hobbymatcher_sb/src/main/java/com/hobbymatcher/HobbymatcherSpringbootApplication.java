@@ -2,8 +2,10 @@ package com.hobbymatcher;
 
 import java.util.Arrays;
 
+import com.hobbymatcher.properties.SecurityProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
@@ -18,6 +20,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
 @RestController
+@EnableConfigurationProperties(SecurityProperties.class)
 public class HobbymatcherSpringbootApplication {
 
 	public static void main(String[] args) {

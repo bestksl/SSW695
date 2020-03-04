@@ -19,6 +19,7 @@ public class MyAuthenticationFailureHandler implements AuthenticationFailureHand
     @Override
     public void onAuthenticationFailure(HttpServletRequest req, HttpServletResponse resp, AuthenticationException e) throws IOException, ServletException {
         RespBean error = RespBean.error("login failed!");
+        error.setStatus(403);
         resp.setContentType("application/json;charset=utf-8");
         resp.setStatus(403);
         PrintWriter out = resp.getWriter();
