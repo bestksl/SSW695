@@ -1,34 +1,19 @@
-package com.hobbymatcher.config.security;
+package com.hobbymatcher.config.server;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hobbymatcher.authentication.entrypoint.MyLoginUrlAuthenticationEntryPoint;
-import com.hobbymatcher.authentication.filter.CustomAuthenticationFilter;
 import com.hobbymatcher.authentication.handler.MyAccessDeniedHandler;
-import com.hobbymatcher.authentication.handler.MyAuthenticationFailureHandler;
-import com.hobbymatcher.authentication.handler.MyAuthenticationSuccessHandler;
-import com.hobbymatcher.entity.RespBean;
 import com.hobbymatcher.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 @RestController
 @Configuration

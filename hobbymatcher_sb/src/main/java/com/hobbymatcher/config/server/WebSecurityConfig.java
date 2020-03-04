@@ -1,38 +1,4 @@
-package com.hobbymatcher.config.security;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hobbymatcher.authentication.filter.CustomAuthenticationFilter;
-import com.hobbymatcher.authentication.handler.MyAccessDeniedHandler;
-import com.hobbymatcher.authentication.handler.MyAuthenticationFailureHandler;
-import com.hobbymatcher.authentication.handler.MyAuthenticationSuccessHandler;
-import com.hobbymatcher.authentication.entrypoint.MyLoginUrlAuthenticationEntryPoint;
-import com.hobbymatcher.entity.RespBean;
-import com.hobbymatcher.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
+package com.hobbymatcher.config.server;
 
 //@RestController
 //@Configuration
