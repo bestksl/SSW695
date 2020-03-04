@@ -14,6 +14,15 @@ public class OAuth2Properties {
         this.clients = clients;
     }
 
+    public String getJwtSigningKey() {
+        return jwtSigningKey;
+    }
+
+    public void setJwtSigningKey(String jwtSigningKey) {
+        this.jwtSigningKey = jwtSigningKey;
+    }
+
     private OAuth2ClientProperties[] clients = {};
 
+    private String jwtSigningKey = "hobbymatcher";
 }
