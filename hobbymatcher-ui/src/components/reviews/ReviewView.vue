@@ -41,7 +41,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { Review } from './review'
+import { Review } from './Review'
 
 @Component
 export default class ReviewView extends Vue {
