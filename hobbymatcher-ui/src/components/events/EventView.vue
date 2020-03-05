@@ -91,7 +91,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { Event } from './event'
+import { Event } from './Event'
 
 @Component
 export default class EventView extends Vue {

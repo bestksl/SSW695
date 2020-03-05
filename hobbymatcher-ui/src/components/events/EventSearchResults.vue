@@ -1,28 +1,21 @@
 <template>
   <div class="event-thumbs">
-    <div class="p-grid">
-      <div class="p-col-10 p-offset-1">
-        <strong>Events you may interested in:</strong>
-      </div>
-      <div class="p-col-10 p-offset-1">
-        <EventThumb
-          v-for="event of events"
-          :key="event.id"
-          :model="event"
-          class="d-inline-block mr-4 mb-4"
-        />
-      </div>
-    </div>
+    <EventThumb
+      v-for="event of events"
+      :key="event.id"
+      :model="event"
+      class="d-inline-block mr-4 mb-4"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Event } from './Event'
 
 @Component
-export default class EventThumbs extends Vue {
-  @Prop() model!: Event
+export default class EventSearchResults extends Vue {
+  @Model() model!: Event
   events: Event[] = [
     {
       title: 'Sunday Jogging',
@@ -41,7 +34,7 @@ export default class EventThumbs extends Vue {
   constructor() {
     super()
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 11; i++) {
       this.events.push(this.events[0])
     }
   }

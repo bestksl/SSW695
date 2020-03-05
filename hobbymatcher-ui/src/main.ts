@@ -22,6 +22,10 @@ import Checkbox from 'primevue/checkbox'
 import FileUpload from 'primevue/fileupload'
 import Rating from 'primevue/rating'
 import Password from 'primevue/password'
+import SelectButton from 'primevue/selectbutton'
+import Listbox from 'primevue/listbox'
+import Paginator from 'primevue/paginator'
+import Dropdown from 'primevue/dropdown'
 
 import 'primevue/resources/themes/nova-light/theme.css'
 import 'primevue/resources/primevue.min.css'
@@ -46,6 +50,9 @@ import EventThumbs from './components/events/EventThumbs.vue'
 import Reviews from './components/reviews/Reviews.vue'
 import ReviewForm from './components/reviews/ReviewForm.vue'
 import ReviewView from './components/reviews/ReviewView.vue'
+import FilterBar from './components/search/FilterBar.vue'
+import FilterCategories from './components/search/FilterCategories.vue'
+import EventSearchResults from './components/events/EventSearchResults.vue'
 
 Vue.use(VueFilterDateFormat)
 
@@ -58,6 +65,10 @@ Vue.component('Checkbox', Checkbox)
 Vue.component('FileUpload', FileUpload)
 Vue.component('Rating', Rating)
 Vue.component('Password', Password)
+Vue.component('SelectButton', SelectButton)
+Vue.component('Listbox', Listbox)
+Vue.component('Paginator', Paginator)
+Vue.component('Dropdown', Dropdown)
 
 // This will kick of the initial replacement of i to svg tags
 // and configure a MutationObserver
@@ -86,6 +97,9 @@ Vue.component('EventThumbs', EventThumbs)
 Vue.component('Reviews', Reviews)
 Vue.component('ReviewForm', ReviewForm)
 Vue.component('ReviewView', ReviewView)
+Vue.component('FilterBar', FilterBar)
+Vue.component('FilterCategories', FilterCategories)
+Vue.component('EventSearchResults', EventSearchResults)
 // -------------------------------
 
 Vue.config.productionTip = false

@@ -11,6 +11,8 @@
       <router-link to="/events/create">Create Event</router-link>
       <span class="mx-2">|</span>
       <router-link to="/events/view">View Event</router-link>
+      <span class="mx-2">|</span>
+      <router-link to="/search/more-events">More Events</router-link>
     </div>
   </div>
 </template>
