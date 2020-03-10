@@ -29,7 +29,7 @@ import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Filter } from '../components/search/Filter'
 
 @Component
-export default class MoreHobbies extends Vue {
+export default class Hobbies extends Vue {
   model: Filter = {
     searchScope: 'hobby',
     count: 48,

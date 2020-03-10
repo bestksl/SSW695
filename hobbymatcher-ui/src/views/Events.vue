@@ -32,7 +32,7 @@ import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Filter } from '../components/search/Filter'
 
 @Component
-export default class MoreEvents extends Vue {
+export default class Events extends Vue {
   model: Filter = {
     searchScope: 'hobby',
     count: 48,

@@ -39,9 +39,9 @@ const routes = [
     component: () => import('../views/ViewHobby.vue')
   },
   {
-    path: '/hobbies/more',
-    name: 'more-hobbies',
-    component: () => import('../views/MoreHobbies.vue')
+    path: '/hobbies',
+    name: 'hobbies',
+    component: () => import('../views/Hobbies.vue')
   },
   {
     path: '/events/create',
@@ -54,9 +54,9 @@ const routes = [
     component: () => import('../views/ViewEvent.vue')
   },
   {
-    path: '/search/more-events',
-    name: 'more-events',
-    component: () => import('../views/MoreEvents.vue')
+    path: '/events',
+    name: 'events',
+    component: () => import('../views/Events.vue')
   }
 ]
 
