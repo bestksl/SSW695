@@ -8,6 +8,8 @@
     <hr />
     <div class="only-in-dev text-center">
       <div>--- only in development ---</div>
+      <router-link to="/hobbies/create">Create Hobby</router-link>
+      <span class="mx-2">|</span>
       <router-link to="/events/create">Create Event</router-link>
       <span class="mx-2">|</span>
       <router-link to="/events/view">View Event</router-link>
