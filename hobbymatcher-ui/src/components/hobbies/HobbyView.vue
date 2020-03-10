@@ -1,7 +1,7 @@
 <template>
   <div class="hobby-form">
     <div class="p-grid">
-      <div class="p-offset-1 p-col-2 d-flex flex-column text-center">
+      <div class="p-offset-1 p-col-3 d-flex flex-column text-center">
         <div>
           <img
             src="@/assets/images/logo-200x200.png"

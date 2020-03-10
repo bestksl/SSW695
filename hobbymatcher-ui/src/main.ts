@@ -58,6 +58,7 @@ import HobbyView from './components/hobbies/HobbyView.vue'
 import FilterBar from './components/search/FilterBar.vue'
 import FilterCategories from './components/search/FilterCategories.vue'
 import EventSearchResults from './components/events/EventSearchResults.vue'
+import BlogsList from './components/blogs/BlogsList.vue'
 
 Vue.use(VueFilterDateFormat)
 
@@ -110,6 +111,7 @@ Vue.component('HobbyView', HobbyView)
 Vue.component('FilterBar', FilterBar)
 Vue.component('FilterCategories', FilterCategories)
 Vue.component('EventSearchResults', EventSearchResults)
+Vue.component('BlogsList', BlogsList)
 // -------------------------------
 
 Vue.config.productionTip = false

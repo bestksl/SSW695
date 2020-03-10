@@ -32,7 +32,7 @@
             Time:
           </div>
           <div class="p-col-9">
-            {{ event.datetime | dateFormat('MMMM DD, YYYY hh:mm A') }}
+            {{ event.datetime | dateFormat('MMMM DD, YYYY hh:mm a') }}
           </div>
 
           <div class="p-col-3">

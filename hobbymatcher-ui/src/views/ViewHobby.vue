@@ -15,12 +15,8 @@
 
     <HobbyView />
 
-    <div class="p-grid">
-      <div class="p-col-10 p-offset-1">
-        <hr />
-      </div>
-    </div>
+    <RecentEvents class="mt-4" />
 
-    <RecentEvents />
+    <BlogsList class="mt-4" />
   </div>
 </template>
