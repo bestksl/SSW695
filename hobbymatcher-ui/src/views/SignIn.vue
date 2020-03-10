@@ -1,5 +1,5 @@
 <template>
-  <div class="signin">
+  <div class="signin-page">
     <SignInForm></SignInForm>
   </div>
 </template>

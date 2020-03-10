@@ -45,6 +45,8 @@ import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import SignUpForm from './components/auth/SignUpForm.vue'
 import SignInForm from './components/auth/SignInForm.vue'
+import EventView from './components/events/EventView.vue'
+import EventForm from './components/events/EventForm.vue'
 import EventThumb from './components/events/EventThumb.vue'
 import EventThumbs from './components/events/EventThumbs.vue'
 import Reviews from './components/reviews/Reviews.vue'
@@ -93,6 +95,8 @@ Vue.component('Header', Header)
 Vue.component('Footer', Footer)
 Vue.component('SignUpForm', SignUpForm)
 Vue.component('SignInForm', SignInForm)
+Vue.component('EventView', EventView)
+Vue.component('EventForm', EventForm)
 Vue.component('EventThumb', EventThumb)
 Vue.component('EventThumbs', EventThumbs)
 Vue.component('Reviews', Reviews)

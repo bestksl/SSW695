@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="more-events-page">
     <div class="p-grid">
       <div class="p-offset-1 p-col-2">
         <FilterCategories v-model="model" />

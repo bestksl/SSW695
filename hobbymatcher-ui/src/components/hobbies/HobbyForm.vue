@@ -1,13 +1,13 @@
 <template>
   <div class="hobby-form">
     <div class="p-grid">
-      <div class="p-offset-1 p-col-3 text-right">
+      <div class="p-offset-1 p-col-2 text-right">
         Hobby Name:
       </div>
       <div class="p-col-7">
         <InputText type="text" v-model="hobby.name" class="w-100" />
       </div>
-      <div class="p-offset-1 p-col-3 text-right">
+      <div class="p-offset-1 p-col-2 text-right">
         Description
       </div>
       <div class="p-col-7">
@@ -21,7 +21,7 @@
         />
       </div>
 
-      <div class="p-offset-1 p-col-3 text-right">
+      <div class="p-offset-1 p-col-2 text-right">
         Category:
       </div>
       <div class="p-col-7">
@@ -31,7 +31,7 @@
           :filter="true"
           placeholder="Check your hobby's category whether exists ..."
           optionLabel="label"
-          class="w-75"
+          class="w-50"
         />
         <div class="mt-2">
           <small>
@@ -39,18 +39,19 @@
           </small>
         </div>
       </div>
-      <div class="p-offset-1 p-col-3"></div>
+      <div class="p-offset-1 p-col-2"></div>
       <div class="p-col-7">
-        <Listbox :options="categories" optionLabel="label" class="w-75" />
+        <Listbox :options="categories" optionLabel="label" class="w-50" />
       </div>
 
-      <div class="p-offset-1 p-col-3"></div>
+      <div class="p-offset-1 p-col-2 text-right">
+        Required over 18 years old
+      </div>
       <div class="p-col-7">
         <Checkbox v-model="hobby.plus18" :binary="true" />
-        <label class="ml-2">Required over 18 years old</label>
       </div>
 
-      <div class="p-offset-1 p-col-3 text-right">
+      <div class="p-offset-1 p-col-2 text-right">
         Hobby Picture:
       </div>
       <div class="p-col-7 d-flex flex-column">
@@ -65,7 +66,7 @@
         </div>
       </div>
 
-      <div class="p-offset-1 p-col-3"></div>
+      <div class="p-offset-1 p-col-2"></div>
       <div class="p-col-7">
         <Button label="Create" icon="pi pi-check" class="p-button-primary" />
       </div>
