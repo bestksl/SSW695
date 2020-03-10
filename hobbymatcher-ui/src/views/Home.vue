@@ -26,17 +26,22 @@
             class="search-txf"
             size="40"
           />
-          <Button icon="pi pi-search" class="p-button-primary" />
+
+          <router-link to="/events">
+            <Button icon="pi pi-search" class="p-button-primary" />
+          </router-link>
         </div>
       </div>
       <div class="p-offset-1 p-col-10 d-flex align-items-center">
         <h3 class="flex-grow-1">Hobbies</h3>
         <div>
-          <Button
-            label="More Hobbies"
-            icon="pi pi-chevron-right"
-            class="p-button-primary"
-          />
+          <router-link to="/hobbies">
+            <Button
+              label="More Hobbies"
+              icon="pi pi-chevron-right"
+              class="p-button-primary"
+            />
+          </router-link>
         </div>
       </div>
       <div class="p-offset-1 p-col-10">
@@ -46,11 +51,13 @@
       <div class="p-offset-1 p-col-10 d-flex align-items-center">
         <h3 class="flex-grow-1">Events</h3>
         <div>
-          <Button
-            label="More Events"
-            icon="pi pi-chevron-right"
-            class="p-button-primary"
-          />
+          <router-link to="/events">
+            <Button
+              label="More Events"
+              icon="pi pi-chevron-right"
+              class="p-button-primary"
+            />
+          </router-link>
         </div>
       </div>
       <div class="p-offset-1 p-col-10">
@@ -59,11 +66,13 @@
       <div class="p-offset-1 p-col-10 d-flex align-items-center">
         <h3 class="flex-grow-1">Blogs</h3>
         <div>
-          <Button
-            label="More Blogs"
-            icon="pi pi-chevron-right"
-            class="p-button-primary"
-          />
+          <router-link to="/blogs">
+            <Button
+              label="More Blogs"
+              icon="pi pi-chevron-right"
+              class="p-button-primary"
+            />
+          </router-link>
         </div>
       </div>
       <div class="p-offset-1 p-col-10">

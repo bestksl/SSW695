@@ -19,11 +19,11 @@
     <Reviews />
 
     <div class="p-grid">
-      <div class="p-col-10 p-offset-1">
+      <div class="p-col-10 p-offset-1 mt-4">
         <strong>Events you may interested in:</strong>
       </div>
       <div class="p-col-10 p-offset-1">
-        <EventThumbs class="mt-3" />
+        <EventThumbs />
       </div>
     </div>
   </div>

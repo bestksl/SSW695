@@ -1,8 +1,10 @@
 <template>
-  <div class="hobby-thumb">
-    <img src="@/assets/images/logo-200x200.png" class="cover" />
-    <span class="hobby-title">{{ hobby.name }}</span>
-  </div>
+  <router-link to="/hobbies/view">
+    <div class="hobby-thumb">
+      <img src="@/assets/images/logo-200x200.png" class="cover" />
+      <span class="hobby-title">{{ hobby.name }}</span>
+    </div>
+  </router-link>
 </template>
 
 <script lang="ts">

@@ -1,8 +1,8 @@
 <template>
-  <div class="about">
+  <div class="blog-page">
     <div class="p-grid">
       <div class="p-offset-1 p-col-10">
-        we are great guy :)
+        --- you are going to be redirected to blog page (TODO: implement) ---
       </div>
     </div>
   </div>

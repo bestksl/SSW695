@@ -1,12 +1,14 @@
 <template>
-  <div class="event-thumb">
-    <img src="@/assets/images/logo-200x200.png" class="cover" />
-    <span class="event-title">{{ event.title }}</span>
-    <span class="event-datetime">{{
-      event.datetime | dateFormat('MMM DD hh:mm a')
-    }}</span>
-    <span class="event-location">{{ event.location }}</span>
-  </div>
+  <router-link to="/events/view">
+    <div class="event-thumb">
+      <img src="@/assets/images/logo-200x200.png" class="cover" />
+      <span class="event-title">{{ event.title }}</span>
+      <span class="event-datetime">{{
+        event.datetime | dateFormat('MMM DD hh:mm a')
+      }}</span>
+      <span class="event-location">{{ event.location }}</span>
+    </div>
+  </router-link>
 </template>
 
 <script lang="ts">

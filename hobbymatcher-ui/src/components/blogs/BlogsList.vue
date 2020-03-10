@@ -6,7 +6,9 @@
       class="d-flex align-items-center py-2 blog-record"
     >
       <strong class="flex-grow-1">
-        <a href="">{{ blog.title }}</a>
+        <router-link to="/blogs/view">
+          {{ blog.title }}
+        </router-link>
       </strong>
       <strong> By: {{ blog.by }} </strong>
       <small class="ml-4">
