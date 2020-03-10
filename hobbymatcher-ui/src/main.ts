@@ -55,6 +55,8 @@ import ReviewForm from './components/reviews/ReviewForm.vue'
 import ReviewView from './components/reviews/ReviewView.vue'
 import HobbyForm from './components/hobbies/HobbyForm.vue'
 import HobbyView from './components/hobbies/HobbyView.vue'
+import HobbyThumb from './components/hobbies/HobbyThumb.vue'
+import HobbyThumbs from './components/hobbies/HobbyThumbs.vue'
 import FilterBar from './components/search/FilterBar.vue'
 import FilterCategories from './components/search/FilterCategories.vue'
 import EventSearchResults from './components/events/EventSearchResults.vue'
@@ -108,6 +110,8 @@ Vue.component('ReviewForm', ReviewForm)
 Vue.component('ReviewView', ReviewView)
 Vue.component('HobbyForm', HobbyForm)
 Vue.component('HobbyView', HobbyView)
+Vue.component('HobbyThumb', HobbyThumb)
+Vue.component('HobbyThumbs', HobbyThumbs)
 Vue.component('FilterBar', FilterBar)
 Vue.component('FilterCategories', FilterCategories)
 Vue.component('EventSearchResults', EventSearchResults)

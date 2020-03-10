@@ -39,6 +39,11 @@ const routes = [
     component: () => import('../views/ViewHobby.vue')
   },
   {
+    path: '/hobbies/more',
+    name: 'more-hobbies',
+    component: () => import('../views/MoreHobbies.vue')
+  },
+  {
     path: '/events/create',
     name: 'create-event',
     component: () => import('../views/CreateEvent.vue')

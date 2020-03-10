@@ -33,7 +33,7 @@ export default class EventThumb extends Vue {
 <style scoped lang="less">
 .event-thumb {
   position: relative;
-  width: 240px;
+  width: 220px;
   height: 160px;
   overflow: hidden;
   border: solid 1px lightgray;

@@ -1,6 +1,6 @@
 <template>
   <div class="filter-categories">
-    <h4 class="mb-2">Categories</h4>
+    <h4 v-if="!notitle" class="mb-2">Categories</h4>
     <Listbox
       v-model="model.categories"
       :options="categories"
@@ -18,6 +18,7 @@ import { Filter } from './Filter'
 
 @Component
 export default class FilterCategories extends Vue {
+  @Prop() notitle!: boolean
   @Model() model!: Filter
   categories = [
     { id: 1, label: 'Sports' },
