@@ -17,6 +17,6 @@
 
     <RecentEvents class="mt-4" />
 
-    <BlogsList class="mt-4" />
+    <BlogsListing class="mt-4" />
   </div>
 </template>

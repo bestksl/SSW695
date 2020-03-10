@@ -1,18 +1,11 @@
 <template>
   <div class="event-thumbs">
-    <div class="p-grid">
-      <div class="p-col-10 p-offset-1">
-        <strong>Events you may interested in:</strong>
-      </div>
-      <div class="p-col-10 p-offset-1">
-        <EventThumb
-          v-for="event of events"
-          :key="event.id"
-          :model="event"
-          class="d-inline-block mr-4 mb-4"
-        />
-      </div>
-    </div>
+    <EventThumb
+      v-for="event of events"
+      :key="event.id"
+      :model="event"
+      class="d-inline-block mr-4 mb-4"
+    />
   </div>
 </template>
 

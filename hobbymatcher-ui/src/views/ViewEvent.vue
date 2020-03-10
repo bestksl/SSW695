@@ -17,6 +17,14 @@
       <hr class="p-col-10 p-offset-1 py-0 my-3" />
     </div>
     <Reviews />
-    <EventThumbs class="mt-3" />
+
+    <div class="p-grid">
+      <div class="p-col-10 p-offset-1">
+        <strong>Events you may interested in:</strong>
+      </div>
+      <div class="p-col-10 p-offset-1">
+        <EventThumbs class="mt-3" />
+      </div>
+    </div>
   </div>
 </template>

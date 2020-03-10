@@ -10,12 +10,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Event } from './Event'
 
 @Component
 export default class EventThumb extends Vue {
-  @Prop() model!: Event
+  @Model() model!: Event
   event: Event = {
     title: 'Sunday Jogging',
     datetime: new Date('2020-10-10'),

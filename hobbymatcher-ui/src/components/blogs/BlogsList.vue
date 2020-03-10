@@ -1,28 +1,17 @@
 <template>
-  <div class="event-form">
-    <div class="p-grid">
-      <div class="p-offset-1 p-col-10">
-        <div
-          v-for="blog of blogs"
-          v-bind:key="blog"
-          class="d-flex align-items-center py-2 blog-record"
-        >
-          <strong class="flex-grow-1">
-            <a href="">{{ blog.title }}</a>
-          </strong>
-          <strong> By: {{ blog.by }} </strong>
-          <small class="ml-4">
-            {{ blog.datetime | dateFormat('MMM DD hh:mm a') }}
-          </small>
-        </div>
-      </div>
-      <div class="p-col-10 p-offset-1 text-right">
-        <Button
-          label="More Blogs"
-          icon="pi pi-chevron-right"
-          class="p-button-secondary"
-        />
-      </div>
+  <div class="blogs-list">
+    <div
+      v-for="blog of blogs"
+      v-bind:key="blog.id"
+      class="d-flex align-items-center py-2 blog-record"
+    >
+      <strong class="flex-grow-1">
+        <a href="">{{ blog.title }}</a>
+      </strong>
+      <strong> By: {{ blog.by }} </strong>
+      <small class="ml-4">
+        {{ blog.datetime | dateFormat('MMM DD hh:mm a') }}
+      </small>
     </div>
   </div>
 </template>
@@ -33,21 +22,23 @@ import { Blog } from './Blog'
 
 @Component
 export default class BlogsList extends Vue {
-  @Model() model!: Blog
-  blogs: Blog[] = [
-    {
-      id: 1,
-      title: 'Sunday Jogging',
-      datetime: new Date('2020-10-10'),
-      by: 'John Doe'
-    } as Blog
-  ]
+  @Model() model!: Blog[]
+  blogs: Blog[] = []
 
   // eslint-disable-next-line space-before-function-paren
   constructor() {
     super()
-    for (let i = 0; i < 30; i++) {
-      this.blogs.push(this.blogs[0])
+    if (this.model) {
+      this.blogs = this.model
+    } else {
+      for (let i = 1; i < 15; i++) {
+        this.blogs.push({
+          id: i,
+          title: 'Sunday Jogging',
+          datetime: new Date('2020-10-10'),
+          by: 'John Doe'
+        })
+      }
     }
   }
 }
