@@ -26,6 +26,7 @@ import SelectButton from 'primevue/selectbutton'
 import Listbox from 'primevue/listbox'
 import Paginator from 'primevue/paginator'
 import Dropdown from 'primevue/dropdown'
+import Carousel from 'primevue/carousel'
 
 import 'primevue/resources/themes/nova-light/theme.css'
 import 'primevue/resources/primevue.min.css'
@@ -45,14 +46,23 @@ import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import SignUpForm from './components/auth/SignUpForm.vue'
 import SignInForm from './components/auth/SignInForm.vue'
+import EventView from './components/events/EventView.vue'
+import EventForm from './components/events/EventForm.vue'
 import EventThumb from './components/events/EventThumb.vue'
 import EventThumbs from './components/events/EventThumbs.vue'
+import RecentEvents from './components/events/RecentEvents.vue'
 import Reviews from './components/reviews/Reviews.vue'
 import ReviewForm from './components/reviews/ReviewForm.vue'
 import ReviewView from './components/reviews/ReviewView.vue'
+import HobbyForm from './components/hobbies/HobbyForm.vue'
+import HobbyView from './components/hobbies/HobbyView.vue'
+import HobbyThumb from './components/hobbies/HobbyThumb.vue'
+import HobbyThumbs from './components/hobbies/HobbyThumbs.vue'
 import FilterBar from './components/search/FilterBar.vue'
 import FilterCategories from './components/search/FilterCategories.vue'
 import EventSearchResults from './components/events/EventSearchResults.vue'
+import BlogsList from './components/blogs/BlogsList.vue'
+import BlogsListing from './components/blogs/BlogsListing.vue'
 
 Vue.use(VueFilterDateFormat)
 
@@ -69,6 +79,7 @@ Vue.component('SelectButton', SelectButton)
 Vue.component('Listbox', Listbox)
 Vue.component('Paginator', Paginator)
 Vue.component('Dropdown', Dropdown)
+Vue.component('Carousel', Carousel)
 
 // This will kick of the initial replacement of i to svg tags
 // and configure a MutationObserver
@@ -92,14 +103,23 @@ Vue.component('Header', Header)
 Vue.component('Footer', Footer)
 Vue.component('SignUpForm', SignUpForm)
 Vue.component('SignInForm', SignInForm)
+Vue.component('EventView', EventView)
+Vue.component('EventForm', EventForm)
 Vue.component('EventThumb', EventThumb)
 Vue.component('EventThumbs', EventThumbs)
+Vue.component('RecentEvents', RecentEvents)
 Vue.component('Reviews', Reviews)
 Vue.component('ReviewForm', ReviewForm)
 Vue.component('ReviewView', ReviewView)
+Vue.component('HobbyForm', HobbyForm)
+Vue.component('HobbyView', HobbyView)
+Vue.component('HobbyThumb', HobbyThumb)
+Vue.component('HobbyThumbs', HobbyThumbs)
 Vue.component('FilterBar', FilterBar)
 Vue.component('FilterCategories', FilterCategories)
 Vue.component('EventSearchResults', EventSearchResults)
+Vue.component('BlogsList', BlogsList)
+Vue.component('BlogsListing', BlogsListing)
 // -------------------------------
 
 Vue.config.productionTip = false

@@ -11,9 +11,9 @@
     <span class="mx-2"></span>
 
     <label class="mx-2">Fee ($):</label>
-    <InputText type="text" v-model="model.feeStart" size="7" />
+    <InputText type="text" v-model="model.feeStart" size="5" />
     <span class="mx-2">-</span>
-    <InputText type="text" v-model="model.feeEnd" size="7" />
+    <InputText type="text" v-model="model.feeEnd" size="5" />
 
     <span class="flex-grow-1"></span>
 
@@ -29,7 +29,7 @@
         v-model="model.searchPhrase"
         placeholder="Search ..."
         class="search-txf"
-        size="40"
+        size="20"
       />
       <Button icon="pi pi-search" class="p-button-primary" />
     </div>

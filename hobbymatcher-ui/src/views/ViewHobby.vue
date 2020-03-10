@@ -1,5 +1,5 @@
 <template>
-  <div class="event-page">
+  <div class="hobby-page">
     <div class="p-grid">
       <div class="p-col-10 p-offset-1 text-left">
         <Button
@@ -12,6 +12,11 @@
         <hr />
       </div>
     </div>
-    <EventForm />
+
+    <HobbyView />
+
+    <RecentEvents class="mt-4" />
+
+    <BlogsListing class="mt-4" />
   </div>
 </template>

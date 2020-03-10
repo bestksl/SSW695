@@ -7,7 +7,9 @@
           class="rounded-circle logo"
         />
         <h3 class="d-inline-block mx-4 my-0 pb-1 app-name">
-          Hobby Matcher
+          <router-link to="/">
+            Hobby Matcher
+          </router-link>
         </h3>
       </div>
       <div class="p-col-6 text-right">

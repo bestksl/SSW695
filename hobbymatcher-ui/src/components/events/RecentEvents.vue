@@ -1,11 +1,25 @@
 <template>
-  <div class="event-thumbs">
-    <EventThumb
-      v-for="event of events"
-      :key="event.id"
-      :model="event"
-      class="d-inline-block mr-4 mb-4"
-    />
+  <div class="recent-events">
+    <div class="p-grid">
+      <div class="p-col-10 p-offset-1">
+        <strong>Recent Events</strong>
+      </div>
+      <div class="p-col-10 p-offset-1">
+        <EventThumb
+          v-for="event of events"
+          :key="event.id"
+          :model="event"
+          class="d-inline-block mr-4 mb-4"
+        />
+      </div>
+      <div class="p-col-10 p-offset-1 text-right">
+        <Button
+          label="More Events"
+          icon="pi pi-chevron-right"
+          class="p-button-secondary"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -14,7 +28,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 import { Event } from './Event'
 
 @Component
-export default class EventThumbs extends Vue {
+export default class RecentEvents extends Vue {
   @Prop() model!: Event
   events: Event[] = [
     {

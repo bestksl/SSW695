@@ -1,16 +1,13 @@
 <template>
-  <div>
+  <div class="more-events-page">
     <div class="p-grid">
       <div class="p-offset-1 p-col-2">
-        <FilterCategories v-model="model" />
+        <FilterCategories v-model="model" :notitle="true" />
       </div>
       <div class="p-col-8">
         <div class="p-grid">
           <div class="p-col-12">
-            <FilterBar v-model="model" />
-          </div>
-          <div class="p-col-12">
-            <EventSearchResults />
+            <HobbyThumbs />
           </div>
           <div class="p-col-12">
             <Paginator
@@ -32,7 +29,7 @@ import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Filter } from '../components/search/Filter'
 
 @Component
-export default class MoreEvents extends Vue {
+export default class Hobbies extends Vue {
   model: Filter = {
     searchScope: 'hobby',
     count: 48,

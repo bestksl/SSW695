@@ -1,41 +1,41 @@
 <template>
   <div class="event-form">
     <div class="p-grid">
-      <div class="p-col-10 p-offset-1 text-left">
-        <Button
-          label="Back"
-          icon="pi pi-chevron-left"
-          class="p-button-secondary"
-        />
-      </div>
-      <div class="p-col-10 p-offset-1">
-        <hr />
-      </div>
-      <div class="p-col-2 p-offset-2 p-align-center">
+      <div class="p-offset-1 p-col-2 p-align-center">
         <div class="text-right pt-1">Event title</div>
       </div>
       <div class="p-col-8 text-left">
-        <InputText id="event-title" type="text" v-model="event.title" />
+        <InputText
+          id="event-title"
+          type="text"
+          v-model="event.title"
+          class="w-75"
+        />
       </div>
-      <div class="p-col-2 p-offset-2 p-align-center">
+      <div class="p-offset-1 p-col-2 p-align-center">
         <div class="text-right pt-1">Date and Time</div>
       </div>
       <div class="p-col-8 text-left">
         <Calendar id="event-datetime" v-model="event.datetime" />
       </div>
-      <div class="p-col-2 p-offset-2 p-align-center">
+      <div class="p-offset-1 p-col-2 p-align-center">
         <div class="text-right pt-1">Location</div>
       </div>
       <div class="p-col-8 text-left">
-        <InputText id="event-location" type="text" v-model="event.location" />
+        <InputText
+          id="event-location"
+          type="text"
+          v-model="event.location"
+          class="w-75"
+        />
       </div>
-      <div class="p-col-2 p-offset-2 p-align-center">
+      <div class="p-offset-1 p-col-2 p-align-center">
         <div class="text-right pt-1">Capacity</div>
       </div>
       <div class="p-col-8 text-left">
         <InputText id="event-capacity" type="text" v-model="event.capacity" />
       </div>
-      <div class="p-col-2 p-offset-2 p-align-center">
+      <div class="p-offset-1 p-col-2 p-align-center">
         <div class="text-right pt-1">Description</div>
       </div>
       <div class="p-col-8 text-left">
@@ -44,41 +44,47 @@
           v-model="event.description"
           rows="5"
           cols="30"
+          class="w-75"
         />
       </div>
-      <div class="p-col-2 p-offset-2 p-align-center">
+      <div class="p-offset-1 p-col-2 p-align-center">
         <div class="text-right pt-1">Only +18 of Age</div>
       </div>
       <div class="p-col-8 text-left">
         <Checkbox id="event-plus18" v-model="event.plus18" :binary="true" />
       </div>
-      <div class="p-col-2 p-offset-2 p-align-center">
+      <div class="p-offset-1 p-col-2 p-align-center">
         <div class="text-right pt-1">Fee</div>
       </div>
       <div class="p-col-8 text-left">
         <InputText id="event-fee" type="text" v-model="event.fee" />
       </div>
-      <div class="p-col-2 p-offset-2 p-align-center">
+      <div class="p-offset-1 p-col-2 p-align-center">
         <div class="text-right pt-1">Organizer</div>
       </div>
       <div class="p-col-8 text-left">
-        <InputText id="event-organizer" type="text" v-model="event.organizer" />
+        <InputText
+          id="event-organizer"
+          type="text"
+          v-model="event.organizer"
+          class="w-75"
+        />
       </div>
-      <div class="p-col-2 p-offset-2 p-align-center">
+      <div class="p-offset-1 p-col-2 p-align-center">
         <div class="text-right pt-1">Cover Photo</div>
       </div>
       <div class="p-col-8 text-left">
-        <FileUpload
-          id="event-coverPhotoId"
-          v-model="event.coverPhotoId"
-          mode="basic"
-          name="coverPhotoId[]"
-          url="./upload.php"
-          accept="image/*"
-          :maxFileSize="800000"
-        />
+        <div>
+          <img
+            src="@/assets/images/logo-200x200.png"
+            style="width: 12rem; height: 12rem; border: solid 1px lightgray;"
+          />
+        </div>
+        <div>
+          <Button label="Upload" class="p-button-secondary" />
+        </div>
       </div>
-      <div class="p-col-8 p-offset-4 text-left">
+      <div class="p-col-8 p-offset-3 text-left">
         <Button
           label="Back"
           icon="pi pi-chevron-left"
@@ -117,13 +123,16 @@ export default class EventForm extends Vue {
   } as Event
   api: EventService = new EventService()
 
-  mounted () {}
+  // eslint-disable-next-line space-before-function-paren
+  mounted() {}
 
-  back () {
+  // eslint-disable-next-line space-before-function-paren
+  back() {
     window.history.back()
   }
 
-  save () {
+  // eslint-disable-next-line space-before-function-paren
+  save() {
     this.api
       .create(this.event)
       .then((resp: any) => {

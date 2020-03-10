@@ -1,21 +1,23 @@
 <template>
-  <div class="event-thumb">
-    <img src="@/assets/images/logo-200x200.png" class="cover" />
-    <span class="event-title">{{ event.title }}</span>
-    <span class="event-datetime">{{
-      event.datetime | dateFormat('MMM DD hh:mmA')
-    }}</span>
-    <span class="event-location">{{ event.location }}</span>
-  </div>
+  <router-link to="/events/view">
+    <div class="event-thumb">
+      <img src="@/assets/images/logo-200x200.png" class="cover" />
+      <span class="event-title">{{ event.title }}</span>
+      <span class="event-datetime">{{
+        event.datetime | dateFormat('MMM DD hh:mm a')
+      }}</span>
+      <span class="event-location">{{ event.location }}</span>
+    </div>
+  </router-link>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Event } from './Event'
 
 @Component
 export default class EventThumb extends Vue {
-  @Prop() model!: Event
+  @Model() model!: Event
   event: Event = {
     title: 'Sunday Jogging',
     datetime: new Date('2020-10-10'),
@@ -33,7 +35,7 @@ export default class EventThumb extends Vue {
 <style scoped lang="less">
 .event-thumb {
   position: relative;
-  width: 240px;
+  width: 220px;
   height: 160px;
   overflow: hidden;
   border: solid 1px lightgray;

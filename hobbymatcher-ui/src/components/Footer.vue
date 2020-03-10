@@ -8,6 +8,10 @@
       <router-link to="/signup">Sign Up</router-link>
       <span>|</span>
       <router-link to="/signin">Sign In</router-link>
+      <span>|</span>
+      <router-link to="/hobbies/create">Create Hobby</router-link>
+      <span>|</span>
+      <router-link to="/events/create">Create Events</router-link>
     </div>
     <small class="d-inline-block pt-3">
       HobbyMatcher - 2020 All Right Reserved.

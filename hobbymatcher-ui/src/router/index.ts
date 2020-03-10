@@ -29,6 +29,21 @@ const routes = [
     component: () => import('../views/SignIn.vue')
   },
   {
+    path: '/hobbies/create',
+    name: 'create-hobby',
+    component: () => import('../views/CreateHobby.vue')
+  },
+  {
+    path: '/hobbies/view',
+    name: 'view-hobby',
+    component: () => import('../views/ViewHobby.vue')
+  },
+  {
+    path: '/hobbies',
+    name: 'hobbies',
+    component: () => import('../views/Hobbies.vue')
+  },
+  {
     path: '/events/create',
     name: 'create-event',
     component: () => import('../views/CreateEvent.vue')
@@ -39,9 +54,19 @@ const routes = [
     component: () => import('../views/ViewEvent.vue')
   },
   {
-    path: '/search/more-events',
-    name: 'more-events',
-    component: () => import('../views/MoreEvents.vue')
+    path: '/events',
+    name: 'events',
+    component: () => import('../views/Events.vue')
+  },
+  {
+    path: '/blogs/view',
+    name: 'view-blog',
+    component: () => import('../views/ViewBlog.vue')
+  },
+  {
+    path: '/blogs',
+    name: 'blogs',
+    component: () => import('../views/Blogs.vue')
   }
 ]
 

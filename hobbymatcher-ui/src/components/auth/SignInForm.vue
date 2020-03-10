@@ -3,45 +3,51 @@
     <ValidationObserver v-slot="{ invalid }">
       <form @submit.prevent="save">
         <div class="p-grid">
-          <div class="p-col-10 p-offset-1 text-left">
-            <Button
-              label="Back"
-              icon="pi pi-chevron-left"
-              class="p-button-secondary"
-              v-on:click="back()"
-            />
+          <div class="p-offset-4 p-col-4">
+            <h3 class="text-center">
+              Sign In to Hobby Matcher
+            </h3>
           </div>
-          <div class="p-col-10 p-offset-1">
-            <hr />
-          </div>
-          <div class="p-col-2 p-offset-2 text-left">
-            <label>Email</label>
-          </div>
-          <div class="p-col-6 text-left">
-            <ValidationProvider name="email" v-slot="{ errors }" rules="required|email|min:2">
-              <InputText type="text" v-model="model.email" />
+
+          <div class="p-offset-4 p-col-4 text-left">
+            <ValidationProvider
+              name="email"
+              v-slot="{ errors }"
+              rules="required|email|min:2"
+            >
+              <InputText
+                type="text"
+                v-model="model.email"
+                placeholder="Email Address"
+                class="w-100"
+              />
               <ul v-if="errors.length" class="v-error">
                 <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
               </ul>
             </ValidationProvider>
           </div>
-          <div class="p-col-2 p-offset-2 text-left">
-            <label>PassWord</label>
-          </div>
-          <div class="p-col-6 text-left">
-            <ValidationProvider name="password" v-slot="{ errors }" rules="required|min:6">
-              <Password v-model="model.passWord" />
+          <div class="p-offset-4 p-col-4 text-left">
+            <ValidationProvider
+              name="password"
+              v-slot="{ errors }"
+              rules="required|min:6"
+            >
+              <Password
+                v-model="model.passWord"
+                placeholder="Password"
+                class="w-100"
+              />
               <ul v-if="errors.length" class="v-error">
                 <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
               </ul>
             </ValidationProvider>
           </div>
-          <div class="p-col-8 p-offset-2 text-left">
+          <div class="p-offset-4 p-col-4 text-center">
             <Button
               label="Back"
               icon="pi pi-chevron-left"
               class="p-button-secondary"
-              v-on:click="back()"
+              v-on:click="window.history.back()"
             />
             <Button
               label="Sign In"
@@ -66,11 +72,8 @@ export default class SignInForm extends Vue {
   model: AuthUser = {} as AuthUser
   api: AuthService = new AuthService()
 
-  back () {
-    window.history.back()
-  }
-
-  save () {
+  // eslint-disable-next-line space-before-function-paren
+  save() {
     this.api
       .signin(this.model)
       .then((resp: any) => {
