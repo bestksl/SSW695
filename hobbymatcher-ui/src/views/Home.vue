@@ -10,7 +10,9 @@
           :autoplayInterval="3000"
         >
           <template #item="value">
-            <EventThumb :model="value" />
+            <div class="text-center">
+              <EventThumb :model="value" class="d-inline-block" />
+            </div>
           </template>
         </Carousel>
       </div>
