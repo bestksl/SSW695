@@ -13,7 +13,7 @@
             <ValidationProvider
               name="email"
               v-slot="{ errors }"
-              rules="required|email|min:2"
+              rules="required|email|min:2|max:64"
             >
               <InputText
                 type="text"
@@ -30,7 +30,7 @@
             <ValidationProvider
               name="password"
               v-slot="{ errors }"
-              rules="required|min:6"
+              rules="required|min:6|max:32"
             >
               <Password
                 v-model="model.passWord"

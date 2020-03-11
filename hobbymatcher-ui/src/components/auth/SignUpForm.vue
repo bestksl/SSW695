@@ -10,7 +10,7 @@
             <ValidationProvider
               name="first name"
               v-slot="{ errors }"
-              rules="required|min:2"
+              rules="required|min:2|max:64"
             >
               <InputText type="text" v-model="model.firstName" size="40" />
               <ul v-if="errors.length" class="v-error">
@@ -47,7 +47,7 @@
             <ValidationProvider
               name="email"
               v-slot="{ errors }"
-              rules="required|email|min:2"
+              rules="required|email|min:2|max:64"
             >
               <InputText type="text" v-model="model.email" size="40" />
               <ul v-if="errors.length" class="v-error">
@@ -62,7 +62,7 @@
             <ValidationProvider
               name="password"
               v-slot="{ errors }"
-              rules="required|min:6"
+              rules="required|min:6|max:32"
             >
               <Password v-model="model.passWord" size="40" />
               <ul v-if="errors.length" class="v-error">

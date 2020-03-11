@@ -12,7 +12,7 @@
         <div class="d-flex align-items-center pt-1">
           <i class="fas fa-comments"></i>
           <span class="ml-1">{{ review.reviewsCount }}</span>
-          <Rating v-model="review.rating" class="ml-2 pt-1" />
+          <Rating v-model="review.rating" class="ml-2 pt-1" :readonly="true" />
         </div>
         <div>
           <small>{{ review.reviewText }}</small>
