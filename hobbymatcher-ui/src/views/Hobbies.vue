@@ -2,18 +2,18 @@
   <div class="more-events-page">
     <div class="p-grid">
       <div class="p-offset-1 p-col-2">
-        <FilterCategories v-model="model" :notitle="true" />
+        <FilterCategories v-model="filter" :notitle="true" />
       </div>
       <div class="p-col-8">
         <div class="p-grid">
           <div class="p-col-12">
-            <HobbyThumbs />
+            <HobbyThumbs v-model="hobbies" />
           </div>
           <div class="p-col-12">
             <Paginator
-              :rows="model.perpage"
-              :totalRecords="model.count"
-              :first.sync="model.offset"
+              :rows="filter.perpage"
+              :totalRecords="filter.count"
+              :first.sync="filter.offset"
               @page="pageChanged($event)"
             >
             </Paginator>
@@ -27,15 +27,29 @@
 <script lang="ts">
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Filter } from '../components/search/Filter'
+import { HobbyService } from '../components/hobbies/HobbyService'
+import { Hobby } from '../components/hobbies/Hobby'
 
 @Component
 export default class Hobbies extends Vue {
-  model: Filter = {
+  api = new HobbyService()
+
+  hobbies: Hobby[] = []
+
+  filter: Filter = {
     searchScope: 'hobby',
     count: 48,
     perpage: 10,
     offset: 0 // zero-based index
   } as Filter
+
+  // eslint-disable-next-line space-before-function-paren
+  mounted() {
+    this.api
+      .list()
+      .then((resp: any) => (this.hobbies = resp.data.list))
+      .catch((err: any) => console.log(err))
+  }
 
   // eslint-disable-next-line space-before-function-paren
   pageChanged($event: any) {

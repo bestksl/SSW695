@@ -1,0 +1,4 @@
+# --- rename this file, and remove .example extension ---
+
+# specify the location that uploaded files should be stored
+uploadpath=/xyz/hobbymatcher_sb/uploads

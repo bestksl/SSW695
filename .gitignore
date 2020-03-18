@@ -1,3 +1,5 @@
 hobbymatcher/.settings/
 hobbymatcher/bin/
 hobbymatcher/target/
+hobbymatcher_sb/uploads/
+hobbymatcher_sb/src/main/resources/fileupload.properties
