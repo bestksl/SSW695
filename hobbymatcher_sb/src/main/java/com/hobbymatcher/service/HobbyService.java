@@ -5,15 +5,16 @@ import com.hobbymatcher.entity.Hobby;
 import java.util.List;
 
 public interface HobbyService {
-    List<Hobby> listHobby();
 
-    boolean deleteHobby(int id);
+	List<Hobby> listHobby();
 
-    boolean updateHobby(Hobby hobby);
+	boolean deleteHobby(int id);
 
-    Hobby findHobbyByName(String name);
+	boolean updateHobby(Hobby hobby);
 
-    Hobby findHobbyById(int id);
+	Hobby findHobbyByName(String name);
 
-    boolean insertHobby(Hobby hobby);
+	Hobby findHobbyById(int id);
+
+	boolean insertHobby(Hobby hobby);
 }

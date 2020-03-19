@@ -19,7 +19,7 @@
             </ValidationProvider>
           </div>
           <div class="p-offset-1 p-col-2 text-right">
-            Description
+            Description:
           </div>
           <div class="p-col-7">
             <ValidationProvider
@@ -51,31 +51,22 @@
               rules="required"
             >
               <Dropdown
-                v-model="hobby.category"
+                v-model="hobby.categoryId"
                 :options="categories"
                 :filter="true"
                 placeholder="Check your hobby's category whether exists ..."
-                optionLabel="label"
-                optionValue="value"
+                optionLabel="name"
+                optionValue="id"
                 class="w-50"
               />
               <ul v-if="errors.length" class="v-error">
                 <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
               </ul>
             </ValidationProvider>
-            <div class="mt-2">
-              <small>
-                (if you can find your hobby here, you can not create it)
-              </small>
-            </div>
-          </div>
-          <div class="p-offset-1 p-col-2"></div>
-          <div class="p-col-7">
-            <Listbox :options="categories" optionLabel="label" class="w-50" />
           </div>
 
           <div class="p-offset-1 p-col-2 text-right">
-            Required over 18 years old
+            +18 Only:
           </div>
           <div class="p-col-7">
             <ValidationProvider
@@ -83,7 +74,7 @@
               v-slot="{ errors }"
               rules="required"
             >
-              <Checkbox v-model="hobby.plus18" :binary="true" />
+              <Checkbox v-model="hobby.plus18Only" :binary="true" />
               <ul v-if="errors.length" class="v-error">
                 <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
               </ul>
@@ -144,11 +135,15 @@
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { HobbyService } from './HobbyService'
 import { Hobby } from './Hobby'
+import { CategoryService } from '../category/CategoryService'
+import { Category } from '../category/Category'
 
 @Component
 export default class HobbyForm extends Vue {
   @Model() model!: Hobby
   internal: Hobby = {} as any
+
+  categories: Category[] = []
 
   // eslint-disable-next-line space-before-function-paren
   get hobby(): any {
@@ -157,13 +152,16 @@ export default class HobbyForm extends Vue {
   // hobby.file: hobby picture to upload
   // hobby.url: hobby picture preview
 
-  categories = [
-    { label: 'Sport', value: 1 },
-    { label: 'Entertainment', value: 2 },
-    { label: 'Art', value: 3 }
-  ]
+  categoryApi = new CategoryService()
+  hobbyApi = new HobbyService()
 
-  api = new HobbyService()
+  // eslint-disable-next-line space-before-function-paren
+  mounted() {
+    this.categoryApi
+      .list()
+      .then((resp: any) => (this.categories = resp.data.list))
+      .catch((err: any) => console.log(err))
+  }
 
   // eslint-disable-next-line space-before-function-paren
   clearFileSelect($event: any) {
@@ -191,11 +189,11 @@ export default class HobbyForm extends Vue {
     const data = new FormData()
     data.append('name', this.hobby.name)
     data.append('description', this.hobby.description)
-    data.append('category', this.hobby.category)
-    data.append('plus18', this.hobby.plus18.toString())
+    data.append('categoryId', this.hobby.categoryId)
+    data.append('plus18Only', this.hobby.plus18Only.toString())
     data.append('file', this.hobby.file)
 
-    this.api
+    this.hobbyApi
       .add(data)
       .then((resp: any) => {
         Vue.toasted.show('Hobby has been added.', { duration: 5000 })

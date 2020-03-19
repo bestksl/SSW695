@@ -8,16 +8,16 @@ import java.util.List;
 
 @Repository
 public interface HobbyDao {
-    List<Hobby> queryHobby();
 
-    int insertHobby(Hobby hobby);
+	List<Hobby> queryHobby();
 
-    Hobby findHobbyByName(@Param("name") String name);
+	int insertHobby(Hobby hobby);
 
-    Hobby findHobbyById(@Param("id") int id);
+	Hobby findHobbyByName(@Param("name") String name);
 
-    int updateHobby(Hobby hobby);
+	Hobby findHobbyById(@Param("id") int id);
 
-    int deleteHobby(@Param("id") int id);
+	int updateHobby(Hobby hobby);
 
+	int deleteHobby(@Param("id") int id);
 }

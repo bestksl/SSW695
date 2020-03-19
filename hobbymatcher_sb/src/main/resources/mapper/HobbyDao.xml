@@ -6,19 +6,18 @@
     <select id="queryHobby" resultType="com.hobbymatcher.entity.Hobby">
         SELECT *
         FROM hobby
-        ORDER BY hobby_id
-            DESC
+        ORDER BY id DESC
     </select>
 
-    <insert id="insertHobby" useGeneratedKeys="true" keyProperty="hobbyId">
-        insert into hobby (name, description, classification, hobby_image)
-        values (#{name}, #{description}, #{classification}, #{hobbyImage})
+    <insert id="insertHobby" useGeneratedKeys="true" keyProperty="id">
+        insert into hobby (name, description, category_id, plus18_only, photo_id)
+        values (#{name}, #{description}, #{categoryId}, #{plus18Only}, #{photoId})
     </insert>
 
     <select id="findHobbyById" parameterType="map" resultType="Hobby">
         select *
         from hobby
-        where hobby_id = #{id}
+        where id = #{id}
     </select>
 
     <update id="updateHobby" parameterType="com.hobbymatcher.entity.Hobby">
@@ -26,32 +25,16 @@
         <set>
             <if test="name != null">name=#{name},</if>
             <if test="description != null">description=#{description},</if>
-            <if test="classification != null">classification=#{classification},</if>
-            <if test="constrains != null">constrains=#{constrains},</if>
-            <if test="blogs != null">blogs=#{blogs},</if>
-            <if test="status != null">status=#{status},</if>
+            <if test="categoryId != null">category_id=#{categoryId},</if>
+            <if test="plus18Only != null">plus18_only=#{plus18Only},</if>
+            <if test="photoId != null">photo_id=#{photoId},</if>
         </set>
-        where hobby_id=#{id}
-    </update>
-
-    <update id="updateEvents" parameterType="com.hobbymatcher.entity.Events">
-        update events
-        <set>
-            <if test="eventsTitle != null">events_title=#{eventsTitle},</if>
-            <if test="eventsTime != null">eventsTime=#{eventsTime},</if>
-            <if test="Location != null">location=#{location},</if>
-            <if test="Description != null">Description=#{description},</if>
-            <if test="Fee != null">Fee=#{fee},</if>
-            <if test="Holder != null">Holder=#{holder},</if>
-            <if test="hobby_id != null">hobby_id=#{hobbyId},</if>
-            <if test="status != null">events_image=#{eventsImage},</if>
-        </set>
-        where events_id=#{events_id}
+        where id=#{id}
     </update>
 
     <delete id="deleteHobby">
         DELETE
         FROM hobby
-        WHERE hobby_id = #{id}
+        WHERE id = #{id}
     </delete>
 </mapper>

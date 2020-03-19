@@ -51,11 +51,11 @@ public class HobbyController {
 	// addhobby
 	@RequestMapping(value = "/addhobby", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> add(HttpServletResponse response, //
+	public Map<String, Object> addHobby(HttpServletResponse response, //
 			@ModelAttribute Hobby hobby, @RequestPart(name = "file", required = false) MultipartFile imageFile) {
 		Map<String, Object> resp = new HashMap<String, Object>();
 		if (hobby != null) {
-			hobby.setHobbyImage(FileUtil.transferFile(imageFile));
+			hobby.setPhotoId(FileUtil.transferFile(imageFile));
 			Boolean inserted = hobbyService.insertHobby(hobby);
 			resp.put("success", inserted);
 			response.setStatus(inserted ? 200 : 400);

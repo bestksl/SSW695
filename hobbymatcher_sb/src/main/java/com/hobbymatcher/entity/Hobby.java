@@ -3,23 +3,22 @@ package com.hobbymatcher.entity;
 import java.io.Serializable;
 
 public class Hobby implements Serializable {
+
 	private static final long serialVersionUID = 3886854875271518921L;
 
-	private String hobbyId;
+	private String id;
 	private String name;
+	private Integer categoryId;
 	private String description;
-	private String classification;
-	private String constrains;
-	private String blogs;
-	private String status;
-	private String hobbyImage;
+	private Boolean plus18Only;
+	private String photoId;
 
-	public String getHobbyImage() {
-		return hobbyImage;
+	public String getId() {
+		return id;
 	}
 
-	public void setHobbyImage(String hobbyImage) {
-		this.hobbyImage = hobbyImage;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -30,12 +29,12 @@ public class Hobby implements Serializable {
 		this.name = name;
 	}
 
-	public String getHobbyId() {
-		return hobbyId;
+	public Integer getCategoryId() {
+		return categoryId;
 	}
 
-	public void setHobbyId(String hobbyId) {
-		this.hobbyId = hobbyId;
+	public void setCategoryId(Integer categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	public String getDescription() {
@@ -46,36 +45,19 @@ public class Hobby implements Serializable {
 		this.description = description;
 	}
 
-	public String getClassification() {
-		return classification;
+	public Boolean getPlus18Only() {
+		return plus18Only;
 	}
 
-	public void setClassification(String classification) {
-
-		this.classification = classification;
+	public void setPlus18Only(Boolean plus18Only) {
+		this.plus18Only = plus18Only;
 	}
 
-	public String getConstrains() {
-		return constrains;
+	public String getPhotoId() {
+		return photoId;
 	}
 
-	public void setConstrains(String constrains) {
-		this.constrains = constrains;
-	}
-
-	public String getBlogs() {
-		return blogs;
-	}
-
-	public void setBlogs(String blogs) {
-		this.blogs = blogs;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
+	public void setPhotoId(String photoId) {
+		this.photoId = photoId;
 	}
 }
