@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface HobbyDao {
 
-	List<Hobby> queryHobby();
+	List<Hobby> listHobby();
 
 	int insertHobby(Hobby hobby);
 

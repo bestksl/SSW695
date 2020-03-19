@@ -39,6 +39,7 @@ public class HobbyController {
 		Map<String, Object> resp = new HashMap<String, Object>();
 		try {
 			resp.put("list", hobbyService.listHobby());
+			resp.put("success", true);
 			response.setStatus(200);
 		} catch (Exception exp) {
 			exp.printStackTrace();
@@ -52,7 +53,7 @@ public class HobbyController {
 	@RequestMapping(value = "/addhobby", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> addHobby(HttpServletResponse response, //
-			@ModelAttribute Hobby hobby, @RequestPart(name = "file", required = false) MultipartFile imageFile) {
+			@ModelAttribute Hobby hobby, @RequestPart("file") MultipartFile imageFile) {
 		Map<String, Object> resp = new HashMap<String, Object>();
 		if (hobby != null) {
 			hobby.setPhotoId(FileUtil.transferFile(imageFile));
@@ -67,7 +68,7 @@ public class HobbyController {
 		}
 	}
 
-	// findhobby
+	// gethobby
 	@RequestMapping(value = "/gethobby", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> getHobby(String id, HttpServletResponse response) {
@@ -90,25 +91,25 @@ public class HobbyController {
 		return resp;
 	}
 
-	// deletehobby
-	@RequestMapping(value = "/deletehobby", method = RequestMethod.GET)
-	@ResponseBody
-	public Map<String, Object> deleteHobby(String id, HttpServletResponse response) {
-		Map<String, Object> resp = new HashMap<String, Object>();
-		try {
-			Boolean deleted = hobbyService.deleteHobby(Integer.parseInt(id));
-			if (deleted) {
-				resp.put("success", true);
-				response.setStatus(200);
-			} else {
-				resp.put("success", false);
-				response.setStatus(400);
-			}
-		} catch (Exception exp) {
-			exp.printStackTrace();
-			resp.put("success", false);
-			response.setStatus(400);
-		}
-		return resp;
-	}
+//	// deletehobby
+//	@RequestMapping(value = "/deletehobby", method = RequestMethod.GET)
+//	@ResponseBody
+//	public Map<String, Object> deleteHobby(String id, HttpServletResponse response) {
+//		Map<String, Object> resp = new HashMap<String, Object>();
+//		try {
+//			Boolean deleted = hobbyService.deleteHobby(Integer.parseInt(id));
+//			if (deleted) {
+//				resp.put("success", true);
+//				response.setStatus(200);
+//			} else {
+//				resp.put("success", false);
+//				response.setStatus(400);
+//			}
+//		} catch (Exception exp) {
+//			exp.printStackTrace();
+//			resp.put("success", false);
+//			response.setStatus(400);
+//		}
+//		return resp;
+//	}
 }

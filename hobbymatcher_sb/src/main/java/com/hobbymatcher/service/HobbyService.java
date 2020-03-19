@@ -8,13 +8,11 @@ public interface HobbyService {
 
 	List<Hobby> listHobby();
 
-	boolean deleteHobby(int id);
-
-	boolean updateHobby(Hobby hobby);
-
-	Hobby findHobbyByName(String name);
+	boolean insertHobby(Hobby hobby);
 
 	Hobby findHobbyById(int id);
 
-	boolean insertHobby(Hobby hobby);
+	Hobby findHobbyByName(String name);
+
+	boolean updateHobby(Hobby hobby);
 }

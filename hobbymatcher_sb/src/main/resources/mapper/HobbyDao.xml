@@ -3,38 +3,43 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hobbymatcher.dao.HobbyDao">
-    <select id="queryHobby" resultType="com.hobbymatcher.entity.Hobby">
-        SELECT *
-        FROM hobby
-        ORDER BY id DESC
-    </select>
+	<select id="listHobby"
+		resultType="com.hobbymatcher.entity.Hobby">
+		select *
+		from hobby
+		order by id desc
+	</select>
 
-    <insert id="insertHobby" useGeneratedKeys="true" keyProperty="id">
-        insert into hobby (name, description, category_id, plus18_only, photo_id)
-        values (#{name}, #{description}, #{categoryId}, #{plus18Only}, #{photoId})
-    </insert>
+	<insert id="insertHobby" useGeneratedKeys="true"
+		keyProperty="id">
+		insert into hobby (name, description, category_id, plus18_only, photo_id)
+		values (#{name}, #{description}, #{categoryId}, #{plus18Only}, #{photoId})
+	</insert>
 
-    <select id="findHobbyById" parameterType="map" resultType="Hobby">
-        select *
-        from hobby
-        where id = #{id}
-    </select>
+	<select id="findHobbyById" parameterType="map"
+		resultType="com.hobbymatcher.entity.Hobby">
+		select *
+		from hobby
+		where id = #{id}
+	</select>
 
-    <update id="updateHobby" parameterType="com.hobbymatcher.entity.Hobby">
-        update hobby
-        <set>
-            <if test="name != null">name=#{name},</if>
-            <if test="description != null">description=#{description},</if>
-            <if test="categoryId != null">category_id=#{categoryId},</if>
-            <if test="plus18Only != null">plus18_only=#{plus18Only},</if>
-            <if test="photoId != null">photo_id=#{photoId},</if>
-        </set>
-        where id=#{id}
-    </update>
+	<select id="findHobbyByName" parameterType="map"
+		resultType="com.hobbymatcher.entity.Hobby">
+		select *
+		from hobby
+		where name = #{name}
+	</select>
 
-    <delete id="deleteHobby">
-        DELETE
-        FROM hobby
-        WHERE id = #{id}
-    </delete>
+	<update id="updateHobby"
+		parameterType="com.hobbymatcher.entity.Hobby">
+		update hobby
+		<set>
+			<if test="name != null">name=#{name},</if>
+			<if test="description != null">description=#{description},</if>
+			<if test="categoryId != null">category_id=#{categoryId},</if>
+			<if test="plus18Only != null">plus18_only=#{plus18Only},</if>
+			<if test="photoId != null">photo_id=#{photoId},</if>
+		</set>
+		where id=#{id}
+	</update>
 </mapper>

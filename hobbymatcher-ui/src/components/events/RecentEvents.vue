@@ -41,7 +41,7 @@ export default class RecentEvents extends Vue {
       fee: 0,
       organizer: 'Stevens Institute of Technology Fun Club',
       coverPhotoId: '@/assets/images/logo-200x200.png'
-    } as Event
+    } as any
   ]
 
   // eslint-disable-next-line space-before-function-paren

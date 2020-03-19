@@ -3,7 +3,7 @@
     <div class="p-grid">
       <div class="p-offset-1 p-col-10 carousel">
         <Carousel
-          :value="values"
+          :value="events"
           :numVisible="4"
           :numScroll="3"
           :circular="true"
@@ -11,7 +11,7 @@
         >
           <template #item="value">
             <div class="text-center">
-              <EventThumb :model="value" class="d-inline-block" />
+              <EventThumb :model="value.data" class="d-inline-block" />
             </div>
           </template>
         </Carousel>
@@ -63,7 +63,7 @@
         </div>
       </div>
       <div class="p-offset-1 p-col-10">
-        <EventThumbs />
+        <EventThumbs v-model="events" />
       </div>
       <div class="p-offset-1 p-col-10 d-flex align-items-center">
         <h3 class="flex-grow-1">Blogs</h3>
@@ -88,10 +88,12 @@
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Filter } from '../components/search/Filter'
 import { HobbyService } from '../components/hobbies/HobbyService'
+import { EventService } from '../components/events/EventService'
 
 @Component
 export default class Home extends Vue {
   hobbyiesApi = new HobbyService()
+  eventsApi = new EventService()
 
   model: Filter = {
     searchScope: 'hobby',
@@ -101,22 +103,18 @@ export default class Home extends Vue {
   } as Filter
 
   hobbies = []
-
-  values = [
-    { id: 1, title: 'Jogging 1', description: 'Good 1' },
-    { id: 2, title: 'Jogging 2', description: 'Good 2' },
-    { id: 3, title: 'Jogging 3', description: 'Good 3' },
-    { id: 4, title: 'Jogging 4', description: 'Good 4' },
-    { id: 5, title: 'Jogging 5', description: 'Good 5' },
-    { id: 6, title: 'Jogging 6', description: 'Good 6' },
-    { id: 7, title: 'Jogging 7', description: 'Good 7' }
-  ]
+  events = []
 
   // eslint-disable-next-line space-before-function-paren
   mounted() {
     this.hobbyiesApi
       .list()
       .then((resp: any) => (this.hobbies = resp.data.list))
+      .catch((err: any) => console.log(err))
+
+    this.eventsApi
+      .list()
+      .then((resp: any) => (this.events = resp.data.list))
       .catch((err: any) => console.log(err))
   }
 

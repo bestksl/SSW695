@@ -26,7 +26,7 @@ export default class HobbyThumb extends Vue {
 
   // eslint-disable-next-line space-before-function-paren
   get hobby() {
-    return this.model
+    return this.model || {}
   }
 }
 </script>

@@ -85,7 +85,6 @@
             Hobby Picture:
           </div>
           <div class="p-col-7 d-flex flex-column">
-            <!-- TODO add photo upload and its validation -->
             <div>
               <img
                 v-if="!hobby.url"
@@ -133,10 +132,10 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
-import { HobbyService } from './HobbyService'
-import { Hobby } from './Hobby'
 import { CategoryService } from '../category/CategoryService'
 import { Category } from '../category/Category'
+import { HobbyService } from './HobbyService'
+import { Hobby } from './Hobby'
 
 @Component
 export default class HobbyForm extends Vue {
@@ -190,7 +189,7 @@ export default class HobbyForm extends Vue {
     data.append('name', this.hobby.name)
     data.append('description', this.hobby.description)
     data.append('categoryId', this.hobby.categoryId)
-    data.append('plus18Only', this.hobby.plus18Only.toString())
+    data.append('plus18Only', this.hobby.plus18Only)
     data.append('file', this.hobby.file)
 
     this.hobbyApi

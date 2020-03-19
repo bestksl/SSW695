@@ -3,7 +3,11 @@
     <div class="p-grid">
       <div class="p-col-3 p-offset-1 text-center">
         <div>
-          <img src="@/assets/images/logo-200x200.png" class="cover" />
+          <img
+            v-if="event.photoId"
+            :src="'http://localhost:8080/hobbymatcher/files/' + event.photoId"
+            style="width: 12rem; height: 12rem; border: solid 1px lightgray;"
+          />
         </div>
         <div class="mt-3">
           <button class="p-button p-button-secondary px-2 py-1 mr-1">
@@ -32,7 +36,13 @@
             Time:
           </div>
           <div class="p-col-9">
-            {{ event.datetime | dateFormat('MMMM DD, YYYY hh:mm a') }}
+            <div v-if="event.onDatetime">
+              {{
+                event.onDatetime
+                  | dateParse('YYYY-MM-DDTHH:mm:ss.000+0000')
+                  | dateFormat('MMM DD, YYYY h:mma')
+              }}
+            </div>
           </div>
 
           <div class="p-col-3">
@@ -50,10 +60,10 @@
           </div>
 
           <div class="p-col-3">
-            Only +18 of Age?
+            +18 only
           </div>
           <div class="p-col-9">
-            {{ event.plus18 ? 'Yes' : 'Open for everyone' }}
+            {{ event.plus18Only ? 'Yes' : 'Open for everyone' }}
           </div>
 
           <div class="p-col-3">
@@ -79,23 +89,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Event } from './Event'
 
 @Component
 export default class EventView extends Vue {
-  @Prop() model!: Event
-  event: Event = {
-    title: 'Sunday Jogging',
-    datetime: new Date('2020-10-10'),
-    location: 'Hoboken, NJ',
-    capacity: 10,
-    description: 'This is going to be a fun weekly event.',
-    plus18: false,
-    fee: 0,
-    organizer: 'Stevens Institute of Technology Fun Club',
-    coverPhotoId: '@/assets/images/logo-200x200.png'
-  } as Event
+  @Model() model!: Event
+
+  // eslint-disable-next-line space-before-function-paren
+  get event() {
+    return this.model || {}
+  }
 }
 </script>
 

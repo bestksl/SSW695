@@ -1,12 +1,12 @@
 export interface Event {
     id: number;
+    hobbyId: number;
     title: string;
-    datetime: Date;
+    onDatetime: any; // string | Date;
     location: string;
     capacity: number;
     description: string;
-    plus18: boolean;
-    fee: number;
+    plus18Only: boolean;
     organizer: string;
-    coverPhotoId: string;
+    photoId: string;
 }
