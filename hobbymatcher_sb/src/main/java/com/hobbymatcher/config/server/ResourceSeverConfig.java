@@ -1,88 +1,93 @@
 package com.hobbymatcher.config.server;
 
-import com.hobbymatcher.authentication.entrypoint.MyLoginUrlAuthenticationEntryPoint;
-import com.hobbymatcher.authentication.handler.MyAccessDeniedHandler;
+import com.hobbymatcher.authentication.filter.JwtRequestFilter;
+//import com.hobbymatcher.authentication.entrypoint.MyLoginUrlAuthenticationEntryPoint;
+//import com.hobbymatcher.authentication.handler.MyAccessDeniedHandler;
 import com.hobbymatcher.service.UserService;
+
+import io.swagger.annotations.Authorization;
+
+import static org.springframework.http.HttpMethod.DELETE;
+import static org.springframework.http.HttpMethod.POST;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@Configuration
-@EnableResourceServer
-public class ResourceSeverConfig extends ResourceServerConfigurerAdapter {
-    @Autowired
-    UserService userService;
-    @Autowired
-    AuthenticationSuccessHandler myAuthenticationSuccessHandler;
-    @Autowired
-    AuthenticationFailureHandler myAuthenticationFailureHandler;
+@EnableWebSecurity
+public class ResourceSeverConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public BCryptPasswordEncoder bPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private JwtRequestFilter jwtReqFilter;
+	
+//  --- replace passwordEncoder with this method
+//	@Bean
+//	public BCryptPasswordEncoder bcryptPasswordEncoder() {
+//		return new BCryptPasswordEncoder();
+//	}
+    
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return NoOpPasswordEncoder.getInstance();
+	}
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userService);
+	}
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
-                //.loginProcessingUrl("/doLogin")
-                .successHandler(myAuthenticationSuccessHandler)
-                .failureHandler(myAuthenticationFailureHandler)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/**").permitAll()
-//                .antMatchers(HttpMethod.DELETE, "/user/*").hasAnyAuthority("DELETE_USER")
-//                .antMatchers("/swagger-ui.html").permitAll()
-//                .antMatchers("/webjars/**").permitAll()
-//                .antMatchers("/v2/**").permitAll()
-//                .antMatchers("/swagger-resources/**").permitAll()
-//                .antMatchers("/oauth/token").permitAll()
-//                .antMatchers("/oauth/authorize").permitAll()
-//                .antMatchers("/**")
-//                .fullyAuthenticated()
-//                .anyRequest()
-//                .authenticated()
-                .and()
-                .csrf()
-                .disable()
-                .exceptionHandling()
-                .accessDeniedHandler(new MyAccessDeniedHandler())
-                .authenticationEntryPoint(new MyLoginUrlAuthenticationEntryPoint());
-        //http.addFilterAt(new CustomAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+    	http.csrf().disable()
+    		.authorizeRequests().antMatchers("/user/auth").permitAll()
+    		.anyRequest().authenticated()
+    		.and().sessionManagement()
+    		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    	http.addFilterBefore(jwtReqFilter, UsernamePasswordAuthenticationFilter.class);
+//        http.formLogin()
+//            .and()
+//            .authorizeRequests()
+//            .antMatchers(POST, "/login").permitAll()
+//            .antMatchers(DELETE, "/user/*").hasAnyAuthority("DELETE_USER")
+//            .antMatchers("/swagger-ui.html").permitAll()
+//            .antMatchers("/webjars/**").permitAll()
+//            .antMatchers("/v2/**").permitAll()
+//            .antMatchers("/swagger-resources/**").permitAll()
+//            .antMatchers("/oauth/token").permitAll()
+//            .antMatchers("/oauth/authorize").permitAll()
+//            .antMatchers("/**")
+//            .fullyAuthenticated()
+//            .anyRequest()
+//            .authenticated()
+//            .and()
+//            .csrf()
+//            .disable()
+//            .exceptionHandling()
+//            .accessDeniedHandler(new MyAccessDeniedHandler())
+//            .authenticationEntryPoint(new MyLoginUrlAuthenticationEntryPoint());
     }
-
-//    @Bean
-//    CustomAuthenticationFilter customAuthenticationFilter() throws Exception {
-//        CustomAuthenticationFilter filter = new CustomAuthenticationFilter();
-//        filter.setAuthenticationSuccessHandler((req, resp, authentication) -> {
-//            resp.setContentType("application/json;charset=utf-8");
-//            PrintWriter out = resp.getWriter();
-//            RespBean respBean = RespBean.ok("login success!");
-//            respBean.setObj(userService.loadUserByUsername(authentication.getName()));
-//            out.write(new ObjectMapper().writeValueAsString(respBean));
-//            out.flush();
-//            out.close();
-//        });
-//        filter.setAuthenticationFailureHandler((req, resp, e) -> {
-//            resp.setContentType("application/json;charset=utf-8");
-//            PrintWriter out = resp.getWriter();
-//            RespBean respBean = RespBean.error("login failed!");
-//            respBean.setStatus(403);
-//            resp.setStatus(403);
-//            out.write(new ObjectMapper().writeValueAsString(respBean));
-//            out.flush();
-//            out.close();
-//        });
-//       // filter.setAuthenticationManager(authenticationManagerBean());
-//        return filter;
-//    }
 }

@@ -1,32 +1,26 @@
 package com.hobbymatcher.dao;
 
-import com.hobbymatcher.entity.Permission;
-import com.hobbymatcher.entity.User;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.hobbymatcher.entity.User;
 
 @Repository
 public interface UserDao {
-    /**
-     * 列出user列表
-     *
-     * @return userList
-     */
-    List<User> queryUser();
 
-    int insertUser(User user);
+	List<User> listUser();
 
-    User findUserByEmailAndPwd(@Param("email") String email, @Param("passWord") String passWord);
+	int insertUser(User user);
 
-    User findUserById(@Param("id") String id);
+	User findUserById(@Param("id") String id);
 
-    int updateUser(User user);
+	User findUserByEmail(@Param("emailAddr") String emailAddr);
 
-    int deleteUser(@Param("id") String id);
+	User findUserByEmailAndPwd(@Param("emailAddr") String emailAddr, @Param("password") String password);
 
-    User findUserByEmail(@Param("email") String email);
+	int updateUser(User user);
 
-    List<Permission> findPermissionByEmail(String email);
+	int deleteUser(@Param("id") String id);
 }

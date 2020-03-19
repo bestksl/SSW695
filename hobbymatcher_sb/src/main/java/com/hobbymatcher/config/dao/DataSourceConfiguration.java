@@ -12,32 +12,29 @@ import java.beans.PropertyVetoException;
 @MapperScan("com.hobbymatcher.dao")
 public class DataSourceConfiguration {
 
-    @Value("${jdbc.driver}")
-    private String jdbcDriver;
-    @Value("${jdbc.url}")
-    private String jdbcUrl;
-    @Value("${jdbc.username}")
-    private String jdbcUsername;
-    @Value("${jdbc.password}")
-    private String jdbcPassword;
+	@Value("${jdbc.driver}")
+	private String jdbcDriver;
+	@Value("${jdbc.url}")
+	private String jdbcUrl;
+	@Value("${jdbc.username}")
+	private String jdbcUsername;
+	@Value("${jdbc.password}")
+	private String jdbcPassword;
 
-    /*
-    data source
-     */
-    @Bean(name = "dataSource")
-    public ComboPooledDataSource createComboPooledDataSource() throws PropertyVetoException {
-        ComboPooledDataSource ds= new ComboPooledDataSource();
+	@Bean(name = "dataSource")
+	public ComboPooledDataSource createComboPooledDataSource() throws PropertyVetoException {
+		ComboPooledDataSource ds = new ComboPooledDataSource();
 
-        ds.setDriverClass(jdbcDriver);
-        ds.setJdbcUrl(jdbcUrl);
-        ds.setUser(jdbcUsername);
-        ds.setPassword(jdbcPassword);
-        ds.setMaxPoolSize(30);
-        ds.setMinPoolSize(10);
-        ds.setAutoCommitOnClose(false);
-        ds.setCheckoutTimeout(10000);
-        ds.setAcquireRetryAttempts(2);
+		ds.setDriverClass(jdbcDriver);
+		ds.setJdbcUrl(jdbcUrl);
+		ds.setUser(jdbcUsername);
+		ds.setPassword(jdbcPassword);
+		ds.setMaxPoolSize(30);
+		ds.setMinPoolSize(10);
+		ds.setAutoCommitOnClose(false);
+		ds.setCheckoutTimeout(10000);
+		ds.setAcquireRetryAttempts(2);
 
-        return ds;
-    }
+		return ds;
+	}
 }
