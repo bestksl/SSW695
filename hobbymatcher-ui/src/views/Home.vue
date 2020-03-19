@@ -47,7 +47,7 @@
         </div>
       </div>
       <div class="p-offset-1 p-col-10">
-        <HobbyThumbs />
+        <HobbyThumbs v-model="hobbies" />
       </div>
 
       <div class="p-offset-1 p-col-10 d-flex align-items-center">
@@ -87,15 +87,20 @@
 <script lang="ts">
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Filter } from '../components/search/Filter'
+import { HobbyService } from '../components/hobbies/HobbyService'
 
 @Component
 export default class Home extends Vue {
+  hobbyiesApi = new HobbyService()
+
   model: Filter = {
     searchScope: 'hobby',
     count: 48,
     perpage: 10,
     offset: 0 // zero-based index
   } as Filter
+
+  hobbies = []
 
   values = [
     { id: 1, title: 'Jogging 1', description: 'Good 1' },
@@ -106,6 +111,14 @@ export default class Home extends Vue {
     { id: 6, title: 'Jogging 6', description: 'Good 6' },
     { id: 7, title: 'Jogging 7', description: 'Good 7' }
   ]
+
+  // eslint-disable-next-line space-before-function-paren
+  mounted() {
+    this.hobbyiesApi
+      .list()
+      .then((resp: any) => (this.hobbies = resp.data.list))
+      .catch((err: any) => console.log(err))
+  }
 
   // eslint-disable-next-line space-before-function-paren
   pageChanged($event: any) {
