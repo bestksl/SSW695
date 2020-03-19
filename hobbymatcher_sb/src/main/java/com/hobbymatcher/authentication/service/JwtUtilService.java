@@ -1,4 +1,4 @@
-package com.hobbymatcher.service;
+package com.hobbymatcher.authentication.service;
 
 import java.util.Date;
 import java.util.HashMap;

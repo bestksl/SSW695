@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.hobbymatcher.service.JwtUtilService;
+import com.hobbymatcher.authentication.service.JwtUtilService;
 import com.hobbymatcher.service.UserService;
 
 @Component

@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.hobbymatcher.authentication.service.JwtUtilService;
 import com.hobbymatcher.entity.User;
-import com.hobbymatcher.service.JwtUtilService;
 import com.hobbymatcher.service.UserService;
 
 @CrossOrigin
@@ -157,6 +156,10 @@ public class UserController {
 		}
 		return resp;
 	}
+
+	// -----------------------
+	// ----- jwt example -----
+	// -----------------------
 
 	@GetMapping("/hello")
 	public String hello() {
