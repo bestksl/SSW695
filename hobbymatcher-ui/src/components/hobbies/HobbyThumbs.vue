@@ -1,5 +1,8 @@
 <template>
   <div class="hobby-thumbs">
+    <div v-if="!hobbies || hobbies.length == 0" class="text-center">
+      No Hobbies
+    </div>
     <HobbyThumb
       v-for="hobby of hobbies"
       :key="hobby.id"
