@@ -42,6 +42,29 @@ CREATE TABLE IF NOT EXISTS `hobby` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `event`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `event` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `hobby_id` INT NOT NULL,
+  `title` VARCHAR(64) NOT NULL,
+  `on_datetime` DATETIME NOT NULL,
+  `location` VARCHAR(128) NULL,
+  `capacity` DOUBLE NULL,
+  `description` VARCHAR(2048) NULL,
+  `plus18_only` TINYINT NULL,
+  `organizer` VARCHAR(128) NULL,
+  `photo_id` VARCHAR(42) NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_event_hobby1_idx` (`hobby_id` ASC),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  CONSTRAINT `fk_event_hobby1`
+    FOREIGN KEY (`hobby_id`)
+    REFERENCES `hobby` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
