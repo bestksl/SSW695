@@ -86,12 +86,14 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
-import { Filter } from '../components/search/Filter'
 import { HobbyService } from '../components/hobbies/HobbyService'
 import { EventService } from '../components/events/EventService'
+import { AuthService } from '../components/auth/AuthService'
+import { Filter } from '../components/search/Filter'
 
 @Component
 export default class Home extends Vue {
+  authApi = new AuthService()
   hobbyiesApi = new HobbyService()
   eventsApi = new EventService()
 
@@ -107,6 +109,11 @@ export default class Home extends Vue {
 
   // eslint-disable-next-line space-before-function-paren
   mounted() {
+    this.authApi
+      .isLoggedIn()
+      .then((resp: any) => (this.authApi.isLogin = true))
+      .catch((err: any) => console.log(err))
+
     this.hobbyiesApi
       .list()
       .then((resp: any) => (this.hobbies = resp.data.list))

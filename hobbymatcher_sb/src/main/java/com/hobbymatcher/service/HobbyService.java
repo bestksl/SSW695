@@ -1,8 +1,8 @@
 package com.hobbymatcher.service;
 
-import com.hobbymatcher.entity.Hobby;
-
 import java.util.List;
+
+import com.hobbymatcher.entity.Hobby;
 
 public interface HobbyService {
 

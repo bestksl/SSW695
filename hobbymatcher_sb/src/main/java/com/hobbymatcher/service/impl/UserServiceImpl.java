@@ -17,8 +17,10 @@ import com.hobbymatcher.service.UserService;
 public class UserServiceImpl implements UserService {
 
 	Logger logger = Logger.getLogger(UserServiceImpl.class);
+
 	@Autowired
 	private UserDao userDao;
+
 	@Autowired
 	private PasswordEncoder encoder;
 

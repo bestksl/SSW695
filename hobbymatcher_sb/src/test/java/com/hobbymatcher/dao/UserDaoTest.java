@@ -1,16 +1,15 @@
 package com.hobbymatcher.dao;
 
-import com.hobbymatcher.entity.User;
+import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
-
-import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import com.hobbymatcher.entity.User;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -28,7 +27,7 @@ public class UserDaoTest {
 	@Test
 	public void testInsertUser() {
 		User user = new User();
-		user.setEmailAddr("kslup76123136@gmail.com");
+		user.setemail("kslup76123136@gmail.com");
 		user.setFirstName("fi");
 		user.setLastName("la");
 		user.setNickName("ksl");

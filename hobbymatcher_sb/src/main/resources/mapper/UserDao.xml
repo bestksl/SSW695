@@ -10,8 +10,8 @@
 	</select>
 
     <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
-        insert into user (first_name, last_name, nick_name, email_addr, password, date_of_birth, gender)
-        values (#{firstName}, #{lastName}, #{nickName}, #{emailAddr}, #{password}, #{dateOfBirth}, #{gender})
+        insert into user (first_name, last_name, nick_name, email, password, date_of_birth, gender)
+        values (#{firstName}, #{lastName}, #{nickName}, #{email}, #{password}, #{dateOfBirth}, #{gender})
     </insert>
 
 	<select id="findUserById" parameterType="map"
@@ -24,13 +24,13 @@
     <select id="findUserByEmail" parameterType="map" resultType="com.hobbymatcher.entity.User">
         select *
         from user
-        where email_addr = #{emailAddr}
+        where email = #{email}
     </select>
     
     <select id="findUserByEmailAndPwd" parameterType="map" resultType="com.hobbymatcher.entity.User">
         select *
         from user
-        where email_addr = #{emailAddr}
+        where email = #{email}
           and password = #{password}
     </select>
     
@@ -41,7 +41,7 @@
             <if test="firstName != null">first_name=#{firstName},</if>
             <if test="lastName != null">last_name=#{lastName},</if>
             <if test="nickName != null">nick_name=#{nickName},</if>
-            <if test="email_addr != null">email_addr=#{emailAddr},</if>
+            <if test="email != null">email=#{email},</if>
             <if test="password != null">password=#{password},</if>
             <if test="dateOfBirth != null">date_of_birth=#{dateOfBirth},</if>
             <if test="gender != null">gender=#{gender},</if>

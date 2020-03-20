@@ -45,8 +45,8 @@ import * as rules from 'vee-validate/dist/rules'
 // -- declare our components --
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
-import SignUpForm from './components/auth/SignUpForm.vue'
-import SignInForm from './components/auth/SignInForm.vue'
+import RegisterForm from './components/auth/RegisterForm.vue'
+import LoginForm from './components/auth/LoginForm.vue'
 import EventView from './components/events/EventView.vue'
 import EventForm from './components/events/EventForm.vue'
 import EventThumb from './components/events/EventThumb.vue'
@@ -103,8 +103,8 @@ localize({ en }) // Install English locales.
 // -- registring our components --
 Vue.component('Header', Header)
 Vue.component('Footer', Footer)
-Vue.component('SignUpForm', SignUpForm)
-Vue.component('SignInForm', SignInForm)
+Vue.component('RegisterForm', RegisterForm)
+Vue.component('LoginForm', LoginForm)
 Vue.component('EventView', EventView)
 Vue.component('EventForm', EventForm)
 Vue.component('EventThumb', EventThumb)

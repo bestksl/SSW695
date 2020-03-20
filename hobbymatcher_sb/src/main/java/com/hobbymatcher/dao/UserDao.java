@@ -16,9 +16,9 @@ public interface UserDao {
 
 	User findUserById(@Param("id") String id);
 
-	User findUserByEmail(@Param("emailAddr") String emailAddr);
+	User findUserByEmail(@Param("email") String email);
 
-	User findUserByEmailAndPwd(@Param("emailAddr") String emailAddr, @Param("password") String password);
+	User findUserByEmailAndPwd(@Param("email") String email, @Param("password") String password);
 
 	int updateUser(User user);
 

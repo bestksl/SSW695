@@ -56,7 +56,7 @@
               v-slot="{ errors }"
               rules="required"
             >
-              <Calendar id="event-datetime" v-model="event.onDatetime" />
+              <Calendar v-model="event.onDatetime" />
               <ul v-if="errors.length" class="v-error">
                 <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
               </ul>

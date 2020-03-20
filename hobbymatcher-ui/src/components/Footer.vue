@@ -5,9 +5,9 @@
       <span>|</span>
       <router-link to="/about">About</router-link>
       <span>|</span>
-      <router-link to="/signup">Sign Up</router-link>
+      <router-link to="/register">Sign Up</router-link>
       <span>|</span>
-      <router-link to="/signin">Sign In</router-link>
+      <router-link to="/login">Sign In</router-link>
       <span>|</span>
       <router-link to="/hobbies/create">Create Hobby</router-link>
       <span>|</span>

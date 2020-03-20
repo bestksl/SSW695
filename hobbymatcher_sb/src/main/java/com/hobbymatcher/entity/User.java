@@ -18,7 +18,7 @@ public class User implements UserDetails, Serializable {
 	private String firstName;
 	private String nickName;
 	private String lastName;
-	private String emailAddr;
+	private String email;
 	private String password;
 	private Date dateOfBirth;
 	private Gender gender;
@@ -57,12 +57,12 @@ public class User implements UserDetails, Serializable {
 		this.lastName = lastName;
 	}
 
-	public String getEmailAddr() {
-		return emailAddr;
+	public String getemail() {
+		return email;
 	}
 
-	public void setEmailAddr(String emailAddr) {
-		this.emailAddr = emailAddr;
+	public void setemail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -104,7 +104,7 @@ public class User implements UserDetails, Serializable {
 
 	@Override
 	public String getUsername() {
-		return emailAddr;
+		return email;
 	}
 
 	@Override
