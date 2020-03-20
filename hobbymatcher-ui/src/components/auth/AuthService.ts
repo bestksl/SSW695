@@ -1,9 +1,14 @@
+import Vue from 'vue'
 import { http } from '../Api'
 import { NewUser } from './NewUser'
 import { LoginUser } from './LoginUser'
 
 export class AuthService {
-  isLogin!: boolean;
+  // eslint-disable-next-line space-before-function-paren
+  constructor() {
+    const token = Vue.$cookies.get('jwt-token')
+    if (token) { this.useJwtToken(token) }
+  }
 
   // eslint-disable-next-line space-before-function-paren
   register(newUser: NewUser) {
@@ -21,13 +26,20 @@ export class AuthService {
   }
 
   // eslint-disable-next-line space-before-function-paren
-  storeToken(jwtToken: string) {
-    http.defaults.headers.common.Authorization = `Bearer ${jwtToken}`
+  storeToken(token: string) {
+    this.useJwtToken(token)
+    Vue.$cookies.set('jwt-token', 'Bearer ' + token)
   }
 
   // eslint-disable-next-line space-before-function-paren
   clearToken() {
-    http.defaults.headers.common.Authorization = null
+    this.useJwtToken(null)
+    Vue.$cookies.set('jwt-token', null)
+  }
+
+  // eslint-disable-next-line space-before-function-paren
+  private useJwtToken(token: any) {
+    http.defaults.headers.common.Authorization = token
   }
 
   // eslint-disable-next-line space-before-function-paren

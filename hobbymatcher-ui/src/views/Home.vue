@@ -109,11 +109,6 @@ export default class Home extends Vue {
 
   // eslint-disable-next-line space-before-function-paren
   mounted() {
-    this.authApi
-      .isLoggedIn()
-      .then((resp: any) => (this.authApi.isLogin = true))
-      .catch((err: any) => console.log(err))
-
     this.hobbyiesApi
       .list()
       .then((resp: any) => (this.hobbies = resp.data.list))

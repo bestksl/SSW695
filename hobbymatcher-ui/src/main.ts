@@ -3,6 +3,7 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
+import VueCookies from 'vue-cookies'
 
 import VueFilterDateParse from 'vue-filter-date-parse'
 import VueFilterDateFormat from 'vue-filter-date-format'
@@ -64,6 +65,8 @@ import FilterCategories from './components/search/FilterCategories.vue'
 import EventSearchResults from './components/events/EventSearchResults.vue'
 import BlogsList from './components/blogs/BlogsList.vue'
 import BlogsListing from './components/blogs/BlogsListing.vue'
+
+Vue.use(VueCookies)
 
 Vue.use(VueFilterDateParse)
 Vue.use(VueFilterDateFormat)
