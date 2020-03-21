@@ -2,7 +2,6 @@ package com.hobbymatcher;
 
 import java.util.Arrays;
 
-import com.hobbymatcher.properties.SecurityProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -13,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+
+import com.hobbymatcher.properties.SecurityProperties;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 

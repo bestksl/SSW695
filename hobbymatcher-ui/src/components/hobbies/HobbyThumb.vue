@@ -1,14 +1,14 @@
 <template>
-  <router-link :to="'/hobbies/view?id=' + hobby.hobbyId">
+  <router-link :to="'/hobbies/view?id=' + hobby.id">
     <div class="hobby-thumb">
       <img
-        v-if="!hobby.hobbyImage"
+        v-if="!hobby.photoId"
         src="@/assets/images/logo-200x200.png"
         class="cover"
       />
       <img
-        v-if="hobby.hobbyImage"
-        :src="'http://localhost:8080/hobbymatcher/files/' + hobby.hobbyImage"
+        v-if="hobby.photoId"
+        :src="'http://localhost:8080/hobbymatcher/files/' + hobby.photoId"
         class="cover"
       />
       <span class="hobby-title">{{ hobby.name }}</span>
@@ -26,7 +26,7 @@ export default class HobbyThumb extends Vue {
 
   // eslint-disable-next-line space-before-function-paren
   get hobby() {
-    return this.model
+    return this.model || {}
   }
 }
 </script>

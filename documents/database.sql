@@ -1,134 +1,71 @@
-create table hobby
-(
-    hobby_id       int auto_increment
-        primary key,
-    name           varchar(50) null,
-    description    varchar(50) null,
-    classification varchar(50) null,
-    constrains     varchar(50) null,
-    blogs          varchar(50) null,
-    status         varchar(50) null,
-    hobby_image    varchar(50) null,
-    constraint hobby_name_uindex
-        unique (name)
-);
+-- MySQL Workbench Forward Engineering
 
-create table events
-(
-    events_id    int auto_increment
-        primary key,
-    events_title char(50)     null,
-    events_time  datetime     null,
-    location     char(50)     null,
-    description  varchar(255) null,
-    fee          char(50)     null,
-    holder       char(50)     null,
-    events_image varchar(200) null,
-    hobby_id     int          null,
-    constraint events_hobby_hobby_id_fk
-        foreign key (hobby_id) references hobby (hobby_id)
-            on update cascade on delete cascade
-);
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-create table sys_permission
-(
-    id        int auto_increment
-        primary key,
-    perm_name varchar(50) null,
-    permTag   varchar(50) null
-);
+-- -----------------------------------------------------
+-- Table `category`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `category` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(64) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC))
+ENGINE = InnoDB;
 
-create table sys_role
-(
-    id        int auto_increment
-        primary key,
-    role_name varchar(50) not null,
-    role_desc int         null
-);
+INSERT INTO `category` (id, `name`) VALUES 
+    (1, 'Art'), 
+    (2, 'Education'),
+    (3, 'Entertainment'),
+    (4, 'Sports');
 
-create table sys_role_permission
-(
-    role_id int null,
-    perm_id int null,
-    constraint sys_role_permission_sys_permission_id_fk
-        foreign key (perm_id) references sys_permission (id),
-    constraint sys_role_permission_sys_role_id_fk
-        foreign key (role_id) references sys_role (id)
-);
+-- -----------------------------------------------------
+-- Table `hobby`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `hobby` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(64) NOT NULL,
+  `description` VARCHAR(45) NULL,
+  `category_id` INT NOT NULL,
+  `plus18_only` TINYINT NULL,
+  `photo_id` VARCHAR(42) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC),
+  INDEX `fk_hobby_category_idx` (`category_id` ASC),
+  CONSTRAINT `fk_hobby_category`
+    FOREIGN KEY (`category_id`)
+    REFERENCES `category` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
-create table user
-(
-    id                      int auto_increment
-        primary key,
-    nick_name               varchar(50)   not null,
-    first_name              varchar(50)   not null,
-    last_name               varchar(50)   not null,
-    email                   varchar(50)   not null,
-    pass_word               varchar(200)  not null,
-    dob                     date          null,
-    gender                  varchar(50)   null,
-    hobbies                 varchar(50)   null,
-    events                  varchar(100)  null,
-    status                  varchar(50)   null,
-    last_login_time         int           null,
-    enabled                 int default 1 null,
-    credentials_non_expired int default 1 null,
-    account_not_locked      int default 1 null,
-    account_not_expired     int default 1 null,
-    constraint user_email_uindex
-        unique (email)
-);
+-- -----------------------------------------------------
+-- Table `event`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `event` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `hobby_id` INT NOT NULL,
+  `title` VARCHAR(64) NOT NULL,
+  `on_datetime` DATETIME NOT NULL,
+  `location` VARCHAR(128) NULL,
+  `capacity` DOUBLE NULL,
+  `description` VARCHAR(2048) NULL,
+  `plus18_only` TINYINT NULL,
+  `organizer` VARCHAR(128) NULL,
+  `photo_id` VARCHAR(42) NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_event_hobby1_idx` (`hobby_id` ASC),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  CONSTRAINT `fk_event_hobby1`
+    FOREIGN KEY (`hobby_id`)
+    REFERENCES `hobby` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
-create table blog
-(
-    blog_id     int auto_increment
-        primary key,
-    title       varchar(50)  not null,
-    content     varchar(500) not null,
-    hobby_id    int          not null,
-    user_id     int          not null,
-    create_date varchar(50)  null,
-    constraint blog_hobby_hobby_id_fk
-        foreign key (hobby_id) references hobby (hobby_id),
-    constraint blog_user_id_fk
-        foreign key (user_id) references user (id)
-);
-
-create table comment
-(
-    id      int auto_increment
-        primary key,
-    content varchar(500) not null,
-    user_id int          not null,
-    blog_id int          not null,
-    time    varchar(50)  null,
-    constraint comment_blog_blog_id_fk
-        foreign key (blog_id) references blog (blog_id),
-    constraint comment_user_id_fk
-        foreign key (user_id) references user (id)
-);
-
-create table join_events
-(
-    join_events_id int auto_increment
-        primary key,
-    user_id        int null,
-    events_id      int null,
-    constraint join_events_events_events_id_fk
-        foreign key (events_id) references events (events_id)
-            on update cascade on delete cascade,
-    constraint join_events_user_id_fk
-        foreign key (user_id) references user (id)
-            on update cascade on delete cascade
-);
-
-create table sys_user_role
-(
-    user_id int null,
-    role_id int null,
-    constraint sys_user_role_sys_role_id_fk
-        foreign key (role_id) references sys_role (id),
-    constraint sys_user_role_user_id_fk
-        foreign key (user_id) references user (id)
-);
-
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

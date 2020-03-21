@@ -4,10 +4,8 @@
       <div class="p-offset-1 p-col-3 d-flex flex-column text-center">
         <div>
           <img
-            v-if="hobby.hobbyImage"
-            :src="
-              'http://localhost:8080/hobbymatcher/files/' + hobby.hobbyImage
-            "
+            v-if="hobby.photoId"
+            :src="'http://localhost:8080/hobbymatcher/files/' + hobby.photoId"
             style="width: 12rem; height: 12rem; border: solid 1px lightgray;"
           />
         </div>
@@ -18,7 +16,7 @@
       <div class="p-col-7">
         <h3>Welcome to {{ hobby.name }} community</h3>
         <p>{{ hobby.description }}</p>
-        <small v-if="hobby.plus18">+18 only</small>
+        <small v-if="hobby.plus18Only">+18 only</small>
       </div>
     </div>
   </div>

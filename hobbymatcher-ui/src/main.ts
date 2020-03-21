@@ -4,6 +4,7 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 
+import VueFilterDateParse from 'vue-filter-date-parse'
 import VueFilterDateFormat from 'vue-filter-date-format'
 
 // -- import fontawesome --
@@ -64,6 +65,7 @@ import EventSearchResults from './components/events/EventSearchResults.vue'
 import BlogsList from './components/blogs/BlogsList.vue'
 import BlogsListing from './components/blogs/BlogsListing.vue'
 
+Vue.use(VueFilterDateParse)
 Vue.use(VueFilterDateFormat)
 
 // -- registring primevue library --

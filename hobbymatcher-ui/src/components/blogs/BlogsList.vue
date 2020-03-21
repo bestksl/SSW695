@@ -12,7 +12,7 @@
       </strong>
       <strong> By: {{ blog.by }} </strong>
       <small class="ml-4">
-        {{ blog.datetime | dateFormat('MMM DD hh:mm a') }}
+        {{ blog.datetime | dateFormat('MMM DD, YYYY h:mma') }}
       </small>
     </div>
   </div>

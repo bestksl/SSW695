@@ -27,8 +27,9 @@ public class FileUtil {
 				root.mkdirs();
 			}
 
-			String orgName = file.getOriginalFilename();
-			String newName = UUID.randomUUID() + orgName;
+			// String orgName = file.getOriginalFilename();
+			String newName = UUID.randomUUID().toString();
+			// + orgName; we don't need to store file original name
 			File targetPath = new File(root, newName);
 
 			try {
@@ -44,6 +45,7 @@ public class FileUtil {
 
 	public static String getName(File file) {
 		// remove uuid from file name
-		return file.getName().substring(36);
+		// return file.getName().substring(36);
+		return Integer.toString((int) (Math.random() * Integer.MAX_VALUE));
 	}
 }

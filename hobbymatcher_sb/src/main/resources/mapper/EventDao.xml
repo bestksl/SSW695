@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hobbymatcher.dao.EventDao">
+	<select id="listEvent"
+		resultType="com.hobbymatcher.entity.Event">
+		select *
+		from event
+		order by id desc
+	</select>
+
+	<insert id="insertEvent" useGeneratedKeys="true"
+		keyProperty="id">
+	 	insert into event (hobby_id, title, on_datetime, location, capacity, description, plus18_only, organizer, photo_id)
+        values (#{hobbyId}, #{title}, #{onDatetime}, #{location}, #{capacity}, #{description}, #{plus18Only}, #{organizer}, #{photoId})
+	</insert>
+
+	<select id="findEventById"
+		resultType="com.hobbymatcher.entity.Event">
+		select *
+		from event
+		where id = #{id}
+	</select>
+
+	<select id="findEventByTitle"
+		resultType="com.hobbymatcher.entity.Event">
+		select *
+		from event
+		where title = #{title}
+		order by id desc
+	</select>
+
+	<select id="listEventByHobbyId"
+		resultType="com.hobbymatcher.entity.Event">
+		select *
+		from event
+		where hobby_id = #{hobbyId}
+		order by id desc
+	</select>
+
+    <!-- 
+    <select id="getNumber" resultType="int">
+        select count(user_id)
+        from join_events
+        where events_id = #{id}
+    </select>
+
+    <select id="getEventsForUser" resultType="com.hobbymatcher.entity.Event">
+        select *
+        from events
+        join join_events je on events.events_id = je.events_id and je.user_id = #{id}
+        order by events_time DESC
+    </select>
+
+    <select id="findPastEvents" resultType="com.hobbymatcher.entity.Event">
+        select *
+        from events
+        join join_events je on events.events_id = je.events_id and je.user_id = #{id}
+        where #{currentTime} > events_time
+        order by events_time DESC
+    </select>
+
+
+    <select id="findUpcomingEvents" resultType="com.hobbymatcher.entity.Event">
+        select *
+        from events
+        join join_events je on events.events_id = je.events_id and je.user_id = #{id}
+        where events_time > #{currentTime}
+        order by events_time DESC
+    </select>
+
+    <insert id="joinEvents" useGeneratedKeys="true">
+        insert into join_events(user_id, events_id)
+        values (#{id}, #{eventsId})
+    </insert>
+
+    <delete id="deleteEvents">
+        DELETE
+        FROM events
+        WHERE events_id = #{id}
+    </delete> -->
+</mapper>
