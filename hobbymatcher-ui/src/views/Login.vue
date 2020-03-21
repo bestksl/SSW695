@@ -19,9 +19,18 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import { AuthService } from '../components/auth/AuthService'
 
 @Component
 export default class Login extends Vue {
+  authApi = AuthService.getInstance()
+  // eslint-disable-next-line space-before-function-paren
+  mounted() {
+    if (this.authApi.isLogin) {
+      Vue.toasted.show('You have to logout first.', { duration: 5000 })
+      this.$router.back()
+    }
+  }
   // eslint-disable-next-line space-before-function-paren
   back() {
     window.history.back()
