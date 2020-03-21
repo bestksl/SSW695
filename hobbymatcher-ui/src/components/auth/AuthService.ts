@@ -4,10 +4,36 @@ import { NewUser } from './NewUser'
 import { LoginUser } from './LoginUser'
 
 export class AuthService {
+  private static instance: any
+  private resp: any = {}
+
+  // eslint-disable-next-line space-before-function-paren
+  get isLogin() { return this.resp.isLogin }
+  // eslint-disable-next-line space-before-function-paren
+  get $resp() { return this.resp }
+
+  // eslint-disable-next-line space-before-function-paren
+  public static getInstance() {
+    if (AuthService.instance == null) {
+      AuthService.instance = new AuthService()
+      AuthService.instance.checkLogin()
+    }
+
+    return AuthService.instance
+  }
+
   // eslint-disable-next-line space-before-function-paren
   constructor() {
     const token = Vue.$cookies.get('jwt-token')
     if (token) { this.useJwtToken(token) }
+    console.log('created instnace')
+  }
+
+  // eslint-disable-next-line space-before-function-paren
+  checkLogin() {
+    this.handshake()
+      .then((resp: any) => (this.resp = resp.data))
+      .catch((err: any) => console.log(err))
   }
 
   // eslint-disable-next-line space-before-function-paren
@@ -27,8 +53,9 @@ export class AuthService {
 
   // eslint-disable-next-line space-before-function-paren
   storeToken(token: string) {
+    token = 'Bearer ' + token
     this.useJwtToken(token)
-    Vue.$cookies.set('jwt-token', 'Bearer ' + token)
+    Vue.$cookies.set('jwt-token', token)
   }
 
   // eslint-disable-next-line space-before-function-paren
@@ -43,7 +70,7 @@ export class AuthService {
   }
 
   // eslint-disable-next-line space-before-function-paren
-  isLoggedIn() {
-    return http.get('/is-logged-in')
+  handshake() {
+    return http.get('/handshake')
   }
 }

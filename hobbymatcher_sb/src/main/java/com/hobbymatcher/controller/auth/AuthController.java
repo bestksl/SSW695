@@ -1,5 +1,7 @@
 package com.hobbymatcher.controller.auth;
 
+import static org.springframework.security.core.context.SecurityContextHolder.getContext;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,9 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,9 +42,24 @@ public class AuthController {
 	@Autowired
 	private JwtUtilService jwtUtilService;
 
-	@GetMapping("/is-logged-in")
-	public String isLoggedIn() {
-		return "Yes :)";
+	@GetMapping("/handshake")
+	public Map<String, Object> handshake() {
+		Map<String, Object> resp = new HashMap<>();
+
+		Authentication auth = getContext().getAuthentication();
+
+		if (auth instanceof AnonymousAuthenticationToken) {
+			resp.put("isLogin", false);
+		} else {
+			resp.put("isLogin", true);
+			User user = (User) auth.getPrincipal();
+			resp.put("firstName", user.getFirstName());
+			resp.put("lastName", user.getLastName());
+			resp.put("nickName", user.getNickName());
+			resp.put("email", user.getEmail());
+		}
+
+		return resp;
 	}
 
 	// register

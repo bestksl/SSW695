@@ -31,7 +31,7 @@ public class UserServiceTest {
 	@Test
 	public void testRegist() {
 		User user = new User();
-		user.setemail("sunzheshiwoerzi@gmail.com");
+		user.setEmail("sunzheshiwoerzi@gmail.com");
 		user.setFirstName("fi");
 		user.setLastName("la");
 		user.setNickName("ksl");

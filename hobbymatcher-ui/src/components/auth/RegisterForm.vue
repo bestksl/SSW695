@@ -99,7 +99,7 @@
               v-on:click="back()"
             />
             <Button
-              label="Sign Up"
+              label="Register"
               icon="pi pi-check"
               class="p-button-primary"
               :disabled="invalid"
@@ -118,7 +118,7 @@ import { NewUser } from './NewUser'
 
 @Component
 export default class RegisterForm extends Vue {
-  api: AuthService = new AuthService()
+  api: AuthService = AuthService.getInstance()
 
   model: NewUser = {
     firstName: 'Jafar',

@@ -93,7 +93,7 @@ import { Filter } from '../components/search/Filter'
 
 @Component
 export default class Home extends Vue {
-  authApi = new AuthService()
+  authApi = AuthService.getInstance()
   hobbyiesApi = new HobbyService()
   eventsApi = new EventService()
 

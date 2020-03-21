@@ -5,7 +5,7 @@
         <div class="p-grid">
           <div class="p-offset-4 p-col-4">
             <h3 class="text-center">
-              Sign In to Hobby Matcher
+              Login to Hobby Matcher
             </h3>
           </div>
 
@@ -36,6 +36,7 @@
                 v-model="model.password"
                 placeholder="Password"
                 class="w-100"
+                :feedback="false"
               />
               <ul v-if="errors.length" class="v-error">
                 <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
@@ -50,7 +51,7 @@
               v-on:click="window.history.back()"
             />
             <Button
-              label="Sign In"
+              label="Login"
               icon="pi pi-check"
               class="p-button-primary"
               :disabled="invalid"
@@ -69,7 +70,7 @@ import { LoginUser } from './LoginUser'
 
 @Component
 export default class LoginForm extends Vue {
-  api: AuthService = new AuthService()
+  authApi: AuthService = AuthService.getInstance()
 
   model: LoginUser = {
     email: 'jafar@gmail.com',
@@ -78,11 +79,12 @@ export default class LoginForm extends Vue {
 
   // eslint-disable-next-line space-before-function-paren
   save() {
-    this.api
+    this.authApi
       .login(this.model)
       .then((resp: any) => {
         this.model = {} as LoginUser
-        this.api.storeToken(resp.data.jwt)
+        this.authApi.storeToken(resp.data.jwt)
+        this.authApi.checkLogin()
         Vue.toasted.show('You have been logged in.', { duration: 5000 })
       })
       .catch((err: any) => {
