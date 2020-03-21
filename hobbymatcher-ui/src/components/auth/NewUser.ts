@@ -1,7 +1,8 @@
 export interface NewUser {
   firstName: string;
-  nickName: string;
   lastName: string;
+  dateOfBirth: Date;
+  nickName: string;
   email: string;
-  passWord: string;
+  password: string;
 }

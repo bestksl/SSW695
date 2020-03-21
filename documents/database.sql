@@ -5,6 +5,24 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
+-- Table `user`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(64) NOT NULL,
+  `last_name` VARCHAR(64) NULL,
+  `nick_name` VARCHAR(32) NULL,
+  `email_addr` VARCHAR(64) NOT NULL,
+  `password` VARCHAR(256) NOT NULL,
+  `date_of_birth` VARCHAR(45) NULL,
+  `gender` CHAR(16) NULL,
+  `permissions` VARCHAR(128) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  UNIQUE INDEX `email_addr_UNIQUE` (`email_addr` ASC))
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
 -- Table `category`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `category` (

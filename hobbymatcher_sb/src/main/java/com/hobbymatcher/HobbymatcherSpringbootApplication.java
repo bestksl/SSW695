@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
@@ -13,7 +12,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import com.hobbymatcher.properties.SecurityProperties;
+//import com.hobbymatcher.properties.SecurityProperties;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -21,7 +20,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
 @RestController
-@EnableConfigurationProperties(SecurityProperties.class)
+//@EnableConfigurationProperties(SecurityProperties.class)
 public class HobbymatcherSpringbootApplication {
 
 	public static void main(String[] args) {
@@ -34,7 +33,7 @@ public class HobbymatcherSpringbootApplication {
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
 		// *** URL below needs to match the Vue client URL and port ***
-		config.setAllowedOrigins(Arrays.asList("http://localhost:8081"));
+		config.setAllowedOrigins(Arrays.asList("*")); // http://localhost:808x
 		config.setAllowedMethods(Arrays.asList("*"));
 		config.setAllowedHeaders(Arrays.asList("*"));
 		source.registerCorsConfiguration("/**", config);

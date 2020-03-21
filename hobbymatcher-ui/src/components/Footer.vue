@@ -5,13 +5,13 @@
       <span>|</span>
       <router-link to="/about">About</router-link>
       <span>|</span>
-      <router-link to="/signup">Sign Up</router-link>
+      <router-link to="/register">Register</router-link>
       <span>|</span>
-      <router-link to="/signin">Sign In</router-link>
+      <router-link to="/login">Login</router-link>
       <span>|</span>
       <router-link to="/hobbies/create">Create Hobby</router-link>
       <span>|</span>
-      <router-link to="/events/create">Create Events</router-link>
+      <router-link to="/events/create">Create Event</router-link>
     </div>
     <small class="d-inline-block pt-3">
       HobbyMatcher - 2020 All Right Reserved.

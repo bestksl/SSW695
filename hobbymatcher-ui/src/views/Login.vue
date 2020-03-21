@@ -1,5 +1,5 @@
 <template>
-  <div class="event-page">
+  <div class="login-page">
     <div class="p-grid">
       <div class="p-col-10 p-offset-1 text-left">
         <Button
@@ -13,22 +13,22 @@
         <hr />
       </div>
     </div>
-    <EventForm />
+    <LoginForm></LoginForm>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Model } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import { AuthService } from '../components/auth/AuthService'
 
 @Component
-export default class CreateEvent extends Vue {
+export default class Login extends Vue {
   authApi = AuthService.getInstance()
 
   // eslint-disable-next-line space-before-function-paren
   mounted() {
     if (this.authApi.isLogin) {
-      Vue.toasted.show('You have to login first.', { duration: 5000 })
+      Vue.toasted.show('You have to logout first.', { duration: 5000 })
       this.$router.back()
     }
   }
@@ -40,4 +40,4 @@ export default class CreateEvent extends Vue {
 }
 </script>
 
-<style lang="less"></style>
+<style scoped lang="less"></style>

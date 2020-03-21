@@ -12,18 +12,32 @@
           </router-link>
         </h3>
       </div>
-      <div class="p-col-6 text-right">
+      <div v-if="authApi.isLogin" class="p-col-6 text-right">
         <Button
           icon="pi pi-bell"
           class="p-button-secondary mr-2 rounded-circle"
         />
         <img src="@/assets/images/profile-photo.png" class="mr-1" />
-        <Button label="someone" class="p-button-secondary mr-2" />
         <Button
-          label="Sign out"
+          :label="authApi.$resp.firstName"
+          class="p-button-secondary mr-2"
+        />
+        <Button
+          label="Logout"
           icon="pi pi-sign-out"
           class="p-button-secondary"
+          v-on:click="doLogout()"
         />
+      </div>
+      <div v-if="!authApi.isLogin" class="p-col-6 text-right">
+        <router-link to="/login">
+          <Button
+            v-if="!authApi.isLogin"
+            label="Login"
+            icon="pi pi-sign-in"
+            class="p-button-primary"
+          />
+        </router-link>
       </div>
 
       <!-- <div class="p-col-10 p-offset-1 text-left">
@@ -37,9 +51,23 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import { AuthService } from './auth/AuthService'
 
 @Component
-export default class Header extends Vue {}
+export default class Header extends Vue {
+  authApi = AuthService.getInstance()
+
+  // eslint-disable-next-line space-before-function-paren
+  doLogout() {
+    this.authApi
+      .logout()
+      .then((resp: any) => {
+        this.authApi.clearToken()
+        this.authApi.checkLogin()
+      })
+      .catch((err: any) => console.log(err))
+  }
+}
 </script>
 
 <style scoped lang="less">

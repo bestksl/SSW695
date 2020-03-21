@@ -86,12 +86,14 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
-import { Filter } from '../components/search/Filter'
 import { HobbyService } from '../components/hobbies/HobbyService'
 import { EventService } from '../components/events/EventService'
+import { AuthService } from '../components/auth/AuthService'
+import { Filter } from '../components/search/Filter'
 
 @Component
 export default class Home extends Vue {
+  authApi = AuthService.getInstance()
   hobbyiesApi = new HobbyService()
   eventsApi = new EventService()
 

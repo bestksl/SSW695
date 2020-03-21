@@ -1,15 +1,76 @@
+import Vue from 'vue'
 import { http } from '../Api'
 import { NewUser } from './NewUser'
-import { AuthUser } from './AuthUser'
+import { LoginUser } from './LoginUser'
 
 export class AuthService {
+  private static instance: any
+  private resp: any = {}
+
   // eslint-disable-next-line space-before-function-paren
-  signup(newUser: NewUser) {
-    return http.post('/user/adduser', newUser)
+  get isLogin() { return this.resp.isLogin }
+  // eslint-disable-next-line space-before-function-paren
+  get $resp() { return this.resp }
+
+  // eslint-disable-next-line space-before-function-paren
+  public static getInstance() {
+    if (AuthService.instance == null) {
+      AuthService.instance = new AuthService()
+      AuthService.instance.checkLogin()
+    }
+
+    return AuthService.instance
   }
 
   // eslint-disable-next-line space-before-function-paren
-  signin(authUser: AuthUser) {
-    return http.post('/user/adduser', authUser)
+  constructor() {
+    const token = Vue.$cookies.get('jwt-token')
+    if (token) { this.useJwtToken(token) }
+    console.log('created instnace')
+  }
+
+  // eslint-disable-next-line space-before-function-paren
+  checkLogin() {
+    this.handshake()
+      .then((resp: any) => (this.resp = resp.data))
+      .catch((err: any) => console.log(err))
+  }
+
+  // eslint-disable-next-line space-before-function-paren
+  register(newUser: NewUser) {
+    return http.post('/register', newUser)
+  }
+
+  // eslint-disable-next-line space-before-function-paren
+  login(authUser: LoginUser) {
+    return http.post('/login', authUser)
+  }
+
+  // eslint-disable-next-line space-before-function-paren
+  logout() {
+    return http.post('/logout')
+  }
+
+  // eslint-disable-next-line space-before-function-paren
+  storeToken(token: string) {
+    token = 'Bearer ' + token
+    this.useJwtToken(token)
+    Vue.$cookies.set('jwt-token', token)
+  }
+
+  // eslint-disable-next-line space-before-function-paren
+  clearToken() {
+    this.useJwtToken(null)
+    Vue.$cookies.set('jwt-token', null)
+  }
+
+  // eslint-disable-next-line space-before-function-paren
+  private useJwtToken(token: any) {
+    http.defaults.headers.common.Authorization = token
+  }
+
+  // eslint-disable-next-line space-before-function-paren
+  handshake() {
+    return http.get('/handshake')
   }
 }

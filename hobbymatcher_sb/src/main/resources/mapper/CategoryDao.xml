@@ -5,9 +5,9 @@
 <mapper namespace="com.hobbymatcher.dao.CategoryDao">
 	<select id="queryCategory"
 		resultType="com.hobbymatcher.entity.Category">
-		SELECT *
-		FROM category
-		ORDER BY id DESC
+		select *
+		from category
+		order by id desc
 	</select>
 
 	<select id="findCategoryById" parameterType="map"

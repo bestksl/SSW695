@@ -1,5 +1,5 @@
 <template>
-  <div class="signup-form">
+  <div class="register-form">
     <ValidationObserver v-slot="{ invalid }">
       <form @submit.prevent="save">
         <div class="p-grid">
@@ -19,22 +19,43 @@
             </ValidationProvider>
           </div>
           <div class="p-offset-1 p-col-2 text-right">
-            <label>Nick Name</label>
+            <label>Last Name</label>
           </div>
           <div class="p-col-7 text-left">
-            <ValidationProvider name="nick name" v-slot="{ errors }" rules="">
-              <InputText type="text" v-model="model.nickName" size="40" />
+            <ValidationProvider name="last name" v-slot="{ errors }" rules="">
+              <InputText type="text" v-model="model.lastName" size="40" />
+              <ul v-if="errors.length" class="v-error">
+                <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+              </ul>
+            </ValidationProvider>
+          </div>
+          <div class="p-offset-1 p-col-2 p-align-center">
+            <div class="text-right pt-1">Date of Birth</div>
+          </div>
+          <div class="p-col-8 text-left">
+            <ValidationProvider
+              name="date of birth"
+              v-slot="{ errors }"
+              rules="required"
+            >
+              <Calendar
+                v-model="model.dateOfBirth"
+                view="month"
+                dateFormat="mm/yy"
+                :yearNavigator="true"
+                yearRange="1970:2004"
+              />
               <ul v-if="errors.length" class="v-error">
                 <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
               </ul>
             </ValidationProvider>
           </div>
           <div class="p-offset-1 p-col-2 text-right">
-            <label>Last Name</label>
+            <label>Nick Name</label>
           </div>
           <div class="p-col-7 text-left">
-            <ValidationProvider name="last name" v-slot="{ errors }" rules="">
-              <InputText type="text" v-model="model.lastName" size="40" />
+            <ValidationProvider name="nick name" v-slot="{ errors }" rules="">
+              <InputText type="text" v-model="model.nickName" size="40" />
               <ul v-if="errors.length" class="v-error">
                 <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
               </ul>
@@ -56,7 +77,7 @@
             </ValidationProvider>
           </div>
           <div class="p-offset-1 p-col-2 text-right">
-            <label>PassWord</label>
+            <label>Password</label>
           </div>
           <div class="p-col-7 text-left">
             <ValidationProvider
@@ -64,7 +85,7 @@
               v-slot="{ errors }"
               rules="required|min:6|max:32"
             >
-              <Password v-model="model.passWord" size="40" />
+              <Password v-model="model.password" size="40" />
               <ul v-if="errors.length" class="v-error">
                 <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
               </ul>
@@ -75,10 +96,10 @@
               label="Back"
               icon="pi pi-chevron-left"
               class="p-button-secondary"
-              v-on:click="window.history.back()"
+              v-on:click="back()"
             />
             <Button
-              label="Sign Up"
+              label="Register"
               icon="pi pi-check"
               class="p-button-primary"
               :disabled="invalid"
@@ -96,20 +117,33 @@ import { AuthService } from './AuthService'
 import { NewUser } from './NewUser'
 
 @Component
-export default class SignUpForm extends Vue {
-  model: NewUser = {} as NewUser
-  api: AuthService = new AuthService()
+export default class RegisterForm extends Vue {
+  api: AuthService = AuthService.getInstance()
+
+  model: NewUser = {
+    firstName: 'Jafar',
+    lastName: 'Abbasi',
+    dateOfBirth: new Date(1991, 2, 3),
+    nickName: 'jafar',
+    email: 'jafar@gmail.com',
+    password: 'jafarjafar'
+  } as NewUser
+
+  // eslint-disable-next-line space-before-function-paren
+  back() {
+    window.history.back()
+  }
 
   // eslint-disable-next-line space-before-function-paren
   save() {
     this.api
-      .signup(this.model)
+      .register(this.model)
       .then((resp: any) => {
         this.model = {} as NewUser
-        Vue.toasted.show('You have been signed up.', { duration: 5000 })
+        Vue.toasted.show('You have been registered.', { duration: 5000 })
       })
       .catch((err: any) => {
-        Vue.toasted.show('Failed to signup.', { duration: 5000 })
+        Vue.toasted.show('Failed to register.', { duration: 5000 })
         console.log(err)
       })
   }
