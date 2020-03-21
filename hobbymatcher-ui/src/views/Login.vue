@@ -24,6 +24,7 @@ import { AuthService } from '../components/auth/AuthService'
 @Component
 export default class Login extends Vue {
   authApi = AuthService.getInstance()
+
   // eslint-disable-next-line space-before-function-paren
   mounted() {
     if (this.authApi.isLogin) {
@@ -31,6 +32,7 @@ export default class Login extends Vue {
       this.$router.back()
     }
   }
+
   // eslint-disable-next-line space-before-function-paren
   back() {
     window.history.back()
