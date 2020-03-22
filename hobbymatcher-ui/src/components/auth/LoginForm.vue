@@ -85,6 +85,7 @@ export default class LoginForm extends Vue {
         this.model = {} as LoginUser
         this.authApi.storeToken(resp.data.jwt)
         this.authApi.checkLogin()
+        this.authApi.goHome(this.$router)
         Vue.toasted.show('You have been logged in.', { duration: 5000 })
       })
       .catch((err: any) => {

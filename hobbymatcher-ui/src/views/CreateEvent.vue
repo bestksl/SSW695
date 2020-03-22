@@ -27,8 +27,8 @@ export default class CreateEvent extends Vue {
 
   // eslint-disable-next-line space-before-function-paren
   mounted() {
-    if (this.authApi.isLogin) {
-      Vue.toasted.show('You have to login first.', { duration: 5000 })
+    if (!this.authApi.isLogin) {
+      Vue.toasted.show('You have to be logged in to access this page.', { duration: 5000 })
       this.$router.back()
     }
   }

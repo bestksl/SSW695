@@ -64,6 +64,7 @@ export default class Header extends Vue {
       .then((resp: any) => {
         this.authApi.clearToken()
         this.authApi.checkLogin()
+        this.authApi.goHome(this.$router)
       })
       .catch((err: any) => console.log(err))
   }

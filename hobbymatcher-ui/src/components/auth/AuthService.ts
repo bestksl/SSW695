@@ -73,4 +73,11 @@ export class AuthService {
   handshake() {
     return http.get('/handshake')
   }
+
+  // eslint-disable-next-line space-before-function-paren
+  goHome(router: any) {
+    if (window.location.pathname !== '/') {
+      router.push({ name: 'home' })
+    }
+  }
 }
