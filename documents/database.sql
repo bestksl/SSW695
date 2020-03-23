@@ -12,14 +12,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `first_name` VARCHAR(64) NOT NULL,
   `last_name` VARCHAR(64) NULL,
   `nick_name` VARCHAR(32) NULL,
-  `email_addr` VARCHAR(64) NOT NULL,
+  `email` VARCHAR(64) NOT NULL,
   `password` VARCHAR(256) NOT NULL,
   `date_of_birth` VARCHAR(45) NULL,
   `gender` CHAR(16) NULL,
   `permissions` VARCHAR(128) NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
-  UNIQUE INDEX `email_addr_UNIQUE` (`email_addr` ASC))
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC))
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------

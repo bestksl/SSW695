@@ -1,0 +1,6 @@
+# How to run:
+- First run the Spring Boot application (port 8080).
+  - Make sure you are running Spring Boot using Java 1.8
+  - Make sure you have the latest version of database from [/documents/database.sql]
+  - Edit [/hobbymatcher_sb/src/main/resources/fileupload.properties] and specify the path that should be used to store the uploaded files.
+- Then open the frontend path in terminal and run [npm run serve] command.
