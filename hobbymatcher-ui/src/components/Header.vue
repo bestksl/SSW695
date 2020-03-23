@@ -2,15 +2,30 @@
   <div class="header pt-3 pb-2">
     <div class="p-grid">
       <div class="p-col-6 pl-5">
-        <img
-          src="@/assets/images/logo-200x200.png"
-          class="rounded-circle logo"
-        />
-        <h3 class="d-inline-block mx-4 my-0 pb-1 app-name">
-          <router-link to="/">
-            Hobby Matcher
-          </router-link>
-        </h3>
+        <!-- logo here -->
+        <router-link to="/">
+          <img
+            src="@/assets/images/logo-180x90.png"
+            class="rounded logo"
+          />
+        </router-link>
+
+        <!-- location-header -->
+        <div class="d-inline-block locationButton">
+          <a href="">
+            <i class="fas fa-map-marker-alt"></i>
+            <span class="city-location">&nbsp;(NY)New York&nbsp;</span>
+            <i class="fas fa-caret-down"></i>
+          </a>
+        </div>
+
+<!--        <h3 class="d-inline-block mx-4 my-0 pb-1 app-name">-->
+<!--          <router-link to="/">-->
+<!--            Hobby Matcher-->
+<!--          </router-link>-->
+<!--        </h3>-->
+
+      <!-- log in and sign up -->
       </div>
       <div v-if="authApi.isLogin" class="p-col-6 text-right">
         <Button
@@ -72,15 +87,28 @@ export default class Header extends Vue {
 </script>
 
 <style scoped lang="less">
+
+.header {
+  background-color: #fff;
+}
 .header img {
-  width: 32px;
-  height: 32px;
+  width: 180px;
+  height: 90px;
   vertical-align: bottom;
 }
 .logo {
   background-color: white;
 }
-.app-name {
-  color: white;
+.locationButton {
+  margin-left: 30px;
+  line-height: 80px;
 }
+
+.locationButton a {
+  color: #050505;
+}
+
+/*.app-name {*/
+/*  color: white;*/
+/*}*/
 </style>
