@@ -7,7 +7,7 @@
       v-for="event of events"
       :key="event.id"
       :model="event"
-      class="d-inline-block mr-4 mb-4"
+      class="d-inline-block mx-5 mb-5"
     />
   </div>
 </template>
