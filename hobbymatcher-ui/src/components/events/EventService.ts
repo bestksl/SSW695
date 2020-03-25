@@ -2,15 +2,20 @@ import { http } from '../Api'
 import { Event } from './Event'
 
 export class EventService {
-  list () {
-    return http.get('/events/listevents')
+  // eslint-disable-next-line space-before-function-paren
+  list() {
+    return http.get('/event/listevent')
   }
 
-  create (event: Event) {
-    return http.post('/events/addevents', event)
+  // eslint-disable-next-line space-before-function-paren
+  add(event: FormData) {
+    return http.post('/event/addevent', event, {
+      headers: { 'content-type': 'multipart/form-data' }
+    })
   }
 
-  delete (event: Event) {
-    return http.post('/events/deleteevents', [event])
+  // eslint-disable-next-line space-before-function-paren
+  get(id: any) {
+    return http.get('/event/getevent?id=' + id)
   }
 }

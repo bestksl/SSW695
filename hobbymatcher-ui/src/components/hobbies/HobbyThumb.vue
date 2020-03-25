@@ -1,24 +1,33 @@
 <template>
-  <router-link to="/hobbies/view">
+  <router-link :to="'/hobbies/view?id=' + hobby.id">
     <div class="hobby-thumb">
-      <img src="@/assets/images/logo-200x200.png" class="cover" />
+      <img
+        v-if="!hobby.photoId"
+        src="@/assets/images/logo-200x200.png"
+        class="cover"
+      />
+      <img
+        v-if="hobby.photoId"
+        :src="'http://localhost:8080/hobbymatcher/files/' + hobby.photoId"
+        class="cover"
+      />
       <span class="hobby-title">{{ hobby.name }}</span>
     </div>
   </router-link>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Hobby } from './Hobby'
 
 @Component
 export default class HobbyThumb extends Vue {
-  @Prop() model!: Hobby
-  hobby: Hobby = {
-    name: 'Jogging',
-    description: 'This is a fun hobby.',
-    plus18: false
-  } as Hobby
+  @Model() model!: Hobby
+
+  // eslint-disable-next-line space-before-function-paren
+  get hobby() {
+    return this.model || {}
+  }
 }
 </script>
 

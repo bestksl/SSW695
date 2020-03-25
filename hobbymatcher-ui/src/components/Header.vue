@@ -2,28 +2,57 @@
   <div class="header pt-3 pb-2">
     <div class="p-grid">
       <div class="p-col-6 pl-5">
-        <img
-          src="@/assets/images/logo-200x200.png"
-          class="rounded-circle logo"
-        />
-        <h3 class="d-inline-block mx-4 my-0 pb-1 app-name">
-          <router-link to="/">
-            Hobby Matcher
-          </router-link>
-        </h3>
+        <!-- logo here -->
+        <router-link to="/">
+          <img
+            src="@/assets/images/logo-180x90.png"
+            class="rounded logo"
+          />
+        </router-link>
+
+        <!-- location-header -->
+        <div class="d-inline-block locationButton">
+          <a href="">
+            <i class="fas fa-map-marker-alt"></i>
+            <span class="city-location">&nbsp;(NY)New York&nbsp;</span>
+            <i class="fas fa-caret-down"></i>
+          </a>
+        </div>
+
+<!--        <h3 class="d-inline-block mx-4 my-0 pb-1 app-name">-->
+<!--          <router-link to="/">-->
+<!--            Hobby Matcher-->
+<!--          </router-link>-->
+<!--        </h3>-->
+
+      <!-- log in and sign up -->
       </div>
-      <div class="p-col-6 text-right">
+      <div v-if="authApi.isLogin" class="p-col-6 text-right">
         <Button
           icon="pi pi-bell"
           class="p-button-secondary mr-2 rounded-circle"
         />
         <img src="@/assets/images/profile-photo.png" class="mr-1" />
-        <Button label="someone" class="p-button-secondary mr-2" />
         <Button
-          label="Sign out"
+          :label="authApi.$resp.firstName"
+          class="p-button-secondary mr-2"
+        />
+        <Button
+          label="Logout"
           icon="pi pi-sign-out"
           class="p-button-secondary"
+          v-on:click="doLogout()"
         />
+      </div>
+      <div v-if="!authApi.isLogin" class="p-col-6 text-right">
+        <router-link to="/login">
+          <Button
+            v-if="!authApi.isLogin"
+            label="Login"
+            icon="pi pi-sign-in"
+            class="p-button-primary"
+          />
+        </router-link>
       </div>
 
       <!-- <div class="p-col-10 p-offset-1 text-left">
@@ -37,21 +66,49 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import { AuthService } from './auth/AuthService'
 
 @Component
-export default class Header extends Vue {}
+export default class Header extends Vue {
+  authApi = AuthService.getInstance()
+
+  // eslint-disable-next-line space-before-function-paren
+  doLogout() {
+    this.authApi
+      .logout()
+      .then((resp: any) => {
+        this.authApi.clearToken()
+        this.authApi.checkLogin()
+        this.authApi.goHome(this.$router)
+      })
+      .catch((err: any) => console.log(err))
+  }
+}
 </script>
 
 <style scoped lang="less">
+
+.header {
+  background-color: #fff;
+}
 .header img {
-  width: 32px;
-  height: 32px;
+  width: 180px;
+  height: 90px;
   vertical-align: bottom;
 }
 .logo {
   background-color: white;
 }
-.app-name {
-  color: white;
+.locationButton {
+  margin-left: 30px;
+  line-height: 80px;
 }
+
+.locationButton a {
+  color: #050505;
+}
+
+/*.app-name {*/
+/*  color: white;*/
+/*}*/
 </style>

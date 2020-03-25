@@ -1,5 +1,8 @@
 <template>
   <div class="hobby-thumbs">
+    <div v-if="!hobbies || hobbies.length == 0" class="text-center">
+      No Hobbies
+    </div>
     <HobbyThumb
       v-for="hobby of hobbies"
       :key="hobby.id"
@@ -11,26 +14,16 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
+import { HobbyService } from './HobbyService'
 import { Hobby } from './Hobby'
 
 @Component
 export default class HobbyThumbs extends Vue {
-  @Model() model!: Hobby
-  hobbies: Hobby[] = [
-    {
-      name: 'Jogging',
-      description: 'This is a fun hobby.',
-      plus18: false
-    } as Hobby
-  ]
+  @Model() model!: Hobby[]
 
   // eslint-disable-next-line space-before-function-paren
-  constructor() {
-    super()
-
-    for (let i = 0; i < 11; i++) {
-      this.hobbies.push(this.hobbies[0])
-    }
+  get hobbies() {
+    return this.model || []
   }
 }
 </script>

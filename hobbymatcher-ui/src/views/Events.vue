@@ -2,21 +2,21 @@
   <div class="more-events-page">
     <div class="p-grid">
       <div class="p-offset-1 p-col-2">
-        <FilterCategories v-model="model" />
+        <FilterCategories v-model="filter" />
       </div>
       <div class="p-col-8">
         <div class="p-grid">
           <div class="p-col-12">
-            <FilterBar v-model="model" />
+            <FilterBar v-model="filter" />
           </div>
           <div class="p-col-12">
-            <EventSearchResults />
+            <EventSearchResults v-model="events" />
           </div>
           <div class="p-col-12">
             <Paginator
-              :rows="model.perpage"
-              :totalRecords="model.count"
-              :first.sync="model.offset"
+              :rows="filter.perpage"
+              :totalRecords="filter.count"
+              :first.sync="filter.offset"
               @page="pageChanged($event)"
             >
             </Paginator>
@@ -30,15 +30,29 @@
 <script lang="ts">
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Filter } from '../components/search/Filter'
+import { EventService } from '../components/events/EventService'
+import { Event } from '../components/events/Event'
 
 @Component
 export default class Events extends Vue {
-  model: Filter = {
+  api = new EventService()
+
+  events: Event[] = []
+
+  filter: Filter = {
     searchScope: 'hobby',
     count: 48,
     perpage: 10,
     offset: 0 // zero-based index
   } as Filter
+
+  // eslint-disable-next-line space-before-function-paren
+  mounted() {
+    this.api
+      .list()
+      .then((resp: any) => (this.events = resp.data.list))
+      .catch((err: any) => console.log(err))
+  }
 
   // eslint-disable-next-line space-before-function-paren
   pageChanged($event: any) {

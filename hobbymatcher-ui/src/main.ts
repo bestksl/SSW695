@@ -3,7 +3,9 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
+import VueCookies from 'vue-cookies'
 
+import VueFilterDateParse from 'vue-filter-date-parse'
 import VueFilterDateFormat from 'vue-filter-date-format'
 
 // -- import fontawesome --
@@ -44,8 +46,8 @@ import * as rules from 'vee-validate/dist/rules'
 // -- declare our components --
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
-import SignUpForm from './components/auth/SignUpForm.vue'
-import SignInForm from './components/auth/SignInForm.vue'
+import RegisterForm from './components/auth/RegisterForm.vue'
+import LoginForm from './components/auth/LoginForm.vue'
 import EventView from './components/events/EventView.vue'
 import EventForm from './components/events/EventForm.vue'
 import EventThumb from './components/events/EventThumb.vue'
@@ -63,7 +65,11 @@ import FilterCategories from './components/search/FilterCategories.vue'
 import EventSearchResults from './components/events/EventSearchResults.vue'
 import BlogsList from './components/blogs/BlogsList.vue'
 import BlogsListing from './components/blogs/BlogsListing.vue'
+import HobbyThumbV2 from './components/hobbies/HobbyThumbV2.vue'
 
+Vue.use(VueCookies)
+
+Vue.use(VueFilterDateParse)
 Vue.use(VueFilterDateFormat)
 
 // -- registring primevue library --
@@ -101,8 +107,8 @@ localize({ en }) // Install English locales.
 // -- registring our components --
 Vue.component('Header', Header)
 Vue.component('Footer', Footer)
-Vue.component('SignUpForm', SignUpForm)
-Vue.component('SignInForm', SignInForm)
+Vue.component('RegisterForm', RegisterForm)
+Vue.component('LoginForm', LoginForm)
 Vue.component('EventView', EventView)
 Vue.component('EventForm', EventForm)
 Vue.component('EventThumb', EventThumb)
@@ -120,6 +126,7 @@ Vue.component('FilterCategories', FilterCategories)
 Vue.component('EventSearchResults', EventSearchResults)
 Vue.component('BlogsList', BlogsList)
 Vue.component('BlogsListing', BlogsListing)
+Vue.component('HobbyThumbV2', HobbyThumbV2)
 // -------------------------------
 
 Vue.config.productionTip = false

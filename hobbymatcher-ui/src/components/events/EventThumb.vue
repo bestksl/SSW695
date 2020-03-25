@@ -1,11 +1,24 @@
 <template>
-  <router-link to="/events/view">
+  <router-link :to="'/events/view?id=' + event.id">
     <div class="event-thumb">
-      <img src="@/assets/images/logo-200x200.png" class="cover" />
+      <img
+        v-if="!event.photoId"
+        src="@/assets/images/logo-200x200.png"
+        class="cover"
+      />
+      <img
+        v-if="event.photoId"
+        :src="'http://localhost:8080/hobbymatcher/files/' + event.photoId"
+        class="cover"
+      />
       <span class="event-title">{{ event.title }}</span>
-      <span class="event-datetime">{{
-        event.datetime | dateFormat('MMM DD hh:mm a')
-      }}</span>
+      <span class="event-datetime" v-if="event.onDatetime">
+        {{
+          event.onDatetime
+            | dateParse('YYYY-MM-DDTHH:mm:ss.000+0000')
+            | dateFormat('MMM DD, YYYY h:mma')
+        }}
+      </span>
       <span class="event-location">{{ event.location }}</span>
     </div>
   </router-link>
@@ -18,17 +31,11 @@ import { Event } from './Event'
 @Component
 export default class EventThumb extends Vue {
   @Model() model!: Event
-  event: Event = {
-    title: 'Sunday Jogging',
-    datetime: new Date('2020-10-10'),
-    location: 'Hoboken, NJ',
-    capacity: 10,
-    description: 'This is going to be a fun weekly event.',
-    plus18: false,
-    fee: 0,
-    organizer: 'Stevens Institute of Technology Fun Club',
-    coverPhotoId: '@/assets/images/logo-200x200.png'
-  } as Event
+
+  // eslint-disable-next-line space-before-function-paren
+  get event() {
+    return this.model || {}
+  }
 }
 </script>
 

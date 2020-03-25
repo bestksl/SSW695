@@ -1,23 +1,24 @@
 package com.hobbymatcher.dao;
 
-import com.hobbymatcher.entity.Hobby;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.hobbymatcher.entity.Hobby;
 
 @Repository
 public interface HobbyDao {
-    List<Hobby> queryHobby();
 
-    int insertHobby(Hobby hobby);
+	List<Hobby> listHobby();
 
-    Hobby findHobbyByName(@Param("name") String name);
+	int insertHobby(Hobby hobby);
 
-    Hobby findHobbyById(@Param("id") int id);
+	Hobby findHobbyByName(@Param("name") String name);
 
-    int updateHobby(Hobby hobby);
+	Hobby findHobbyById(@Param("id") int id);
 
-    int deleteHobby(@Param("id") int id);
+	int updateHobby(Hobby hobby);
 
+	int deleteHobby(@Param("id") int id);
 }

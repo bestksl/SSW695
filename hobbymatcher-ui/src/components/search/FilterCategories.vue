@@ -7,7 +7,7 @@
       :multiple="true"
       optionLabel="label"
       optionValue="id"
-      class="w-100"
+      style="width: 120px;"
     />
   </div>
 </template>

@@ -1,102 +1,92 @@
 package com.hobbymatcher.service.impl;
 
-import com.hobbymatcher.dao.UserDao;
-import com.hobbymatcher.entity.Permission;
-import com.hobbymatcher.entity.User;
-import com.hobbymatcher.service.UserService;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.hobbymatcher.dao.UserDao;
+import com.hobbymatcher.entity.User;
+import com.hobbymatcher.service.UserService;
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
-    Logger logger = Logger.getLogger(UserServiceImpl.class);
-    @Autowired
-    private UserDao userDao;
-    @Autowired
-    private PasswordEncoder encoder;
+public class UserServiceImpl implements UserService {
 
+	Logger logger = Logger.getLogger(UserServiceImpl.class);
 
-    @Override
-    public List<User> getUserList() {
-        return userDao.queryUser();
-    }
+	@Autowired
+	private UserDao userDao;
 
-    @Override
-    public boolean register(User user) {
-        try {
-            user.setPassword(encoder.encode(user.getPassword()));
-            List<GrantedAuthority> authorities = (List<GrantedAuthority>) user.getAuthorities();
-            authorities.add(new SimpleGrantedAuthority("ROLE_USER_BASIC"));
-            user.setAuthorities(authorities);
-            userDao.insertUser(user);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
+	@Autowired
+	private PasswordEncoder encoder;
 
-    @Override
-    public boolean login(String email, String passWord) {
-        String encodePassword = encoder.encode(passWord);
-        User user = userDao.findUserByEmailAndPwd(email, passWord);
-        return user != null;
-    }
+	@Override
+	public List<User> listUser() {
+		return userDao.listUser();
+	}
 
-    @Override
-    public boolean deleteUser(String id) {
-        try {
-            userDao.deleteUser(id);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
+	@Override
+	public Boolean register(User user) {
+		try {
+			user.setPassword(encoder.encode(user.getPassword()));
+			userDao.insertUser(user);
+			return true;
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			return false;
+		}
+	}
 
-    @Override
-    public User findUserByEmail(String email) {
-        return userDao.findUserByEmail(email);
-    }
+	@Override
+	public User findUserById(String id) {
+		return userDao.findUserById(id);
+	}
 
-    @Override
-    public Boolean updateUser(User user) {
-        try {
-            user.setPassword(encoder.encode(user.getPassword()));
-            return userDao.updateUser(user) == 1;
-        } catch (Exception e) {
-            // System.out.println(e);
-            return false;
-        }
-    }
+	@Override
+	public User findUserByEmail(String email) {
+		return userDao.findUserByEmail(email);
+	}
 
-    @Override
-    public User findUserById(String id) {
-        return userDao.findUserById(id);
-    }
+	@Override
+	public Boolean login(String email, String password) {
+		return userDao.findUserByEmailAndPwd(email, encoder.encode(password)) != null;
+	}
 
-    @Override
-    public User loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userDao.findUserByEmail(email);
-        if (user != null) {
-            List<Permission> permissionList = userDao.findPermissionByEmail(email);
-            List<GrantedAuthority> authorities = new ArrayList<>();
-            for (Permission permission : permissionList) {
-                GrantedAuthority authority = new SimpleGrantedAuthority(permission.getPermTag());
-                authorities.add(authority);
-            }
-            user.setAuthorities(authorities);
-            return user;
-        } else {
-            return new User();
-        }
-    }
+	@Override
+	public Boolean updateUser(User user) {
+		try {
+			if (user.getPassword() != null) {
+				user.setPassword(encoder.encode(user.getPassword()));
+			}
 
+			return userDao.updateUser(user) == 1;
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public Boolean deleteUser(String id) {
+		try {
+			userDao.deleteUser(id);
+			return true;
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		UserDetails details = findUserByEmail(username);
+		if (details == null) {
+			throw new UsernameNotFoundException("");
+		}
+		return details;
+	}
 }

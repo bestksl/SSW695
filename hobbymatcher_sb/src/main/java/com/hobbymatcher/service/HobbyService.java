@@ -1,19 +1,18 @@
 package com.hobbymatcher.service;
 
-import com.hobbymatcher.entity.Hobby;
-
 import java.util.List;
 
+import com.hobbymatcher.entity.Hobby;
+
 public interface HobbyService {
-    List<Hobby> listHobby();
 
-    boolean deleteHobby(int id);
+	List<Hobby> listHobby();
 
-    boolean updateHobby(Hobby hobby);
+	boolean insertHobby(Hobby hobby);
 
-    Hobby findHobbyByName(String name);
+	Hobby findHobbyById(int id);
 
-    Hobby findHobbyById(int id);
+	Hobby findHobbyByName(String name);
 
-    boolean insertHobby(Hobby hobby);
+	boolean updateHobby(Hobby hobby);
 }
