@@ -16,6 +16,8 @@ public interface EventService {
 
 	List<Event> listEventByHobbyId(int id);
 
+	boolean checkEvent(Event event);
+
 //	List<Event> findPastEvents(String id, LocalDateTime currentTime);
 //
 //	List<Event> findUpcomingEvents(String id, LocalDateTime currentTime);
