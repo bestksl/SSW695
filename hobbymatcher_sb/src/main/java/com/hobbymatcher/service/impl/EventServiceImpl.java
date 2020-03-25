@@ -12,43 +12,57 @@ import com.hobbymatcher.service.EventService;
 @Service
 public class EventServiceImpl implements EventService {
 
-	private final EventDao eventDao;
+    private final EventDao eventDao;
 
-	@Autowired
-	public EventServiceImpl(EventDao eventsDao) {
-		this.eventDao = eventsDao;
-	}
+    @Autowired
+    public EventServiceImpl(EventDao eventsDao) {
+        this.eventDao = eventsDao;
+    }
 
-	@Override
-	public List<Event> listEvent() {
-		return eventDao.listEvent();
-	}
+    @Override
+    public List<Event> listEvent() {
+        return eventDao.listEvent();
+    }
 
-	@Override
-	public boolean insertEvent(Event event) {
-		try {
-			eventDao.insertEvent(event);
-			return true;
-		} catch (Exception exp) {
-			exp.printStackTrace();
-			return false;
-		}
-	}
+    @Override
+    public boolean insertEvent(Event event) {
+        try {
+            eventDao.insertEvent(event);
+            return true;
+        } catch (Exception exp) {
+            exp.printStackTrace();
+            return false;
+        }
+    }
 
-	@Override
-	public Event findEventById(int id) {
-		return eventDao.findEventById(id);
-	}
+    @Override
+    public Event findEventById(int id) {
+        return eventDao.findEventById(id);
+    }
 
-	@Override
-	public Event findEventByTitle(String title) {
-		return eventDao.findEventByTitle(title);
-	}
+    @Override
+    public Event findEventByTitle(String title) {
+        return eventDao.findEventByTitle(title);
+    }
 
-	@Override
-	public List<Event> listEventByHobbyId(int id) {
-		return eventDao.listEventByHobbyId(id);
-	}
+    @Override
+    public List<Event> listEventByHobbyId(int id) {
+        return eventDao.listEventByHobbyId(id);
+    }
+
+    @Override
+    public boolean checkEvent(Event event) {
+
+        if (event == null)
+            return false;
+
+        //check event important attr
+        if (event.getId() == null || event.getId() < 0)
+            return false;
+        else if (event.getTitle() == null || "".equals(event.getTitle()))
+            return false;
+        else return event.getDescription() != null && !"".equals(event.getDescription());
+    }
 
 //    @Override
 //    public boolean joinEvents(String id, String eventsId)
