@@ -14,7 +14,7 @@ public interface UserDao {
 
 	int insertUser(User user);
 
-	User findUserById(@Param("id") String id);
+	User findUserById(@Param("id") Integer id);
 
 	User findUserByEmail(@Param("email") String email);
 
@@ -22,5 +22,5 @@ public interface UserDao {
 
 	int updateUser(User user);
 
-	int deleteUser(@Param("id") String id);
+	int deleteUser(@Param("id") Integer id);
 }

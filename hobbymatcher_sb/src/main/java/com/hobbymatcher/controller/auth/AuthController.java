@@ -57,6 +57,7 @@ public class AuthController {
 			resp.put("lastName", user.getLastName());
 			resp.put("nickName", user.getNickName());
 			resp.put("email", user.getEmail());
+			resp.put("photoId", user.getPhotoId());
 		}
 
 		return resp;

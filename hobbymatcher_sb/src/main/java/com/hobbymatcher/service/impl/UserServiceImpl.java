@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findUserById(String id) {
+	public User findUserById(Integer id) {
 		return userDao.findUserById(id);
 	}
 
@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Boolean deleteUser(String id) {
+	public Boolean deleteUser(Integer id) {
 		try {
 			userDao.deleteUser(id);
 			return true;

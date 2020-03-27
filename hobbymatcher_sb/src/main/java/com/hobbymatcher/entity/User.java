@@ -14,7 +14,7 @@ public class User implements UserDetails, Serializable {
 
 	private static final long serialVersionUID = -1171939848141912952L;
 
-	private String id;
+	private Integer id;
 	private String firstName;
 	private String nickName;
 	private String lastName;
@@ -22,14 +22,15 @@ public class User implements UserDetails, Serializable {
 	private String password;
 	private Date dateOfBirth;
 	private Gender gender;
+	private String photoId;
 
 	private String permissions;
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -87,6 +88,14 @@ public class User implements UserDetails, Serializable {
 
 	public void setGender(Gender gender) {
 		this.gender = gender;
+	}
+
+	public String getPhotoId() {
+		return photoId;
+	}
+
+	public void setPhotoId(String photoId) {
+		this.photoId = photoId;
 	}
 
 	@Override

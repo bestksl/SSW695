@@ -29,6 +29,11 @@ const routes = [
     component: () => import('../views/Login.vue')
   },
   {
+    path: '/profile',
+    name: 'profile',
+    component: () => import('../views/Profile.vue')
+  },
+  {
     path: '/hobbies/create',
     name: 'create-hobby',
     component: () => import('../views/CreateHobby.vue')

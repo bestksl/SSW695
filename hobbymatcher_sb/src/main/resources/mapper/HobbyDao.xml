@@ -12,8 +12,8 @@
 
 	<insert id="insertHobby" useGeneratedKeys="true"
 		keyProperty="id">
-		insert into hobby (name, description, category_id, plus18_only, photo_id)
-		values (#{name}, #{description}, #{categoryId}, #{plus18Only}, #{photoId})
+		insert into hobby (name, description, category_id, plus18_only, photo_id, created_by_id)
+		values (#{name}, #{description}, #{categoryId}, #{plus18Only}, #{photoId}, #{createdById})
 	</insert>
 
 	<select id="findHobbyById" parameterType="map"
@@ -38,7 +38,7 @@
 			<if test="description != null">description=#{description},</if>
 			<if test="categoryId != null">category_id=#{categoryId},</if>
 			<if test="plus18Only != null">plus18_only=#{plus18Only},</if>
-			<if test="photoId != null">photo_id=#{photoId},</if>
+			<if test="photoId != null">photo_id=#{photoId}</if>
 		</set>
 		where id=#{id}
 	</update>

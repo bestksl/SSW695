@@ -3,6 +3,7 @@ package com.hobbymatcher.controller.hobby;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.hobbymatcher.authentication.service.JwtUtilService;
 import com.hobbymatcher.entity.Hobby;
 import com.hobbymatcher.service.HobbyService;
+import com.hobbymatcher.service.impl.AuthUtilService;
 import com.hobbymatcher.util.FileUtil;
 
 @CrossOrigin
@@ -26,12 +29,11 @@ import com.hobbymatcher.util.FileUtil;
 @RequestMapping("/hobby")
 public class HobbyController {
 
-	private final HobbyService hobbyService;
+	@Autowired
+	private HobbyService hobbyService;
 
 	@Autowired
-	public HobbyController(HobbyService hobbyService) {
-		this.hobbyService = hobbyService;
-	}
+	private AuthUtilService authUtilService;
 
 	@RequestMapping(value = "/listhobby", method = RequestMethod.GET)
 	@ResponseBody
@@ -52,11 +54,12 @@ public class HobbyController {
 	// addhobby
 	@RequestMapping(value = "/addhobby", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> addHobby(HttpServletResponse response, //
+	public Map<String, Object> addHobby(HttpServletRequest req, HttpServletResponse response, //
 			@ModelAttribute Hobby hobby, @RequestPart("file") MultipartFile imageFile) {
 		Map<String, Object> resp = new HashMap<String, Object>();
 		if (hobby != null) {
 			hobby.setPhotoId(FileUtil.transferFile(imageFile));
+			hobby.setCreatedById(authUtilService.getUserId(req));
 			Boolean inserted = hobbyService.insertHobby(hobby);
 			resp.put("success", inserted);
 			response.setStatus(inserted ? 200 : 400);
@@ -89,6 +92,27 @@ public class HobbyController {
 			response.setStatus(400);
 		}
 		return resp;
+	}
+
+	// edithobby
+	@RequestMapping(value = "/edithobby", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> editHobby(HttpServletResponse response, //
+			@ModelAttribute Hobby hobby, @RequestPart("file") MultipartFile imageFile) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		if (hobby != null) {
+			if (!imageFile.isEmpty()) {
+				hobby.setPhotoId(FileUtil.transferFile(imageFile));
+			}
+			Boolean inserted = hobbyService.updateHobby(hobby);
+			resp.put("success", inserted);
+			response.setStatus(inserted ? 200 : 400);
+			return resp;
+		} else {
+			resp.put("success", false);
+			response.setStatus(400);
+			return resp;
+		}
 	}
 
 //	// deletehobby

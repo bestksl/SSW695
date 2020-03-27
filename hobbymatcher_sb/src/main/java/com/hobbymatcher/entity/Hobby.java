@@ -12,6 +12,7 @@ public class Hobby implements Serializable {
 	private String description;
 	private Boolean plus18Only;
 	private String photoId;
+	private Integer createdById;
 
 	public String getId() {
 		return id;
@@ -59,5 +60,13 @@ public class Hobby implements Serializable {
 
 	public void setPhotoId(String photoId) {
 		this.photoId = photoId;
+	}
+
+	public Integer getCreatedById() {
+		return createdById;
+	}
+
+	public void setCreatedById(Integer createdById) {
+		this.createdById = createdById;
 	}
 }

@@ -66,6 +66,8 @@ import EventSearchResults from './components/events/EventSearchResults.vue'
 import BlogsList from './components/blogs/BlogsList.vue'
 import BlogsListing from './components/blogs/BlogsListing.vue'
 import HobbyThumbV2 from './components/hobbies/HobbyThumbV2.vue'
+import GeneralInformationForm from './components/user/GeneralInformationForm.vue'
+import UserHobbies from './components/user/UserHobbies.vue'
 
 Vue.use(VueCookies)
 
@@ -127,6 +129,8 @@ Vue.component('EventSearchResults', EventSearchResults)
 Vue.component('BlogsList', BlogsList)
 Vue.component('BlogsListing', BlogsListing)
 Vue.component('HobbyThumbV2', HobbyThumbV2)
+Vue.component('GeneralInformationForm', GeneralInformationForm)
+Vue.component('UserHobbies', UserHobbies)
 // -------------------------------
 
 Vue.config.productionTip = false
