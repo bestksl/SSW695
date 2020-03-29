@@ -5,7 +5,7 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema hobbymatcher
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
@@ -96,6 +96,62 @@ CREATE TABLE IF NOT EXISTS `event` (
   CONSTRAINT `fk_event_user1`
     FOREIGN KEY (`created_by_id`)
     REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `review`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `review` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `owner_type` ENUM('event', 'blog') NOT NULL,
+  `owner_id` INT NOT NULL,
+  `parent_id` INT NULL,
+  `by_user_id` INT NOT NULL,
+  `content` VARCHAR(256) NOT NULL,
+  `on_datetime` DATETIME NOT NULL,
+  `rate` ENUM('1', '2', '3', '4', '5') NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  INDEX `fk_review_user1_idx` (`by_user_id` ASC),
+  INDEX `fk_review_review1_idx` (`parent_id` ASC),
+  CONSTRAINT `fk_review_user1`
+    FOREIGN KEY (`by_user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_review_review1`
+    FOREIGN KEY (`parent_id`)
+    REFERENCES `review` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `blog`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `blog` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `html` MEDIUMTEXT NOT NULL,
+  `on_datetime` DATETIME NOT NULL,
+  `clap_count` INT NOT NULL,
+  `by_user_id` INT NOT NULL,
+  `for_event_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  INDEX `fk_blog_user1_idx` (`by_user_id` ASC),
+  INDEX `fk_blog_event1_idx` (`for_event_id` ASC),
+  CONSTRAINT `fk_blog_user1`
+    FOREIGN KEY (`by_user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_blog_event1`
+    FOREIGN KEY (`for_event_id`)
+    REFERENCES `event` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
