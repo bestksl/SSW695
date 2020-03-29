@@ -157,6 +157,51 @@ CREATE TABLE IF NOT EXISTS `blog` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `follower`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `follower` (
+  `user_id` INT NOT NULL,
+  `hobby_id` INT NOT NULL,
+  `on_datetime` DATETIME NOT NULL,
+  INDEX `fk_user_has_hobby_hobby1_idx` (`hobby_id` ASC),
+  INDEX `fk_user_has_hobby_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_user_has_hobby_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_hobby_hobby1`
+    FOREIGN KEY (`hobby_id`)
+    REFERENCES `hobby` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `participation`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `participation` (
+  `user_id` INT NOT NULL,
+  `event_id` INT NOT NULL,
+  `requested_on_datetime` DATETIME NULL,
+  `approved_on_datetime` DATETIME NULL,
+  INDEX `fk_user_has_event_event1_idx` (`event_id` ASC),
+  INDEX `fk_user_has_event_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_user_has_event_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_event_event1`
+    FOREIGN KEY (`event_id`)
+    REFERENCES `event` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
