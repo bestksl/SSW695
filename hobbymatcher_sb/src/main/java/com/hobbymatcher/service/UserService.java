@@ -12,7 +12,7 @@ public interface UserService extends UserDetailsService {
 
 	Boolean register(User user);
 
-	User findUserById(String id);
+	User findUserById(Integer id);
 
 	User findUserByEmail(String email);
 
@@ -20,5 +20,5 @@ public interface UserService extends UserDetailsService {
 
 	Boolean updateUser(User user);
 
-	Boolean deleteUser(String id);
+	Boolean deleteUser(Integer id);
 }

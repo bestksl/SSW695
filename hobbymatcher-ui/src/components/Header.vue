@@ -4,10 +4,7 @@
       <div class="p-col-6 pl-5">
         <!-- logo here -->
         <router-link to="/">
-          <img
-            src="@/assets/images/logo-180x90.png"
-            class="rounded logo"
-          />
+          <img src="@/assets/images/logo-180x90.png" class="rounded logo" />
         </router-link>
 
         <!-- location-header -->
@@ -19,24 +16,41 @@
           </a>
         </div>
 
-<!--        <h3 class="d-inline-block mx-4 my-0 pb-1 app-name">-->
-<!--          <router-link to="/">-->
-<!--            Hobby Matcher-->
-<!--          </router-link>-->
-<!--        </h3>-->
+        <!--        <h3 class="d-inline-block mx-4 my-0 pb-1 app-name">-->
+        <!--          <router-link to="/">-->
+        <!--            Hobby Matcher-->
+        <!--          </router-link>-->
+        <!--        </h3>-->
 
-      <!-- log in and sign up -->
+        <!-- log in and sign up -->
       </div>
       <div v-if="authApi.isLogin" class="p-col-6 text-right">
         <Button
           icon="pi pi-bell"
           class="p-button-secondary mr-2 rounded-circle"
         />
-        <img src="@/assets/images/profile-photo.png" class="mr-1" />
-        <Button
-          :label="authApi.$resp.firstName"
-          class="p-button-secondary mr-2"
-        />
+
+        <router-link to="/profile">
+          <img
+            v-if="!authApi.$resp.photoId"
+            src="@/assets/images/profile-photo.png"
+            class="mr-1 profile-photo"
+          />
+          <img
+            v-if="authApi.$resp.photoId"
+            :src="
+              'http://localhost:8080/hobbymatcher/files/' +
+                authApi.$resp.photoId
+            "
+            class="mr-1 profile-photo"
+          />
+
+          <Button
+            :label="authApi.$resp.firstName"
+            class="p-button-secondary mr-2"
+          />
+        </router-link>
+
         <Button
           label="Logout"
           icon="pi pi-sign-out"
@@ -87,7 +101,6 @@ export default class Header extends Vue {
 </script>
 
 <style scoped lang="less">
-
 .header {
   background-color: #fff;
 }
@@ -106,6 +119,12 @@ export default class Header extends Vue {
 
 .locationButton a {
   color: #050505;
+}
+
+.profile-photo {
+  height: 32px !important;
+  width: 32px !important;
+  border: solid 1px;
 }
 
 /*.app-name {*/

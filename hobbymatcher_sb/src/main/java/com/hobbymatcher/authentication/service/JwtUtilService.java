@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -54,5 +56,16 @@ public class JwtUtilService {
 	public Boolean validateToken(String token, UserDetails details) {
 		final String username = extractUsername(token);
 		return username.equals(details.getUsername()) && !isTokenExpired(token);
+	}
+
+	public String extractUsername(HttpServletRequest req) {
+		String authHeader = req.getHeader("Authorization");
+		String username = null;
+		String jwtToken = null;
+		if (authHeader != null && authHeader.startsWith("Bearer ")) {
+			jwtToken = authHeader.substring(7); // remove the 'Bearer '
+			username = extractUsername(jwtToken);
+		}
+		return username;
 	}
 }

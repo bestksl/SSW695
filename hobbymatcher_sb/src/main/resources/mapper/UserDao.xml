@@ -10,8 +10,8 @@
 	</select>
 
     <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
-        insert into user (first_name, last_name, nick_name, email, password, date_of_birth, gender)
-        values (#{firstName}, #{lastName}, #{nickName}, #{email}, #{password}, #{dateOfBirth}, #{gender})
+        insert into user (first_name, last_name, photo_id, nick_name, email, password, date_of_birth, gender)
+        values (#{firstName}, #{lastName}, #{photoId}, #{nickName}, #{email}, #{password}, #{dateOfBirth}, #{gender})
     </insert>
 
 	<select id="findUserById" parameterType="map"
@@ -40,11 +40,10 @@
         <set>
             <if test="firstName != null">first_name=#{firstName},</if>
             <if test="lastName != null">last_name=#{lastName},</if>
+            <if test="photoId != null">photo_id=#{photoId},</if>
             <if test="nickName != null">nick_name=#{nickName},</if>
-            <if test="email != null">email=#{email},</if>
-            <if test="password != null">password=#{password},</if>
             <if test="dateOfBirth != null">date_of_birth=#{dateOfBirth},</if>
-            <if test="gender != null">gender=#{gender},</if>
+            <if test="gender != null">gender=#{gender}</if>
         </set>
         where id = #{id}
     </update>

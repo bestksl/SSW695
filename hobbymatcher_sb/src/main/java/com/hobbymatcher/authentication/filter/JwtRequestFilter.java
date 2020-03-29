@@ -31,6 +31,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest req, HttpServletResponse resp, FilterChain chain)
 			throws ServletException, IOException {
+		// don't check jwt token for register api
+		if ("/hobbymatcher/register".equals(req.getRequestURI())) {
+			chain.doFilter(req, resp);
+			return;
+		}
+
 		String authHeader = req.getHeader("Authorization");
 
 		String username = null;
