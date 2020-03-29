@@ -5,15 +5,15 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import com.hobbymatcher.entity.Comment;
+import com.hobbymatcher.entity.Review;
 
 @Repository
 public interface CommentDao {
 
-    int addComment(Comment comment);
+    int addComment(Review review);
 
     int deleteComment(@Param("id") int id);
 
-    List<Comment> listCommentByBlogId(@Param("blogId") int blogId);
+    List<Review> listCommentByBlogId(@Param("blogId") int blogId);
 
 }

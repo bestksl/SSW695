@@ -3,11 +3,11 @@ package com.hobbymatcher.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hobbymatcher.entity.Review;
 import org.springframework.stereotype.Service;
 
 import com.hobbymatcher.dao.CommentDao;
 import com.hobbymatcher.dao.UserDao;
-import com.hobbymatcher.entity.Comment;
 import com.hobbymatcher.service.CommentService;
 
 @Service
@@ -22,17 +22,17 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public List<Comment> listCommentsByBlogId(int blogId) {
-		List<Comment> commentList = new ArrayList<Comment>();
+	public List<Review> listCommentsByBlogId(int blogId) {
+		List<Review> reviewList = new ArrayList<Review>();
 		try {
-			commentList = commentDao.listCommentByBlogId(blogId);
-			if (commentList == null || commentList.size() == 0) {
+			reviewList = commentDao.listCommentByBlogId(blogId);
+			if (reviewList == null || reviewList.size() == 0) {
 				return null;
 			}
-			for (Comment c : commentList) {
+			for (Review c : reviewList) {
 				c.setUser(userDao.findUserById(c.getUserId()));
 			}
-			return commentList;
+			return reviewList;
 		} catch (Exception e) {
 			System.out.println(e);
 			return null;
@@ -55,11 +55,11 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public Boolean addComment(Comment comment) {
-		if (comment == null) {
+	public Boolean addComment(Review review) {
+		if (review == null) {
 			return false;
 		} else {
-			return commentDao.addComment(comment) != 0;
+			return commentDao.addComment(review) != 0;
 		}
 	}
 }

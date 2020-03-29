@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.hobbymatcher.entity.Review;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hobbymatcher.entity.Blog;
-import com.hobbymatcher.entity.Comment;
 import com.hobbymatcher.service.BlogService;
 import com.hobbymatcher.service.CommentService;
 
@@ -103,12 +103,12 @@ public class BlogController {
     //addBlog
     @RequestMapping(value = "/addcomment", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> addcomment(@RequestBody Comment comment, HttpServletResponse response) {
+    public Map<String, Object> addcomment(@RequestBody Review review, HttpServletResponse response) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        if (comment != null) {
+        if (review != null) {
             Boolean result;
             try {
-                result = commentService.addComment(comment);
+                result = commentService.addComment(review);
             } catch (Exception e) {
                 modelMap.put("status", false);
                 modelMap.put("msg", "the foreign key not exist || the userId and blogId must can be parsed to int");
@@ -142,9 +142,9 @@ public class BlogController {
                 return modelMap;
             }
             modelMap.put("blog", blog);
-            List<Comment> comments = commentService.listCommentsByBlogId(Integer.parseInt(blog.getBlogId()));
-            if (comments != null) {
-                modelMap.put("comments", comments);
+            List<Review> reviews = commentService.listCommentsByBlogId(Integer.parseInt(blog.getBlogId()));
+            if (reviews != null) {
+                modelMap.put("comments", reviews);
             } else {
                 modelMap.put("msg", "no comments with blogid: " + blog.getBlogId());
             }
