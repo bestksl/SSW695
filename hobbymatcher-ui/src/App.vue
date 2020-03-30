@@ -30,7 +30,7 @@ body {
 }
 
 .app-body {
-  background-color: white;
+  background-color: #f3f5f7;
 }
 
 .only-in-dev {
