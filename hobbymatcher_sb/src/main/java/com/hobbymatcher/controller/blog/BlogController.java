@@ -40,7 +40,7 @@ public class BlogController {
     public Map<String, Object> listBlog(String id, HttpServletResponse response) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
         try {
-            if (!"".equals(id)&&id!=null) {
+            if (!"".equals(id) && id != null) {
                 modelMap.put("list", blogService.listBlogByHobbyId(Integer.parseInt(id)));
                 modelMap.put("msg", "list with hobby success");
                 response.setStatus(200);
@@ -108,7 +108,7 @@ public class BlogController {
         if (review != null) {
             Boolean result;
             try {
-                result = reviewService.addComment(review);
+                result = reviewService.addReview(review);
             } catch (Exception e) {
                 modelMap.put("status", false);
                 modelMap.put("msg", "the foreign key not exist || the userId and blogId must can be parsed to int");
@@ -184,7 +184,7 @@ public class BlogController {
         Map<String, Object> modelMap = new HashMap<String, Object>();
         try {
             int idInt = Integer.parseInt(id);
-            Boolean result = reviewService.deleteComment(idInt);
+            Boolean result = reviewService.deleteReview(idInt);
             modelMap.put("msg", result ? "delete comment success!" : "delete failed");
             response.setStatus(result ? 200 : 400);
         } catch (Exception e) {

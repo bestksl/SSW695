@@ -39,8 +39,8 @@ public class ReviewServiceImpl implements ReviewService {
 //    }
 
     @Override
-    public List<Review> listCommentsByTypeAndId(String type, int id) {
-        List<Review> reviewList = new ArrayList<Review>();
+    public List<Review> listReviewByTypeAndId(String type, int id) {
+        List<Review> reviewList;
         try {
             reviewList = reviewDao.listReviewByTypeAndId(type, id);
             if (reviewList == null || reviewList.size() == 0) {
@@ -53,7 +53,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Boolean deleteComment(int id) {
+    public Boolean deleteReview(int id) {
         try {
             return reviewDao.deleteReview(id) != 0;
         } catch (Exception e) {
@@ -63,11 +63,26 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Boolean addComment(Review review) {
+    public Boolean addReview(Review review) {
         if (review == null) {
             return false;
         } else {
             return reviewDao.addReview(review) != 0;
         }
+    }
+
+    @Override
+    public boolean checkReview(Review review) {
+        if (review == null)
+            return false;
+
+        //check review important attr
+        if (review.getId() < 0)
+            return false;
+        else if (review.getOwnerId() < 0)
+            return false;
+        else if (review.getByUserId() < 0)
+            return false;
+        else return review.getContent() != null && !"".equals(review.getContent());
     }
 }

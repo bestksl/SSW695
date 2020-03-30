@@ -1,4 +1,4 @@
-package com.hobbymatcher.dao;
+package com.hobbymatcher.service;
 
 import com.hobbymatcher.entity.Review;
 import org.junit.FixMethodOrder;
@@ -10,23 +10,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static junit.framework.TestCase.assertEquals;
-
 import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
 
-@Ignore
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNull;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @FixMethodOrder(MethodSorters.JVM)
-public class ReviewDaoTest {
+@Ignore
+public class ReviewServiceTest {
 
     @Autowired
-    ReviewDao reviewDao;
+    ReviewService reviewService;
 
     @Test
-    public void testAddReview() {
+    public void testReviewAdd() {
+
         Random random = new Random();
 
         for (int i = 0; i < 20; i++) {
@@ -36,23 +38,21 @@ public class ReviewDaoTest {
             review.setOwnerId(10);
             review.setByUserId(1);
             review.setOnDateTime(new Date());
-            reviewDao.addReview(review);
+            reviewService.addReview(review);
         }
     }
 
     @Test
     public void testListReviewByTypeAndId() {
-        assertEquals(20, reviewDao.listReviewByTypeAndId("event", 10).size() + reviewDao.listReviewByTypeAndId("blog", 10).size());
-
-
+        assertEquals(20, reviewService.listReviewByTypeAndId("event", 10).size() + reviewService.listReviewByTypeAndId("blog", 10).size());
     }
 
     @Test
-    public void testDeleteReview() {
+    public void testReviewDelete() {
         for (int i = 1; i <= 20; i++) {
-            reviewDao.deleteReview(i);
+            reviewService.deleteReview(i);
         }
-        assertEquals(0, reviewDao.listReviewByTypeAndId("event", 1).size());
+        assertNull(reviewService.listReviewByTypeAndId("event", 10));
 
     }
 }

@@ -1,6 +1,7 @@
 package com.hobbymatcher.dao;
 
 import com.hobbymatcher.entity.Event;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
+@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class EventDaoTest {

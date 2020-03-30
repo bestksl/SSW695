@@ -2,6 +2,7 @@ package com.hobbymatcher.service;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.hobbymatcher.entity.User;
 
+@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserServiceTest {
@@ -45,19 +47,19 @@ public class UserServiceTest {
 		// assertTrue(userService.login("sunzheshiwoerzi@gmail.com", "123456"));
 	}
 
-	@Test
-	public void testLoadUserByUsername() {
-//        User user = userService.loadUserByUsername("kslup7@gmail.com");
-		// System.out.println(user);
-	}
-
-	@Test
-	public void testUpdate() {
+//	@Test
+//	public void testLoadUserByUsername() {
+//		User user = userService.loadUserByUsername("kslup7@gmail.com");
+//		System.out.println(user);
+//	}
+//
+//	@Test
+//	public void testUpdate() {
 //        User before = userService.loadUserByUsername("kslup7@gmail.com");
 //        System.out.println(before);
 //        before.setPassword("123456");
 //        assertTrue(userService.updateUser(before));
 //        User after = userService.loadUserByUsername("kslup7@gmail.com");
 //        System.out.println(after);
-	}
+	//}
 }
