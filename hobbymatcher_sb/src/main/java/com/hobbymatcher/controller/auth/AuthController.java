@@ -53,6 +53,7 @@ public class AuthController {
 		} else {
 			resp.put("isLogin", true);
 			User user = (User) auth.getPrincipal();
+			resp.put("userId", user.getId());
 			resp.put("firstName", user.getFirstName());
 			resp.put("lastName", user.getLastName());
 			resp.put("nickName", user.getNickName());

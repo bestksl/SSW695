@@ -4,8 +4,9 @@
       <SelectButton
         v-model="selected"
         :options="[
-          { title: 'Created Hobbies', value: 'created' },
-          { title: 'Subscribed Hobbies', value: 'subscribed' }
+          { title: 'Upcoming Events', value: 'coming' },
+          { title: 'Past Events', value: 'past' },
+          { title: 'Events Hold', value: 'hold' }
         ]"
         optionLabel="title"
         optionValue="value"
@@ -14,22 +15,22 @@
 
       <span class="flex-grow-1"></span>
 
-      <router-link to="/hobbies/create">
+      <router-link to="/events/create">
         <Button
           type="button"
-          label="Create a Hobby"
+          label="Create an Event"
           icon="pi pi-plus"
           class="p-button-secondary"
         />
       </router-link>
     </div>
-    <div v-if="!hobbies || hobbies.length == 0" class="text-center">
-      No Hobbies
+    <div v-if="!events || events.length == 0" class="text-center">
+      No Events
     </div>
-    <HobbyThumb
-      v-for="hobby of hobbies"
-      :key="hobby.id"
-      :model="hobby"
+    <EventThumb
+      v-for="event of events"
+      :key="event.id"
+      :model="event"
       :userId="userId"
       class="d-inline-block mr-4 mb-4"
     />
@@ -38,14 +39,14 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
+import { Event } from '../events/Event'
 import { ProfileService } from './ProfileService'
-import { Hobby } from '../hobbies/Hobby'
 import { AuthService } from '../auth/AuthService'
 
 @Component
-export default class UserHobbies extends Vue {
-  selected: any = 'created'
-  hobbies: Hobby[] = []
+export default class UserEvents extends Vue {
+  selected: any = 'coming'
+  events: Event[] = []
 
   profileApi = ProfileService.getInstance()
   authApi = AuthService.getInstance()
@@ -63,8 +64,8 @@ export default class UserHobbies extends Vue {
   // eslint-disable-next-line space-before-function-paren
   reload() {
     this.profileApi
-      .loadHobbies(this.selected)
-      .then((resp: any) => (this.hobbies = resp.data.list))
+      .loadEvents(this.selected)
+      .then((resp: any) => (this.events = resp.data.list))
       .catch((err: any) => console.log(err))
   }
 }

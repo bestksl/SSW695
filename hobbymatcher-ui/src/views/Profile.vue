@@ -1,11 +1,17 @@
 <template>
   <div class="profile-page">
     <div class="p-grid">
-      <div class="p-col-10 p-offset-1 text-left">
+      <div class="p-col-8 p-offset-2 text-left">
         <GeneralInformationForm />
       </div>
-      <div class="p-col-10 p-offset-1 text-left">
+      <div class="p-col-8 p-offset-2 text-left">
         <UserHobbies />
+      </div>
+      <div class="p-col-8 p-offset-2 text-left">
+        <UserEvents />
+      </div>
+      <div class="p-col-8 p-offset-2 text-left">
+        <UserBlogs />
       </div>
     </div>
   </div>

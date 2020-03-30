@@ -24,8 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.hobbymatcher.authentication.service.JwtUtilService;
 import com.hobbymatcher.entity.User;
+import com.hobbymatcher.service.BlogService;
+import com.hobbymatcher.service.EventService;
 import com.hobbymatcher.service.HobbyService;
 import com.hobbymatcher.service.UserService;
 import com.hobbymatcher.service.impl.AuthUtilService;
@@ -45,6 +46,10 @@ public class UserController {
 
 	@Autowired
 	private HobbyService hobbyService;
+	@Autowired
+	private EventService eventService;
+	@Autowired
+	private BlogService blogService;
 
 	// list user
 	@GetMapping("/")
@@ -158,11 +163,42 @@ public class UserController {
 			@PathParam("load") String load) {
 		Map<String, Object> resp = new HashMap<String, Object>();
 		try {
-			/*
-			 * load => "created", "subscribed"
-			 */
-			// TODO - list the hobbies based on the value of load
+			// TODO filter by load => "created", "subscribed"
 			resp.put("list", hobbyService.listHobby());
+			resp.put("success", true);
+			response.setStatus(200);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			resp.put("success", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
+
+	@RequestMapping(value = "/events", method = RequestMethod.GET)
+	public Map<String, Object> getEvents(HttpServletRequest req, HttpServletResponse response, //
+			@PathParam("load") String load) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		try {
+			// TODO filter by load => 'past', 'coming', 'hold'
+			resp.put("list", eventService.listEvent());
+			resp.put("success", true);
+			response.setStatus(200);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			resp.put("success", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
+
+	@RequestMapping(value = "/blogs", method = RequestMethod.GET)
+	public Map<String, Object> getBlogs(HttpServletRequest req, HttpServletResponse response, //
+			@PathParam("load") String load) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		try {
+			// TODO filter by load => 'mine', 'commented'
+			resp.put("list", blogService.listBlog());
 			resp.put("success", true);
 			response.setStatus(200);
 		} catch (Exception exp) {

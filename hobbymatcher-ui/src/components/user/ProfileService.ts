@@ -29,4 +29,14 @@ export class ProfileService {
   loadHobbies(selected: string) {
     return http.get(`/user/hobbies?load=${selected}`)
   }
+
+  // eslint-disable-next-line space-before-function-paren
+  loadEvents(selected: string) {
+    return http.get(`/user/events?load=${selected}`)
+  }
+
+  // eslint-disable-next-line space-before-function-paren
+  loadBlogs(selected: string) {
+    return http.get(`/user/blogs?load=${selected}`)
+  }
 }

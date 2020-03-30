@@ -14,6 +14,7 @@ public class Event {
 	private Boolean plus18Only;
 	private String organizer;
 	private String photoId;
+	private Integer createdById;
 
 	public Integer getId() {
 		return id;
@@ -93,5 +94,13 @@ public class Event {
 
 	public void setPhotoId(String photoId) {
 		this.photoId = photoId;
+	}
+
+	public Integer getCreatedById() {
+		return createdById;
+	}
+
+	public void setCreatedById(Integer createdById) {
+		this.createdById = createdById;
 	}
 }

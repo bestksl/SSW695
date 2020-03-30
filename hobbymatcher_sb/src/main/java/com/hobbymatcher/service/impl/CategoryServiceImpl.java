@@ -12,12 +12,8 @@ import com.hobbymatcher.service.CategoryService;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
-	private CategoryDao categoryDao;
-
 	@Autowired
-	public CategoryServiceImpl(CategoryDao hobbyDao) {
-		this.categoryDao = hobbyDao;
-	}
+	private CategoryDao categoryDao;
 
 	@Override
 	public List<Category> listCategory() {

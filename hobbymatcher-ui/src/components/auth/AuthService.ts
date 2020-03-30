@@ -5,12 +5,12 @@ import { LoginUser } from './LoginUser'
 
 export class AuthService {
   private static instance: any
-  private resp: any = {}
+  private $response: any = {}
 
   // eslint-disable-next-line space-before-function-paren
-  get isLogin() { return this.resp.isLogin }
+  get isLogin() { return this.$response.isLogin }
   // eslint-disable-next-line space-before-function-paren
-  get $resp() { return this.resp }
+  get response() { return this.$response }
 
   // eslint-disable-next-line space-before-function-paren
   public static getInstance() {
@@ -32,7 +32,7 @@ export class AuthService {
   // eslint-disable-next-line space-before-function-paren
   checkLogin() {
     this.handshake()
-      .then((resp: any) => (this.resp = resp.data))
+      .then((resp: any) => (this.$response = resp.data))
       .catch((err: any) => console.log(err))
   }
 

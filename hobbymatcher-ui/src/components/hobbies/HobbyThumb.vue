@@ -12,6 +12,13 @@
         class="cover"
       />
       <span class="hobby-title">{{ hobby.name }}</span>
+      <router-link
+        v-if="userId == hobby.createdById"
+        :to="'/hobbies/edit?id=' + hobby.id"
+        class="edit-btn"
+      >
+        <Button type="button" icon="pi pi-pencil" class="p-button-secondary" />
+      </router-link>
     </div>
   </router-link>
 </template>
@@ -23,6 +30,7 @@ import { Hobby } from './Hobby'
 @Component
 export default class HobbyThumb extends Vue {
   @Model() model!: Hobby
+  @Model() userId!: number
 
   // eslint-disable-next-line space-before-function-paren
   get hobby() {
@@ -54,5 +62,10 @@ export default class HobbyThumb extends Vue {
   font-size: 1.25rem;
   max-height: 100px;
   overflow: hidden;
+}
+.edit-btn {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
 }
 </style>

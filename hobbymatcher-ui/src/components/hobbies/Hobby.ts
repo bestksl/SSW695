@@ -1,8 +1,9 @@
 export interface Hobby {
-    id: number;
+    id: string;
     name: string;
+    categoryId: number;
     description: string;
-    categoryId: string;
     plus18Only: boolean;
     photoId: string;
+    createdById: number;
 }

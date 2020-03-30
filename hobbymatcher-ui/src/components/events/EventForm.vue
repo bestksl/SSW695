@@ -150,7 +150,7 @@
             <ValidationProvider
               name="fee"
               v-slot="{ errors }"
-              rules="numeric|min_value:1|max_value:999999"
+              rules="numeric|min_value:0|max_value:999999"
             >
               <InputText id="event-fee" type="text" v-model="event.fee" />
               <ul v-if="errors.length" class="v-error">

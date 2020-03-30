@@ -135,6 +135,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `blog` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(128) NOT NULL,
   `html` MEDIUMTEXT NOT NULL,
   `on_datetime` DATETIME NOT NULL,
   `clap_count` INT NOT NULL,
