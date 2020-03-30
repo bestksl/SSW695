@@ -26,14 +26,14 @@
         from user
         where email = #{email}
     </select>
-    
+
     <select id="findUserByEmailAndPwd" parameterType="map" resultType="com.hobbymatcher.entity.User">
         select *
         from user
         where email = #{email}
           and password = #{password}
     </select>
-    
+
 
     <update id="updateUser" parameterType="com.hobbymatcher.entity.User">
         update user

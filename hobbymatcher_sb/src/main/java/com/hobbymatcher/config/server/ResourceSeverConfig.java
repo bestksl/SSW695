@@ -23,61 +23,63 @@ import com.hobbymatcher.service.UserService;
 @EnableWebSecurity
 public class ResourceSeverConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private UserService userService;
-	
-	@Autowired
-	private JwtRequestFilter jwtReqFilter;
-	
-	@Bean
-	public BCryptPasswordEncoder bcryptPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-    
-	@Bean
-	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
+    @Autowired
+    private UserService userService;
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userService);
-	}
+    @Autowired
+    private JwtRequestFilter jwtReqFilter;
+
+    @Bean
+    public BCryptPasswordEncoder bcryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userService);
+    }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-    	http.csrf().disable()
-    		.authorizeRequests()
-    		.antMatchers("/swagger-ui.html").permitAll()
-			.antMatchers("/webjars/**").permitAll()
-			.antMatchers("/v2/**").permitAll()
-			.antMatchers("/swagger-resources/**").permitAll()
-			.antMatchers("/oauth/token").permitAll()
-			.antMatchers("/oauth/authorize").permitAll()
-			.antMatchers(DELETE, "/user/*").hasAnyAuthority("super_user")
-			// -- allowed apis --
-			// -- auth 
-			.antMatchers("/register").permitAll()
-			.antMatchers("/login").permitAll()
-			.antMatchers("/handshake").permitAll()
-			// -- files
-			.antMatchers("/files/**").permitAll()
-			// -- hobbies
-			.antMatchers("/hobby/listhobby").permitAll()
-			.antMatchers("/hobby/gethobby").permitAll()
-			// -- events
-			.antMatchers("/event/listevent").permitAll()
-			.antMatchers("/event/getevent").permitAll()
-			// ------------------
-			.antMatchers("/**")
-			.authenticated()
-    		.and().sessionManagement()
-    		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    	
-    	http.logout()
-    		.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.ACCEPTED));
-    	
-    	http.addFilterBefore(jwtReqFilter, UsernamePasswordAuthenticationFilter.class);
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/swagger-ui.html").permitAll()
+                .antMatchers("/webjars/**").permitAll()
+                .antMatchers("/v2/**").permitAll()
+                .antMatchers("/swagger-resources/**").permitAll()
+                .antMatchers("/oauth/token").permitAll()
+                .antMatchers("/oauth/authorize").permitAll()
+                .antMatchers(DELETE, "/user/*").hasAnyAuthority("super_user")
+                // -- allowed apis --
+                // -- auth
+                .antMatchers("/register").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/handshake").permitAll()
+                // -- files
+                .antMatchers("/files/**").permitAll()
+                // -- hobbies
+                .antMatchers("/hobby/listhobby").permitAll()
+                .antMatchers("/hobby/gethobby").permitAll()
+                // -- events
+                .antMatchers("/event/listevent").permitAll()
+                .antMatchers("/event/getevent").permitAll()
+                .antMatchers("/review/**").permitAll()
+
+                // ------------------
+                .antMatchers("/**")
+                .authenticated()
+                .and().sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http.logout()
+                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.ACCEPTED));
+
+        http.addFilterBefore(jwtReqFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }
