@@ -9,7 +9,7 @@ public class Review {
     private int parentId;
     private int byUserId;
     private String content;
-    private Date onDateTime;
+    private Date onDatetime;
 
     public int getId() {
         return id;
@@ -60,11 +60,11 @@ public class Review {
     }
 
     public Date getOnDateTime() {
-        return onDateTime;
+        return onDatetime;
     }
 
     public void setOnDateTime(Date onDateTime) {
-        this.onDateTime = onDateTime;
+        this.onDatetime = onDateTime;
     }
 
     public int getRate() {

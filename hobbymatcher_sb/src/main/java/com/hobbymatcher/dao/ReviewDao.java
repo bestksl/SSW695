@@ -8,12 +8,12 @@ import org.springframework.stereotype.Repository;
 import com.hobbymatcher.entity.Review;
 
 @Repository
-public interface CommentDao {
+public interface ReviewDao {
 
-    int addComment(Review review);
+    int addReview(Review review);
 
-    int deleteComment(@Param("id") int id);
+    int deleteReview(@Param("id") int id);
 
-    List<Review> listCommentByBlogId(@Param("blogId") int blogId);
+    List<Review> listReviewByTypeAndId(@Param("ownerType") String ownerType, @Param("id") int id);
 
 }

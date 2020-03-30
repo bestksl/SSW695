@@ -2,22 +2,22 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hobbymatcher.dao.CommentDao">
-	<select id="listCommentByBlogId"
-		resultType="com.hobbymatcher.entity.Review">
+<mapper namespace="com.hobbymatcher.dao.ReviewDao">
+    <select id="listReviewByTypeAndId"
+            resultType="com.hobbymatcher.entity.Review">
 		SELECT *
 		FROM review
-		WHERE blog_id = #{blogId}
-		ORDER BY time
+		WHERE owner_type = #{ownerType}
+		ORDER BY on_datetime
 	</select>
 
-	<insert id="addComment" useGeneratedKeys="true" keyProperty="id">
-		insert into review (content, blog_id, user_id)
-		values (#{content}, #{blogId}, #{userId})
+    <insert id="addReview" useGeneratedKeys="true" keyProperty="id">
+		insert into review (content, owner_type, owner_id, by_user_id, on_datetime)
+		values (#{content}, #{ownerType}, #{ownerId}, #{byUserId}, #{onDatetime})
 	</insert>
 
 
-	<delete id="deleteComment">
+    <delete id="deleteReview">
 		DELETE
 		FROM review
 		WHERE id = #{id}

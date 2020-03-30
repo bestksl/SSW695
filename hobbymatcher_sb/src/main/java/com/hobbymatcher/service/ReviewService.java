@@ -4,9 +4,10 @@ import java.util.List;
 
 import com.hobbymatcher.entity.Review;
 
-public interface CommentService {
+public interface ReviewService {
 
-    List<Review> listCommentsByBlogId(int blogId);
+    List<Review> listCommentsByTypeAndId(String type, int id);
+
 
     Boolean deleteComment(int id);
 
