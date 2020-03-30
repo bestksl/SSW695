@@ -29,6 +29,7 @@ import Listbox from 'primevue/listbox'
 import Paginator from 'primevue/paginator'
 import Dropdown from 'primevue/dropdown'
 import Carousel from 'primevue/carousel'
+import SplitButton from 'primevue/splitbutton'
 
 import 'primevue/resources/themes/nova-light/theme.css'
 import 'primevue/resources/primevue.min.css'
@@ -88,6 +89,7 @@ Vue.component('Listbox', Listbox)
 Vue.component('Paginator', Paginator)
 Vue.component('Dropdown', Dropdown)
 Vue.component('Carousel', Carousel)
+Vue.component('SplitButton', SplitButton)
 
 // This will kick of the initial replacement of i to svg tags
 // and configure a MutationObserver
