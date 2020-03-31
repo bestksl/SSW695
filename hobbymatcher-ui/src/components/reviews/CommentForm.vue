@@ -62,7 +62,7 @@ export default class CommentForm extends Vue {
       .then((resp: any) => {
         this.comment = {} as any
         Vue.toasted.show('Posted', { duration: 5000 })
-        this.$emit('saved', null)
+        this.$emit('doReload', null)
       })
       .catch((err: any) => console.log(err))
   }

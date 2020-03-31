@@ -28,6 +28,13 @@
 		WHERE parent_id = #{parentId}
 		ORDER BY review.on_datetime
 	</select>
+	
+	<select id="findById"
+            resultType="com.hobbymatcher.entity.Review">
+		SELECT *
+		FROM review
+		WHERE id = #{id}
+	</select>
 
     <insert id="addReview" useGeneratedKeys="true" keyProperty="id">
 		insert into review (content, owner_type, owner_id, parent_id, by_user_id, on_datetime, rate)
@@ -38,5 +45,11 @@
 		DELETE
 		FROM review
 		WHERE id = #{id}
+	</delete>
+	
+	<delete id="deleteCommentsOfReview">
+		DELETE
+		FROM review
+		WHERE parent_id = #{id}
 	</delete>
 </mapper>

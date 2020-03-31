@@ -30,6 +30,11 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
+	public Review findById(int id) {
+		return reviewDao.findById(id);
+	}
+
+	@Override
 	public Boolean deleteReview(int id) {
 		try {
 			return reviewDao.deleteReview(id) != 0;
@@ -37,6 +42,11 @@ public class ReviewServiceImpl implements ReviewService {
 			System.out.println(e);
 			return false;
 		}
+	}
+
+	@Override
+	public void deleteCommentsOfReview(int id) {
+		reviewDao.deleteCommentsOfReview(id);
 	}
 
 	@Override

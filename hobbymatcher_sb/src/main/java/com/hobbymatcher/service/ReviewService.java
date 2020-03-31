@@ -13,7 +13,11 @@ public interface ReviewService {
 
 	Boolean deleteReview(int id);
 
+	void deleteCommentsOfReview(int id);
+
 	Boolean addReview(Review review);
 
 	boolean checkReview(Review review);
+
+	Review findById(int id);
 }

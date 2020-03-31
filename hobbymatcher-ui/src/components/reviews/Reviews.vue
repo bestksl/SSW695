@@ -5,16 +5,16 @@
         <strong>Reviews:</strong>
       </div>
       <div v-if="authApi.isLogin" class="p-col-10 p-offset-1">
-        <ReviewForm :type="type" :oId="oId" v-on:saved="reload()" />
+        <ReviewForm :type="type" :oId="oId" v-on:doReload="reload()" />
       </div>
       <div class="p-col-10 p-offset-1">
         <ReviewView
-          :key="force + '-' + review.id"
+          :key="randIdPerfix + '-' + review.id"
           v-for="review of reviews"
           :model="review"
           :type="type"
           :oId="oId"
-          v-on:saved="reload()"
+          v-on:doReload="reload()"
         />
       </div>
     </div>
@@ -35,7 +35,7 @@ export default class Reviews extends Vue {
   @Prop() model!: Review[]
 
   reviews: Review[] = []
-  force = 0
+  randIdPerfix = 0
 
   authApi = AuthService.getInstance()
   reviewApi = ReviewService.getInstance()
@@ -51,7 +51,7 @@ export default class Reviews extends Vue {
       .load(this.type, this.oId)
       .then((resp: any) => {
         this.reviews = resp.data.list
-        this.force = Math.random()
+        this.randIdPerfix = Math.random()
       })
       .catch((err: any) => console.log(err))
   }

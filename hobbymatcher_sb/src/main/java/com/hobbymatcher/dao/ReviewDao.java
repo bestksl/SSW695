@@ -18,4 +18,8 @@ public interface ReviewDao {
 	List<Review> listReviewByTypeAndId(@Param("ownerType") String ownerType, @Param("ownerId") int ownerId);
 
 	List<Comment> listCommentsByParentId(@Param("parentId") int parentId);
+
+	Review findById(@Param("id") int id);
+
+	void deleteCommentsOfReview(@Param("id") int id);
 }

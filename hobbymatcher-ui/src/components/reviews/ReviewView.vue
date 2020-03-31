@@ -28,6 +28,22 @@
           <small>{{ review.content }}</small>
         </div>
       </div>
+
+      <span class="flex-grow-1"></span>
+      <div v-if="managable" class="manage-review">
+        <Button
+          type="button"
+          icon="pi pi-pencil"
+          class="p-button-primary"
+          v-on:click="doEdit()"
+        />
+        <Button
+          type="button"
+          icon="pi pi-times"
+          class="p-button-danger"
+          v-on:click="doDelete()"
+        />
+      </div>
     </div>
     <div class="ml-5">
       <hr v-if="review.comments" />
@@ -35,21 +51,24 @@
         v-for="comment of review.comments"
         :key="comment.id"
         :model="comment"
+        v-on:doReload="doReload()"
       />
     </div>
     <CommentForm
       :type="type"
       :oId="oId"
       :pId="review.id"
-      v-on:saved="saved()"
+      v-on:doReload="doReload()"
     />
   </div>
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { ReviewService } from './ReviewService'
 import { Review } from './Review'
+import { AuthService } from '../auth/AuthService'
 
 @Component
 export default class ReviewView extends Vue {
@@ -61,14 +80,31 @@ export default class ReviewView extends Vue {
 
   review: Review = {} as any
 
-  // eslint-disable-next-line space-before-function-paren
+  authApi = AuthService.getInstance()
+  reviewApi = ReviewService.getInstance()
+
+  get managable() {
+    return (
+      this.authApi.isLogin &&
+      this.authApi.response.userId === this.review.byUserId
+    )
+  }
+
   mounted() {
     this.review = this.model
   }
 
-  // eslint-disable-next-line space-before-function-paren
-  saved() {
-    this.$emit('saved', null)
+  doReload() {
+    this.$emit('doReload', null)
+  }
+
+  doDelete() {
+    if (confirm('Are you sure?')) {
+      this.reviewApi
+        .delete(this.review.id)
+        .then((resp: any) => this.doReload())
+        .catch((err: any) => console.log(err))
+    }
   }
 }
 </script>
@@ -81,5 +117,9 @@ export default class ReviewView extends Vue {
   width: 48px;
   height: 48px;
   border: solid 1px lightgray;
+}
+.manage-review button {
+  height: 19px;
+  width: 19px;
 }
 </style>

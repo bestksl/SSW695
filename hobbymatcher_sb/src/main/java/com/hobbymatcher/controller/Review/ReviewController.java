@@ -49,16 +49,17 @@ public class ReviewController {
 
 	}
 
-	@DeleteMapping
-	public Map<String, Object> deleteReview(int id, HttpServletResponse response) {
+	@DeleteMapping("/{id}")
+	public Map<String, Object> deleteReview(@PathVariable int id, HttpServletResponse response) {
 		Map<String, Object> resp = new HashMap<String, Object>();
 		try {
+			reviewService.deleteCommentsOfReview(id);
 			boolean res = reviewService.deleteReview(id);
-			resp.put(res ? "delete success" : "no such review", res);
+			resp.put("success", res);
 			response.setStatus(200);
 		} catch (Exception exp) {
 			exp.printStackTrace();
-			resp.put("error", false);
+			resp.put("success", false);
 			response.setStatus(400);
 		}
 		return resp;

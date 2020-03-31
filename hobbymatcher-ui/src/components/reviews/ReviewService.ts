@@ -23,4 +23,9 @@ export class ReviewService {
   load(type: string, oId: number, pId: number) {
     return http.get(`/review?type=${type}&oid=${oId}` + (pId ? '&pid=' + pId : ''))
   }
+
+  // eslint-disable-next-line space-before-function-paren
+  delete(id: number) {
+    return http.delete('/review/' + id)
+  }
 }
