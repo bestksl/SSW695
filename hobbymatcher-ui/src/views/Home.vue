@@ -26,7 +26,8 @@
             type="text"
             placeholder="Search ..."
             class="search-txf"
-            size="40"
+            size="55"
+            id="inputText"
           />
 
           <router-link to="/events">
