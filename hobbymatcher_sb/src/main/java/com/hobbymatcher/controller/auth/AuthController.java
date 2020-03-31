@@ -43,7 +43,7 @@ public class AuthController {
 	private JwtUtilService jwtUtilService;
 
 	@GetMapping("/handshake")
-	public Map<String, Object> handshake() {
+	public Map<String, Object> handshake(HttpServletRequest request) {
 		Map<String, Object> resp = new HashMap<>();
 
 		Authentication auth = getContext().getAuthentication();
@@ -52,7 +52,12 @@ public class AuthController {
 			resp.put("isLogin", false);
 		} else {
 			resp.put("isLogin", true);
+
 			User user = (User) auth.getPrincipal();
+
+			// refreshed jwt token
+			resp.put("jwtToken", jwtUtilService.generateToken(user));
+
 			resp.put("userId", user.getId());
 			resp.put("firstName", user.getFirstName());
 			resp.put("lastName", user.getLastName());

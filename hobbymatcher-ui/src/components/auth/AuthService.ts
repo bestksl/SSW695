@@ -32,7 +32,14 @@ export class AuthService {
   // eslint-disable-next-line space-before-function-paren
   checkLogin() {
     this.handshake()
-      .then((resp: any) => (this.$response = resp.data))
+      .then((resp: any) => {
+        this.$response = resp.data
+
+        if (this.$response.isLogin) {
+          // refresh the token
+          this.useJwtToken('Bearer ' + this.$response.jwtToken)
+        }
+      })
       .catch((err: any) => console.log(err))
   }
 
