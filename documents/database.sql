@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `review` (
   `by_user_id` INT NOT NULL,
   `content` VARCHAR(256) NOT NULL,
   `on_datetime` DATETIME NOT NULL,
-  `rate` ENUM('1', '2', '3', '4', '5') NULL,
+  `rate` INT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
   INDEX `fk_review_user1_idx` (`by_user_id` ASC),
@@ -135,6 +135,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `blog` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(128) NOT NULL,
   `html` MEDIUMTEXT NOT NULL,
   `on_datetime` DATETIME NOT NULL,
   `clap_count` INT NOT NULL,

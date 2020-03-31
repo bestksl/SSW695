@@ -20,6 +20,13 @@
         }}
       </span>
       <span class="event-location">{{ event.location }}</span>
+      <router-link
+        v-if="userId == event.createdById"
+        :to="'/hobbies/edit?id=' + event.id"
+        class="edit-btn"
+      >
+        <Button type="button" icon="pi pi-pencil" class="p-button-secondary" />
+      </router-link>
     </div>
   </router-link>
 </template>
@@ -31,6 +38,7 @@ import { Event } from './Event'
 @Component
 export default class EventThumb extends Vue {
   @Model() model!: Event
+  @Model() userId!: number
 
   // eslint-disable-next-line space-before-function-paren
   get event() {
@@ -74,5 +82,10 @@ export default class EventThumb extends Vue {
   right: 0.5rem;
   bottom: 0.5rem;
   font-size: 0.75rem;
+}
+.edit-btn {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
 }
 </style>

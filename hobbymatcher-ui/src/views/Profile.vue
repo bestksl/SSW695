@@ -1,11 +1,24 @@
 <template>
   <div class="profile-page">
     <div class="p-grid">
-      <div class="p-col-10 p-offset-1 text-left">
+      <div class="p-col-8 p-offset-2 text-left">
         <GeneralInformationForm />
       </div>
-      <div class="p-col-10 p-offset-1 text-left">
+      <div class="p-col-8 p-offset-2 text-left">
+        <hr class="mb-5" />
         <UserHobbies />
+      </div>
+      <div class="p-col-8 p-offset-2 text-left">
+        <hr class="mb-5" />
+        <UserEvents />
+      </div>
+      <div class="p-col-8 p-offset-2 text-left">
+        <hr class="mb-5" />
+        <UserBlogs />
+      </div>
+      <div class="p-col-8 p-offset-2 text-left">
+        <hr class="mb-5" />
+        <UserChangeEmailPassword />
       </div>
     </div>
   </div>

@@ -10,9 +10,9 @@
           {{ blog.title }}
         </router-link>
       </strong>
-      <strong> By: {{ blog.by }} </strong>
+      <strong> By: {{ blog.byUserFirst }} {{ blog.byUserLast }} </strong>
       <small class="ml-4">
-        {{ blog.datetime | dateFormat('MMM DD, YYYY h:mma') }}
+        {{ blog.onDatetime | dateFormat('MMM DD, YYYY h:mma') }}
       </small>
     </div>
   </div>
@@ -37,9 +37,12 @@ export default class BlogsList extends Vue {
         this.blogs.push({
           id: i,
           title: 'Sunday Jogging',
-          datetime: new Date('2020-10-10'),
-          by: 'John Doe'
-        })
+          onDatetime: new Date('2020-10-10'),
+          byUser: {
+            firstName: 'John',
+            lastName: 'Doe'
+          }
+        } as any)
       }
     }
   }

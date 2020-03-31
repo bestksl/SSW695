@@ -181,7 +181,6 @@ export default class GeneralInformationForm extends Vue {
     this.profileApi
       .loadGeneralInformation()
       .then((resp: any) => {
-        console.log(resp.data)
         resp.data.dateOfBirth = new Date(resp.data.dateOfBirth)
         this.info = resp.data as any
       })

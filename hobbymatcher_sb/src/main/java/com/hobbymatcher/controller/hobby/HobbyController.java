@@ -48,7 +48,7 @@ public class HobbyController {
 	@RequestMapping(value = "/addhobby", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> addHobby(HttpServletRequest req, HttpServletResponse response, //
-			@ModelAttribute Hobby hobby, @RequestPart("file") MultipartFile imageFile) {
+			@ModelAttribute Hobby hobby, @RequestPart(name = "file", required = true) MultipartFile imageFile) {
 		Map<String, Object> resp = new HashMap<String, Object>();
 		if (hobby != null) {
 			hobby.setPhotoId(FileUtil.transferFile(imageFile));

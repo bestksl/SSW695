@@ -32,21 +32,21 @@
 
         <router-link to="/profile">
           <img
-            v-if="!authApi.$resp.photoId"
+            v-if="!authApi.response.photoId"
             src="@/assets/images/profile-photo.png"
             class="mr-1 profile-photo"
           />
           <img
-            v-if="authApi.$resp.photoId"
+            v-if="authApi.response.photoId"
             :src="
               'http://localhost:8080/hobbymatcher/files/' +
-                authApi.$resp.photoId
+                authApi.response.photoId
             "
             class="mr-1 profile-photo"
           />
 
           <Button
-            :label="authApi.$resp.firstName"
+            :label="authApi.response.firstName"
             class="p-button-secondary mr-2"
           />
         </router-link>

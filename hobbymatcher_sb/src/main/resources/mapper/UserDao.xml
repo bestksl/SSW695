@@ -47,6 +47,19 @@
         </set>
         where id = #{id}
     </update>
+    
+    <update id="updateEmail">
+        update user 
+        set email=#{newEmail}
+        where id = #{id}
+    </update>
+    
+    <update id="updatePassword">
+        update user 
+        set password=#{newPassword}
+        where id = #{id}
+    </update>
+    
     <delete id="deleteUser">
         delete
         from user

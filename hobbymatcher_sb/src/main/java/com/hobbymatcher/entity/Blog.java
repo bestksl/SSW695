@@ -5,29 +5,22 @@ import java.io.Serializable;
 public class Blog implements Serializable {
 	private static final long serialVersionUID = 303252625304650080L;
 
-	private String blogId;
+	private Integer id;
 	private String title;
-	private String content;
-	private int hobbyId;
-	private int userId;
-	private String createDate;
+	private String html;
+	private String onDatetime;
+	private Integer clapCount;
+	private Integer byUserId;
+	private String byUserFirst;
+	private String byUserLast;
+	private Integer forEventId;
 
-	public User getUser() {
-		return user;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	private User user;
-
-	public String getBlogId() {
-		return blogId;
-	}
-
-	public void setBlogId(String blogId) {
-		this.blogId = blogId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
@@ -38,35 +31,51 @@ public class Blog implements Serializable {
 		this.title = title;
 	}
 
-	public String getContent() {
-		return content;
+	public String getHtml() {
+		return html;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setHtml(String html) {
+		this.html = html;
 	}
 
-	public int getHobbyId() {
-		return hobbyId;
+	public String getOnDatetime() {
+		return onDatetime;
 	}
 
-	public void setHobbyId(int hobbyId) {
-		this.hobbyId = hobbyId;
+	public void setOnDatetime(String onDatetime) {
+		this.onDatetime = onDatetime;
 	}
 
-	public int getUserId() {
-		return userId;
+	public Integer getClapCount() {
+		return clapCount;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setClapCount(Integer clapCount) {
+		this.clapCount = clapCount;
 	}
 
-	public String getCreateDate() {
-		return createDate;
+	public Integer getByUserId() {
+		return byUserId;
 	}
 
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
+	public void setByUserId(Integer byUserId) {
+		this.byUserId = byUserId;
+	}
+
+	public String getByUserFirst() {
+		return byUserFirst;
+	}
+
+	public String getByUserLast() {
+		return byUserLast;
+	}
+
+	public Integer getForEventId() {
+		return forEventId;
+	}
+
+	public void setForEventId(Integer forEventId) {
+		this.forEventId = forEventId;
 	}
 }

@@ -7,11 +7,11 @@
             <ValidationProvider
               name="review content"
               v-slot="{ errors }"
-              rules="required|min:4|max:256"
+              rules="max:256"
             >
               <Textarea
                 id="event-description"
-                v-model="review.reviewText"
+                v-model="review.content"
                 rows="2"
                 class="w-100"
                 placeholder="..."
@@ -29,7 +29,7 @@
                 v-slot="{ errors }"
                 rules="numeric|min_value:1|max_value:5"
               >
-                <Rating v-model="review.rating" class="ml-2" />
+                <Rating v-model="review.rate" class="ml-2" />
                 <ul v-if="errors.length" class="v-error">
                   <li v-for="error in errors" v-bind:key="error">
                     {{ error }}
@@ -43,7 +43,7 @@
               label="Write Review"
               icon="pi pi-check"
               class="p-button-primary"
-              :disabled="invalid"
+              :disabled="invalid || hiddenRules"
             />
           </div>
         </div>
@@ -53,13 +53,48 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+/* eslint-disable space-before-function-paren */
+
+import { Component, Prop, Vue, Model } from 'vue-property-decorator'
+import { ReviewService } from './ReviewService'
 import { Review } from './Review'
 
 @Component
 export default class ReviewForm extends Vue {
-  @Prop() model!: Review
+  @Prop() type!: string
+  @Prop() oId!: number
+
+  @Model() model!: Review
+
+  get hiddenRules() {
+    return !this.review.content
+  }
+
   review: Review = {} as Review
+
+  reviewApi = ReviewService.getInstance()
+
+  constructor() {
+    super()
+
+    if (this.model) {
+      this.review = { ...this.model }
+    }
+  }
+
+  save() {
+    this.review.ownerType = this.type
+    this.review.ownerId = this.oId
+
+    this.reviewApi
+      .postORput(this.review)
+      .then((resp: any) => {
+        this.review = {} as any
+        Vue.toasted.show('Posted', { duration: 5000 })
+        this.$emit('doReload', null)
+      })
+      .catch((err: any) => console.log(err))
+  }
 }
 </script>
 

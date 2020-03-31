@@ -9,4 +9,5 @@ export interface Event {
     plus18Only: boolean;
     organizer: string;
     photoId: string;
+    createdById: number;
 }

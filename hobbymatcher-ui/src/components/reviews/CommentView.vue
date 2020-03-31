@@ -1,36 +1,30 @@
 <template>
-  <div class="review p-2">
+  <div class="comment py-2">
     <div class="d-flex">
       <div>
         <!-- when there is photoId -->
         <img
-          v-if="review.byUserPhotoId"
+          v-if="comment.byUserPhotoId"
           :src="
-            'http://localhost:8080/hobbymatcher/files/' + review.byUserPhotoId
+            'http://localhost:8080/hobbymatcher/files/' + comment.byUserPhotoId
           "
           class="mr-1 user-photo rounded-circle"
         />
         <!-- else -->
         <img
-          v-if="!review.byUserPhotoId"
+          v-if="!comment.byUserPhotoId"
           src="@/assets/images/logo-200x200.png"
           class="mr-1 user-photo rounded-circle"
         />
       </div>
       <div class="ml-2">
-        <div>{{ review.byUserFirst }} {{ review.byUserLast }}</div>
-        <div class="d-flex align-items-center pt-1">
-          <i class="fas fa-comments"></i>
-          <span class="ml-1">{{ (review.comments || []).length }}</span>
-          <Rating v-model="review.rate" class="ml-2 pt-1" :readonly="true" />
-        </div>
+        <div>{{ comment.byUserFirst }} {{ comment.byUserLast }}</div>
         <div>
-          <small>{{ review.content }}</small>
+          <small>{{ comment.content }}</small>
         </div>
       </div>
-
       <span class="flex-grow-1"></span>
-      <div v-if="managable" class="manage-review">
+      <div v-if="managable" class="manage-comment">
         <Button
           type="button"
           icon="pi pi-pencil"
@@ -45,50 +39,31 @@
         />
       </div>
     </div>
-    <div class="ml-5">
-      <hr v-if="review.comments" />
-      <CommentView
-        v-for="comment of review.comments"
-        :key="comment.id"
-        :model="comment"
-        v-on:doReload="doReload()"
-      />
-    </div>
-    <CommentForm
-      :type="type"
-      :oId="oId"
-      :pId="review.id"
-      v-on:doReload="doReload()"
-      class="ml-5"
-    />
 
     <Dialog
       :visible.sync="showEditForm"
       :style="{ width: '50vw' }"
       :modal="true"
     >
-      <ReviewForm :model="review" v-on:doReload="doReload()" />
+      <CommentForm :model="comment" v-on:doReload="doReload()" />
     </Dialog>
   </div>
 </template>
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
+
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Comment } from './Comment'
 import { ReviewService } from './ReviewService'
-import { Review } from './Review'
 import { AuthService } from '../auth/AuthService'
 
 @Component
-export default class ReviewView extends Vue {
-  @Prop() type!: string
-  @Prop() oId!: number
-
-  @Prop() indent!: number
-  @Prop() model!: Review
+export default class CommentView extends Vue {
+  @Prop() model!: Comment
 
   showEditForm = false
-  review: Review = {} as any
+  comment: Comment = {} as any
 
   authApi = AuthService.getInstance()
   reviewApi = ReviewService.getInstance()
@@ -96,12 +71,12 @@ export default class ReviewView extends Vue {
   get managable() {
     return (
       this.authApi.isLogin &&
-      this.authApi.response.userId === this.review.byUserId
+      this.authApi.response.userId === this.comment.byUserId
     )
   }
 
   mounted() {
-    this.review = this.model
+    this.comment = this.model
   }
 
   doReload() {
@@ -116,7 +91,7 @@ export default class ReviewView extends Vue {
   doDelete() {
     if (confirm('Are you sure?')) {
       this.reviewApi
-        .delete(this.review.id)
+        .delete(this.comment.id)
         .then((resp: any) => this.doReload())
         .catch((err: any) => console.log(err))
     }
@@ -125,15 +100,15 @@ export default class ReviewView extends Vue {
 </script>
 
 <style scoped lang="less">
-.review {
+.comment {
   background-color: #ecf0f1;
 }
 .user-photo {
-  width: 48px;
-  height: 48px;
+  width: 32px;
+  height: 32px;
   border: solid 1px lightgray;
 }
-.manage-review button {
+.manage-comment button {
   height: 19px;
   width: 19px;
 }

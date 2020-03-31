@@ -1,6 +1,7 @@
 package com.hobbymatcher.authentication.filter;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -19,6 +20,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.hobbymatcher.authentication.service.JwtUtilService;
 import com.hobbymatcher.service.UserService;
 
+import io.jsonwebtoken.ExpiredJwtException;
+
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
@@ -32,7 +35,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest req, HttpServletResponse resp, FilterChain chain)
 			throws ServletException, IOException {
 		// don't check jwt token for register api
-		if ("/hobbymatcher/register".equals(req.getRequestURI())) {
+		if (Arrays.asList("/hobbymatcher/register").contains(req.getRequestURI())) {
 			chain.doFilter(req, resp);
 			return;
 		}
@@ -44,7 +47,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
 		if (authHeader != null && authHeader.startsWith("Bearer ")) {
 			jwtToken = authHeader.substring(7); // remove the 'Bearer '
-			username = jwtUtilService.extractUsername(jwtToken);
+			try {
+				username = jwtUtilService.extractUsername(jwtToken);
+			} catch (ExpiredJwtException exp) {
+				System.err.println("jwt token expired");
+				System.err.println(exp.getMessage());
+			}
 		}
 
 		SecurityContext context = SecurityContextHolder.getContext();

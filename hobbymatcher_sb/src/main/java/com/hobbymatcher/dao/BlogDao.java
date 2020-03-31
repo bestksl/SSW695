@@ -9,17 +9,16 @@ import com.hobbymatcher.entity.Blog;
 
 @Repository
 public interface BlogDao {
-    int deleteBlog(@Param("blogId") int id);
 
-    int updateBlog(Blog blog);
+	int deleteBlog(@Param("blogId") int id);
 
-    int addBlog(Blog blog);
+	int updateBlog(Blog blog);
 
-    Blog findBlogById(@Param("blogId") int id);
+	int addBlog(Blog blog);
 
-    List<Blog> listBlog();
+	Blog findBlogById(@Param("blogId") int id);
 
-    List<Blog> listBlogByHobbyId(@Param("hobbyId") int id);
+	List<Blog> listBlog();
 
-
+	List<Blog> listBlogByHobbyId(@Param("hobbyId") int id);
 }

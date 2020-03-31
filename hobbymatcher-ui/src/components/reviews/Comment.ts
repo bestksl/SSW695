@@ -1,4 +1,4 @@
-export interface Review {
+export interface Comment {
     id: number;
     ownerType: string;
     ownerId: number;
@@ -9,6 +9,4 @@ export interface Review {
     byUserPhotoId: string;
     content: string;
     onDatetime: any; // string | Date;
-    rate: number;
-    comments: Comment[];
 }

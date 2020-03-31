@@ -3,7 +3,10 @@ package com.hobbymatcher.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hobbymatcher.entity.Comment;
 import com.hobbymatcher.entity.Review;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hobbymatcher.dao.ReviewDao;
@@ -13,76 +16,66 @@ import com.hobbymatcher.service.ReviewService;
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
-    private final ReviewDao reviewDao;
-    private final UserDao userDao;
+	@Autowired
+	private ReviewDao reviewDao;
 
-    public ReviewServiceImpl(ReviewDao reviewDao, UserDao userDao) {
-        this.reviewDao = reviewDao;
-        this.userDao = userDao;
-    }
+	@Override
+	public List<Review> listReviewByTypeAndId(String ownerType, int ownerId) {
+		return reviewDao.listReviewByTypeAndId(ownerType, ownerId);
+	}
 
-//    public List<Review> list(int blogId) {
-//        List<Review> reviewList = new ArrayList<Review>();
-//        try {
-//            reviewList = reviewDao.listCommentByBlogId(blogId);
-//            if (reviewList == null || reviewList.size() == 0) {
-//                return null;
-//            }
-//            for (Review c : reviewList) {
-//                c.setUser(userDao.findUserById(c.getUserId()));
-//            }
-//            return reviewList;
-//        } catch (Exception e) {
-//            return null;
-//        }
-//
-//    }
+	@Override
+	public List<Comment> listCommentsByParentId(int parentId) {
+		return reviewDao.listCommentsByParentId(parentId);
+	}
 
-    @Override
-    public List<Review> listReviewByTypeAndId(String type, int id) {
-        List<Review> reviewList;
-        try {
-            reviewList = reviewDao.listReviewByTypeAndId(type, id);
-            if (reviewList == null || reviewList.size() == 0) {
-                return null;
-            }
-        } catch (Exception e) {
-            return null;
-        }
-        return reviewList;
-    }
+	@Override
+	public Review findById(int id) {
+		return reviewDao.findById(id);
+	}
 
-    @Override
-    public Boolean deleteReview(int id) {
-        try {
-            return reviewDao.deleteReview(id) != 0;
-        } catch (Exception e) {
-            System.out.println(e);
-            return false;
-        }
-    }
+	@Override
+	public Boolean deleteReview(int id) {
+		try {
+			return reviewDao.deleteReview(id) != 0;
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		}
+	}
 
-    @Override
-    public Boolean addReview(Review review) {
-        if (review == null) {
-            return false;
-        } else {
-            return reviewDao.addReview(review) != 0;
-        }
-    }
+	@Override
+	public void deleteCommentsOfReview(int id) {
+		reviewDao.deleteCommentsOfReview(id);
+	}
 
-    @Override
-    public boolean checkReview(Review review) {
-        if (review == null)
-            return false;
+	@Override
+	public Boolean addReview(Review review) {
+		if (review == null) {
+			return false;
+		} else {
+			return reviewDao.addReview(review) != 0;
+		}
+	}
 
-        //check review important attr
-        if (review.getId() < 0)
-            return false;
-        else if (review.getOwnerId() < 0)
-            return false;
-        else if (review.getByUserId() < 0)
-            return false;
-        else return review.getContent() != null && !"".equals(review.getContent());
-    }
+	@Override
+	public void updateReview(Review original) {
+		reviewDao.updateReview(original.getId(), original.getContent(), original.getRate());
+	}
+
+	@Override
+	public boolean checkReview(Review review) {
+		if (review == null)
+			return false;
+
+		// check review important attr
+		if (review.getId() < 0)
+			return false;
+		else if (review.getOwnerId() < 0)
+			return false;
+		else if (review.getByUserId() < 0)
+			return false;
+		else
+			return review.getContent() != null && !"".equals(review.getContent());
+	}
 }

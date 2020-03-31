@@ -21,4 +21,8 @@ public interface UserService extends UserDetailsService {
 	Boolean updateUser(User user);
 
 	Boolean deleteUser(Integer id);
+
+	Boolean updateEmail(Integer id, String newEmail);
+
+	Boolean updatePassword(Integer id, String newone);
 }

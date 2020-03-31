@@ -29,6 +29,7 @@ import Listbox from 'primevue/listbox'
 import Paginator from 'primevue/paginator'
 import Dropdown from 'primevue/dropdown'
 import Carousel from 'primevue/carousel'
+import Dialog from 'primevue/dialog'
 import SplitButton from 'primevue/splitbutton'
 
 import 'primevue/resources/themes/nova-light/theme.css'
@@ -56,6 +57,8 @@ import EventThumbs from './components/events/EventThumbs.vue'
 import RecentEvents from './components/events/RecentEvents.vue'
 import Reviews from './components/reviews/Reviews.vue'
 import ReviewForm from './components/reviews/ReviewForm.vue'
+import CommentForm from './components/reviews/CommentForm.vue'
+import CommentView from './components/reviews/CommentView.vue'
 import ReviewView from './components/reviews/ReviewView.vue'
 import HobbyForm from './components/hobbies/HobbyForm.vue'
 import HobbyView from './components/hobbies/HobbyView.vue'
@@ -69,6 +72,9 @@ import BlogsListing from './components/blogs/BlogsListing.vue'
 import HobbyThumbV2 from './components/hobbies/HobbyThumbV2.vue'
 import GeneralInformationForm from './components/user/GeneralInformationForm.vue'
 import UserHobbies from './components/user/UserHobbies.vue'
+import UserEvents from './components/user/UserEvents.vue'
+import UserBlogs from './components/user/UserBlogs.vue'
+import UserChangeEmailPassword from './components/user/UserChangeEmailPassword.vue'
 
 Vue.use(VueCookies)
 
@@ -89,6 +95,7 @@ Vue.component('Listbox', Listbox)
 Vue.component('Paginator', Paginator)
 Vue.component('Dropdown', Dropdown)
 Vue.component('Carousel', Carousel)
+Vue.component('Dialog', Dialog)
 Vue.component('SplitButton', SplitButton)
 
 // This will kick of the initial replacement of i to svg tags
@@ -120,6 +127,8 @@ Vue.component('EventThumbs', EventThumbs)
 Vue.component('RecentEvents', RecentEvents)
 Vue.component('Reviews', Reviews)
 Vue.component('ReviewForm', ReviewForm)
+Vue.component('CommentForm', CommentForm)
+Vue.component('CommentView', CommentView)
 Vue.component('ReviewView', ReviewView)
 Vue.component('HobbyForm', HobbyForm)
 Vue.component('HobbyView', HobbyView)
@@ -133,6 +142,9 @@ Vue.component('BlogsListing', BlogsListing)
 Vue.component('HobbyThumbV2', HobbyThumbV2)
 Vue.component('GeneralInformationForm', GeneralInformationForm)
 Vue.component('UserHobbies', UserHobbies)
+Vue.component('UserEvents', UserEvents)
+Vue.component('UserBlogs', UserBlogs)
+Vue.component('UserChangeEmailPassword', UserChangeEmailPassword)
 // -------------------------------
 
 Vue.config.productionTip = false
