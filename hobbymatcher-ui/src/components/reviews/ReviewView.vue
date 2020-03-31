@@ -33,11 +33,16 @@
       <hr v-if="review.comments" />
       <CommentView
         v-for="comment of review.comments"
-        :key="comment.id"
+        v-bind:key="comment.id"
         :model="comment"
       />
     </div>
-    <CommentForm :type="type" :oId="oId" :pId="review.id" />
+    <CommentForm
+      :type="type"
+      :oId="oId"
+      :pId="review.id"
+      v-on:saved="saved()"
+    />
   </div>
 </template>
 
@@ -59,6 +64,11 @@ export default class ReviewView extends Vue {
   // eslint-disable-next-line space-before-function-paren
   mounted() {
     this.review = this.model
+  }
+
+  // eslint-disable-next-line space-before-function-paren
+  saved() {
+    this.$emit('saved', null)
   }
 }
 </script>
