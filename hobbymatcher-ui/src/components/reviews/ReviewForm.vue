@@ -53,7 +53,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+/* eslint-disable space-before-function-paren */
+
+import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { ReviewService } from './ReviewService'
 import { Review } from './Review'
 
@@ -62,7 +64,8 @@ export default class ReviewForm extends Vue {
   @Prop() type!: string
   @Prop() oId!: number
 
-  // eslint-disable-next-line space-before-function-paren
+  @Model() model!: Review
+
   get hiddenRules() {
     return !this.review.content
   }
@@ -71,13 +74,20 @@ export default class ReviewForm extends Vue {
 
   reviewApi = ReviewService.getInstance()
 
-  // eslint-disable-next-line space-before-function-paren
+  constructor() {
+    super()
+
+    if (this.model) {
+      this.review = { ...this.model }
+    }
+  }
+
   save() {
     this.review.ownerType = this.type
     this.review.ownerId = this.oId
 
     this.reviewApi
-      .post(this.review)
+      .postORput(this.review)
       .then((resp: any) => {
         this.review = {} as any
         Vue.toasted.show('Posted', { duration: 5000 })

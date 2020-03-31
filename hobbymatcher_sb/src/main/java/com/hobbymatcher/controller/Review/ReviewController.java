@@ -83,4 +83,23 @@ public class ReviewController {
 		}
 		return resp;
 	}
+
+	@PutMapping
+	public Map<String, Object> updateReview(HttpServletRequest req, HttpServletResponse response, //
+			@RequestBody Review review) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		try {
+			Review original = reviewService.findById(review.getId());
+			original.setContent(review.getContent());
+			original.setRate(review.getRate());
+			reviewService.updateReview(original);
+			resp.put("success", true);
+			response.setStatus(200);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			resp.put("error", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
 }

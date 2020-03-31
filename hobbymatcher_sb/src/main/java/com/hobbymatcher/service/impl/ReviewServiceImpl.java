@@ -59,6 +59,11 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
+	public void updateReview(Review original) {
+		reviewDao.updateReview(original.getId(), original.getContent(), original.getRate());
+	}
+
+	@Override
 	public boolean checkReview(Review review) {
 		if (review == null)
 			return false;

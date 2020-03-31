@@ -1,5 +1,5 @@
 <template>
-  <div class="comment-form ml-5">
+  <div class="comment-form">
     <ValidationObserver v-slot="{ invalid }">
       <form @submit.prevent="save" class="d-flex align-items-center">
         <ValidationProvider
@@ -32,9 +32,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+/* eslint-disable space-before-function-paren */
+
+import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { ReviewService } from './ReviewService'
 import { Review } from './Review'
+import { Comment } from './Comment'
 
 @Component
 export default class CommentForm extends Vue {
@@ -42,23 +45,30 @@ export default class CommentForm extends Vue {
   @Prop() oId!: number
   @Prop() pId!: number
 
-  // eslint-disable-next-line space-before-function-paren
+  @Model() model!: Comment
+
   get hiddenRules() {
     return !this.comment.content
   }
 
-  comment: Review = {} as Review
+  comment: Comment = {} as Comment
 
   commentApi = ReviewService.getInstance()
 
-  // eslint-disable-next-line space-before-function-paren
+  constructor() {
+    super()
+
+    if (this.model) {
+      this.comment = { ...this.model }
+    }
+  }
   save() {
     this.comment.ownerType = this.type
     this.comment.ownerId = this.oId
     this.comment.parentId = this.pId
 
     this.commentApi
-      .post(this.comment)
+      .postORput(this.comment)
       .then((resp: any) => {
         this.comment = {} as any
         Vue.toasted.show('Posted', { duration: 5000 })

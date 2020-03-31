@@ -22,4 +22,6 @@ public interface ReviewDao {
 	Review findById(@Param("id") int id);
 
 	void deleteCommentsOfReview(@Param("id") int id);
+
+	void updateReview(@Param("id") int id, @Param("content") String content, @Param("rate") Integer rate);
 }

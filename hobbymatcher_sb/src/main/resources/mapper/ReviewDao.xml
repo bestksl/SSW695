@@ -40,6 +40,16 @@
 		insert into review (content, owner_type, owner_id, parent_id, by_user_id, on_datetime, rate)
 		values (#{content}, #{ownerType}, #{ownerId}, #{parentId}, #{byUserId}, #{onDatetime}, #{rate})
 	</insert>
+	
+	<update id="updateReview"
+		parameterType="com.hobbymatcher.entity.Review">
+		update review
+		<set>
+			<if test="content != null">content=#{content},</if>
+			<if test="rate != null">rate=#{rate}</if>
+		</set>
+		where id = #{id}
+	</update>
 
     <delete id="deleteReview">
 		DELETE

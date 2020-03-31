@@ -20,4 +20,6 @@ public interface ReviewService {
 	boolean checkReview(Review review);
 
 	Review findById(int id);
+
+	void updateReview(Review original);
 }

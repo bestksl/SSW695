@@ -59,7 +59,16 @@
       :oId="oId"
       :pId="review.id"
       v-on:doReload="doReload()"
+      class="ml-5"
     />
+
+    <Dialog
+      :visible.sync="showEditForm"
+      :style="{ width: '50vw' }"
+      :modal="true"
+    >
+      <ReviewForm :model="review" v-on:doReload="doReload()" />
+    </Dialog>
   </div>
 </template>
 
@@ -78,6 +87,7 @@ export default class ReviewView extends Vue {
   @Prop() indent!: number
   @Prop() model!: Review
 
+  showEditForm = false
   review: Review = {} as any
 
   authApi = AuthService.getInstance()
@@ -95,7 +105,12 @@ export default class ReviewView extends Vue {
   }
 
   doReload() {
+    this.showEditForm = false
     this.$emit('doReload', null)
+  }
+
+  doEdit() {
+    this.showEditForm = true
   }
 
   doDelete() {

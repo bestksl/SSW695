@@ -39,6 +39,14 @@
         />
       </div>
     </div>
+
+    <Dialog
+      :visible.sync="showEditForm"
+      :style="{ width: '50vw' }"
+      :modal="true"
+    >
+      <CommentForm :model="comment" v-on:doReload="doReload()" />
+    </Dialog>
   </div>
 </template>
 
@@ -54,6 +62,7 @@ import { AuthService } from '../auth/AuthService'
 export default class CommentView extends Vue {
   @Prop() model!: Comment
 
+  showEditForm = false
   comment: Comment = {} as any
 
   authApi = AuthService.getInstance()
@@ -71,7 +80,12 @@ export default class CommentView extends Vue {
   }
 
   doReload() {
+    this.showEditForm = false
     this.$emit('doReload', null)
+  }
+
+  doEdit() {
+    this.showEditForm = true
   }
 
   doDelete() {
