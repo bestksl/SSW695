@@ -6,12 +6,11 @@ import com.hobbymatcher.entity.Review;
 
 public interface ReviewService {
 
-    List<Review> listReviewByTypeAndId(String type, int id);
+	List<Review> listReviewByTypeAndId(String ownerType, int ownerId);
 
+	Boolean deleteReview(int id);
 
-    Boolean deleteReview(int id);
+	Boolean addReview(Review review);
 
-    Boolean addReview(Review review);
-
-    boolean checkReview(Review review);
+	boolean checkReview(Review review);
 }

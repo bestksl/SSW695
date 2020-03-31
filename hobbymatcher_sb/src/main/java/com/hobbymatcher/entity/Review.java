@@ -3,78 +3,92 @@ package com.hobbymatcher.entity;
 import java.util.Date;
 
 public class Review {
-    private int id;
-    private String ownerType;
-    private int ownerId;
-    private int parentId;
-    private int byUserId;
-    private String content;
-    private Date onDatetime;
 
-    public int getId() {
-        return id;
-    }
+	private int id;
+	private String ownerType;
+	private int ownerId;
+	private int parentId;
+	private int byUserId;
+	private String byUserFirst;
+	private String byUserLast;
+	private String byUserPhotoId;
+	private String content;
+	private Date onDatetime;
+	private int rate;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public String getOwnerType() {
-        return ownerType;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setOwnerType(String ownerType) {
-        this.ownerType = ownerType;
-    }
+	public String getOwnerType() {
+		return ownerType;
+	}
 
-    public int getOwnerId() {
-        return ownerId;
-    }
+	public void setOwnerType(String ownerType) {
+		this.ownerType = ownerType;
+	}
 
-    public void setOwnerId(int ownerId) {
-        this.ownerId = ownerId;
-    }
+	public int getOwnerId() {
+		return ownerId;
+	}
 
-    public int getParentId() {
-        return parentId;
-    }
+	public void setOwnerId(int ownerId) {
+		this.ownerId = ownerId;
+	}
 
-    public void setParentId(int parentId) {
-        this.parentId = parentId;
-    }
+	public int getParentId() {
+		return parentId;
+	}
 
-    public int getByUserId() {
-        return byUserId;
-    }
+	public void setParentId(int parentId) {
+		this.parentId = parentId;
+	}
 
-    public void setByUserId(int byUserId) {
-        this.byUserId = byUserId;
-    }
+	public int getByUserId() {
+		return byUserId;
+	}
 
-    public String getContent() {
-        return content;
-    }
+	public void setByUserId(int byUserId) {
+		this.byUserId = byUserId;
+	}
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+	public String getByUserFirst() {
+		return byUserFirst;
+	}
 
-    public Date getOnDateTime() {
-        return onDatetime;
-    }
+	public String getByUserLast() {
+		return byUserLast;
+	}
 
-    public void setOnDateTime(Date onDateTime) {
-        this.onDatetime = onDateTime;
-    }
+	public String getByUserPhotoId() {
+		return byUserPhotoId;
+	}
 
-    public int getRate() {
-        return rate;
-    }
+	public String getContent() {
+		return content;
+	}
 
-    public void setRate(int rate) {
-        this.rate = rate;
-    }
+	public void setContent(String content) {
+		this.content = content;
+	}
 
-    private int rate;
+	public Date getOnDateTime() {
+		return onDatetime;
+	}
 
+	public void setOnDateTime(Date onDateTime) {
+		this.onDatetime = onDateTime;
+	}
+
+	public int getRate() {
+		return rate;
+	}
+
+	public void setRate(int rate) {
+		this.rate = rate;
+	}
 }

@@ -58,7 +58,7 @@ import { ReviewService } from './ReviewService'
 import { Review } from './Review'
 
 @Component
-export default class ReviewForm extends Vue {
+export default class CommentForm extends Vue {
   @Prop() type!: string
   @Prop() oId!: number
 

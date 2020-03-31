@@ -10,7 +10,7 @@ import com.hobbymatcher.entity.Category;
 @Repository
 public interface CategoryDao {
 
-	List<Category> queryCategory();
+	List<Category> listCategory();
 
 	Category findCategoryByName(@Param("name") String name);
 

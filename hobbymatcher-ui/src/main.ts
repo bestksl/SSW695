@@ -55,6 +55,7 @@ import EventThumbs from './components/events/EventThumbs.vue'
 import RecentEvents from './components/events/RecentEvents.vue'
 import Reviews from './components/reviews/Reviews.vue'
 import ReviewForm from './components/reviews/ReviewForm.vue'
+import CommentForm from './components/reviews/CommentForm.vue'
 import ReviewView from './components/reviews/ReviewView.vue'
 import HobbyForm from './components/hobbies/HobbyForm.vue'
 import HobbyView from './components/hobbies/HobbyView.vue'
@@ -121,6 +122,7 @@ Vue.component('EventThumbs', EventThumbs)
 Vue.component('RecentEvents', RecentEvents)
 Vue.component('Reviews', Reviews)
 Vue.component('ReviewForm', ReviewForm)
+Vue.component('CommentForm', CommentForm)
 Vue.component('ReviewView', ReviewView)
 Vue.component('HobbyForm', HobbyForm)
 Vue.component('HobbyView', HobbyView)

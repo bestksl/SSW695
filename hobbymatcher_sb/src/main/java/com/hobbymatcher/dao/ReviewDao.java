@@ -10,10 +10,9 @@ import com.hobbymatcher.entity.Review;
 @Repository
 public interface ReviewDao {
 
-    int addReview(Review review);
+	int addReview(Review review);
 
-    int deleteReview(@Param("id") int id);
+	int deleteReview(@Param("id") int id);
 
-    List<Review> listReviewByTypeAndId(@Param("ownerType") String ownerType, @Param("id") int id);
-
+	List<Review> listReviewByTypeAndId(@Param("ownerType") String ownerType, @Param("ownerId") int ownerId);
 }

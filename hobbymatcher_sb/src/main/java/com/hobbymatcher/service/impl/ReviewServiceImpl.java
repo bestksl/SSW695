@@ -18,35 +18,9 @@ public class ReviewServiceImpl implements ReviewService {
 	@Autowired
 	private ReviewDao reviewDao;
 
-//    public List<Review> list(int blogId) {
-//        List<Review> reviewList = new ArrayList<Review>();
-//        try {
-//            reviewList = reviewDao.listCommentByBlogId(blogId);
-//            if (reviewList == null || reviewList.size() == 0) {
-//                return null;
-//            }
-//            for (Review c : reviewList) {
-//                c.setUser(userDao.findUserById(c.getUserId()));
-//            }
-//            return reviewList;
-//        } catch (Exception e) {
-//            return null;
-//        }
-//
-//    }
-
 	@Override
-	public List<Review> listReviewByTypeAndId(String type, int id) {
-		List<Review> reviewList;
-		try {
-			reviewList = reviewDao.listReviewByTypeAndId(type, id);
-			if (reviewList == null || reviewList.size() == 0) {
-				return null;
-			}
-		} catch (Exception e) {
-			return null;
-		}
-		return reviewList;
+	public List<Review> listReviewByTypeAndId(String ownerType, int ownerId) {
+		return reviewDao.listReviewByTypeAndId(ownerType, ownerId);
 	}
 
 	@Override

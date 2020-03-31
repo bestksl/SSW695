@@ -26,7 +26,6 @@ export class AuthService {
   constructor() {
     const token = Vue.$cookies.get('jwt-token')
     if (token) { this.useJwtToken(token) }
-    console.log('created instnace')
   }
 
   // eslint-disable-next-line space-before-function-paren
@@ -63,7 +62,6 @@ export class AuthService {
     token = 'Bearer ' + token
     this.useJwtToken(token)
     Vue.$cookies.set('jwt-token', token)
-    console.log(token)
   }
 
   // eslint-disable-next-line space-before-function-paren

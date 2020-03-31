@@ -1,11 +1,13 @@
 export interface Review {
     id: number;
-    userPhoto: string;
-    userName: string;
-    datetime: Date;
-    rating: number;
-    reviewText: string;
-    positiveVoteCount: number;
-    reviews: Review[];
-    reviewsCount: number;
+    ownerType: string;
+    ownerId: number;
+    parentId: number;
+    byUserId: number;
+    byUserFirst: string;
+    byUserLast: string;
+    byUserPhotoId: string;
+    content: string;
+    onDatetime: any; // string | Date;
+    rate: number;
 }

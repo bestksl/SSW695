@@ -8,30 +8,30 @@
         />
       </div>
       <div class="ml-2">
-        <div>{{ review.userName }}</div>
+        <div>{{ review.byUserFirst }} {{ review.byUserLast }}</div>
         <div class="d-flex align-items-center pt-1">
           <i class="fas fa-comments"></i>
-          <span class="ml-1">{{ review.reviewsCount }}</span>
-          <Rating v-model="review.rating" class="ml-2 pt-1" :readonly="true" />
+          <span class="ml-1">{{ (review.reviews || []).length }}</span>
+          <Rating v-model="review.rate" class="ml-2 pt-1" :readonly="true" />
         </div>
         <div>
-          <small>{{ review.reviewText }}</small>
+          <small>{{ review.content }}</small>
         </div>
-        <div class="mt-2">
+        <!-- <div class="mt-2">
           <Button
             label="Helpful"
             icon="pi pi-thumbs-up"
             class="p-button-secondary py-0 helpful-btn"
           />
-        </div>
+        </div> -->
       </div>
     </div>
-    <div :class="['subreviews', 'review-level-' + myIndent]">
-      <hr v-if="review.reviews.length" />
+    <div :class="['subreviews', 'review-level-' + indent]">
+      <hr v-if="review.reviews" />
       <ReviewView
-        v-for="sub of review.reviews"
-        :key="sub.id"
-        :model="sub"
+        v-for="subreview of review.reviews"
+        :key="subreview.id"
+        :model="subreview"
         :indent="indent + 1"
         class="mt-3"
       />
@@ -42,46 +42,21 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { Review } from './Review'
+import { ReviewService } from './ReviewService'
 
 @Component
 export default class ReviewView extends Vue {
+  @Prop() type!: string
+  @Prop() oId!: number
+
   @Prop() indent!: number
   @Prop() model!: Review
 
-  myIndent = 1
-  review: Review = {
-    id: 1,
-    userPhoto: '@/assets/images/profile-photo.png',
-    userName: 'Mohammad Hassany',
-    datetime: new Date('2020-01-10'),
-    rating: 3,
-    reviewText: 'A nice review from someone who support this.',
-    positiveVoteCount: 20,
-    reviewsCount: 1,
-    reviews: [
-      {
-        id: 1,
-        userPhoto: '@/assets/images/profile-photo.png',
-        userName: 'Mohammad Hassany',
-        datetime: new Date('2020-01-10'),
-        rating: 3,
-        reviewText: 'A nice review from someone who support this.',
-        positiveVoteCount: 20,
-        reviewsCount: 1,
-        reviews: []
-      }
-    ]
-  } as Review
+  review: Review = {} as any
 
   // eslint-disable-next-line space-before-function-paren
-  constructor() {
-    super()
-    if (this.model) {
-      this.review = this.model
-    }
-    if (this.indent) {
-      this.myIndent = this.indent
-    }
+  mounted() {
+    this.review = this.model
   }
 }
 </script>
