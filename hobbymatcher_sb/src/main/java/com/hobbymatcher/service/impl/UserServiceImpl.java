@@ -85,8 +85,21 @@ public class UserServiceImpl implements UserService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserDetails details = findUserByEmail(username);
 		if (details == null) {
+			System.err.println(username);
 			throw new UsernameNotFoundException("");
 		}
 		return details;
+	}
+
+	@Override
+	public Boolean updateEmail(Integer id, String newEmail) {
+		userDao.updateEmail(id, newEmail);
+		return true;
+	}
+
+	@Override
+	public Boolean updatePassword(Integer id, String newPassword) {
+		userDao.updatePassword(id, encoder.encode(newPassword));
+		return true;
 	}
 }

@@ -70,6 +70,7 @@ import GeneralInformationForm from './components/user/GeneralInformationForm.vue
 import UserHobbies from './components/user/UserHobbies.vue'
 import UserEvents from './components/user/UserEvents.vue'
 import UserBlogs from './components/user/UserBlogs.vue'
+import UserChangeEmailPassword from './components/user/UserChangeEmailPassword.vue'
 
 Vue.use(VueCookies)
 
@@ -135,6 +136,7 @@ Vue.component('GeneralInformationForm', GeneralInformationForm)
 Vue.component('UserHobbies', UserHobbies)
 Vue.component('UserEvents', UserEvents)
 Vue.component('UserBlogs', UserBlogs)
+Vue.component('UserChangeEmailPassword', UserChangeEmailPassword)
 // -------------------------------
 
 Vue.config.productionTip = false

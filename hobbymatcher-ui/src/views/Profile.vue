@@ -13,6 +13,9 @@
       <div class="p-col-8 p-offset-2 text-left">
         <UserBlogs />
       </div>
+      <div class="p-col-8 p-offset-2 text-left">
+        <UserChangeEmailPassword />
+      </div>
     </div>
   </div>
 </template>

@@ -37,7 +37,7 @@ export class AuthService {
 
         if (this.$response.isLogin) {
           // refresh the token
-          this.useJwtToken('Bearer ' + this.$response.jwtToken)
+          this.storeToken(this.$response.jwtToken)
         }
       })
       .catch((err: any) => console.log(err))
@@ -63,6 +63,7 @@ export class AuthService {
     token = 'Bearer ' + token
     this.useJwtToken(token)
     Vue.$cookies.set('jwt-token', token)
+    console.log(token)
   }
 
   // eslint-disable-next-line space-before-function-paren
