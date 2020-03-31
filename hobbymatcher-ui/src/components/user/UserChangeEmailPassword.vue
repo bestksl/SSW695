@@ -23,7 +23,7 @@
             </div>
             <div class="p-col-2">
               <Button
-                label="Save"
+                label="Update"
                 icon="pi pi-check"
                 class="p-button-success"
                 :disabled="invalid"
@@ -42,14 +42,15 @@
             </div>
             <div class="p-col-7">
               <ValidationProvider
-                name="password"
+                name="old password"
                 v-slot="{ errors }"
-                rules="required|min:6|max:32"
+                rules="required"
               >
                 <Password
                   v-model="currentPassword"
                   placeholder="******"
                   class="w-100"
+                  :feedback="false"
                 />
                 <ul v-if="errors.length" class="v-error">
                   <li v-for="error in errors" v-bind:key="error">
@@ -60,7 +61,7 @@
             </div>
             <div class="p-col-2">
               <Button
-                label="Save"
+                label="Update"
                 icon="pi pi-check"
                 class="p-button-success"
                 :disabled="invalid"
@@ -80,6 +81,7 @@
                     v-model="newPassword"
                     placeholder="******"
                     class="w-100"
+                    ref="password"
                   />
                   <ul v-if="errors.length" class="v-error">
                     <li v-for="error in errors" v-bind:key="error">
@@ -92,12 +94,13 @@
                 <ValidationProvider
                   name="confirmed password"
                   v-slot="{ errors }"
-                  rules="required|min:6|max:32"
+                  rules="required|min:6|max:32|confirmed:password"
                 >
                   <Password
                     v-model="confirmedPassword"
                     placeholder="******"
                     class="w-100"
+                    :feedback="false"
                   />
                   <ul v-if="errors.length" class="v-error">
                     <li v-for="error in errors" v-bind:key="error">
@@ -132,6 +135,13 @@ export default class UserChangeEmailPassword extends Vue {
 
   // eslint-disable-next-line space-before-function-paren
   mounted() {
+    if (!this.authApi.isLogin) {
+      Vue.toasted.show('You have to be logged in to access this page.', {
+        duration: 5000
+      })
+      this.$router.back()
+    }
+
     this.reload()
   }
 
@@ -146,6 +156,7 @@ export default class UserChangeEmailPassword extends Vue {
     this.profileApi
       .saveEmail(this.email)
       .then((resp: any) => {
+        // refresh the token since it is based on email
         this.authApi.storeToken(resp.data.jwtToken)
         Vue.toasted.show('Your email updated.', { duration: 5000 })
       })
