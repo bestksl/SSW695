@@ -33,7 +33,7 @@
       <hr v-if="review.comments" />
       <CommentView
         v-for="comment of review.comments"
-        v-bind:key="comment.id"
+        :key="comment.id"
         :model="comment"
       />
     </div>

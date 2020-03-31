@@ -9,7 +9,7 @@
       </div>
       <div class="p-col-10 p-offset-1">
         <ReviewView
-          v-bind:key="review.id"
+          :key="force + '-' + review.id"
           v-for="review of reviews"
           :model="review"
           :type="type"
@@ -35,6 +35,7 @@ export default class Reviews extends Vue {
   @Prop() model!: Review[]
 
   reviews: Review[] = []
+  force = 0
 
   authApi = AuthService.getInstance()
   reviewApi = ReviewService.getInstance()
@@ -46,12 +47,11 @@ export default class Reviews extends Vue {
 
   // eslint-disable-next-line space-before-function-paren
   reload() {
-    console.log('lsdkjflsdkfjlsk')
     this.reviewApi
       .load(this.type, this.oId)
       .then((resp: any) => {
         this.reviews = resp.data.list
-        this.$forceUpdate()
+        this.force = Math.random()
       })
       .catch((err: any) => console.log(err))
   }

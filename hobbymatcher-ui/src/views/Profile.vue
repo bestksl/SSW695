@@ -5,15 +5,19 @@
         <GeneralInformationForm />
       </div>
       <div class="p-col-8 p-offset-2 text-left">
+        <hr class="mb-5" />
         <UserHobbies />
       </div>
       <div class="p-col-8 p-offset-2 text-left">
+        <hr class="mb-5" />
         <UserEvents />
       </div>
       <div class="p-col-8 p-offset-2 text-left">
+        <hr class="mb-5" />
         <UserBlogs />
       </div>
       <div class="p-col-8 p-offset-2 text-left">
+        <hr class="mb-5" />
         <UserChangeEmailPassword />
       </div>
     </div>
