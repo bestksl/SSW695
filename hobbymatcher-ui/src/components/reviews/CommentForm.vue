@@ -1,52 +1,31 @@
 <template>
-  <div class="review-form">
+  <div class="comment-form ml-5">
     <ValidationObserver v-slot="{ invalid }">
-      <form @submit.prevent="save">
-        <div class="p-grid">
-          <div class="p-col-12">
-            <ValidationProvider
-              name="review content"
-              v-slot="{ errors }"
-              rules="max:256"
-            >
-              <Textarea
-                id="event-description"
-                v-model="review.content"
-                rows="2"
-                class="w-100"
-                placeholder="..."
-              />
-              <ul v-if="errors.length" class="v-error">
-                <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
-              </ul>
-            </ValidationProvider>
-          </div>
-          <div class="p-col-12 d-flex align-items-center">
-            <span class="pb-2">Rating: </span>
-            <div>
-              <ValidationProvider
-                name="rating"
-                v-slot="{ errors }"
-                rules="numeric|min_value:1|max_value:5"
-              >
-                <Rating v-model="review.rate" class="ml-2" />
-                <ul v-if="errors.length" class="v-error">
-                  <li v-for="error in errors" v-bind:key="error">
-                    {{ error }}
-                  </li>
-                </ul>
-              </ValidationProvider>
-            </div>
-
-            <span style="flex-grow: 1;"></span>
-            <Button
-              label="Write Review"
-              icon="pi pi-check"
-              class="p-button-primary"
-              :disabled="invalid || hiddenRules"
-            />
-          </div>
-        </div>
+      <form @submit.prevent="save" class="d-flex align-items-center">
+        <ValidationProvider
+          name="comment content"
+          v-slot="{ errors }"
+          rules="max:256"
+          class="flex-grow-1 mr-2"
+        >
+          <Textarea
+            id="event-description"
+            v-model="comment.content"
+            rows="1"
+            class="w-100 mt-1"
+            style="font-size: 0.75rem;"
+            placeholder="..."
+          />
+          <ul v-if="errors.length" class="v-error">
+            <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+          </ul>
+        </ValidationProvider>
+        <Button
+          label="Post"
+          class="p-button-primary"
+          style="font-size: 0.75rem;"
+          :disabled="invalid || hiddenRules"
+        />
       </form>
     </ValidationObserver>
   </div>
@@ -61,26 +40,27 @@ import { Review } from './Review'
 export default class CommentForm extends Vue {
   @Prop() type!: string
   @Prop() oId!: number
+  @Prop() pId!: number
 
   // eslint-disable-next-line space-before-function-paren
   get hiddenRules() {
-    return !this.review.content
+    return !this.comment.content
   }
 
-  review: Review = {} as Review
+  comment: Review = {} as Review
 
-  reviewApi = ReviewService.getInstance()
+  commentApi = ReviewService.getInstance()
 
   // eslint-disable-next-line space-before-function-paren
   save() {
-    this.review.ownerType = this.type
-    this.review.ownerId = this.oId
-    this.review.parentId = this.pId
+    this.comment.ownerType = this.type
+    this.comment.ownerId = this.oId
+    this.comment.parentId = this.pId
 
-    this.reviewApi
-      .post(this.review)
+    this.commentApi
+      .post(this.comment)
       .then((resp: any) => {
-        this.review = {} as any
+        this.comment = {} as any
         Vue.toasted.show('Posted', { duration: 5000 })
       })
       .catch((err: any) => console.log(err))
@@ -89,7 +69,7 @@ export default class CommentForm extends Vue {
 </script>
 
 <style scoped lang="less">
-.review-form {
+.comment-form {
   background-color: #ecf0f1;
 }
 </style>

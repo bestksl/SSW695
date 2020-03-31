@@ -3,6 +3,7 @@ package com.hobbymatcher.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hobbymatcher.entity.Comment;
 import com.hobbymatcher.entity.Review;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<Review> listReviewByTypeAndId(String ownerType, int ownerId) {
 		return reviewDao.listReviewByTypeAndId(ownerType, ownerId);
+	}
+
+	@Override
+	public List<Comment> listCommentsByParentId(int parentId) {
+		return reviewDao.listCommentsByParentId(parentId);
 	}
 
 	@Override

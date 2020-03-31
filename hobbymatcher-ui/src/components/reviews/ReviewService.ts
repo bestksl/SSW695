@@ -20,7 +20,7 @@ export class ReviewService {
   }
 
   // eslint-disable-next-line space-before-function-paren
-  load(type: string, oId: number) {
-    return http.get(`/review?type=${type}&oid=${oId}`)
+  load(type: string, oId: number, pId: number) {
+    return http.get(`/review?type=${type}&oid=${oId}` + (pId ? '&pid=' + pId : ''))
   }
 }

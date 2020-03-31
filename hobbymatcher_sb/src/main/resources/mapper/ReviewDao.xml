@@ -13,12 +13,25 @@
 		JOIN user on user.id = review.by_user_id
 		WHERE owner_type = #{ownerType}
 		  AND owner_id = #{ownerId}
+		  AND parent_id is null
+		ORDER BY review.on_datetime
+	</select>
+	
+    <select id="listCommentsByParentId"
+            resultType="com.hobbymatcher.entity.Comment">
+		SELECT review.*, 
+			user.first_name as by_user_first, 
+			user.last_name as by_user_last,
+			user.photo_id as by_user_photo_id
+		FROM review
+		JOIN user on user.id = review.by_user_id
+		WHERE parent_id = #{parentId}
 		ORDER BY review.on_datetime
 	</select>
 
     <insert id="addReview" useGeneratedKeys="true" keyProperty="id">
-		insert into review (content, owner_type, owner_id, by_user_id, on_datetime)
-		values (#{content}, #{ownerType}, #{ownerId}, #{byUserId}, #{onDatetime})
+		insert into review (content, owner_type, owner_id, parent_id, by_user_id, on_datetime, rate)
+		values (#{content}, #{ownerType}, #{ownerId}, #{parentId}, #{byUserId}, #{onDatetime}, #{rate})
 	</insert>
 
     <delete id="deleteReview">

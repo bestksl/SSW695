@@ -1,28 +1,25 @@
 package com.hobbymatcher.entity;
 
 import java.util.Date;
-import java.util.List;
 
-public class Review {
+public class Comment {
 
-	private Integer id;
+	private int id;
 	private String ownerType;
-	private Integer ownerId;
-	private Integer parentId;
-	private Integer byUserId;
+	private int ownerId;
+	private int parentId;
+	private int byUserId;
 	private String byUserFirst;
 	private String byUserLast;
 	private String byUserPhotoId;
 	private String content;
 	private Date onDatetime;
-	private Integer rate;
-	private List<Comment> comments;
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -34,27 +31,27 @@ public class Review {
 		this.ownerType = ownerType;
 	}
 
-	public Integer getOwnerId() {
+	public int getOwnerId() {
 		return ownerId;
 	}
 
-	public void setOwnerId(Integer ownerId) {
+	public void setOwnerId(int ownerId) {
 		this.ownerId = ownerId;
 	}
 
-	public Integer getParentId() {
+	public int getParentId() {
 		return parentId;
 	}
 
-	public void setParentId(Integer parentId) {
+	public void setParentId(int parentId) {
 		this.parentId = parentId;
 	}
 
-	public Integer getByUserId() {
+	public int getByUserId() {
 		return byUserId;
 	}
 
-	public void setByUserId(Integer byUserId) {
+	public void setByUserId(int byUserId) {
 		this.byUserId = byUserId;
 	}
 
@@ -84,21 +81,5 @@ public class Review {
 
 	public void setOnDateTime(Date onDateTime) {
 		this.onDatetime = onDateTime;
-	}
-
-	public Integer getRate() {
-		return rate;
-	}
-
-	public void setRate(Integer rate) {
-		this.rate = rate;
-	}
-
-	public List<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
 	}
 }

@@ -56,6 +56,7 @@ import RecentEvents from './components/events/RecentEvents.vue'
 import Reviews from './components/reviews/Reviews.vue'
 import ReviewForm from './components/reviews/ReviewForm.vue'
 import CommentForm from './components/reviews/CommentForm.vue'
+import CommentView from './components/reviews/CommentView.vue'
 import ReviewView from './components/reviews/ReviewView.vue'
 import HobbyForm from './components/hobbies/HobbyForm.vue'
 import HobbyView from './components/hobbies/HobbyView.vue'
@@ -123,6 +124,7 @@ Vue.component('RecentEvents', RecentEvents)
 Vue.component('Reviews', Reviews)
 Vue.component('ReviewForm', ReviewForm)
 Vue.component('CommentForm', CommentForm)
+Vue.component('CommentView', CommentView)
 Vue.component('ReviewView', ReviewView)
 Vue.component('HobbyForm', HobbyForm)
 Vue.component('HobbyView', HobbyView)

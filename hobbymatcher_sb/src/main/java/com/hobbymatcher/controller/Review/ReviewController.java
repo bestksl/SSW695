@@ -13,6 +13,7 @@ import javax.websocket.server.PathParam;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin
@@ -32,7 +33,11 @@ public class ReviewController {
 			@RequestParam("type") String ownerType, @RequestParam("oid") Integer ownerId) {
 		Map<String, Object> resp = new HashMap<String, Object>();
 		try {
-			resp.put("list", reviewService.listReviewByTypeAndId(ownerType, ownerId));
+			List<Review> reviews = reviewService.listReviewByTypeAndId(ownerType, ownerId);
+			for (Review review : reviews) {
+				review.setComments(reviewService.listCommentsByParentId(review.getId()));
+			}
+			resp.put("list", reviews);
 			resp.put("success", true);
 			response.setStatus(200);
 		} catch (Exception exp) {

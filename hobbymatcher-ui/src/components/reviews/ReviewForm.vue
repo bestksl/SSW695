@@ -75,7 +75,6 @@ export default class ReviewForm extends Vue {
   save() {
     this.review.ownerType = this.type
     this.review.ownerId = this.oId
-    this.review.parentId = this.pId
 
     this.reviewApi
       .post(this.review)

@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `review` (
   `by_user_id` INT NOT NULL,
   `content` VARCHAR(256) NOT NULL,
   `on_datetime` DATETIME NOT NULL,
-  `rate` ENUM('0', '1', '2', '3', '4', '5') NULL DEFAULT '0',
+  `rate` INT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
   INDEX `fk_review_user1_idx` (`by_user_id` ASC),
