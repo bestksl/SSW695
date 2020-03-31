@@ -1,6 +1,7 @@
 package com.hobbymatcher.authentication.filter;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -32,10 +33,16 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest req, HttpServletResponse resp, FilterChain chain)
 			throws ServletException, IOException {
 		// don't check jwt token for register api
-		if ("/hobbymatcher/register".equals(req.getRequestURI())) {
+		if (Arrays.asList( //
+				"/hobbymatcher/register", //
+				"/hobbymatcher/handshake", //
+				"/hobbymatcher/login") //
+				.contains(req.getRequestURI())) {
 			chain.doFilter(req, resp);
 			return;
 		}
+
+		System.err.println(req.getRequestURL());
 
 		String authHeader = req.getHeader("Authorization");
 
