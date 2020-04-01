@@ -22,72 +22,71 @@ import com.hobbymatcher.util.FileUtil;
 @RequestMapping("/event")
 public class EventController {
 
-	@Autowired
-	private EventService eventService;
+    @Autowired
+    private EventService eventService;
 
-	@Autowired
-	private AuthUtilService authUtilService;
+    @Autowired
+    private AuthUtilService authUtilService;
 
-	// list event
-	@GetMapping("/listevent")
-	public Map<String, Object> listEvent(String hobbyId, HttpServletResponse response) {
-		Map<String, Object> resp = new HashMap<String, Object>();
-		try {
-			if (hobbyId != null && !hobbyId.isEmpty()) {
-				resp.put("list", eventService.listEventByHobbyId(Integer.parseInt(hobbyId)));
-			} else {
-				resp.put("list", eventService.listEvent());
-			}
-			resp.put("success", true);
-			response.setStatus(200);
-		} catch (Exception exp) {
-			exp.printStackTrace();
-			resp.put("status", false);
-			response.setStatus(400);
-		}
-		return resp;
-	}
+    // list event
+    @GetMapping("/listevent")
+    public Map<String, Object> listEvent(String hobbyId, HttpServletResponse response) {
+        Map<String, Object> resp = new HashMap<String, Object>();
+        try {
+            if (hobbyId != null && !hobbyId.isEmpty()) {
+                resp.put("list", eventService.listEventByHobbyId(Integer.parseInt(hobbyId)));
+            } else {
+                resp.put("list", eventService.listEvent());
+            }
+            resp.put("success", true);
+            response.setStatus(200);
+        } catch (Exception exp) {
+            exp.printStackTrace();
+            resp.put("status", false);
+            response.setStatus(400);
+        }
+        return resp;
+    }
 
-	// add event
-	@PostMapping("/addevent")
-	public Map<String, Object> addEvent(HttpServletRequest request, HttpServletResponse response, //
-			@ModelAttribute Event event, @RequestPart(name = "file", required = true) MultipartFile imageFile) {
-		Map<String, Object> resp = new HashMap<String, Object>();
-//        if (eventService.checkEvent(event)) {
-		try {
-			event.setPhotoId(FileUtil.transferFile(imageFile));
-			event.setCreatedById(authUtilService.getUserId(request));
-			Boolean inserted = eventService.insertEvent(event);
-			resp.put("success", inserted);
-			response.setStatus(inserted ? 200 : 400);
-		} catch (Exception exp) {
-			exp.printStackTrace();
-			resp.put("success", false);
-			response.setStatus(400);
-		}
-		return resp;
-	}
+    // add event
+    @PostMapping("/addevent")
+    public Map<String, Object> addEvent(HttpServletRequest request, HttpServletResponse response, //
+                                        @ModelAttribute Event event, @RequestPart(name = "file", required = true) MultipartFile imageFile) {
+        Map<String, Object> resp = new HashMap<String, Object>();
+        try {
+            event.setPhotoId(FileUtil.transferFile(imageFile));
+            event.setCreatedById(authUtilService.getUserId(request));
+            Boolean inserted = eventService.insertEvent(event);
+            resp.put("success", inserted);
+            response.setStatus(inserted ? 200 : 400);
+        } catch (Exception exp) {
+            exp.printStackTrace();
+            resp.put("success", false);
+            response.setStatus(400);
+        }
+        return resp;
+    }
 
-	// get event by id
-	@GetMapping("/getevent")
-	public Map<String, Object> getEvent(String id, HttpServletResponse response) {
-		Map<String, Object> resp = new HashMap<String, Object>();
-		try {
-			Event event = eventService.findEventById(Integer.parseInt(id));
-			if (event == null) {
-				response.setStatus(404);
-			} else {
-				resp.put("event", event);
-				resp.put("success", true);
-				response.setStatus(200);
-			}
-		} catch (Exception exp) {
-			exp.printStackTrace();
-			resp.put("success", false);
-			response.setStatus(400);
-		}
-		return resp;
-	}
+    // get event by id
+    @GetMapping("/getevent")
+    public Map<String, Object> getEvent(String id, HttpServletResponse response) {
+        Map<String, Object> resp = new HashMap<String, Object>();
+        try {
+            Event event = eventService.findEventById(Integer.parseInt(id));
+            if (event == null) {
+                response.setStatus(404);
+            } else {
+                resp.put("event", event);
+                resp.put("success", true);
+                response.setStatus(200);
+            }
+        } catch (Exception exp) {
+            exp.printStackTrace();
+            resp.put("success", false);
+            response.setStatus(400);
+        }
+        return resp;
+    }
 
 //	@RequestMapping(value = "/joinevent", method = RequestMethod.POST)
 //	@ResponseBody

@@ -29,6 +29,7 @@ public class HobbyController {
 	@Autowired
 	private AuthUtilService authUtilService;
 
+
     @GetMapping("/listhobby")
     private Map<String, Object> listHobby(HttpServletResponse response) {
         Map<String, Object> resp = new HashMap<String, Object>();
