@@ -27,16 +27,16 @@ public class EventDaoTest {
 //		assertEquals(1, eventsList.size());
     }
 
-    @Test
-    public void testInsertEvents() {
-        Event events = new Event();
-        LocalDateTime date = LocalDateTime.now();
-        events.setOnDatetime(new Date());
-        events.setDescription("NBA");
-        events.setLocation("howe");
-        events.setCapacity(20);
-        events.setTitle("Zhe");
-        int result = eventsDao.insertEvent(events);
-        assertEquals(0, result);
-    }
+//    @Test
+//    public void testInsertEvents() {
+//        Event events = new Event();
+//        LocalDateTime date = LocalDateTime.now();
+//        events.setOnDatetime(new Date());
+//        events.setDescription("NBA");
+//        events.setLocation("howe");
+//        events.setCapacity(20);
+//        events.setTitle("Zhe");
+//        int result = eventsDao.insertEvent(events);
+//        assertEquals(0, result);
+//    }
 }

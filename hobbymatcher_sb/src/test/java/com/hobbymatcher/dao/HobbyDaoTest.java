@@ -20,16 +20,16 @@ public class HobbyDaoTest {
     HobbyDao hobbyDao;
 
 
-    @Test
-    public void testInsertHobby() {
-
-        Hobby hobby = new Hobby();
-        hobby.setCreatedById(1);
-        hobby.setDescription("first hobby");
-        hobby.setName("CS");
-        hobby.setCategoryId(2);
-        hobby.setPhotoId("");
-        int result = hobbyDao.insertHobby(hobby);
-        assertEquals(1, result);
-    }
+//    @Test
+//    public void testInsertHobby() {
+//
+//        Hobby hobby = new Hobby();
+//        hobby.setCreatedById(1);
+//        hobby.setDescription("first hobby");
+//        hobby.setName("CS");
+//        hobby.setCategoryId(2);
+//        hobby.setPhotoId("");
+//        int result = hobbyDao.insertHobby(hobby);
+//        assertEquals(1, result);
+//    }
 }
