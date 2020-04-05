@@ -66,17 +66,29 @@
             <div class="text-right pt-1">Location</div>
           </div>
           <div class="p-col-8 text-left">
+            <label>
+              {{ event.location }}
+            </label>
+            <ToggleButton
+              v-model="locationToggle"
+              onIcon="pi pi-search"
+              offIcon="pi pi-search"
+            />
             <ValidationProvider
               name="location"
               v-slot="{ errors }"
               rules="required"
             >
-              <InputText
-                id="event-location"
-                type="text"
-                v-model="event.location"
-                class="w-75"
-              />
+              <div v-if="locationToggle" class="mt-2">
+                <AutoComplete
+                  v-model="event.locationObj"
+                  :suggestions="locations"
+                  @complete="loadLocations($event)"
+                  @item-select="storeLatLng()"
+                  field="display_name"
+                  class="w-75"
+                />
+              </div>
               <ul v-if="errors.length" class="v-error">
                 <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
               </ul>
@@ -186,12 +198,20 @@
               <img
                 v-if="!event.url"
                 src="@/assets/images/logo-200x200.png"
-                style="width: 12rem; height: 12rem; border: solid 1px lightgray;"
+                style="
+                  width: 12rem;
+                  height: 12rem;
+                  border: solid 1px lightgray;
+                "
               />
               <img
                 v-if="event.url"
                 :src="event.url"
-                style="width: 12rem; height: 12rem; border: solid 1px lightgray;"
+                style="
+                  width: 12rem;
+                  height: 12rem;
+                  border: solid 1px lightgray;
+                "
               />
             </div>
             <div>
@@ -226,6 +246,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { EventService } from './EventService'
 import { Event } from './Event'
@@ -237,9 +258,10 @@ export default class EventForm extends Vue {
   @Model() model!: Event
   internal: Event = {} as any
 
+  locations = []
+  locationToggle = false
   hobbies: Hobby[] = []
 
-  // eslint-disable-next-line space-before-function-paren
   get event(): any {
     return this.model || this.internal
   }
@@ -249,7 +271,6 @@ export default class EventForm extends Vue {
   hobbyApi: HobbyService = new HobbyService()
   eventApi: EventService = new EventService()
 
-  // eslint-disable-next-line space-before-function-paren
   mounted() {
     this.hobbyApi
       .list()
@@ -257,13 +278,11 @@ export default class EventForm extends Vue {
       .catch((err: any) => console.log(err))
   }
 
-  // eslint-disable-next-line space-before-function-paren
   clearFileSelect($event: any) {
     this.event.url = null
     this.event.file = null
   }
 
-  // eslint-disable-next-line space-before-function-paren
   onFileSelect($event: any) {
     if ($event.files && $event.files[0]) {
       this.event.file = $event.files[0]
@@ -273,18 +292,43 @@ export default class EventForm extends Vue {
     }
   }
 
-  // eslint-disable-next-line space-before-function-paren
+  loadLocations($event: any) {
+    this.eventApi
+      .suggestLocations($event.query)
+      .then((resp: any) => (this.locations = resp.data))
+      .catch((err: any) => {
+        console.log(err)
+      })
+  }
+
+  storeLatLng() {
+    this.event.location = this.event.locationObj.display_name
+    const addr = this.event.locationObj.address
+    this.event.locationShort = [
+      addr.city,
+      this.eventApi.getStateShort(addr.state)
+    ]
+      .filter((add) => add)
+      .join(', ')
+    this.event.geoLat = this.event.locationObj.lat
+    this.event.geoLon = this.event.locationObj.lon
+
+    this.locationToggle = false
+  }
+
   back() {
     window.history.back()
   }
 
-  // eslint-disable-next-line space-before-function-paren
   save() {
     const data = new FormData()
     data.append('hobbyId', this.event.hobbyId)
     data.append('title', this.event.title)
     data.append('onDatetime', this.event.onDatetime)
     data.append('location', this.event.location)
+    data.append('locationShort', this.event.locationShort)
+    data.append('geoLat', this.event.geoLat)
+    data.append('geoLon', this.event.geoLon)
     data.append('capacity', this.event.capacity)
     data.append('description', this.event.description)
     data.append('plus18Only', this.event.plus18Only)
@@ -307,6 +351,9 @@ export default class EventForm extends Vue {
 
 <style lang="less">
 .event-form .p-dropdown-filter-container {
+  width: 100%;
+}
+.event-form .p-autocomplete-input {
   width: 100%;
 }
 </style>

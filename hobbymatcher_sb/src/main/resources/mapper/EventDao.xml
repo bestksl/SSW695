@@ -12,8 +12,8 @@
 
 	<insert id="insertEvent" useGeneratedKeys="true"
 		keyProperty="id">
-	 	insert into event (hobby_id, title, on_datetime, location, capacity, description, plus18_only, organizer, photo_id, created_by_id)
-        values (#{hobbyId}, #{title}, #{onDatetime}, #{location}, #{capacity}, #{description}, #{plus18Only}, #{organizer}, #{photoId}, #{createdById})
+	 	insert into event (hobby_id, title, on_datetime, location, location_short, geo_lat, geo_lon, capacity, description, plus18_only, organizer, photo_id, created_by_id)
+        values (#{hobbyId}, #{title}, #{onDatetime}, #{location}, #{locationShort}, #{geoLat}, #{geoLon}, #{capacity}, #{description}, #{plus18Only}, #{organizer}, #{photoId}, #{createdById})
 	</insert>
 
 	<select id="findEventById"

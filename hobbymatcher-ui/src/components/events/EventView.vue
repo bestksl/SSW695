@@ -27,7 +27,7 @@
           <Button label="Join" icon="pi pi-plus" class="p-button-primary" />
         </div>
       </div>
-      <div class="p-col-7 ">
+      <div class="p-col-7">
         <div class="p-grid">
           <div class="p-col-12">
             <h3>{{ event.title }}</h3>
@@ -50,6 +50,18 @@
           </div>
           <div class="p-col-9">
             {{ event.location }}
+
+            <a
+              :href="
+                'https://www.google.com/maps/search/?api=1&query=' +
+                event.geoLat +
+                ',' +
+                event.geoLon
+              "
+              target="_blank"
+            >
+              (open in map)
+            </a>
           </div>
 
           <div v-if="event.capacity" class="p-col-3">

@@ -9,6 +9,9 @@ public class Event {
 	private String title;
 	private Date onDatetime;
 	private String location;
+	private String locationShort;
+	private Double geoLat;
+	private Double geoLon;
 	private Integer capacity;
 	private String description;
 	private Boolean plus18Only;
@@ -54,6 +57,30 @@ public class Event {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+
+	public String getLocationShort() {
+		return locationShort;
+	}
+
+	public void setLocationShort(String locationShort) {
+		this.locationShort = locationShort;
+	}
+
+	public Double getGeoLat() {
+		return geoLat;
+	}
+
+	public void setGeoLat(Double geoLat) {
+		this.geoLat = geoLat;
+	}
+
+	public Double getGeoLon() {
+		return geoLon;
+	}
+
+	public void setGeoLon(Double geoLon) {
+		this.geoLon = geoLon;
 	}
 
 	public Integer getCapacity() {

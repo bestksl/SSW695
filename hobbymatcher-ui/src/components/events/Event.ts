@@ -4,6 +4,10 @@ export interface Event {
     title: string;
     onDatetime: any; // string | Date;
     location: string;
+    locationShort: string;
+    locationObj: any; // only used in ui
+    geoLat: number;
+    geoLon: number;
     capacity: number;
     description: string;
     plus18Only: boolean;

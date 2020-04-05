@@ -30,6 +30,8 @@ import Paginator from 'primevue/paginator'
 import Dropdown from 'primevue/dropdown'
 import Carousel from 'primevue/carousel'
 import Dialog from 'primevue/dialog'
+import AutoComplete from 'primevue/autocomplete'
+import ToggleButton from 'primevue/togglebutton'
 
 import 'primevue/resources/themes/nova-light/theme.css'
 import 'primevue/resources/primevue.min.css'
@@ -95,6 +97,8 @@ Vue.component('Paginator', Paginator)
 Vue.component('Dropdown', Dropdown)
 Vue.component('Carousel', Carousel)
 Vue.component('Dialog', Dialog)
+Vue.component('AutoComplete', AutoComplete)
+Vue.component('ToggleButton', ToggleButton)
 
 // This will kick of the initial replacement of i to svg tags
 // and configure a MutationObserver

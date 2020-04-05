@@ -19,7 +19,7 @@
             | dateFormat('MMM DD, YYYY h:mma')
         }}
       </span>
-      <span class="event-location">{{ event.location }}</span>
+      <span class="event-location">{{ event.locationShort }}</span>
       <router-link
         v-if="userId == event.createdById"
         :to="'/hobbies/edit?id=' + event.id"
