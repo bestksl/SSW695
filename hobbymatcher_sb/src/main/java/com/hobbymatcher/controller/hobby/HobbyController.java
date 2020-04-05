@@ -29,21 +29,21 @@ public class HobbyController {
 	@Autowired
 	private AuthUtilService authUtilService;
 
-    @GetMapping("/listhobby")
-    private Map<String, Object> listHobby(HttpServletResponse response) {
-        Map<String, Object> resp = new HashMap<String, Object>();
-        try {
-            resp.put("list", hobbyService.listHobby());
-            resp.put("success", true);
-            response.setStatus(200);
-        } catch (Exception exp) {
-            exp.printStackTrace();
-            resp.put("success", false);
-            response.setStatus(400);
-        }
-        return resp;
-    }
- 
+	@GetMapping("/listhobby")
+	private Map<String, Object> listHobby(HttpServletResponse response) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		try {
+			resp.put("list", hobbyService.listHobby());
+			resp.put("success", true);
+			response.setStatus(200);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			resp.put("success", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
+
 	// addhobby
 	@RequestMapping(value = "/addhobby", method = RequestMethod.POST)
 	@ResponseBody
@@ -64,36 +64,36 @@ public class HobbyController {
 		}
 	}
 
-    // gethobby
-    @GetMapping("/gethobby")
-    public Map<String, Object> getHobby(String id, HttpServletResponse response) {
-        Map<String, Object> resp = new HashMap<String, Object>();
-        try {
-            Hobby hobby = hobbyService.findHobbyById(Integer.parseInt(id));
+	// gethobby
+	@GetMapping("/gethobby")
+	public Map<String, Object> getHobby(String id, HttpServletResponse response) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		try {
+			Hobby hobby = hobbyService.findHobbyById(Integer.parseInt(id));
 
-            if (hobby == null) {
-                response.setStatus(404);
-            } else {
-                resp.put("hobby", hobby);
-                resp.put("success", true);
-                response.setStatus(200);
-            }
-        } catch (Exception exp) {
-            exp.printStackTrace();
-            resp.put("success", false);
-            response.setStatus(400);
-        }
-        return resp;
-    }
+			if (hobby == null) {
+				response.setStatus(404);
+			} else {
+				resp.put("hobby", hobby);
+				resp.put("success", true);
+				response.setStatus(200);
+			}
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			resp.put("success", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
 
 	// edithobby
 	@RequestMapping(value = "/edithobby", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> editHobby(HttpServletResponse response, //
-			@ModelAttribute Hobby hobby, @RequestPart("file") MultipartFile imageFile) {
+			@ModelAttribute Hobby hobby, @RequestPart(name = "file", required = false) MultipartFile imageFile) {
 		Map<String, Object> resp = new HashMap<String, Object>();
 		if (hobby != null) {
-			if (!imageFile.isEmpty()) {
+			if (imageFile != null && !imageFile.isEmpty()) {
 				hobby.setPhotoId(FileUtil.transferFile(imageFile));
 			}
 			Boolean inserted = hobbyService.updateHobby(hobby);
