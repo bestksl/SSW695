@@ -1,4 +1,6 @@
 /* eslint-disable space-before-function-paren */
+/* eslint-disable comma-dangle */
+
 import axios from 'axios'
 import { http } from '../Api'
 import { Event } from './Event'
@@ -82,7 +84,6 @@ export class EventService {
       ['washington', 'WA'],
       ['west virginia', 'WV'],
       ['wisconsin', 'WI'],
-      // eslint-disable-next-line comma-dangle
       ['wyoming', 'WY'],
     ]
 

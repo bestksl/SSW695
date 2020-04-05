@@ -13,7 +13,7 @@
         <hr />
       </div>
     </div>
-    <HobbyForm />
+    <HobbyForm :id="$route.query.id" />
   </div>
 </template>
 
@@ -22,7 +22,7 @@ import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { AuthService } from '../components/auth/AuthService'
 
 @Component
-export default class CreateHobby extends Vue {
+export default class EditHobby extends Vue {
   authApi = AuthService.getInstance()
 
   // eslint-disable-next-line space-before-function-paren

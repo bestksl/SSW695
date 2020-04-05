@@ -44,6 +44,11 @@ const routes = [
     component: () => import('../views/ViewHobby.vue')
   },
   {
+    path: '/hobbies/edit',
+    name: 'edit-hobby',
+    component: () => import('../views/EditHobby.vue')
+  },
+  {
     path: '/hobbies',
     name: 'hobbies',
     component: () => import('../views/Hobbies.vue')

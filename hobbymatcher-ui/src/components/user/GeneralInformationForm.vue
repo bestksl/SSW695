@@ -4,27 +4,39 @@
       <form @submit.prevent="save">
         <div class="p-grid">
           <div class="p-col-12 text-center">
-            <div>
+            <div v-if="imgForceUpdate">
               <!-- when there is photoId -->
               <img
-                v-if="info.photoId"
+                v-if="!info.url && info.photoId"
                 :src="
                   'http://localhost:8080/hobbymatcher/files/' + info.photoId
                 "
-                style="width: 12rem; height: 12rem; border: solid 1px lightgray;"
+                style="
+                  width: 12rem;
+                  height: 12rem;
+                  border: solid 1px lightgray;
+                "
               />
               <!-- else -->
               <!-- if no photo is selected yet -->
               <img
-                v-if="!info.photoId && !info.url"
+                v-if="!info.url && !info.photoId"
                 src="@/assets/images/logo-200x200.png"
-                style="width: 12rem; height: 12rem; border: solid 1px lightgray;"
+                style="
+                  width: 12rem;
+                  height: 12rem;
+                  border: solid 1px lightgray;
+                "
               />
               <!-- if selected but not uploaded yet -->
               <img
-                v-if="!info.photoId && info.url"
+                v-if="info.url"
                 :src="info.url"
-                style="width: 12rem; height: 12rem; border: solid 1px lightgray;"
+                style="
+                  width: 12rem;
+                  height: 12rem;
+                  border: solid 1px lightgray;
+                "
               />
             </div>
             <div>
@@ -140,6 +152,8 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable comma-dangle */
+
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { GeneralInformation } from './GeneralInformation'
 import { ProfileService } from './ProfileService'
@@ -149,10 +163,12 @@ export default class GeneralInformationForm extends Vue {
   @Prop() model!: GeneralInformation
   info = {} as any
 
+  imgForceUpdate = Math.random()
+
   genders = [
     { title: 'Male', value: 'Male' },
     { title: 'Female', value: 'Female' },
-    { title: 'Other', value: 'Other' }
+    { title: 'Other', value: 'Other' },
   ]
 
   profileApi = ProfileService.getInstance()
@@ -170,7 +186,7 @@ export default class GeneralInformationForm extends Vue {
       const reader = new FileReader()
       reader.onload = (e: any) => {
         this.info.url = e.target.result
-        this.info = { ...this.info }
+        this.imgForceUpdate = Math.random()
       }
       reader.readAsDataURL(this.info.file)
     }
