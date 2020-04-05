@@ -6,17 +6,19 @@ import com.hobbymatcher.entity.Hobby;
 
 public interface HobbyService {
 
-    List<Hobby> listHobby();
+	List<Hobby> listHobby();
 
-    boolean insertHobby(Hobby hobby);
+	boolean insertHobby(Hobby hobby);
 
-    Hobby findHobbyById(int id);
+	Hobby findHobbyById(int id);
 
-    Hobby findHobbyByName(String name);
+	Hobby findHobbyByName(String name);
 
-    boolean updateHobby(Hobby hobby);
+	boolean updateHobby(Hobby hobby);
 
-    boolean checkHobby(Hobby hobby);
+	boolean checkHobby(Hobby hobby);
 
-    List<Hobby> listHobbyByCreatedById(int userId);
+	List<Hobby> listHobbyByCreatedById(int userId);
+
+	List<Hobby> listHobbyBySubscribedId(int userId);
 }

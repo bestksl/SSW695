@@ -177,6 +177,7 @@ public class UserController {
 			if ("created".equals(load)) {
 				resp.put("list", hobbyService.listHobbyByCreatedById(userId));
 			} else if ("subscribed".equals(load)) {
+				resp.put("list", hobbyService.listHobbyBySubscribedId(userId));
 			}
 			resp.put("success", true);
 			response.setStatus(200);

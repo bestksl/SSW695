@@ -23,4 +23,6 @@ public interface HobbyDao {
 	int deleteHobby(@Param("id") int id);
 
 	List<Hobby> listHobbyByCreatedById(@Param("createdById") int createdById);
+
+	List<Hobby> listHobbyBySubscribedId(@Param("userId") int userId);
 }
