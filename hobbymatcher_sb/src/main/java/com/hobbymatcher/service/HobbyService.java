@@ -17,4 +17,6 @@ public interface HobbyService {
     boolean updateHobby(Hobby hobby);
 
     boolean checkHobby(Hobby hobby);
+
+    List<Hobby> listHobbyByCreatedById(int userId);
 }

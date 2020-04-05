@@ -9,6 +9,14 @@
 		from hobby
 		order by id desc
 	</select>
+	
+	<select id="listHobbyByCreatedById"
+		resultType="com.hobbymatcher.entity.Hobby">
+		select *
+		from hobby
+		where created_by_id = #{createdById}
+		order by id desc
+	</select>
 
 	<insert id="insertHobby" useGeneratedKeys="true"
 		keyProperty="id">

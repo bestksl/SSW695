@@ -19,6 +19,11 @@ public class HobbyServiceImpl implements HobbyService {
 	public List<Hobby> listHobby() {
 		return hobbyDao.listHobby();
 	}
+	
+	@Override
+	public List<Hobby> listHobbyByCreatedById(int userId) {
+		return hobbyDao.listHobbyByCreatedById(userId);
+	}
 
 	@Override
 	public boolean insertHobby(Hobby hobby) {

@@ -21,4 +21,6 @@ public interface HobbyDao {
 	int updateHobby(Hobby hobby);
 
 	int deleteHobby(@Param("id") int id);
+
+	List<Hobby> listHobbyByCreatedById(@Param("createdById") int createdById);
 }

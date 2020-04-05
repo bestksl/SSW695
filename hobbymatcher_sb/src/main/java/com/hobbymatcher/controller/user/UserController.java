@@ -173,7 +173,11 @@ public class UserController {
 		Map<String, Object> resp = new HashMap<String, Object>();
 		try {
 			// TODO filter by load => "created", "subscribed"
-			resp.put("list", hobbyService.listHobby());
+			int userId = authUtilService.getUserId(req);
+			if ("created".equals(load)) {
+				resp.put("list", hobbyService.listHobbyByCreatedById(userId));
+			} else if ("subscribed".equals(load)) {
+			}
 			resp.put("success", true);
 			response.setStatus(200);
 		} catch (Exception exp) {
