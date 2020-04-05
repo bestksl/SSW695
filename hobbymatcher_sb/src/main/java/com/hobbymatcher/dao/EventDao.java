@@ -20,18 +20,9 @@ public interface EventDao {
 
 	List<Event> listEventByHobbyId(@Param("hobbyId") int id);
 
-//    int joinEvents(@Param("id") String id, @Param("eventsId") String eventsId);
-//
-//    List<Event> findPastEvents(@Param("id") String id, @Param("currentTime") LocalDateTime currentTime);
-//
-//    List<Event> findUpcomingEvents(@Param("id") String id, @Param("currentTime") LocalDateTime currentTime);
-//
-//    List<Event> getEventsForUser(@Param("id") String id);
-//
-//    int deleteEvents(@Param("id") String id);
-//
-//    int updateEvents(Event events);
-//
-//    int getNumber(int id);
-//
+	List<Event> listPastJoinEvents(@Param("userId") int userId);
+
+	List<Event> listJoinedFutureEvents(@Param("userId") int userId);
+
+	List<Event> listPastHoldEvents(@Param("userId") int userId);
 }

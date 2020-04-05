@@ -21,6 +21,21 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
+	public List<Event> listPastJoinEvents(int userId) {
+		return eventDao.listPastJoinEvents(userId);
+	}
+
+	@Override
+	public List<Event> listJoinedFutureEvents(int userId) {
+		return eventDao.listJoinedFutureEvents(userId);
+	}
+
+	@Override
+	public List<Event> listPastHoldEvents(int userId) {
+		return eventDao.listPastHoldEvents(userId);
+	}
+
+	@Override
 	public boolean insertEvent(Event event) {
 		try {
 			eventDao.insertEvent(event);

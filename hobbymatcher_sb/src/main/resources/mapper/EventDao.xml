@@ -9,6 +9,37 @@
 		from event
 		order by id desc
 	</select>
+	
+	<select id="listPastJoinEvents"
+		resultType="com.hobbymatcher.entity.Event">
+		select event.*
+		from event
+		join participation as p on p.event_id = event.id 
+		and p.user_id = #{userId} 
+		and p.approved_on_datetime is not null
+		and now() > event.on_datetime 
+		order by id 
+	</select>
+	
+	<select id="listJoinedFutureEvents"
+		resultType="com.hobbymatcher.entity.Event">
+		select event.*
+		from event
+		join participation as p on p.event_id = event.id 
+		and p.user_id = #{userId} 
+		and p.approved_on_datetime is not null
+		and event.on_datetime > now() 
+		order by id 
+	</select>
+	
+	<select id="listPastHoldEvents"
+		resultType="com.hobbymatcher.entity.Event">
+		select *
+		from event
+		where created_by_id = #{userId}
+		  and now() > on_datetime 
+		order by id 
+	</select>
 
 	<insert id="insertEvent" useGeneratedKeys="true"
 		keyProperty="id">
