@@ -13,7 +13,7 @@
         <hr />
       </div>
     </div>
-    <EventView v-model="event" />
+    <EventView v-if="event.id" v-model="event" />
 
     <div class="p-grid">
       <hr class="p-col-10 p-offset-1 py-0 my-3" />

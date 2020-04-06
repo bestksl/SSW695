@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.hobbymatcher.entity.Followship;
 import com.hobbymatcher.entity.Hobby;
 
 @Repository
@@ -25,4 +26,6 @@ public interface HobbyDao {
 	List<Hobby> listHobbyByCreatedById(@Param("createdById") int createdById);
 
 	List<Hobby> listHobbyBySubscribedId(@Param("userId") int userId);
+
+	Followship getFollowship(@Param("userId") int userId, @Param("hobbyId") int hobbyId);
 }

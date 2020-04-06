@@ -3,6 +3,16 @@ import { http } from '../Api'
 import { Hobby } from './Hobby'
 
 export class HobbyService {
+  private static instance: any
+
+  public static getInstance() {
+    if (HobbyService.instance == null) {
+      HobbyService.instance = new HobbyService()
+    }
+
+    return HobbyService.instance
+  }
+
   list() {
     return http.get('/hobby/listhobby')
   }
@@ -21,5 +31,9 @@ export class HobbyService {
     return http.post('/hobby/edithobby', hobby, {
       headers: { 'content-type': 'multipart/form-data' }
     })
+  }
+
+  getFollowship(id: any) {
+    return http.get('/hobby/getfollowship?id=' + id)
   }
 }

@@ -3,6 +3,7 @@ package com.hobbymatcher.service;
 import java.util.List;
 
 import com.hobbymatcher.entity.Event;
+import com.hobbymatcher.entity.Participation;
 
 public interface EventService {
 
@@ -23,6 +24,16 @@ public interface EventService {
 	List<Event> listPastHoldEvents(int userId);
 
 	Boolean updateEvent(Event event);
+
+	Participation getParticipation(int userId, Integer eventId);
+
+	void requestToParticipateEvent(Integer userId, Integer eventId);
+
+	void cancelEventParticipationRequest(int userId, Integer eventId);
+
+	void markEventAsParticipated(int userId, Integer eventId);
+
+	void approveUser(Integer theUserId, Integer eventId);
 
 //	boolean checkEvent(Event event);
 

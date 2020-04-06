@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hobbymatcher.authentication.service.JwtUtilService;
+import com.hobbymatcher.entity.Followship;
 import com.hobbymatcher.entity.Hobby;
+import com.hobbymatcher.entity.Participation;
 import com.hobbymatcher.service.HobbyService;
 import com.hobbymatcher.service.impl.AuthUtilService;
 import com.hobbymatcher.util.FileUtil;
@@ -107,25 +109,25 @@ public class HobbyController {
 		}
 	}
 
-//	// deletehobby
-//	@RequestMapping(value = "/deletehobby", method = RequestMethod.GET)
-//	@ResponseBody
-//	public Map<String, Object> deleteHobby(String id, HttpServletResponse response) {
-//		Map<String, Object> resp = new HashMap<String, Object>();
-//		try {
-//			Boolean deleted = hobbyService.deleteHobby(Integer.parseInt(id));
-//			if (deleted) {
-//				resp.put("success", true);
-//				response.setStatus(200);
-//			} else {
-//				resp.put("success", false);
-//				response.setStatus(400);
-//			}
-//		} catch (Exception exp) {
-//			exp.printStackTrace();
-//			resp.put("success", false);
-//			response.setStatus(400);
-//		}
-//		return resp;
-//	}
+	@GetMapping("/getfollowship")
+	public Map<String, Object> getFollowship(HttpServletRequest request, HttpServletResponse response, //
+			@RequestParam("id") Integer hobbyId) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		try {
+			int userId = authUtilService.getUserId(request);
+			Followship follow = hobbyService.getFollowship(userId, hobbyId);
+			if (follow == null) {
+				resp.put("status", "");
+			} else {
+				resp.put("status", "followed");
+			}
+			resp.put("success", true);
+			response.setStatus(200);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			resp.put("success", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
 }

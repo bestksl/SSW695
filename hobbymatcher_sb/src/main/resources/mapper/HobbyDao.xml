@@ -58,4 +58,12 @@
 		</set>
 		where id=#{id}
 	</update>
+	
+	<select id="getFollowship"
+		resultType="com.hobbymatcher.entity.Followship">
+		select *
+		from follower 
+		where user_id = #{userId}
+		  and hobby_id = #{hobbyId}
+	</select>
 </mapper>

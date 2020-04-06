@@ -191,6 +191,7 @@ CREATE TABLE IF NOT EXISTS `participation` (
   `event_id` INT NOT NULL,
   `requested_on_datetime` DATETIME NULL,
   `approved_on_datetime` DATETIME NULL,
+  `participated_on_datetime` DATETIME NULL,
   INDEX `fk_user_has_event_event1_idx` (`event_id` ASC),
   INDEX `fk_user_has_event_user1_idx` (`user_id` ASC),
   CONSTRAINT `fk_user_has_event_user1`

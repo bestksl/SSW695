@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hobbymatcher.dao.HobbyDao;
+import com.hobbymatcher.entity.Followship;
 import com.hobbymatcher.entity.Hobby;
 import com.hobbymatcher.service.HobbyService;
 
@@ -19,12 +20,12 @@ public class HobbyServiceImpl implements HobbyService {
 	public List<Hobby> listHobby() {
 		return hobbyDao.listHobby();
 	}
-	
+
 	@Override
 	public List<Hobby> listHobbyByCreatedById(int userId) {
 		return hobbyDao.listHobbyByCreatedById(userId);
 	}
-	
+
 	@Override
 	public List<Hobby> listHobbyBySubscribedId(int userId) {
 		return hobbyDao.listHobbyBySubscribedId(userId);
@@ -65,5 +66,10 @@ public class HobbyServiceImpl implements HobbyService {
 				return false;
 		}
 		return true;
+	}
+
+	@Override
+	public Followship getFollowship(int userId, Integer hobbyId) {
+		return hobbyDao.getFollowship(userId, hobbyId);
 	}
 }

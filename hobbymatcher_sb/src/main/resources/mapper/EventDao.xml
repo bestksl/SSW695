@@ -90,45 +90,35 @@
 		where id=#{id}
 	</update>
 	
-    <!-- 
-    <select id="getNumber" resultType="int">
-        select count(user_id)
-        from join_events
-        where events_id = #{id}
-    </select>
-
-    <select id="getEventsForUser" resultType="com.hobbymatcher.entity.Event">
-        select *
-        from events
-        join join_events je on events.events_id = je.events_id and je.user_id = #{id}
-        order by events_time DESC
-    </select>
-
-    <select id="findPastEvents" resultType="com.hobbymatcher.entity.Event">
-        select *
-        from events
-        join join_events je on events.events_id = je.events_id and je.user_id = #{id}
-        where #{currentTime} > events_time
-        order by events_time DESC
-    </select>
-
-
-    <select id="findUpcomingEvents" resultType="com.hobbymatcher.entity.Event">
-        select *
-        from events
-        join join_events je on events.events_id = je.events_id and je.user_id = #{id}
-        where events_time > #{currentTime}
-        order by events_time DESC
-    </select>
-
-    <insert id="joinEvents" useGeneratedKeys="true">
-        insert into join_events(user_id, events_id)
-        values (#{id}, #{eventsId})
-    </insert>
-
-    <delete id="deleteEvents">
-        DELETE
-        FROM events
-        WHERE events_id = #{id}
-    </delete> -->
+    <select id="getParticipation"
+		resultType="com.hobbymatcher.entity.Participation">
+		select *
+		from participation
+		where user_id = #{userId} 
+		  and event_id = #{eventId} 
+	</select>
+	
+	<insert id="requestToParticipateEvent">
+	 	insert into participation (user_id, event_id, requested_on_datetime) values (#{userId}, #{eventId}, now())
+	</insert>
+	
+	<delete id="cancelEventParticipationRequest">
+		delete from participation
+		where user_id = #{userId}
+		  and event_id = #{eventId}
+	</delete>
+	
+	<update id="markEventAsParticipated">
+		update participation
+		set participated_on_datetime = now()
+		where user_id = #{userId}
+		  and event_id = #{eventId}
+	</update>
+	
+	<update id="approveUser">
+		update participation
+		set approved_on_datetime = now()
+		where user_id = #{theUserId}
+		  and event_id = #{eventId}
+	</update>
 </mapper>

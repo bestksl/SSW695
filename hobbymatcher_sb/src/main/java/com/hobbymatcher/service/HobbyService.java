@@ -2,6 +2,7 @@ package com.hobbymatcher.service;
 
 import java.util.List;
 
+import com.hobbymatcher.entity.Followship;
 import com.hobbymatcher.entity.Hobby;
 
 public interface HobbyService {
@@ -21,4 +22,6 @@ public interface HobbyService {
 	List<Hobby> listHobbyByCreatedById(int userId);
 
 	List<Hobby> listHobbyBySubscribedId(int userId);
+
+	Followship getFollowship(int userId, Integer hobbyId);
 }

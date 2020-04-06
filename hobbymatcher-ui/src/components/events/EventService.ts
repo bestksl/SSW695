@@ -6,6 +6,16 @@ import { http } from '../Api'
 import { Event } from './Event'
 
 export class EventService {
+  private static instance: any
+
+  public static getInstance() {
+    if (EventService.instance == null) {
+      EventService.instance = new EventService()
+    }
+
+    return EventService.instance
+  }
+
   list() {
     return http.get('/event/listevent')
   }
@@ -28,6 +38,14 @@ export class EventService {
 
   suggestLocations(key: string) {
     return axios.create().get(`https://nominatim.openstreetmap.org/search/${key}?format=json&addressdetails=1&limit=10`)
+  }
+
+  getParticipation(id: any) {
+    return http.get('/event/getparticipation?id=' + id)
+  }
+
+  manageParticipation(id: number, action: string) {
+    return http.post(`/event/participation?action=${action}&id=${id}`)
   }
 
   getStateShort(state: string) {
