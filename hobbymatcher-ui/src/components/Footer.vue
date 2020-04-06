@@ -21,16 +21,24 @@
     <div class="footer-bottom-box mx-auto">
       <div class="footer-info-box-left">
         <a href="">
-          <img src="@/assets/images/logo-180x90.png" alt="logo">
+          <img src="@/assets/images/logo-180x90.png" alt="logo" />
         </a>
       </div>
       <div class="footer-info-box-right">
         <ul class="footer-bottom-ul">
-          <li><a href="">Report complaints</a></li>
-          <li><a href="mailto:hobbymatcher@gmail.com?cc=hobbymatcherdev@gmail.com&bcc=hobbymatcherbusiness@gmail.com;&
-                          &subject=The%20subject%20of%20the%20email
-                          &body=I%20would%20like%20to%20report%20a%20bug%20,%20it%20is%20on%20this%20website(link%20please%20attached%20below),%20some%20descriptions">
-            Contact Us</a>
+          <li>
+            <a
+              href="mailto:hobbymatcher@gmail.com?cc=hobbymatcherdev@gmail.com&bcc=hobbymatcherbusiness@gmail.com;&subject=Complaint about ...&body=I would like to report a complaint about ..."
+            >
+              Report complaints</a
+            >
+          </li>
+          <li>
+            <a
+              href="mailto:hobbymatcher@gmail.com?cc=hobbymatcherdev@gmail.com&bcc=hobbymatcherbusiness@gmail.com;&subject=Hello HobbyMatcher&body=I would like to ..."
+            >
+              Contact Us</a
+            >
           </li>
           <li><a href="">FAQs</a></li>
         </ul>
@@ -104,6 +112,6 @@ ul {
 }
 
 a:hover {
-  color: #FF1268;
+  color: #ff1268;
 }
 </style>

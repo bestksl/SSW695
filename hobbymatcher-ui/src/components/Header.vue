@@ -8,13 +8,13 @@
         </router-link>
 
         <!-- location-header -->
-        <div class="d-inline-block locationButton">
+        <!-- <div class="d-inline-block locationButton">
           <a href="">
             <i class="fas fa-map-marker-alt"></i>
             <span class="city-location">&nbsp;(NY)New York&nbsp;</span>
             <i class="fas fa-caret-down"></i>
           </a>
-        </div>
+        </div> -->
 
         <!--        <h3 class="d-inline-block mx-4 my-0 pb-1 app-name">-->
         <!--          <router-link to="/">-->
