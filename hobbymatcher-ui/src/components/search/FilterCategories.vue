@@ -5,27 +5,34 @@
       v-model="model.categories"
       :options="categories"
       :multiple="true"
-      optionLabel="label"
+      optionLabel="name"
       optionValue="id"
       style="width: 120px;"
+      @change="$emit('changed', null)"
     />
   </div>
 </template>
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
+/* eslint-disable comma-dangle */
+
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Filter } from './Filter'
+import { CategoryService } from '../category/CategoryService'
 
 @Component
 export default class FilterCategories extends Vue {
   @Prop() notitle!: boolean
   @Model() model!: Filter
-  categories = [
-    { id: 1, label: 'Sports' },
-    { id: 2, label: 'Music' },
-    { id: 3, label: 'Art' }
-  ]
+  categories = []
+
+  mounted() {
+    new CategoryService()
+      .list()
+      .then((resp: any) => (this.categories = resp.data.list))
+      .catch((err: any) => console.log(err))
+  }
 }
 </script>
 

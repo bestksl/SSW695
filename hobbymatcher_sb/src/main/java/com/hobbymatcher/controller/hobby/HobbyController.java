@@ -1,6 +1,8 @@
 package com.hobbymatcher.controller.hobby;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,10 +34,22 @@ public class HobbyController {
 	private AuthUtilService authUtilService;
 
 	@GetMapping("/listhobby")
-	private Map<String, Object> listHobby(HttpServletResponse response) {
+	private Map<String, Object> listHobby(HttpServletResponse response, //
+			@RequestParam(name = "offset", required = false, defaultValue = "0") Integer offset,
+			@RequestParam(name = "perpage", required = false, defaultValue = "10") Integer perpage,
+			@RequestParam(name = "categories", required = false, defaultValue = "") String categories) {
 		Map<String, Object> resp = new HashMap<String, Object>();
 		try {
-			resp.put("list", hobbyService.listHobby());
+			List<String> tmp = new ArrayList<>();
+			for (String categoryId : categories.split(",")) {
+				if (!categoryId.trim().isEmpty()) {
+					tmp.add(categoryId);
+				}
+			}
+			String[] categoryIds = tmp.toArray(new String[] {});
+
+			resp.put("count", hobbyService.listHobby(0, Integer.MAX_VALUE, categoryIds).size());
+			resp.put("list", hobbyService.listHobby(offset, perpage, categoryIds));
 			resp.put("success", true);
 			response.setStatus(200);
 		} catch (Exception exp) {
