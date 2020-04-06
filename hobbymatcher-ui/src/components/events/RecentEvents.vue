@@ -24,6 +24,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { Event } from './Event'
 
@@ -44,7 +45,6 @@ export default class RecentEvents extends Vue {
     } as any
   ]
 
-  // eslint-disable-next-line space-before-function-paren
   constructor() {
     super()
 

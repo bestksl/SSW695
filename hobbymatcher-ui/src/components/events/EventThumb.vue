@@ -32,6 +32,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Event } from './Event'
 
@@ -40,7 +41,6 @@ export default class EventThumb extends Vue {
   @Model() model!: Event
   @Model() userId!: number
 
-  // eslint-disable-next-line space-before-function-paren
   get event() {
     return this.model || {}
   }

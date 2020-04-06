@@ -18,6 +18,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { AuthService } from '../components/auth/AuthService'
 
@@ -25,15 +26,10 @@ import { AuthService } from '../components/auth/AuthService'
 export default class EditHobby extends Vue {
   authApi = AuthService.getInstance()
 
-  // eslint-disable-next-line space-before-function-paren
   mounted() {
-    if (!this.authApi.isLogin) {
-      Vue.toasted.show('Please Login', { duration: 5000 })
-      this.$router.back()
-    }
+    this.authApi.shouldBeLoggedIn(this.$router)
   }
 
-  // eslint-disable-next-line space-before-function-paren
   back() {
     window.history.back()
   }

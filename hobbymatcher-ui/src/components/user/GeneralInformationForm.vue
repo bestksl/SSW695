@@ -152,6 +152,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
 /* eslint-disable comma-dangle */
 
 import { Component, Prop, Vue } from 'vue-property-decorator'
@@ -173,13 +174,11 @@ export default class GeneralInformationForm extends Vue {
 
   profileApi = ProfileService.getInstance()
 
-  // eslint-disable-next-line space-before-function-paren
   clearFileSelect($info: any) {
     this.info.url = null
     this.info.file = null
   }
 
-  // eslint-disable-next-line space-before-function-paren
   onFileSelect($info: any) {
     if ($info.files && $info.files[0]) {
       this.info.file = $info.files[0]
@@ -192,7 +191,6 @@ export default class GeneralInformationForm extends Vue {
     }
   }
 
-  // eslint-disable-next-line space-before-function-paren
   mounted() {
     this.profileApi
       .loadGeneralInformation()
@@ -203,7 +201,6 @@ export default class GeneralInformationForm extends Vue {
       .catch((err: any) => console.log(err))
   }
 
-  // eslint-disable-next-line space-before-function-paren
   save() {
     const data = new FormData()
     data.append('username', this.info.username)

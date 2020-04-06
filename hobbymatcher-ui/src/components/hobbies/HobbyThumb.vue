@@ -24,6 +24,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Hobby } from './Hobby'
 
@@ -32,7 +33,6 @@ export default class HobbyThumb extends Vue {
   @Model() model!: Hobby
   @Model() userId!: number
 
-  // eslint-disable-next-line space-before-function-paren
   get hobby() {
     return this.model || {}
   }

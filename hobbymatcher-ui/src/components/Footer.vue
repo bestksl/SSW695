@@ -46,6 +46,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { AuthService } from './auth/AuthService'
 
@@ -53,7 +54,6 @@ import { AuthService } from './auth/AuthService'
 export default class Header extends Vue {
   authApi = AuthService.getInstance()
 
-  // eslint-disable-next-line space-before-function-paren
   doLogout() {
     this.authApi
       .logout()

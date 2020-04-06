@@ -118,6 +118,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { ProfileService } from './ProfileService'
 import { Hobby } from '../hobbies/Hobby'
@@ -133,25 +134,17 @@ export default class UserChangeEmailPassword extends Vue {
   profileApi = ProfileService.getInstance()
   authApi = AuthService.getInstance()
 
-  // eslint-disable-next-line space-before-function-paren
   mounted() {
-    if (!this.authApi.isLogin) {
-      Vue.toasted.show('Please Login', {
-        duration: 5000
-      })
-      this.$router.back()
-    }
+    this.authApi.shouldBeLoggedIn(this.$router)
 
     this.reload()
   }
 
-  // eslint-disable-next-line space-before-function-paren
   reload() {
     this.email = this.authApi.response.email
     console.log(this.email)
   }
 
-  // eslint-disable-next-line space-before-function-paren
   saveEmail() {
     this.profileApi
       .saveEmail(this.email)
@@ -162,7 +155,6 @@ export default class UserChangeEmailPassword extends Vue {
       })
       .catch((err: any) => console.log(err))
   }
-  // eslint-disable-next-line space-before-function-paren
   savePassword() {
     this.profileApi
       .savePassword(

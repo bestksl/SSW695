@@ -48,6 +48,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { ProfileService } from './ProfileService'
 import { BlogService } from '../blogs/BlogService'
@@ -61,12 +62,10 @@ export default class UserBlogs extends Vue {
   profileApi = ProfileService.getInstance()
   blogApi = BlogService.getInstance()
 
-  // eslint-disable-next-line space-before-function-paren
   mounted() {
     this.reload()
   }
 
-  // eslint-disable-next-line space-before-function-paren
   reload() {
     this.profileApi
       .loadBlogs(this.selected)
@@ -74,7 +73,6 @@ export default class UserBlogs extends Vue {
       .catch((err: any) => console.log(err))
   }
 
-  // eslint-disable-next-line space-before-function-paren
   doDelete(blog: Blog) {
     if (confirm('Are you sure?')) {
       this.blogApi
