@@ -13,6 +13,9 @@ import com.hobbymatcher.dao.ReviewDao;
 import com.hobbymatcher.dao.UserDao;
 import com.hobbymatcher.service.ReviewService;
 
+import javax.validation.Valid;
+
+@Valid
 @Service
 public class ReviewServiceImpl implements ReviewService {
 

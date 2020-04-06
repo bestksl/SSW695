@@ -26,21 +26,21 @@ public class ReviewServiceTest {
     @Autowired
     ReviewService reviewService;
 
-    @Test
-    public void testReviewAdd() {
-
-        Random random = new Random();
-
-        for (int i = 0; i < 20; i++) {
-            Review review = new Review();
-            review.setContent(UUID.randomUUID().toString());
-            review.setOwnerType(random.nextInt(20) > 10 ? "event" : "blog");
-            review.setOwnerId(10);
-            review.setByUserId(1);
-            review.setOnDateTime(new Date());
-            reviewService.addReview(review);
-        }
-    }
+//    @Test
+//    public void testReviewAdd() {
+//
+//        Random random = new Random();
+//
+//        for (int i = 0; i < 20; i++) {
+//            Review review = new Review();
+//            review.setContent(UUID.randomUUID().toString());
+//            review.setOwnerType(random.nextInt(20) > 10 ? "event" : "blog");
+//            review.setOwnerId(10);
+//            review.setByUserId(1);
+//            review.setOnDateTime(new Date());
+//            reviewService.addReview(review);
+//        }
+//    }
 
     @Test
     public void testListReviewByTypeAndId() {
