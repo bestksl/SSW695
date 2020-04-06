@@ -45,6 +45,7 @@ public class AuthController {
 	@GetMapping("/handshake")
 	public Map<String, Object> handshake(HttpServletRequest request) {
 		Map<String, Object> resp = new HashMap<>();
+		resp.put("loaded", true);
 
 		Authentication auth = getContext().getAuthentication();
 

@@ -66,17 +66,29 @@
             <div class="text-right pt-1">Location</div>
           </div>
           <div class="p-col-8 text-left">
+            <label>
+              {{ event.location }}
+            </label>
+            <ToggleButton
+              v-model="locationToggle"
+              onIcon="pi pi-search"
+              offIcon="pi pi-search"
+            />
             <ValidationProvider
               name="location"
               v-slot="{ errors }"
               rules="required"
             >
-              <InputText
-                id="event-location"
-                type="text"
-                v-model="event.location"
-                class="w-75"
-              />
+              <div v-if="locationToggle" class="mt-2">
+                <AutoComplete
+                  v-model="event.locationObj"
+                  :suggestions="locations"
+                  @complete="loadLocations($event)"
+                  @item-select="storeLatLng()"
+                  field="display_name"
+                  class="w-75"
+                />
+              </div>
               <ul v-if="errors.length" class="v-error">
                 <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
               </ul>
@@ -182,16 +194,39 @@
             <div class="text-right pt-1">Cover Photo</div>
           </div>
           <div class="p-col-8 text-left">
-            <div>
+            <div v-if="imgForceUpdate">
+              <!-- when there is photoId -->
               <img
-                v-if="!event.url"
-                src="@/assets/images/logo-200x200.png"
-                style="width: 12rem; height: 12rem; border: solid 1px lightgray;"
+                v-if="!event.url && event.photoId"
+                :src="
+                  'http://localhost:8080/hobbymatcher/files/' + event.photoId
+                "
+                style="
+                  width: 12rem;
+                  height: 12rem;
+                  border: solid 1px lightgray;
+                "
               />
+              <!-- else -->
+              <!-- if no photo is selected yet -->
+              <img
+                v-if="!event.url && !event.photoId"
+                src="@/assets/images/logo-200x200.png"
+                style="
+                  width: 12rem;
+                  height: 12rem;
+                  border: solid 1px lightgray;
+                "
+              />
+              <!-- if selected but not uploaded yet -->
               <img
                 v-if="event.url"
                 :src="event.url"
-                style="width: 12rem; height: 12rem; border: solid 1px lightgray;"
+                style="
+                  width: 12rem;
+                  height: 12rem;
+                  border: solid 1px lightgray;
+                "
               />
             </div>
             <div>
@@ -204,6 +239,7 @@
               />
             </div>
           </div>
+
           <div class="p-col-8 p-offset-3 text-left">
             <Button
               type="button"
@@ -213,6 +249,14 @@
               v-on:click="back()"
             />
             <Button
+              v-if="event.id"
+              label="Update"
+              icon="pi pi-check"
+              class="p-button-success"
+              :disabled="invalid"
+            />
+            <Button
+              v-if="!event.id"
               label="Create"
               icon="pi pi-check"
               class="p-button-primary"
@@ -226,6 +270,9 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
+/* eslint-disable comma-dangle */
+
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { EventService } from './EventService'
 import { Event } from './Event'
@@ -234,65 +281,116 @@ import { Hobby } from '../hobbies/Hobby'
 
 @Component
 export default class EventForm extends Vue {
-  @Model() model!: Event
-  internal: Event = {} as any
+  @Model() id!: number
 
-  hobbies: Hobby[] = []
-
-  // eslint-disable-next-line space-before-function-paren
-  get event(): any {
-    return this.model || this.internal
-  }
+  event: any /* Event */ = {} as any
   // event.file: event picture to upload
   // event.url: event picture preview
+  imgForceUpdate = Math.random()
+
+  locations = []
+  locationToggle = false
+  hobbies: Hobby[] = []
 
   hobbyApi: HobbyService = new HobbyService()
   eventApi: EventService = new EventService()
 
-  // eslint-disable-next-line space-before-function-paren
   mounted() {
     this.hobbyApi
       .list()
       .then((resp: any) => (this.hobbies = resp.data.list))
       .catch((err: any) => console.log(err))
+
+    if (this.id) {
+      this.doLoad()
+    }
   }
 
-  // eslint-disable-next-line space-before-function-paren
+  doLoad() {
+    this.eventApi
+      .get(this.id)
+      .then((resp: any) => {
+        const event = resp.data.event
+        event.onDatetime = new Date(event.onDatetime)
+        this.event = event
+      })
+      .catch((err: any) => console.log(err))
+  }
+
   clearFileSelect($event: any) {
     this.event.url = null
     this.event.file = null
   }
 
-  // eslint-disable-next-line space-before-function-paren
   onFileSelect($event: any) {
     if ($event.files && $event.files[0]) {
       this.event.file = $event.files[0]
       const reader = new FileReader()
-      reader.onload = (e: any) => (this.event.url = e.target.result)
+      reader.onload = (e: any) => {
+        this.event.url = e.target.result
+        this.imgForceUpdate = Math.random()
+      }
       reader.readAsDataURL(this.event.file)
     }
   }
 
-  // eslint-disable-next-line space-before-function-paren
+  loadLocations($event: any) {
+    this.eventApi
+      .suggestLocations($event.query)
+      .then((resp: any) => (this.locations = resp.data))
+      .catch((err: any) => {
+        console.log(err)
+      })
+  }
+
+  storeLatLng() {
+    this.event.location = this.event.locationObj.display_name
+    const addr = this.event.locationObj.address
+    this.event.locationShort = [
+      addr.city,
+      this.eventApi.getStateShort(addr.state),
+    ]
+      .filter((add) => add)
+      .join(', ')
+    this.event.geoLat = this.event.locationObj.lat
+    this.event.geoLon = this.event.locationObj.lon
+
+    this.locationToggle = false
+  }
+
   back() {
     window.history.back()
   }
 
-  // eslint-disable-next-line space-before-function-paren
   save() {
+    if (this.event.id) {
+      this.doUpdate()
+    } else {
+      this.doSave()
+    }
+  }
+
+  getFormData() {
     const data = new FormData()
+    data.append('id', this.event.id) // only in update
     data.append('hobbyId', this.event.hobbyId)
     data.append('title', this.event.title)
     data.append('onDatetime', this.event.onDatetime)
     data.append('location', this.event.location)
+    data.append('locationShort', this.event.locationShort)
+    data.append('geoLat', this.event.geoLat)
+    data.append('geoLon', this.event.geoLon)
     data.append('capacity', this.event.capacity)
     data.append('description', this.event.description)
     data.append('plus18Only', this.event.plus18Only)
     data.append('organizer', this.event.organizer)
     data.append('file', this.event.file)
+    return data
+  }
 
+  doSave() {
     this.eventApi
-      .add(data)
+      .add(this.getFormData())
       .then((resp: any) => {
         Vue.toasted.show('Event has been added.', { duration: 5000 })
         this.back()
@@ -302,11 +400,27 @@ export default class EventForm extends Vue {
         console.log(err)
       })
   }
+
+  doUpdate() {
+    this.eventApi
+      .update(this.getFormData())
+      .then((resp: any) => {
+        Vue.toasted.show('Event has been updated.', { duration: 5000 })
+        this.back()
+      })
+      .catch((err: any) => {
+        Vue.toasted.show('Failed to update the event.', { duration: 5000 })
+        console.log(err)
+      })
+  }
 }
 </script>
 
 <style lang="less">
 .event-form .p-dropdown-filter-container {
+  width: 100%;
+}
+.event-form .p-autocomplete-input {
   width: 100%;
 }
 </style>

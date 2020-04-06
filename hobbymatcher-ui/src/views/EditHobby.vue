@@ -1,5 +1,5 @@
 <template>
-  <div class="login-page">
+  <div class="hobby-page">
     <div class="p-grid">
       <div class="p-col-10 p-offset-1 text-left">
         <Button
@@ -13,24 +13,21 @@
         <hr />
       </div>
     </div>
-    <LoginForm></LoginForm>
+    <HobbyForm :id="$route.query.id" />
   </div>
 </template>
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { AuthService } from '../components/auth/AuthService'
 
 @Component
-export default class Login extends Vue {
+export default class EditHobby extends Vue {
   authApi = AuthService.getInstance()
 
   mounted() {
-    if (this.authApi.isLogin) {
-      Vue.toasted.show('You have to logout first.', { duration: 5000 })
-      this.$router.back()
-    }
+    this.authApi.shouldBeLoggedIn(this.$router)
   }
 
   back() {
@@ -39,4 +36,4 @@ export default class Login extends Vue {
 }
 </script>
 
-<style scoped lang="less"></style>
+<style lang="less"></style>

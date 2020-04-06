@@ -54,7 +54,6 @@
                 v-model="hobby.categoryId"
                 :options="categories"
                 :filter="true"
-                placeholder="Check your hobby's category whether exists ..."
                 optionLabel="name"
                 optionValue="id"
                 class="w-50"
@@ -85,16 +84,39 @@
             Hobby Picture:
           </div>
           <div class="p-col-7 d-flex flex-column">
-            <div>
+            <div v-if="imgForceUpdate">
+              <!-- when there is photoId -->
               <img
-                v-if="!hobby.url"
-                src="@/assets/images/logo-200x200.png"
-                style="width: 12rem; height: 12rem; border: solid 1px lightgray;"
+                v-if="!hobby.url && hobby.photoId"
+                :src="
+                  'http://localhost:8080/hobbymatcher/files/' + hobby.photoId
+                "
+                style="
+                  width: 12rem;
+                  height: 12rem;
+                  border: solid 1px lightgray;
+                "
               />
+              <!-- else -->
+              <!-- if no photo is selected yet -->
+              <img
+                v-if="!hobby.url && !hobby.photoId"
+                src="@/assets/images/logo-200x200.png"
+                style="
+                  width: 12rem;
+                  height: 12rem;
+                  border: solid 1px lightgray;
+                "
+              />
+              <!-- if selected but not uploaded yet -->
               <img
                 v-if="hobby.url"
                 :src="hobby.url"
-                style="width: 12rem; height: 12rem; border: solid 1px lightgray;"
+                style="
+                  width: 12rem;
+                  height: 12rem;
+                  border: solid 1px lightgray;
+                "
               />
             </div>
             <div>
@@ -118,6 +140,14 @@
               v-on:click="back()"
             />
             <Button
+              v-if="hobby.id"
+              label="Update"
+              icon="pi pi-check"
+              class="p-button-success"
+              :disabled="invalid"
+            />
+            <Button
+              v-if="!hobby.id"
               label="Create"
               icon="pi pi-check"
               class="p-button-primary"
@@ -131,6 +161,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { CategoryService } from '../category/CategoryService'
 import { Category } from '../category/Category'
@@ -139,67 +170,98 @@ import { Hobby } from './Hobby'
 
 @Component
 export default class HobbyForm extends Vue {
-  @Model() model!: Hobby
-  internal: Hobby = {} as any
+  @Model() id!: number
 
-  categories: Category[] = []
-
-  // eslint-disable-next-line space-before-function-paren
-  get hobby(): any {
-    return this.model || this.internal
-  }
+  hobby: any /* Hobby */ = {} as any
   // hobby.file: hobby picture to upload
   // hobby.url: hobby picture preview
+  imgForceUpdate = Math.random()
+
+  categories: Category[] = []
 
   categoryApi = new CategoryService()
   hobbyApi = new HobbyService()
 
-  // eslint-disable-next-line space-before-function-paren
   mounted() {
     this.categoryApi
       .list()
       .then((resp: any) => (this.categories = resp.data.list))
       .catch((err: any) => console.log(err))
+
+    if (this.id) {
+      this.doLoad()
+    }
   }
 
-  // eslint-disable-next-line space-before-function-paren
+  doLoad() {
+    this.hobbyApi
+      .get(this.id)
+      .then((resp: any) => (this.hobby = resp.data.hobby))
+      .catch((err: any) => console.log(err))
+  }
+
   clearFileSelect($event: any) {
     this.hobby.url = null
     this.hobby.file = null
   }
 
-  // eslint-disable-next-line space-before-function-paren
   onFileSelect($event: any) {
     if ($event.files && $event.files[0]) {
       this.hobby.file = $event.files[0]
       const reader = new FileReader()
-      reader.onload = (e: any) => (this.hobby.url = e.target.result)
+      reader.onload = (e: any) => {
+        this.hobby.url = e.target.result
+        this.imgForceUpdate = Math.random()
+      }
       reader.readAsDataURL(this.hobby.file)
     }
   }
 
-  // eslint-disable-next-line space-before-function-paren
   back() {
     window.history.back()
   }
 
-  // eslint-disable-next-line space-before-function-paren
   save() {
+    if (this.hobby.id) {
+      this.doUpdate()
+    } else {
+      this.doSave()
+    }
+  }
+
+  getFormData() {
     const data = new FormData()
+    data.append('id', this.hobby.id) // only in update
     data.append('name', this.hobby.name)
     data.append('description', this.hobby.description)
     data.append('categoryId', this.hobby.categoryId)
     data.append('plus18Only', this.hobby.plus18Only)
     data.append('file', this.hobby.file)
+    return data
+  }
 
+  doSave() {
     this.hobbyApi
-      .add(data)
+      .add(this.getFormData())
       .then((resp: any) => {
         Vue.toasted.show('Hobby has been added.', { duration: 5000 })
         this.back()
       })
       .catch((err: any) => {
         Vue.toasted.show('Failed to add the hobby.', { duration: 5000 })
+        console.log(err)
+      })
+  }
+
+  doUpdate() {
+    this.hobbyApi
+      .update(this.getFormData())
+      .then((resp: any) => {
+        Vue.toasted.show('Hobby has been updated.', { duration: 5000 })
+        this.back()
+      })
+      .catch((err: any) => {
+        Vue.toasted.show('Failed to update the hobby.', { duration: 5000 })
         console.log(err)
       })
   }

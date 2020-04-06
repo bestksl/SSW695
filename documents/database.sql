@@ -78,6 +78,9 @@ CREATE TABLE IF NOT EXISTS `event` (
   `title` VARCHAR(64) NOT NULL,
   `on_datetime` DATETIME NOT NULL,
   `location` VARCHAR(128) NULL,
+  `location_short` VARCHAR(64) NULL,
+  `geo_lat` DOUBLE NULL,
+  `geo_lon` DOUBLE NULL,
   `capacity` DOUBLE NULL,
   `description` VARCHAR(2048) NULL,
   `plus18_only` TINYINT NULL,
@@ -188,6 +191,7 @@ CREATE TABLE IF NOT EXISTS `participation` (
   `event_id` INT NOT NULL,
   `requested_on_datetime` DATETIME NULL,
   `approved_on_datetime` DATETIME NULL,
+  `participated_on_datetime` DATETIME NULL,
   INDEX `fk_user_has_event_event1_idx` (`event_id` ASC),
   INDEX `fk_user_has_event_user1_idx` (`user_id` ASC),
   CONSTRAINT `fk_user_has_event_user1`

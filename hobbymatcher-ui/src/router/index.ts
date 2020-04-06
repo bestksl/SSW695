@@ -44,6 +44,11 @@ const routes = [
     component: () => import('../views/ViewHobby.vue')
   },
   {
+    path: '/hobbies/edit',
+    name: 'edit-hobby',
+    component: () => import('../views/EditHobby.vue')
+  },
+  {
     path: '/hobbies',
     name: 'hobbies',
     component: () => import('../views/Hobbies.vue')
@@ -52,6 +57,11 @@ const routes = [
     path: '/events/create',
     name: 'create-event',
     component: () => import('../views/CreateEvent.vue')
+  },
+  {
+    path: '/events/edit',
+    name: 'edit-event',
+    component: () => import('../views/EditEvent.vue')
   },
   {
     path: '/events/view',

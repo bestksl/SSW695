@@ -9,6 +9,8 @@ vue-toasted:
   - https://shakee93.github.io/vue-toasted/
 vee-validate:
   - https://logaretm.github.io/vee-validate/
+openstreetmap:
+  - https://nominatim.org/release-docs/develop/api/Search/
 
 https://developer.okta.com/blog/2018/11/20/build-crud-spring-and-vue
 https://blog.sqreen.com/authentication-best-practices-vue/

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hobbymatcher.dao.EventDao;
 import com.hobbymatcher.entity.Event;
+import com.hobbymatcher.entity.Participation;
 import com.hobbymatcher.service.EventService;
 
 import javax.validation.Valid;
@@ -21,6 +22,21 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public List<Event> listEvent() {
 		return eventDao.listEvent();
+	}
+
+	@Override
+	public List<Event> listPastJoinEvents(int userId) {
+		return eventDao.listPastJoinEvents(userId);
+	}
+
+	@Override
+	public List<Event> listJoinedFutureEvents(int userId) {
+		return eventDao.listJoinedFutureEvents(userId);
+	}
+
+	@Override
+	public List<Event> listPastHoldEvents(int userId) {
+		return eventDao.listPastHoldEvents(userId);
 	}
 
 	@Override
@@ -49,84 +65,33 @@ public class EventServiceImpl implements EventService {
 		return eventDao.listEventByHobbyId(id);
 	}
 
-//    @Override
-//    public boolean checkEvent(Event event) {
-//
-//        if (event == null)
-//            return false;
-//
-//        //check event important attr
-//        if (event.getId() == null || event.getId() < 0)
-//            return false;
-//        else if (event.getTitle() == null || "".equals(event.getTitle()))
-//            return false;
-//        else return event.getDescription() != null && !"".equals(event.getDescription());
-//    }
+	@Override
+	public Boolean updateEvent(Event event) {
+		return eventDao.updateEvent(event) == 1;
+	}
 
-//    @Override
-//    public boolean joinEvents(String id, String eventsId)
-//    {
-//        try {
-//            eventsDao.joinEvents(id, eventsId);
-//            return true;
-//        } catch (Exception e) {
-//            System.out.print(e.toString());
-//            return false;
-//        }
-//    }
-//
-//    @Override
-//    public Event findEventsByTitle(String title)
-//    {
-//        return null;
-//    }
-//
-//    @Override
-//    public Event findEventsById(int id)
-//    {
-//        return eventsDao.findEventsById(id);
-//    }
-//
-//    @Override
-//    public List<Event> findPastEvents(String id, LocalDateTime currentTime)
-//    {
-//        return eventsDao.findPastEvents(id, currentTime);
-//    }
-//
-//    @Override
-//    public List<Event> findUpcomingEvents(String id, LocalDateTime currentTime)
-//    {
-//        return eventsDao.findUpcomingEvents(id, currentTime);
-//    }
-//
-//    @Override
-//    public List<Event> getEventsForUser(String id)
-//    {
-//        return eventsDao.getEventsForUser(id);
-//    }
-//
-//    @Override
-//    public boolean deleteEvents(String id) {
-//        return eventsDao.deleteEvents(id) != 0;
-//    }
-//
-//    @Override
-//    public boolean updateEvents(Event events) {
-//        return eventsDao.updateEvents(events) == 1;
-//    }
-//
-//    @Override
-//    public int getNumber(int id)
-//    {
-//        return eventsDao.getNumber(id);
-//    }
-//
-//    @Override
-//    public List<Event> listEventsByHobbyId(int id) {
-//        List<Event> events = eventsDao.listEventsByHobbyId(id);
-//        if (events == null || events.size() == 0) {
-//            return null;
-//        }
-//        return eventsDao.listEventsByHobbyId(id);
-//    }
+	@Override
+	public Participation getParticipation(int userId, Integer eventId) {
+		return eventDao.getParticipation(userId, eventId);
+	}
+
+	@Override
+	public void requestToParticipateEvent(Integer userId, Integer eventId) {
+		eventDao.requestToParticipateEvent(userId, eventId);
+	}
+
+	@Override
+	public void cancelEventParticipationRequest(int userId, Integer eventId) {
+		eventDao.cancelEventParticipationRequest(userId, eventId);
+	}
+
+	@Override
+	public void markEventAsParticipated(int userId, Integer eventId) {
+		eventDao.markEventAsParticipated(userId, eventId);
+	}
+
+	@Override
+	public void approveUser(Integer theUserId, Integer eventId) {
+		eventDao.approveUser(theUserId, eventId);
+	}
 }

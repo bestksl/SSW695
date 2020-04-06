@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.hobbymatcher.entity.Event;
+import com.hobbymatcher.entity.Participation;
 
 @Repository
 public interface EventDao {
@@ -20,18 +21,21 @@ public interface EventDao {
 
 	List<Event> listEventByHobbyId(@Param("hobbyId") int id);
 
-//    int joinEvents(@Param("id") String id, @Param("eventsId") String eventsId);
-//
-//    List<Event> findPastEvents(@Param("id") String id, @Param("currentTime") LocalDateTime currentTime);
-//
-//    List<Event> findUpcomingEvents(@Param("id") String id, @Param("currentTime") LocalDateTime currentTime);
-//
-//    List<Event> getEventsForUser(@Param("id") String id);
-//
-//    int deleteEvents(@Param("id") String id);
-//
-//    int updateEvents(Event events);
-//
-//    int getNumber(int id);
-//
+	List<Event> listPastJoinEvents(@Param("userId") int userId);
+
+	List<Event> listJoinedFutureEvents(@Param("userId") int userId);
+
+	List<Event> listPastHoldEvents(@Param("userId") int userId);
+
+	int updateEvent(Event event);
+
+	Participation getParticipation(@Param("userId") int userId, @Param("eventId") int eventId);
+
+	void requestToParticipateEvent(@Param("userId") int userId, @Param("eventId") int eventId);
+
+	void cancelEventParticipationRequest(@Param("userId") int userId, @Param("eventId") int eventId);
+
+	void markEventAsParticipated(@Param("userId") int userId, @Param("eventId") int eventId);
+
+	void approveUser(@Param("theUserId") int theUserId, @Param("eventId") int eventId);
 }

@@ -172,8 +172,12 @@ public class UserController {
 			@PathParam("load") String load) {
 		Map<String, Object> resp = new HashMap<String, Object>();
 		try {
-			// TODO filter by load => "created", "subscribed"
-			resp.put("list", hobbyService.listHobby());
+			int userId = authUtilService.getUserId(req);
+			if ("created".equals(load)) {
+				resp.put("list", hobbyService.listHobbyByCreatedById(userId));
+			} else if ("followed".equals(load)) {
+				resp.put("list", hobbyService.listHobbyByFollowingUserId(userId));
+			}
 			resp.put("success", true);
 			response.setStatus(200);
 		} catch (Exception exp) {
@@ -189,8 +193,17 @@ public class UserController {
 			@PathParam("load") String load) {
 		Map<String, Object> resp = new HashMap<String, Object>();
 		try {
-			// TODO filter by load => 'past', 'coming', 'hold'
-			resp.put("list", eventService.listEvent());
+			int userId = authUtilService.getUserId(req);
+			if ("past".equals(load)) {
+				// past joined events
+				resp.put("list", eventService.listPastJoinEvents(userId));
+			} else if ("coming".equals(load)) {
+				// joined and happening in future
+				resp.put("list", eventService.listJoinedFutureEvents(userId));
+			} else if ("hold".equals(load)) {
+				// past created events
+				resp.put("list", eventService.listPastHoldEvents(userId));
+			}
 			resp.put("success", true);
 			response.setStatus(200);
 		} catch (Exception exp) {

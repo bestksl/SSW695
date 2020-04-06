@@ -19,10 +19,10 @@
             | dateFormat('MMM DD, YYYY h:mma')
         }}
       </span>
-      <span class="event-location">{{ event.location }}</span>
+      <span class="event-location">{{ event.locationShort }}</span>
       <router-link
         v-if="userId == event.createdById"
-        :to="'/hobbies/edit?id=' + event.id"
+        :to="'/events/edit?id=' + event.id"
         class="edit-btn"
       >
         <Button type="button" icon="pi pi-pencil" class="p-button-secondary" />
@@ -32,6 +32,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Event } from './Event'
 
@@ -40,7 +41,6 @@ export default class EventThumb extends Vue {
   @Model() model!: Event
   @Model() userId!: number
 
-  // eslint-disable-next-line space-before-function-paren
   get event() {
     return this.model || {}
   }

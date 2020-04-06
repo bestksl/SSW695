@@ -9,6 +9,22 @@
 		from hobby
 		order by id desc
 	</select>
+	
+	<select id="listHobbyByCreatedById"
+		resultType="com.hobbymatcher.entity.Hobby">
+		select *
+		from hobby
+		where created_by_id = #{createdById}
+		order by id desc
+	</select>
+	
+	<select id="listHobbyByFollowingUserId"
+		resultType="com.hobbymatcher.entity.Hobby">
+		select hobby.*
+		from hobby
+		join follower on follower.hobby_id = hobby.id and follower.user_id = #{userId}
+		order by hobby.id desc
+	</select>
 
 	<insert id="insertHobby" useGeneratedKeys="true"
 		keyProperty="id">
@@ -42,4 +58,23 @@
 		</set>
 		where id=#{id}
 	</update>
+	
+	<select id="getFollowship"
+		resultType="com.hobbymatcher.entity.Followship">
+		select *
+		from follower 
+		where user_id = #{userId}
+		  and hobby_id = #{hobbyId}
+	</select>
+	
+	<insert id="followHobby">
+		insert into follower (hobby_id, user_id, on_datetime)
+		values (#{hobbyId}, #{userId}, now())
+	</insert>
+	
+	<delete id="unfollowHobby">
+		delete from follower 
+		where hobby_id = #{hobbyId}
+		  and user_id = #{userId}
+	</delete>
 </mapper>

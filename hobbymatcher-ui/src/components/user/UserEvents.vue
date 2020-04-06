@@ -38,6 +38,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Event } from '../events/Event'
 import { ProfileService } from './ProfileService'
@@ -51,17 +52,14 @@ export default class UserEvents extends Vue {
   profileApi = ProfileService.getInstance()
   authApi = AuthService.getInstance()
 
-  // eslint-disable-next-line space-before-function-paren
   get userId() {
     return this.authApi!.response.userId
   }
 
-  // eslint-disable-next-line space-before-function-paren
   mounted() {
     this.reload()
   }
 
-  // eslint-disable-next-line space-before-function-paren
   reload() {
     this.profileApi
       .loadEvents(this.selected)

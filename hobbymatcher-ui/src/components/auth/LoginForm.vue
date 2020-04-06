@@ -64,6 +64,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { AuthService } from './AuthService'
 import { LoginUser } from './LoginUser'
@@ -77,7 +78,6 @@ export default class LoginForm extends Vue {
     password: 'jafarjafar'
   } as LoginUser
 
-  // eslint-disable-next-line space-before-function-paren
   save() {
     this.authApi
       .login(this.model)

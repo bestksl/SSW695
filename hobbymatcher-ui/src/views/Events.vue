@@ -28,6 +28,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Filter } from '../components/search/Filter'
 import { EventService } from '../components/events/EventService'
@@ -46,7 +47,6 @@ export default class Events extends Vue {
     offset: 0 // zero-based index
   } as Filter
 
-  // eslint-disable-next-line space-before-function-paren
   mounted() {
     this.api
       .list()
@@ -54,7 +54,6 @@ export default class Events extends Vue {
       .catch((err: any) => console.log(err))
   }
 
-  // eslint-disable-next-line space-before-function-paren
   pageChanged($event: any) {
     console.log($event)
     // load the 'page' content from backend

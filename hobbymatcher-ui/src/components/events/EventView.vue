@@ -24,10 +24,35 @@
           </button>
         </div>
         <div class="mt-2">
-          <Button label="Join" icon="pi pi-plus" class="p-button-primary" />
+          <Button
+            v-if="status === ''"
+            label="Request to Participate"
+            icon="pi pi-plus"
+            class="p-button-primary"
+            v-on:click="manageParticipation('request')"
+          />
+          <Button
+            v-if="status === 'requested'"
+            label="Cancel Participation Request"
+            icon="pi pi-times"
+            class="p-button-warning"
+            v-on:click="manageParticipation('cancel')"
+          />
+          <Button
+            v-if="status === 'approved'"
+            label="Mark as Participated"
+            icon="pi pi-check"
+            class="p-button-success"
+            v-on:click="manageParticipation('participated')"
+          />
+          <Button
+            v-if="status === 'participated'"
+            label="Participated"
+            class="p-button-secondary"
+          />
         </div>
       </div>
-      <div class="p-col-7 ">
+      <div class="p-col-7">
         <div class="p-grid">
           <div class="p-col-12">
             <h3>{{ event.title }}</h3>
@@ -50,6 +75,18 @@
           </div>
           <div class="p-col-9">
             {{ event.location }}
+
+            <a
+              :href="
+                'https://www.google.com/maps/search/?api=1&query=' +
+                event.geoLat +
+                ',' +
+                event.geoLon
+              "
+              target="_blank"
+            >
+              (open in map)
+            </a>
           </div>
 
           <div v-if="event.capacity" class="p-col-3">
@@ -89,16 +126,39 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
+
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Event } from './Event'
+import { EventService } from './EventService'
 
 @Component
 export default class EventView extends Vue {
   @Model() model!: Event
 
-  // eslint-disable-next-line space-before-function-paren
+  status: string = '' // '', 'requested', 'approved'
   get event() {
     return this.model || {}
+  }
+
+  eventApi = EventService.getInstance()
+
+  mounted() {
+    this.doCheckParticipation()
+  }
+
+  doCheckParticipation() {
+    this.eventApi
+      .getParticipation(this.event.id)
+      .then((resp: any) => (this.status = resp.data.status))
+      .catch((err: any) => console.log(err))
+  }
+
+  manageParticipation(action: string) {
+    this.eventApi
+      .manageParticipation(this.event.id, action)
+      .then((resp: any) => (this.status = resp.data.status))
+      .catch((err: any) => console.log(err))
   }
 }
 </script>

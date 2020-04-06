@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.hobbymatcher.entity.Followship;
 import com.hobbymatcher.entity.Hobby;
 
 @Repository
@@ -21,4 +22,14 @@ public interface HobbyDao {
 	int updateHobby(Hobby hobby);
 
 	int deleteHobby(@Param("id") int id);
+
+	List<Hobby> listHobbyByCreatedById(@Param("createdById") int createdById);
+
+	List<Hobby> listHobbyByFollowingUserId(@Param("userId") int userId);
+
+	Followship getFollowship(@Param("userId") int userId, @Param("hobbyId") int hobbyId);
+
+	void followHobby(@Param("userId") int userId, @Param("hobbyId") int hobbyId);
+
+	void unfollowHobby(@Param("userId") int userId, @Param("hobbyId") int hobbyId);
 }

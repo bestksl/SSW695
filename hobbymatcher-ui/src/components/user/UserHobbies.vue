@@ -5,7 +5,7 @@
         v-model="selected"
         :options="[
           { title: 'Created Hobbies', value: 'created' },
-          { title: 'Subscribed Hobbies', value: 'subscribed' }
+          { title: 'Followed Hobbies', value: 'followed' }
         ]"
         optionLabel="title"
         optionValue="value"
@@ -37,6 +37,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { ProfileService } from './ProfileService'
 import { Hobby } from '../hobbies/Hobby'
@@ -50,17 +51,14 @@ export default class UserHobbies extends Vue {
   profileApi = ProfileService.getInstance()
   authApi = AuthService.getInstance()
 
-  // eslint-disable-next-line space-before-function-paren
   get userId() {
     return this.authApi!.response.userId
   }
 
-  // eslint-disable-next-line space-before-function-paren
   mounted() {
     this.reload()
   }
 
-  // eslint-disable-next-line space-before-function-paren
   reload() {
     this.profileApi
       .loadHobbies(this.selected)

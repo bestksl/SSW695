@@ -19,6 +19,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Blog } from './Blog'
 
@@ -27,7 +28,6 @@ export default class BlogsList extends Vue {
   @Model() model!: Blog[]
   blogs: Blog[] = []
 
-  // eslint-disable-next-line space-before-function-paren
   constructor() {
     super()
     if (this.model) {

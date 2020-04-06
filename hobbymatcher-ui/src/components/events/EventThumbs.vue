@@ -13,6 +13,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Event } from './Event'
 
@@ -20,7 +21,6 @@ import { Event } from './Event'
 export default class EventThumbs extends Vue {
   @Model() model!: Event[]
 
-  // eslint-disable-next-line space-before-function-paren
   get events() {
     return this.model || []
   }

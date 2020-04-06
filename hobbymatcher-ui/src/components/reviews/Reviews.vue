@@ -22,6 +22,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { Review } from './Review'
 import { AuthService } from '../auth/AuthService'
@@ -40,12 +41,10 @@ export default class Reviews extends Vue {
   authApi = AuthService.getInstance()
   reviewApi = ReviewService.getInstance()
 
-  // eslint-disable-next-line space-before-function-paren
   mounted() {
     this.reload()
   }
 
-  // eslint-disable-next-line space-before-function-paren
   reload() {
     this.reviewApi
       .load(this.type, this.oId)
