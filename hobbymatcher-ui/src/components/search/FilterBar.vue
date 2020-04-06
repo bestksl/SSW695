@@ -31,13 +31,19 @@
         class="search-txf"
         size="20"
       />
-      <Button icon="pi pi-search" class="p-button-primary" />
+      <Button
+        icon="pi pi-search"
+        class="p-button-primary"
+        v-on:click="$emit('changed', null)"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
+/* eslint-disable comma-dangle */
+
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Filter } from './Filter'
 
@@ -47,11 +53,11 @@ export default class FilterBar extends Vue {
   options = [
     { value: 'popularity', label: 'Popularity' },
     { value: 'distance', label: 'Distance' },
-    { value: 'newest', label: 'Newest' }
+    { value: 'newest', label: 'Newest' },
   ]
   scopes = [
     { value: 'hobby', label: 'Under Present Hobby' },
-    { value: 'sitewide', label: 'Sitewide' }
+    { value: 'sitewide', label: 'Sitewide' },
   ]
 }
 </script>

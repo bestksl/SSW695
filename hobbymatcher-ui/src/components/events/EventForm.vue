@@ -387,9 +387,10 @@ export default class EventForm extends Vue {
     data.append('locationShort', this.event.locationShort)
     data.append('geoLat', this.event.geoLat)
     data.append('geoLon', this.event.geoLon)
-    data.append('capacity', this.event.capacity)
-    data.append('description', this.event.description)
+    data.append('capacity', this.event.capacity || '')
+    data.append('description', this.event.description || '')
     data.append('plus18Only', this.event.plus18Only)
+    data.append('fee', this.event.fee || '')
     data.append('organizer', this.event.organizer)
     data.append('file', this.event.file)
     return data

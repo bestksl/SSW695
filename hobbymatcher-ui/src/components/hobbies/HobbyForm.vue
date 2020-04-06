@@ -240,7 +240,7 @@ export default class HobbyForm extends Vue {
       data.append('id', this.hobby.id) // only in update
     }
     data.append('name', this.hobby.name)
-    data.append('description', this.hobby.description)
+    data.append('description', this.hobby.description || '')
     data.append('categoryId', this.hobby.categoryId)
     data.append('plus18Only', this.hobby.plus18Only)
     data.append('file', this.hobby.file)

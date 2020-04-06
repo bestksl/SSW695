@@ -17,9 +17,6 @@ export class HobbyService {
   list(filter?: Filter) {
     let query = []
     if (filter) {
-      if (filter.searchPhrase) {
-        query.push('searchPhrase=' + filter.searchPhrase)
-      }
       if (filter.offset) {
         query.push('offset=' + filter.offset)
       }

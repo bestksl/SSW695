@@ -12,7 +12,9 @@
 	
 	<select id="searchHobby"
 		resultType="com.hobbymatcher.entity.Hobby">
-		select *
+		select 
+		<if test="justCount">count(hobby.id) as id</if>
+		<if test="!justCount">hobby.*</if>
 		from hobby
 		<if test="categoryIds.length > 0">
 		where category_id in

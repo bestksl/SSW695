@@ -24,6 +24,7 @@ public class Event {
 	@NotBlank
 	private String description;
 	private Boolean plus18Only;
+	private Double fee;
 	private String organizer;
 	@NotBlank
 	private String title;
@@ -118,6 +119,14 @@ public class Event {
 
 	public void setPlus18Only(Boolean plus18Only) {
 		this.plus18Only = plus18Only;
+	}
+
+	public Double getFee() {
+		return fee;
+	}
+
+	public void setFee(Double fee) {
+		this.fee = fee;
 	}
 
 	public String getOrganizer() {

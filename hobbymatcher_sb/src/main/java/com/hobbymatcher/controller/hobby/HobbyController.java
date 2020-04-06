@@ -48,8 +48,8 @@ public class HobbyController {
 			}
 			String[] categoryIds = tmp.toArray(new String[] {});
 
-			resp.put("count", hobbyService.listHobby(0, Integer.MAX_VALUE, categoryIds).size());
-			resp.put("list", hobbyService.listHobby(offset, perpage, categoryIds));
+			resp.put("count", hobbyService.listHobby(true, 0, Integer.MAX_VALUE, categoryIds).get(0).getId());
+			resp.put("list", hobbyService.listHobby(false, offset, perpage, categoryIds));
 			resp.put("success", true);
 			response.setStatus(200);
 		} catch (Exception exp) {

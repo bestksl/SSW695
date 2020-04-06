@@ -7,7 +7,7 @@
       <div class="p-col-8">
         <div class="p-grid">
           <div class="p-col-12">
-            <FilterBar v-model="filter" />
+            <FilterBar v-model="filter" v-on:changed="load()" />
           </div>
           <div class="p-col-12">
             <EventSearchResults v-model="events" />
@@ -29,6 +29,8 @@
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
+/* eslint-disable comma-dangle */
+
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Filter } from '../components/search/Filter'
 import { EventService } from '../components/events/EventService'
@@ -36,27 +38,33 @@ import { Event } from '../components/events/Event'
 
 @Component
 export default class Events extends Vue {
-  api = new EventService()
+  api = EventService.getInstance()
 
   events: Event[] = []
 
   filter: Filter = {
     searchScope: 'hobby',
-    count: 48,
-    perpage: 10,
-    offset: 0 // zero-based index
+    perpage: 15,
+    offset: 0, // zero-based index
+    count: 0,
   } as Filter
 
   mounted() {
-    this.api
-      .list()
-      .then((resp: any) => (this.events = resp.data.list))
-      .catch((err: any) => console.log(err))
+    this.load()
   }
 
   pageChanged($event: any) {
-    console.log($event)
-    // load the 'page' content from backend
+    this.load()
+  }
+
+  load() {
+    this.api
+      .list(this.filter)
+      .then((resp: any) => {
+        this.events = resp.data.list
+        this.filter.count = resp.data.count
+      })
+      .catch((err: any) => console.log(err))
   }
 }
 </script>

@@ -25,6 +25,14 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
+	public List<Event> listEvent(Boolean justCount, //
+			String searchScope, String searchPhrase, String[] categoryIds, Double feeStart, Double feeEnd,
+			String sortBy, int offset, int perpage) {
+		return eventDao.searchEvent(justCount, //
+				searchScope, searchPhrase, categoryIds, feeStart, feeEnd, sortBy, offset, perpage);
+	}
+
+	@Override
 	public List<Event> listPastJoinEvents(int userId) {
 		return eventDao.listPastJoinEvents(userId);
 	}

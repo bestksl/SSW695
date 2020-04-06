@@ -9,7 +9,8 @@ public interface HobbyService {
 
 	List<Hobby> listHobby();
 
-	List<Hobby> listHobby(Integer offset, Integer perpage, String[] categoryIds);
+	List<Hobby> listHobby(Boolean justCount, //
+			Integer offset, Integer perpage, String[] categoryIds);
 
 	boolean insertHobby(Hobby hobby);
 

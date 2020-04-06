@@ -4,6 +4,7 @@
 import axios from 'axios'
 import { http } from '../Api'
 import { Event } from './Event'
+import { Filter } from '../search/Filter'
 
 export class EventService {
   private static instance: any
@@ -16,8 +17,35 @@ export class EventService {
     return EventService.instance
   }
 
-  list() {
-    return http.get('/event/listevent')
+  list(filter?: Filter) {
+    let query = []
+    if (filter) {
+      if (filter.searchScope) {
+        query.push('searchScope=' + filter.searchScope)
+      }
+      if (filter.searchPhrase) {
+        query.push('searchPhrase=' + filter.searchPhrase)
+      }
+      if (filter.offset) {
+        query.push('offset=' + filter.offset)
+      }
+      if (filter.perpage) {
+        query.push('perpage=' + filter.perpage)
+      }
+      if (filter.categories) {
+        query.push('categories=' + filter.categories.join(','))
+      }
+      if (filter.feeStart) {
+        query.push('feeStart=' + filter.feeStart)
+      }
+      if (filter.feeEnd) {
+        query.push('feeEnd=' + filter.feeEnd)
+      }
+      if (filter.sortBy) {
+        query.push('sortBy=' + filter.sortBy)
+      }
+    }
+    return http.get('/event/listevent' + (query.length ? `?${query.join('&')}` : ''))
   }
 
   add(event: FormData) {
