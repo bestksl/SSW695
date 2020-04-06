@@ -283,7 +283,12 @@ import { Hobby } from '../hobbies/Hobby'
 export default class EventForm extends Vue {
   @Model() id!: number
 
-  event: any /* Event */ = {} as any
+  event: any /* Event */ = {
+    plus18Only: false,
+    capacity: '',
+    description: '',
+    fee: '',
+  } as any
   // event.file: event picture to upload
   // event.url: event picture preview
   imgForceUpdate = Math.random()
@@ -372,7 +377,9 @@ export default class EventForm extends Vue {
 
   getFormData() {
     const data = new FormData()
-    data.append('id', this.event.id) // only in update
+    if (this.event.id) {
+      data.append('id', this.event.id) // only in update
+    }
     data.append('hobbyId', this.event.hobbyId)
     data.append('title', this.event.title)
     data.append('onDatetime', this.event.onDatetime)
