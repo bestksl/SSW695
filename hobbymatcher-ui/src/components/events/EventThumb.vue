@@ -22,7 +22,7 @@
       <span class="event-location">{{ event.locationShort }}</span>
       <router-link
         v-if="userId == event.createdById"
-        :to="'/hobbies/edit?id=' + event.id"
+        :to="'/events/edit?id=' + event.id"
         class="edit-btn"
       >
         <Button type="button" icon="pi pi-pencil" class="p-button-secondary" />

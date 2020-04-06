@@ -171,6 +171,7 @@ import { Hobby } from './Hobby'
 @Component
 export default class HobbyForm extends Vue {
   @Model() id!: number
+
   hobby: any /* Hobby */ = {} as any
   // hobby.file: hobby picture to upload
   // hobby.url: hobby picture preview

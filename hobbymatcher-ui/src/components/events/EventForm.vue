@@ -194,9 +194,23 @@
             <div class="text-right pt-1">Cover Photo</div>
           </div>
           <div class="p-col-8 text-left">
-            <div>
+            <div v-if="imgForceUpdate">
+              <!-- when there is photoId -->
               <img
-                v-if="!event.url"
+                v-if="!event.url && event.photoId"
+                :src="
+                  'http://localhost:8080/hobbymatcher/files/' + event.photoId
+                "
+                style="
+                  width: 12rem;
+                  height: 12rem;
+                  border: solid 1px lightgray;
+                "
+              />
+              <!-- else -->
+              <!-- if no photo is selected yet -->
+              <img
+                v-if="!event.url && !event.photoId"
                 src="@/assets/images/logo-200x200.png"
                 style="
                   width: 12rem;
@@ -204,6 +218,7 @@
                   border: solid 1px lightgray;
                 "
               />
+              <!-- if selected but not uploaded yet -->
               <img
                 v-if="event.url"
                 :src="event.url"
@@ -224,6 +239,7 @@
               />
             </div>
           </div>
+
           <div class="p-col-8 p-offset-3 text-left">
             <Button
               type="button"
@@ -233,6 +249,14 @@
               v-on:click="back()"
             />
             <Button
+              v-if="event.id"
+              label="Update"
+              icon="pi pi-check"
+              class="p-button-success"
+              :disabled="invalid"
+            />
+            <Button
+              v-if="!event.id"
               label="Create"
               icon="pi pi-check"
               class="p-button-primary"
@@ -247,6 +271,8 @@
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
+/* eslint-disable comma-dangle */
+
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { EventService } from './EventService'
 import { Event } from './Event'
@@ -255,18 +281,16 @@ import { Hobby } from '../hobbies/Hobby'
 
 @Component
 export default class EventForm extends Vue {
-  @Model() model!: Event
-  internal: Event = {} as any
+  @Model() id!: number
+
+  event: any /* Event */ = {} as any
+  // event.file: event picture to upload
+  // event.url: event picture preview
+  imgForceUpdate = Math.random()
 
   locations = []
   locationToggle = false
   hobbies: Hobby[] = []
-
-  get event(): any {
-    return this.model || this.internal
-  }
-  // event.file: event picture to upload
-  // event.url: event picture preview
 
   hobbyApi: HobbyService = new HobbyService()
   eventApi: EventService = new EventService()
@@ -275,6 +299,21 @@ export default class EventForm extends Vue {
     this.hobbyApi
       .list()
       .then((resp: any) => (this.hobbies = resp.data.list))
+      .catch((err: any) => console.log(err))
+
+    if (this.id) {
+      this.doLoad()
+    }
+  }
+
+  doLoad() {
+    this.eventApi
+      .get(this.id)
+      .then((resp: any) => {
+        const event = resp.data.event
+        event.onDatetime = new Date(event.onDatetime)
+        this.event = event
+      })
       .catch((err: any) => console.log(err))
   }
 
@@ -287,7 +326,10 @@ export default class EventForm extends Vue {
     if ($event.files && $event.files[0]) {
       this.event.file = $event.files[0]
       const reader = new FileReader()
-      reader.onload = (e: any) => (this.event.url = e.target.result)
+      reader.onload = (e: any) => {
+        this.event.url = e.target.result
+        this.imgForceUpdate = Math.random()
+      }
       reader.readAsDataURL(this.event.file)
     }
   }
@@ -306,7 +348,7 @@ export default class EventForm extends Vue {
     const addr = this.event.locationObj.address
     this.event.locationShort = [
       addr.city,
-      this.eventApi.getStateShort(addr.state)
+      this.eventApi.getStateShort(addr.state),
     ]
       .filter((add) => add)
       .join(', ')
@@ -321,7 +363,16 @@ export default class EventForm extends Vue {
   }
 
   save() {
+    if (this.event.id) {
+      this.doUpdate()
+    } else {
+      this.doSave()
+    }
+  }
+
+  getFormData() {
     const data = new FormData()
+    data.append('id', this.event.id) // only in update
     data.append('hobbyId', this.event.hobbyId)
     data.append('title', this.event.title)
     data.append('onDatetime', this.event.onDatetime)
@@ -334,15 +385,31 @@ export default class EventForm extends Vue {
     data.append('plus18Only', this.event.plus18Only)
     data.append('organizer', this.event.organizer)
     data.append('file', this.event.file)
+    return data
+  }
 
+  doSave() {
     this.eventApi
-      .add(data)
+      .add(this.getFormData())
       .then((resp: any) => {
         Vue.toasted.show('Event has been added.', { duration: 5000 })
         this.back()
       })
       .catch((err: any) => {
         Vue.toasted.show('Failed to add the event.', { duration: 5000 })
+        console.log(err)
+      })
+  }
+
+  doUpdate() {
+    this.eventApi
+      .update(this.getFormData())
+      .then((resp: any) => {
+        Vue.toasted.show('Event has been updated.', { duration: 5000 })
+        this.back()
+      })
+      .catch((err: any) => {
+        Vue.toasted.show('Failed to update the event.', { duration: 5000 })
         console.log(err)
       })
   }

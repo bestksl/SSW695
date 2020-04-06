@@ -16,6 +16,12 @@ export class EventService {
     })
   }
 
+  update(event: FormData) {
+    return http.post('/event/editevent', event, {
+      headers: { 'content-type': 'multipart/form-data' }
+    })
+  }
+
   get(id: any) {
     return http.get('/event/getevent?id=' + id)
   }

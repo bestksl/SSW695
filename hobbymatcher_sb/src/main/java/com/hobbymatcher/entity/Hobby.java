@@ -6,7 +6,7 @@ public class Hobby implements Serializable {
 
 	private static final long serialVersionUID = 3886854875271518921L;
 
-	private String id;
+	private Integer id;
 	private String name;
 	private Integer categoryId;
 	private String description;
@@ -14,11 +14,11 @@ public class Hobby implements Serializable {
 	private String photoId;
 	private Integer createdById;
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

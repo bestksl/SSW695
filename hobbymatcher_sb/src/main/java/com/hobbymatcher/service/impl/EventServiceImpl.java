@@ -60,6 +60,11 @@ public class EventServiceImpl implements EventService {
 	public List<Event> listEventByHobbyId(int id) {
 		return eventDao.listEventByHobbyId(id);
 	}
+	
+	@Override
+	public Boolean updateEvent(Event event) {
+		return eventDao.updateEvent(event) == 1;
+	}
 
 //    @Override
 //    public boolean checkEvent(Event event) {

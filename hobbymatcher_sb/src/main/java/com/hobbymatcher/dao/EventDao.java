@@ -25,4 +25,6 @@ public interface EventDao {
 	List<Event> listJoinedFutureEvents(@Param("userId") int userId);
 
 	List<Event> listPastHoldEvents(@Param("userId") int userId);
+
+	int updateEvent(Event event);
 }

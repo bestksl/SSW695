@@ -22,6 +22,8 @@ public interface EventService {
 
 	List<Event> listPastHoldEvents(int userId);
 
+	Boolean updateEvent(Event event);
+
 //	boolean checkEvent(Event event);
 
 //	List<Event> findPastEvents(String id, LocalDateTime currentTime);

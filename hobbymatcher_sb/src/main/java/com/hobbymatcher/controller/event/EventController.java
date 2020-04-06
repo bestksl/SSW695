@@ -89,6 +89,27 @@ public class EventController {
 		return resp;
 	}
 
+	// add event
+	@PostMapping("/editevent")
+	public Map<String, Object> editEvent(HttpServletRequest request, HttpServletResponse response, //
+			@ModelAttribute Event event, @RequestPart(name = "file", required = false) MultipartFile imageFile) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+//	        if (eventService.checkEvent(event)) {
+		try {
+			if (imageFile != null && !imageFile.isEmpty()) {
+				event.setPhotoId(FileUtil.transferFile(imageFile));
+			}
+			Boolean updated = eventService.updateEvent(event);
+			resp.put("success", updated);
+			response.setStatus(updated ? 200 : 400);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			resp.put("success", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
+
 //	@RequestMapping(value = "/joinevent", method = RequestMethod.POST)
 //	@ResponseBody
 //	public Map<String, Object> joinEvents(String id, @RequestParam(value = "events_id") String eventsId,

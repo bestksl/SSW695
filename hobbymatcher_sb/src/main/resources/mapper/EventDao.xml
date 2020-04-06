@@ -70,6 +70,26 @@
 		order by id desc
 	</select>
 
+	<update id="updateEvent"
+		parameterType="com.hobbymatcher.entity.Event">
+		update event
+		<set>
+			<if test="hobbyId != null">hobby_id = #{hobbyId},</if>
+			<if test="title != null">title = #{title},</if>
+			<if test="onDatetime != null">on_datetime = #{onDatetime},</if>
+			<if test="location != null">location = #{location},</if>
+			<if test="locationShort != null">location_short = #{locationShort},</if>
+			<if test="geoLat != null">geo_lat = #{geoLat},</if>
+			<if test="geoLon != null">geo_lon = #{geoLon},</if>
+			<if test="capacity != null">capacity = #{capacity},</if>
+			<if test="description != null">description = #{description},</if>
+			<if test="plus18Only != null">plus18_only = #{plus18Only},</if>
+			<if test="organizer != null">organizer = #{organizer},</if>
+			<if test="photoId != null">photo_id = #{photoId}</if>
+		</set>
+		where id=#{id}
+	</update>
+	
     <!-- 
     <select id="getNumber" resultType="int">
         select count(user_id)
