@@ -21,7 +21,11 @@ public interface HobbyService {
 
 	List<Hobby> listHobbyByCreatedById(int userId);
 
-	List<Hobby> listHobbyBySubscribedId(int userId);
+	List<Hobby> listHobbyByFollowingUserId(int userId);
 
 	Followship getFollowship(int userId, Integer hobbyId);
+
+	void followHobby(int userId, Integer hobbyId);
+
+	void unfollowHobby(int userId, Integer hobbyId);
 }

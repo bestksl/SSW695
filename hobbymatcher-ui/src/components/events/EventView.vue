@@ -35,7 +35,7 @@
             v-if="status === 'requested'"
             label="Cancel Participation Request"
             icon="pi pi-times"
-            class="p-button-danger"
+            class="p-button-warning"
             v-on:click="manageParticipation('cancel')"
           />
           <Button

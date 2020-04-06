@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <HobbyView v-model="hobby" />
+    <HobbyView v-if="hobby.id" v-model="hobby" />
 
     <RecentEvents class="mt-4" />
 
@@ -23,6 +23,8 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
+
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { HobbyService } from '../components/hobbies/HobbyService'
 import { Hobby } from '../components/hobbies/Hobby'
@@ -33,12 +35,10 @@ export default class ViewHobby extends Vue {
 
   hobby: Hobby = {} as any
 
-  // eslint-disable-next-line space-before-function-paren
   back() {
     window.history.back()
   }
 
-  // eslint-disable-next-line space-before-function-paren
   mounted() {
     this.api
       .get(this.$route.query.id)

@@ -27,8 +27,8 @@ public class HobbyServiceImpl implements HobbyService {
 	}
 
 	@Override
-	public List<Hobby> listHobbyBySubscribedId(int userId) {
-		return hobbyDao.listHobbyBySubscribedId(userId);
+	public List<Hobby> listHobbyByFollowingUserId(int userId) {
+		return hobbyDao.listHobbyByFollowingUserId(userId);
 	}
 
 	@Override
@@ -71,5 +71,15 @@ public class HobbyServiceImpl implements HobbyService {
 	@Override
 	public Followship getFollowship(int userId, Integer hobbyId) {
 		return hobbyDao.getFollowship(userId, hobbyId);
+	}
+
+	@Override
+	public void followHobby(int userId, Integer hobbyId) {
+		hobbyDao.followHobby(userId, hobbyId);
+	}
+
+	@Override
+	public void unfollowHobby(int userId, Integer hobbyId) {
+		hobbyDao.unfollowHobby(userId, hobbyId);
 	}
 }

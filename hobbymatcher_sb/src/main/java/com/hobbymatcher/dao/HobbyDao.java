@@ -25,7 +25,11 @@ public interface HobbyDao {
 
 	List<Hobby> listHobbyByCreatedById(@Param("createdById") int createdById);
 
-	List<Hobby> listHobbyBySubscribedId(@Param("userId") int userId);
+	List<Hobby> listHobbyByFollowingUserId(@Param("userId") int userId);
 
 	Followship getFollowship(@Param("userId") int userId, @Param("hobbyId") int hobbyId);
+
+	void followHobby(@Param("userId") int userId, @Param("hobbyId") int hobbyId);
+
+	void unfollowHobby(@Param("userId") int userId, @Param("hobbyId") int hobbyId);
 }

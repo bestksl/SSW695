@@ -36,4 +36,8 @@ export class HobbyService {
   getFollowship(id: any) {
     return http.get('/hobby/getfollowship?id=' + id)
   }
+
+  manageFollowship(id: number, action: string) {
+    return http.post(`/hobby/followship?action=${action}&id=${id}`)
+  }
 }

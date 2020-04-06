@@ -5,7 +5,7 @@
         v-model="selected"
         :options="[
           { title: 'Created Hobbies', value: 'created' },
-          { title: 'Subscribed Hobbies', value: 'subscribed' }
+          { title: 'Followed Hobbies', value: 'followed' }
         ]"
         optionLabel="title"
         optionValue="value"

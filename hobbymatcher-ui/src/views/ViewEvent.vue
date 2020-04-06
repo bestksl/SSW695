@@ -32,6 +32,8 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
+
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { EventService } from '../components/events/EventService'
 import { Event } from '../components/events/Event'
@@ -42,12 +44,10 @@ export default class ViewEvent extends Vue {
 
   event: Event = {} as any
 
-  // eslint-disable-next-line space-before-function-paren
   back() {
     window.history.back()
   }
 
-  // eslint-disable-next-line space-before-function-paren
   mounted() {
     this.api
       .get(this.$route.query.id)

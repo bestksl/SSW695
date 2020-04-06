@@ -130,4 +130,34 @@ public class HobbyController {
 		}
 		return resp;
 	}
+
+	@PostMapping("/followship")
+	public Map<String, Object> manageFollowship(HttpServletRequest request, HttpServletResponse response, //
+			@RequestParam("id") Integer hobbyId, @RequestParam("action") String action) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		try {
+			int userId = authUtilService.getUserId(request);
+			Followship follow = hobbyService.getFollowship(userId, hobbyId);
+
+			if ("follow".equals(action)) {
+				if (follow == null) {
+					hobbyService.followHobby(userId, hobbyId);
+				}
+				resp.put("status", "followed");
+			} else if ("cancel".equals(action)) {
+				if (follow != null) {
+					hobbyService.unfollowHobby(userId, hobbyId);
+				}
+				resp.put("status", "");
+			}
+
+			resp.put("success", true);
+			response.setStatus(200);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			resp.put("success", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
 }

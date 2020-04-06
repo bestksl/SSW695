@@ -18,7 +18,7 @@
 		order by id desc
 	</select>
 	
-	<select id="listHobbyBySubscribedId"
+	<select id="listHobbyByFollowingUserId"
 		resultType="com.hobbymatcher.entity.Hobby">
 		select hobby.*
 		from hobby
@@ -66,4 +66,15 @@
 		where user_id = #{userId}
 		  and hobby_id = #{hobbyId}
 	</select>
+	
+	<insert id="followHobby">
+		insert into follower (hobby_id, user_id, on_datetime)
+		values (#{hobbyId}, #{userId}, now())
+	</insert>
+	
+	<delete id="unfollowHobby">
+		delete from follower 
+		where hobby_id = #{hobbyId}
+		  and user_id = #{userId}
+	</delete>
 </mapper>
