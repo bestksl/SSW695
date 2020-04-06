@@ -32,6 +32,7 @@ import Carousel from 'primevue/carousel'
 import Dialog from 'primevue/dialog'
 import AutoComplete from 'primevue/autocomplete'
 import ToggleButton from 'primevue/togglebutton'
+import SplitButton from 'primevue/splitbutton'
 
 import 'primevue/resources/themes/nova-light/theme.css'
 import 'primevue/resources/primevue.min.css'
@@ -99,6 +100,7 @@ Vue.component('Carousel', Carousel)
 Vue.component('Dialog', Dialog)
 Vue.component('AutoComplete', AutoComplete)
 Vue.component('ToggleButton', ToggleButton)
+Vue.component('SplitButton', SplitButton)
 
 // This will kick of the initial replacement of i to svg tags
 // and configure a MutationObserver

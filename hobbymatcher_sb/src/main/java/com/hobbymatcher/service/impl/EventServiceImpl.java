@@ -10,6 +10,9 @@ import com.hobbymatcher.entity.Event;
 import com.hobbymatcher.entity.Participation;
 import com.hobbymatcher.service.EventService;
 
+import javax.validation.Valid;
+
+@Valid
 @Service
 public class EventServiceImpl implements EventService {
 

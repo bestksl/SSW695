@@ -10,6 +10,9 @@ import com.hobbymatcher.entity.Followship;
 import com.hobbymatcher.entity.Hobby;
 import com.hobbymatcher.service.HobbyService;
 
+import javax.validation.Valid;
+
+@Valid
 @Service
 public class HobbyServiceImpl implements HobbyService {
 
