@@ -25,10 +25,10 @@
         <!-- log in and sign up -->
       </div>
       <div v-if="authApi.isLogin" class="p-col-6 text-right">
-        <Button
+        <!-- <Button
           icon="pi pi-bell"
           class="p-button-secondary mr-2 rounded-circle"
-        />
+        /> -->
 
         <router-link to="/profile">
           <img
