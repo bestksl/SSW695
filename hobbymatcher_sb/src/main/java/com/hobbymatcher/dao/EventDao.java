@@ -11,31 +11,33 @@ import com.hobbymatcher.entity.Participation;
 @Repository
 public interface EventDao {
 
-	List<Event> listEvent();
+    List<Event> listEvent();
 
-	int insertEvent(Event event);
+    int insertEvent(Event event);
 
-	Event findEventById(@Param("id") int id);
+    Event findEventById(@Param("id") int id);
 
-	Event findEventByTitle(@Param("title") String title);
+    Event findEventByTitle(@Param("title") String title);
 
-	List<Event> listEventByHobbyId(@Param("hobbyId") int id);
+    List<Event> listEventByHobbyId(@Param("hobbyId") int id);
 
-	List<Event> listPastJoinEvents(@Param("userId") int userId);
+    List<Event> listPastJoinEvents(@Param("userId") int userId);
 
-	List<Event> listJoinedFutureEvents(@Param("userId") int userId);
+    List<Event> listJoinedFutureEvents(@Param("userId") int userId);
 
-	List<Event> listPastHoldEvents(@Param("userId") int userId);
+    List<Event> listPastHoldEvents(@Param("userId") int userId);
 
-	int updateEvent(Event event);
+    int updateEvent(Event event);
 
-	Participation getParticipation(@Param("userId") int userId, @Param("eventId") int eventId);
+    Participation getParticipation(@Param("userId") int userId, @Param("eventId") int eventId);
 
-	void requestToParticipateEvent(@Param("userId") int userId, @Param("eventId") int eventId);
+    void requestToParticipateEvent(@Param("userId") int userId, @Param("eventId") int eventId);
 
-	void cancelEventParticipationRequest(@Param("userId") int userId, @Param("eventId") int eventId);
+    void cancelEventParticipationRequest(@Param("userId") int userId, @Param("eventId") int eventId);
 
-	void markEventAsParticipated(@Param("userId") int userId, @Param("eventId") int eventId);
+    void markEventAsParticipated(@Param("userId") int userId, @Param("eventId") int eventId);
 
-	void approveUser(@Param("theUserId") int theUserId, @Param("eventId") int eventId);
+    void approveUser(@Param("theUserId") int theUserId, @Param("eventId") int eventId);
+
+    List<Event> listRecentEvents();
 }

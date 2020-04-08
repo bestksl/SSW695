@@ -3,122 +3,132 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hobbymatcher.dao.EventDao">
-	<select id="listEvent"
-		resultType="com.hobbymatcher.entity.Event">
-		select *
-		from event
-		order by id desc
-	</select>
-	
-	<select id="listPastJoinEvents"
-		resultType="com.hobbymatcher.entity.Event">
-		select event.*
-		from event
-		join participation as p on p.event_id = event.id 
-		and p.user_id = #{userId} 
-		and p.approved_on_datetime is not null
-		and now() > event.on_datetime 
-		order by id 
-	</select>
-	
-	<select id="listJoinedFutureEvents"
-		resultType="com.hobbymatcher.entity.Event">
-		select event.*
-		from event
-		join participation as p on p.event_id = event.id 
-		and p.user_id = #{userId} 
-		and p.approved_on_datetime is not null
-		and event.on_datetime > now() 
-		order by id 
-	</select>
-	
-	<select id="listPastHoldEvents"
-		resultType="com.hobbymatcher.entity.Event">
-		select *
-		from event
-		where created_by_id = #{userId}
-		  and now() > on_datetime 
-		order by id 
-	</select>
+    <select id="listEvent"
+            resultType="com.hobbymatcher.entity.Event">
+        select *
+        from event
+        order by id desc
+    </select>
+    <select id="listRecentEvents"
+            resultType="com.hobbymatcher.entity.Event">
+        select *
+        from event
+        order by event.on_datetime desc
+        limit 5
+    </select>
+    <select id="listPastJoinEvents"
+            resultType="com.hobbymatcher.entity.Event">
+        select event.*
+        from event
+                 join participation as p on p.event_id = event.id
+            and p.user_id = #{userId}
+            and p.approved_on_datetime is not null
+            and now() > event.on_datetime
+        order by id
+    </select>
 
-	<insert id="insertEvent" useGeneratedKeys="true"
-		keyProperty="id">
-	 	insert into event (hobby_id, title, on_datetime, location, location_short, geo_lat, geo_lon, capacity, description, plus18_only, organizer, photo_id, created_by_id)
-        values (#{hobbyId}, #{title}, #{onDatetime}, #{location}, #{locationShort}, #{geoLat}, #{geoLon}, #{capacity}, #{description}, #{plus18Only}, #{organizer}, #{photoId}, #{createdById})
-	</insert>
+    <select id="listJoinedFutureEvents"
+            resultType="com.hobbymatcher.entity.Event">
+        select event.*
+        from event
+                 join participation as p on p.event_id = event.id
+            and p.user_id = #{userId}
+            and p.approved_on_datetime is not null
+            and event.on_datetime > now()
+        order by id
+    </select>
 
-	<select id="findEventById"
-		resultType="com.hobbymatcher.entity.Event">
-		select *
-		from event
-		where id = #{id}
-	</select>
+    <select id="listPastHoldEvents"
+            resultType="com.hobbymatcher.entity.Event">
+        select *
+        from event
+        where created_by_id = #{userId}
+          and now() > on_datetime
+        order by id
+    </select>
 
-	<select id="findEventByTitle"
-		resultType="com.hobbymatcher.entity.Event">
-		select *
-		from event
-		where title = #{title}
-		order by id desc
-	</select>
+    <insert id="insertEvent" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into event (hobby_id, title, on_datetime, location, location_short, geo_lat, geo_lon, capacity,
+                           description, plus18_only, organizer, photo_id, created_by_id)
+        values (#{hobbyId}, #{title}, #{onDatetime}, #{location}, #{locationShort}, #{geoLat}, #{geoLon}, #{capacity},
+                #{description}, #{plus18Only}, #{organizer}, #{photoId}, #{createdById})
+    </insert>
 
-	<select id="listEventByHobbyId"
-		resultType="com.hobbymatcher.entity.Event">
-		select *
-		from event
-		where hobby_id = #{hobbyId}
-		order by id desc
-	</select>
+    <select id="findEventById"
+            resultType="com.hobbymatcher.entity.Event">
+        select *
+        from event
+        where id = #{id}
+    </select>
 
-	<update id="updateEvent"
-		parameterType="com.hobbymatcher.entity.Event">
-		update event
-		<set>
-			<if test="hobbyId != null">hobby_id = #{hobbyId},</if>
-			<if test="title != null">title = #{title},</if>
-			<if test="onDatetime != null">on_datetime = #{onDatetime},</if>
-			<if test="location != null">location = #{location},</if>
-			<if test="locationShort != null">location_short = #{locationShort},</if>
-			<if test="geoLat != null">geo_lat = #{geoLat},</if>
-			<if test="geoLon != null">geo_lon = #{geoLon},</if>
-			<if test="capacity != null">capacity = #{capacity},</if>
-			<if test="description != null">description = #{description},</if>
-			<if test="plus18Only != null">plus18_only = #{plus18Only},</if>
-			<if test="organizer != null">organizer = #{organizer},</if>
-			<if test="photoId != null">photo_id = #{photoId}</if>
-		</set>
-		where id=#{id}
-	</update>
-	
+    <select id="findEventByTitle"
+            resultType="com.hobbymatcher.entity.Event">
+        select *
+        from event
+        where title = #{title}
+        order by id desc
+    </select>
+
+    <select id="listEventByHobbyId"
+            resultType="com.hobbymatcher.entity.Event">
+        select *
+        from event
+        where hobby_id = #{hobbyId}
+        order by id desc
+    </select>
+
+    <update id="updateEvent"
+            parameterType="com.hobbymatcher.entity.Event">
+        update event
+        <set>
+            <if test="hobbyId != null">hobby_id = #{hobbyId},</if>
+            <if test="title != null">title = #{title},</if>
+            <if test="onDatetime != null">on_datetime = #{onDatetime},</if>
+            <if test="location != null">location = #{location},</if>
+            <if test="locationShort != null">location_short = #{locationShort},</if>
+            <if test="geoLat != null">geo_lat = #{geoLat},</if>
+            <if test="geoLon != null">geo_lon = #{geoLon},</if>
+            <if test="capacity != null">capacity = #{capacity},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="plus18Only != null">plus18_only = #{plus18Only},</if>
+            <if test="organizer != null">organizer = #{organizer},</if>
+            <if test="photoId != null">photo_id = #{photoId}</if>
+        </set>
+        where id=#{id}
+    </update>
+
     <select id="getParticipation"
-		resultType="com.hobbymatcher.entity.Participation">
-		select *
-		from participation
-		where user_id = #{userId} 
-		  and event_id = #{eventId} 
-	</select>
-	
-	<insert id="requestToParticipateEvent">
-	 	insert into participation (user_id, event_id, requested_on_datetime) values (#{userId}, #{eventId}, now())
-	</insert>
-	
-	<delete id="cancelEventParticipationRequest">
-		delete from participation
-		where user_id = #{userId}
-		  and event_id = #{eventId}
-	</delete>
-	
-	<update id="markEventAsParticipated">
-		update participation
-		set participated_on_datetime = now()
-		where user_id = #{userId}
-		  and event_id = #{eventId}
-	</update>
-	
-	<update id="approveUser">
-		update participation
-		set approved_on_datetime = now()
-		where user_id = #{theUserId}
-		  and event_id = #{eventId}
-	</update>
+            resultType="com.hobbymatcher.entity.Participation">
+        select *
+        from participation
+        where user_id = #{userId}
+          and event_id = #{eventId}
+    </select>
+
+    <insert id="requestToParticipateEvent">
+        insert into participation (user_id, event_id, requested_on_datetime)
+        values (#{userId}, #{eventId}, now())
+    </insert>
+
+    <delete id="cancelEventParticipationRequest">
+        delete
+        from participation
+        where user_id = #{userId}
+          and event_id = #{eventId}
+    </delete>
+
+    <update id="markEventAsParticipated">
+        update participation
+        set participated_on_datetime = now()
+        where user_id = #{userId}
+          and event_id = #{eventId}
+    </update>
+
+    <update id="approveUser">
+        update participation
+        set approved_on_datetime = now()
+        where user_id = #{theUserId}
+          and event_id = #{eventId}
+    </update>
 </mapper>

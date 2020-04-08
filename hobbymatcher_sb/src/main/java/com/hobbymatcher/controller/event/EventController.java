@@ -51,14 +51,10 @@ public class EventController {
 
     // list top 5 event
     @GetMapping("/listRecentEvents")
-    public Map<String, Object> listTop5Events(String hobbyId, HttpServletResponse response) {
+    public Map<String, Object> listTop5Events(HttpServletResponse response) {
         Map<String, Object> resp = new HashMap<String, Object>();
         try {
-            if (hobbyId != null && !hobbyId.isEmpty()) {
-                resp.put("list", eventService.listRecentEvents());
-            } else {
-                resp.put("list", eventService.listEvent());
-            }
+            resp.put("list", eventService.listRecentEvents());
             resp.put("success", true);
             response.setStatus(200);
         } catch (Exception exp) {
