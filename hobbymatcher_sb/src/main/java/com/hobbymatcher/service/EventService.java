@@ -9,6 +9,10 @@ public interface EventService {
 
 	List<Event> listEvent();
 
+	List<Event> listEvent(Boolean justCount, //
+			String searchScope, String searchPhrase, String[] categoryIds, Double feeStart, Double feeEnd,
+			String sortBy, int offset, int perpage);
+
 	boolean insertEvent(Event events);
 
 	Event findEventById(int id);

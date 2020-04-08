@@ -84,6 +84,7 @@ CREATE TABLE IF NOT EXISTS `event` (
   `capacity` DOUBLE NULL,
   `description` VARCHAR(2048) NULL,
   `plus18_only` TINYINT NULL,
+  `fee` DOUBLE NULL,
   `organizer` VARCHAR(128) NULL,
   `photo_id` VARCHAR(42) NULL,
   `created_by_id` INT NOT NULL,

@@ -1,6 +1,7 @@
 /* eslint-disable space-before-function-paren */
 import { http } from '../Api'
 import { Hobby } from './Hobby'
+import { Filter } from '../search/Filter'
 
 export class HobbyService {
   private static instance: any
@@ -13,8 +14,21 @@ export class HobbyService {
     return HobbyService.instance
   }
 
-  list() {
-    return http.get('/hobby/listhobby')
+  list(filter?: Filter) {
+    let query = []
+    if (filter) {
+      if (filter.offset) {
+        query.push('offset=' + filter.offset)
+      }
+      if (filter.perpage) {
+        query.push('perpage=' + filter.perpage)
+      }
+      if (filter.categories) {
+        query.push('categories=' + filter.categories.join(','))
+      }
+    }
+    // /hobby/listhobby?searchPrase=sdfsd&offset=10&perpage=10
+    return http.get('/hobby/listhobby' + (query.length ? `?${query.join('&')}` : ''))
   }
 
   get(id: any) {

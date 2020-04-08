@@ -10,6 +10,27 @@
 		order by id desc
 	</select>
 	
+	<select id="searchHobby"
+		resultType="com.hobbymatcher.entity.Hobby">
+		select 
+		<if test="justCount">count(hobby.id) as id</if>
+		<if test="!justCount">hobby.*</if>
+		from hobby
+		<if test="categoryIds.length > 0">
+		where category_id in
+			<foreach item="categoryId" index="index" collection="categoryIds" open="(" separator="," close=")">
+	        #{categoryId}
+	    	</foreach>
+		</if>
+		order by id desc
+		limit #{offset}, #{perpage}
+	</select>
+	
+	<select id="countHobby" resultType="int">
+		select count(id) as value
+		from hobby
+	</select>
+	
 	<select id="listHobbyByCreatedById"
 		resultType="com.hobbymatcher.entity.Hobby">
 		select *

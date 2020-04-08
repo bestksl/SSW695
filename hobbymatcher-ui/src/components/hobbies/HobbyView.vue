@@ -28,7 +28,7 @@
       </div>
       <div class="p-col-7">
         <h3>Welcome to {{ hobby.name }} community</h3>
-        <p>{{ hobby.description }}</p>
+        <p>{{ hobby.description || '' }}</p>
         <small v-if="hobby.plus18Only">+18 only</small>
       </div>
     </div>

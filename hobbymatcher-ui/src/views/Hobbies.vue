@@ -2,7 +2,11 @@
   <div class="more-events-page">
     <div class="p-grid">
       <div class="p-offset-1 p-col-2">
-        <FilterCategories v-model="filter" :notitle="true" />
+        <FilterCategories
+          v-model="filter"
+          :notitle="true"
+          v-on:changed="load()"
+        />
       </div>
       <div class="p-col-8">
         <div class="p-grid">
@@ -26,6 +30,8 @@
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
+/* eslint-disable comma-dangle */
+
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Filter } from '../components/search/Filter'
 import { HobbyService } from '../components/hobbies/HobbyService'
@@ -33,27 +39,33 @@ import { Hobby } from '../components/hobbies/Hobby'
 
 @Component
 export default class Hobbies extends Vue {
-  api = new HobbyService()
+  hobbyApi = HobbyService.getInstance()
 
   hobbies: Hobby[] = []
 
   filter: Filter = {
     searchScope: 'hobby',
-    count: 48,
-    perpage: 10,
-    offset: 0 // zero-based index
+    perpage: 15,
+    offset: 0, // zero-based index
+    count: 0,
   } as Filter
 
   mounted() {
-    this.api
-      .list()
-      .then((resp: any) => (this.hobbies = resp.data.list))
-      .catch((err: any) => console.log(err))
+    this.load()
   }
 
   pageChanged($event: any) {
-    console.log($event)
-    // load the 'page' content from backend
+    this.load()
+  }
+
+  load() {
+    this.hobbyApi
+      .list(this.filter)
+      .then((resp: any) => {
+        this.hobbies = resp.data.list
+        this.filter.count = resp.data.count
+      })
+      .catch((err: any) => console.log(err))
   }
 }
 </script>

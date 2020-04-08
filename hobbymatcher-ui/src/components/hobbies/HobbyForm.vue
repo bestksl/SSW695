@@ -162,6 +162,8 @@
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
+/* eslint-disable comma-dangle */
+
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { CategoryService } from '../category/CategoryService'
 import { Category } from '../category/Category'
@@ -172,7 +174,10 @@ import { Hobby } from './Hobby'
 export default class HobbyForm extends Vue {
   @Model() id!: number
 
-  hobby: any /* Hobby */ = {} as any
+  hobby: any /* Hobby */ = {
+    plus18Only: false,
+    description: '',
+  } as any
   // hobby.file: hobby picture to upload
   // hobby.url: hobby picture preview
   imgForceUpdate = Math.random()
@@ -231,9 +236,11 @@ export default class HobbyForm extends Vue {
 
   getFormData() {
     const data = new FormData()
-    data.append('id', this.hobby.id) // only in update
+    if (this.hobby.id) {
+      data.append('id', this.hobby.id) // only in update
+    }
     data.append('name', this.hobby.name)
-    data.append('description', this.hobby.description)
+    data.append('description', this.hobby.description || '')
     data.append('categoryId', this.hobby.categoryId)
     data.append('plus18Only', this.hobby.plus18Only)
     data.append('file', this.hobby.file)

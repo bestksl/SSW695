@@ -9,6 +9,9 @@ public interface HobbyService {
 
 	List<Hobby> listHobby();
 
+	List<Hobby> listHobby(Boolean justCount, //
+			Integer offset, Integer perpage, String[] categoryIds);
+
 	boolean insertHobby(Hobby hobby);
 
 	Hobby findHobbyById(int id);
@@ -28,4 +31,6 @@ public interface HobbyService {
 	void followHobby(int userId, Integer hobbyId);
 
 	void unfollowHobby(int userId, Integer hobbyId);
+
+	Integer countHobby();
 }

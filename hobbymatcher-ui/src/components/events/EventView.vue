@@ -74,8 +74,6 @@
             Location:
           </div>
           <div class="p-col-9">
-            {{ event.location }}
-
             <a
               :href="
                 'https://www.google.com/maps/search/?api=1&query=' +
@@ -85,7 +83,7 @@
               "
               target="_blank"
             >
-              (open in map)
+              {{ event.location }}
             </a>
           </div>
 
@@ -93,7 +91,7 @@
             Capacity:
           </div>
           <div v-if="event.capacity" class="p-col-9">
-            {{ event.capacity }}
+            {{ event.capacity || '' }}
           </div>
 
           <div class="p-col-3">
@@ -106,18 +104,23 @@
           <div class="p-col-3">
             Fee:
           </div>
-          <div class="p-col-9">{{ event.fee }} $</div>
+          <div class="p-col-9">
+            <span v-if="event.fee"> {{ event.fee || '' }} $ </span>
+            <span v-if="!event.fee">
+              No Fee
+            </span>
+          </div>
 
           <div class="p-col-3">
             Organizer:
           </div>
           <div class="p-col-9">
-            {{ event.organizer }}
+            {{ event.organizer || '' }}
           </div>
 
           <div class="p-col-3">Description:</div>
           <div class="p-col-9">
-            {{ event.description }}
+            {{ event.description || '' }}
           </div>
         </div>
       </div>

@@ -17,6 +17,8 @@
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
+/* eslint-disable comma-dangle */
+
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Blog } from './Blog'
 
@@ -26,13 +28,16 @@ export default class BlogsListing extends Vue {
 
   constructor() {
     super()
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 9; i++) {
       this.blogs.push({
         id: i,
         title: 'Sunday Jogging',
-        datetime: new Date('2020-10-10'),
-        by: 'John Doe'
-      })
+        onDatetime: new Date('2020-10-10'),
+        byUser: {
+          firstName: 'John',
+          lastName: 'Doe',
+        },
+      } as any)
     }
   }
 }

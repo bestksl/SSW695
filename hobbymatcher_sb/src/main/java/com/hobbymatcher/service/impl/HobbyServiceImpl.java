@@ -25,6 +25,17 @@ public class HobbyServiceImpl implements HobbyService {
 	}
 
 	@Override
+	public Integer countHobby() {
+		return hobbyDao.countHobby();
+	}
+
+	@Override
+	public List<Hobby> listHobby(Boolean justCount, //
+			Integer offset, Integer perpage, String[] categoryIds) {
+		return hobbyDao.searchHobby(justCount, offset, perpage, categoryIds);
+	}
+
+	@Override
 	public List<Hobby> listHobbyByCreatedById(int userId) {
 		return hobbyDao.listHobbyByCreatedById(userId);
 	}

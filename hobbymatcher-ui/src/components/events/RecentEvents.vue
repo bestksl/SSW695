@@ -48,7 +48,7 @@ export default class RecentEvents extends Vue {
   constructor() {
     super()
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 9; i++) {
       this.events.push(this.events[0])
     }
   }

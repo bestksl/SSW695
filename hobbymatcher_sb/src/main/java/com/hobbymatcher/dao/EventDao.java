@@ -13,6 +13,13 @@ public interface EventDao {
 
 	List<Event> listEvent();
 
+	List<Event> searchEvent(@Param("justCount") Boolean justCount, //
+			@Param("searchScope") String searchScope, // TODO - implement
+			@Param("searchPhrase") String searchPhrase, @Param("categoryIds") String[] categoryIds,
+			@Param("feeStart") Double feeStart, @Param("feeEnd") Double feeEnd, //
+			@Param("sortBy") String sortBy, // TODO - implement
+			@Param("offset") Integer offset, @Param("perpage") Integer perpage);
+
 	int insertEvent(Event event);
 
 	Event findEventById(@Param("id") int id);
@@ -38,4 +45,5 @@ public interface EventDao {
 	void markEventAsParticipated(@Param("userId") int userId, @Param("eventId") int eventId);
 
 	void approveUser(@Param("theUserId") int theUserId, @Param("eventId") int eventId);
+
 }

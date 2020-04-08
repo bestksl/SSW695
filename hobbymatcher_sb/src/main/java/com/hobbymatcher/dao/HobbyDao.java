@@ -13,6 +13,10 @@ public interface HobbyDao {
 
 	List<Hobby> listHobby();
 
+	List<Hobby> searchHobby(@Param("justCount") Boolean justCount, //
+			@Param("offset") Integer offset, @Param("perpage") Integer perpage,
+			@Param("categoryIds") String[] categoryIds);
+
 	int insertHobby(Hobby hobby);
 
 	Hobby findHobbyByName(@Param("name") String name);
@@ -32,4 +36,6 @@ public interface HobbyDao {
 	void followHobby(@Param("userId") int userId, @Param("hobbyId") int hobbyId);
 
 	void unfollowHobby(@Param("userId") int userId, @Param("hobbyId") int hobbyId);
+
+	Integer countHobby();
 }
