@@ -35,8 +35,6 @@ public interface EventService {
 
 	void approveUser(Integer theUserId, Integer eventId);
 
-    List<Event> listRecentEvents();
-
 //	boolean checkEvent(Event event);
 
 //	List<Event> findPastEvents(String id, LocalDateTime currentTime);

@@ -29,9 +29,6 @@ public class Event {
     @NonNull
     private Integer createdById;
 
-    public Event() {
-    }
-
     public Integer getId() {
         return id;
     }
