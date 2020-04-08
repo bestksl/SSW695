@@ -10,146 +10,149 @@ import java.util.Date;
 @Data
 public class Event {
 
-	private Integer id;
-	@NonNull
-	private Integer hobbyId;
-	private Date onDatetime;
-	@NonNull
-	private String location;
-	private String locationShort;
-	private Double geoLat;
-	private Double geoLon;
-	@NotBlank
-	private Integer capacity;
-	@NotBlank
-	private String description;
-	private Boolean plus18Only;
-	private Double fee;
-	private String organizer;
-	@NotBlank
-	private String title;
-	@NotNull
-	private String photoId;
-	@NonNull
-	private Integer createdById;
+    private Integer id;
+    @NonNull
+    private Integer hobbyId;
+    private Date onDatetime;
+    @NonNull
+    private String location;
+    private String locationShort;
+    private Double geoLat;
+    private Double geoLon;
+    @NotBlank
+    private Integer capacity;
+    @NotBlank
+    private String description;
+    private Boolean plus18Only;
+    private Double fee;
+    private String organizer;
+    @NotBlank
+    private String title;
+    @NotNull
+    private String photoId;
+    @NonNull
+    private Integer createdById;
 
-	public Integer getId() {
-		return id;
-	}
+    public Event() {
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public Integer getHobbyId() {
-		return hobbyId;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setHobbyId(Integer hobbyId) {
-		this.hobbyId = hobbyId;
-	}
+    public Integer getHobbyId() {
+        return hobbyId;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public void setHobbyId(Integer hobbyId) {
+        this.hobbyId = hobbyId;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public Date getOnDatetime() {
-		return onDatetime;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setOnDatetime(Date onDatetime) {
-		this.onDatetime = onDatetime;
-	}
+    public Date getOnDatetime() {
+        return onDatetime;
+    }
 
-	public String getLocation() {
-		return location;
-	}
+    public void setOnDatetime(Date onDatetime) {
+        this.onDatetime = onDatetime;
+    }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+    public String getLocation() {
+        return location;
+    }
 
-	public String getLocationShort() {
-		return locationShort;
-	}
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
-	public void setLocationShort(String locationShort) {
-		this.locationShort = locationShort;
-	}
+    public String getLocationShort() {
+        return locationShort;
+    }
 
-	public Double getGeoLat() {
-		return geoLat;
-	}
+    public void setLocationShort(String locationShort) {
+        this.locationShort = locationShort;
+    }
 
-	public void setGeoLat(Double geoLat) {
-		this.geoLat = geoLat;
-	}
+    public Double getGeoLat() {
+        return geoLat;
+    }
 
-	public Double getGeoLon() {
-		return geoLon;
-	}
+    public void setGeoLat(Double geoLat) {
+        this.geoLat = geoLat;
+    }
 
-	public void setGeoLon(Double geoLon) {
-		this.geoLon = geoLon;
-	}
+    public Double getGeoLon() {
+        return geoLon;
+    }
 
-	public Integer getCapacity() {
-		return capacity;
-	}
+    public void setGeoLon(Double geoLon) {
+        this.geoLon = geoLon;
+    }
 
-	public void setCapacity(Integer capacity) {
-		this.capacity = capacity;
-	}
+    public Integer getCapacity() {
+        return capacity;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public Boolean getPlus18Only() {
-		return plus18Only;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setPlus18Only(Boolean plus18Only) {
-		this.plus18Only = plus18Only;
-	}
+    public Boolean getPlus18Only() {
+        return plus18Only;
+    }
 
-	public Double getFee() {
-		return fee;
-	}
+    public void setPlus18Only(Boolean plus18Only) {
+        this.plus18Only = plus18Only;
+    }
 
-	public void setFee(Double fee) {
-		this.fee = fee;
-	}
+    public Double getFee() {
+        return fee;
+    }
 
-	public String getOrganizer() {
-		return organizer;
-	}
+    public void setFee(Double fee) {
+        this.fee = fee;
+    }
 
-	public void setOrganizer(String organizer) {
-		this.organizer = organizer;
-	}
+    public String getOrganizer() {
+        return organizer;
+    }
 
-	public String getPhotoId() {
-		return photoId;
-	}
+    public void setOrganizer(String organizer) {
+        this.organizer = organizer;
+    }
 
-	public void setPhotoId(String photoId) {
-		this.photoId = photoId;
-	}
+    public String getPhotoId() {
+        return photoId;
+    }
 
-	public Integer getCreatedById() {
-		return createdById;
-	}
+    public void setPhotoId(String photoId) {
+        this.photoId = photoId;
+    }
 
-	public void setCreatedById(Integer createdById) {
-		this.createdById = createdById;
-	}
+    public Integer getCreatedById() {
+        return createdById;
+    }
+
+    public void setCreatedById(Integer createdById) {
+        this.createdById = createdById;
+    }
 }
