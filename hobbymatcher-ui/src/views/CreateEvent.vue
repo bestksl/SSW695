@@ -1,17 +1,39 @@
 <template>
-  <div>
+  <div class="event-page">
+    <div class="p-grid">
+      <div class="p-col-10 p-offset-1 text-left">
+        <Button
+          label="Back"
+          icon="pi pi-chevron-left"
+          class="p-button-secondary"
+          v-on:click="back()"
+        />
+      </div>
+      <div class="p-col-10 p-offset-1">
+        <hr />
+      </div>
+    </div>
     <EventForm />
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import EventForm from '@/components/events/EventForm.vue'
+<script lang="ts">
+/* eslint-disable space-before-function-paren */
+import { Component, Prop, Vue, Model } from 'vue-property-decorator'
+import { AuthService } from '../components/auth/AuthService'
 
-export default {
-  name: 'home',
-  components: {
-    EventForm
+@Component
+export default class CreateEvent extends Vue {
+  authApi = AuthService.getInstance()
+
+  mounted() {
+    this.authApi.shouldBeLoggedIn(this.$router)
+  }
+
+  back() {
+    window.history.back()
   }
 }
 </script>
+
+<style lang="less"></style>

@@ -3,7 +3,9 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
+import VueCookies from 'vue-cookies'
 
+import VueFilterDateParse from 'vue-filter-date-parse'
 import VueFilterDateFormat from 'vue-filter-date-format'
 
 // -- import fontawesome --
@@ -22,6 +24,15 @@ import Checkbox from 'primevue/checkbox'
 import FileUpload from 'primevue/fileupload'
 import Rating from 'primevue/rating'
 import Password from 'primevue/password'
+import SelectButton from 'primevue/selectbutton'
+import Listbox from 'primevue/listbox'
+import Paginator from 'primevue/paginator'
+import Dropdown from 'primevue/dropdown'
+import Carousel from 'primevue/carousel'
+import Dialog from 'primevue/dialog'
+import AutoComplete from 'primevue/autocomplete'
+import ToggleButton from 'primevue/togglebutton'
+import SplitButton from 'primevue/splitbutton'
 
 import 'primevue/resources/themes/nova-light/theme.css'
 import 'primevue/resources/primevue.min.css'
@@ -39,14 +50,37 @@ import * as rules from 'vee-validate/dist/rules'
 // -- declare our components --
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
-import SignUpForm from './components/auth/SignUpForm.vue'
-import SignInForm from './components/auth/SignInForm.vue'
+import RegisterForm from './components/auth/RegisterForm.vue'
+import LoginForm from './components/auth/LoginForm.vue'
+import EventView from './components/events/EventView.vue'
+import EventForm from './components/events/EventForm.vue'
 import EventThumb from './components/events/EventThumb.vue'
 import EventThumbs from './components/events/EventThumbs.vue'
+import RecentEvents from './components/events/RecentEvents.vue'
 import Reviews from './components/reviews/Reviews.vue'
 import ReviewForm from './components/reviews/ReviewForm.vue'
+import CommentForm from './components/reviews/CommentForm.vue'
+import CommentView from './components/reviews/CommentView.vue'
 import ReviewView from './components/reviews/ReviewView.vue'
+import HobbyForm from './components/hobbies/HobbyForm.vue'
+import HobbyView from './components/hobbies/HobbyView.vue'
+import HobbyThumb from './components/hobbies/HobbyThumb.vue'
+import HobbyThumbs from './components/hobbies/HobbyThumbs.vue'
+import FilterBar from './components/search/FilterBar.vue'
+import FilterCategories from './components/search/FilterCategories.vue'
+import EventSearchResults from './components/events/EventSearchResults.vue'
+import BlogsList from './components/blogs/BlogsList.vue'
+import BlogsListing from './components/blogs/BlogsListing.vue'
+import HobbyThumbV2 from './components/hobbies/HobbyThumbV2.vue'
+import GeneralInformationForm from './components/user/GeneralInformationForm.vue'
+import UserHobbies from './components/user/UserHobbies.vue'
+import UserEvents from './components/user/UserEvents.vue'
+import UserBlogs from './components/user/UserBlogs.vue'
+import UserChangeEmailPassword from './components/user/UserChangeEmailPassword.vue'
 
+Vue.use(VueCookies)
+
+Vue.use(VueFilterDateParse)
 Vue.use(VueFilterDateFormat)
 
 // -- registring primevue library --
@@ -58,6 +92,15 @@ Vue.component('Checkbox', Checkbox)
 Vue.component('FileUpload', FileUpload)
 Vue.component('Rating', Rating)
 Vue.component('Password', Password)
+Vue.component('SelectButton', SelectButton)
+Vue.component('Listbox', Listbox)
+Vue.component('Paginator', Paginator)
+Vue.component('Dropdown', Dropdown)
+Vue.component('Carousel', Carousel)
+Vue.component('Dialog', Dialog)
+Vue.component('AutoComplete', AutoComplete)
+Vue.component('ToggleButton', ToggleButton)
+Vue.component('SplitButton', SplitButton)
 
 // This will kick of the initial replacement of i to svg tags
 // and configure a MutationObserver
@@ -79,13 +122,33 @@ localize({ en }) // Install English locales.
 // -- registring our components --
 Vue.component('Header', Header)
 Vue.component('Footer', Footer)
-Vue.component('SignUpForm', SignUpForm)
-Vue.component('SignInForm', SignInForm)
+Vue.component('RegisterForm', RegisterForm)
+Vue.component('LoginForm', LoginForm)
+Vue.component('EventView', EventView)
+Vue.component('EventForm', EventForm)
 Vue.component('EventThumb', EventThumb)
 Vue.component('EventThumbs', EventThumbs)
+Vue.component('RecentEvents', RecentEvents)
 Vue.component('Reviews', Reviews)
 Vue.component('ReviewForm', ReviewForm)
+Vue.component('CommentForm', CommentForm)
+Vue.component('CommentView', CommentView)
 Vue.component('ReviewView', ReviewView)
+Vue.component('HobbyForm', HobbyForm)
+Vue.component('HobbyView', HobbyView)
+Vue.component('HobbyThumb', HobbyThumb)
+Vue.component('HobbyThumbs', HobbyThumbs)
+Vue.component('FilterBar', FilterBar)
+Vue.component('FilterCategories', FilterCategories)
+Vue.component('EventSearchResults', EventSearchResults)
+Vue.component('BlogsList', BlogsList)
+Vue.component('BlogsListing', BlogsListing)
+Vue.component('HobbyThumbV2', HobbyThumbV2)
+Vue.component('GeneralInformationForm', GeneralInformationForm)
+Vue.component('UserHobbies', UserHobbies)
+Vue.component('UserEvents', UserEvents)
+Vue.component('UserBlogs', UserBlogs)
+Vue.component('UserChangeEmailPassword', UserChangeEmailPassword)
 // -------------------------------
 
 Vue.config.productionTip = false

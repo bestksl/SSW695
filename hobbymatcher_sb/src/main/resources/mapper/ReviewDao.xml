@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hobbymatcher.dao.ReviewDao">
+    <select id="listReviewByTypeAndId"
+            resultType="com.hobbymatcher.entity.Review">
+		SELECT review.*, 
+			user.first_name as by_user_first, 
+			user.last_name as by_user_last,
+			user.photo_id as by_user_photo_id
+		FROM review
+		JOIN user on user.id = review.by_user_id
+		WHERE owner_type = #{ownerType}
+		  AND owner_id = #{ownerId}
+		  AND parent_id is null
+		ORDER BY review.on_datetime
+	</select>
+	
+    <select id="listCommentsByParentId"
+            resultType="com.hobbymatcher.entity.Comment">
+		SELECT review.*, 
+			user.first_name as by_user_first, 
+			user.last_name as by_user_last,
+			user.photo_id as by_user_photo_id
+		FROM review
+		JOIN user on user.id = review.by_user_id
+		WHERE parent_id = #{parentId}
+		ORDER BY review.on_datetime
+	</select>
+	
+	<select id="findById"
+            resultType="com.hobbymatcher.entity.Review">
+		SELECT *
+		FROM review
+		WHERE id = #{id}
+	</select>
+
+    <insert id="addReview" useGeneratedKeys="true" keyProperty="id">
+		insert into review (content, owner_type, owner_id, parent_id, by_user_id, on_datetime, rate)
+		values (#{content}, #{ownerType}, #{ownerId}, #{parentId}, #{byUserId}, #{onDatetime}, #{rate})
+	</insert>
+	
+	<update id="updateReview"
+		parameterType="com.hobbymatcher.entity.Review">
+		update review
+		<set>
+			<if test="content != null">content=#{content},</if>
+			<if test="rate != null">rate=#{rate}</if>
+		</set>
+		where id = #{id}
+	</update>
+
+    <delete id="deleteReview">
+		DELETE
+		FROM review
+		WHERE id = #{id}
+	</delete>
+	
+	<delete id="deleteCommentsOfReview">
+		DELETE
+		FROM review
+		WHERE parent_id = #{id}
+	</delete>
+</mapper>

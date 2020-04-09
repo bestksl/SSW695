@@ -5,13 +5,6 @@
       <router-view />
     </div>
     <Footer />
-    <hr />
-    <div class="only-in-dev text-center">
-      <div>--- only in development ---</div>
-      <router-link to="/events/create">Create Event</router-link>
-      <span class="mx-2">|</span>
-      <router-link to="/events/view">View Event</router-link>
-    </div>
   </div>
 </template>
 
@@ -37,7 +30,7 @@ body {
 }
 
 .app-body {
-  background-color: white;
+  background-color: #f3f5f7;
 }
 
 .only-in-dev {

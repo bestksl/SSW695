@@ -1,13 +1,90 @@
+/* eslint-disable space-before-function-paren */
 import { http } from '../Api'
+import Vue from 'vue'
 import { NewUser } from './NewUser'
-import { AuthUser } from './AuthUser'
+import { LoginUser } from './LoginUser'
 
 export class AuthService {
-  signup (newUser: NewUser) {
-    return http.post('/user/adduser', newUser)
+  private static instance: any
+  private $response: any = {}
+
+  get isLogin() { return this.$response.isLogin }
+  get response() { return this.$response }
+
+  public static getInstance() {
+    if (AuthService.instance == null) {
+      AuthService.instance = new AuthService()
+      AuthService.instance.checkLogin()
+    }
+
+    return AuthService.instance
   }
 
-  signin (authUser: AuthUser) {
-    return http.post('/user/adduser', authUser)
+  constructor() {
+    const token = Vue.$cookies.get('jwt-token')
+    if (token) { this.useJwtToken(token) }
+  }
+
+  checkLogin() {
+    this.handshake()
+      .then((resp: any) => {
+        this.$response = resp.data
+
+        if (this.$response.isLogin) {
+          // refresh the token
+          this.storeToken(this.$response.jwtToken)
+        }
+      })
+      .catch((err: any) => console.log(err))
+  }
+
+  register(newUser: NewUser) {
+    return http.post('/register', newUser)
+  }
+
+  login(authUser: LoginUser) {
+    return http.post('/login', authUser)
+  }
+
+  logout() {
+    return http.post('/logout')
+  }
+
+  storeToken(token: string) {
+    token = 'Bearer ' + token
+    this.useJwtToken(token)
+    Vue.$cookies.set('jwt-token', token)
+  }
+
+  clearToken() {
+    this.useJwtToken(null)
+    Vue.$cookies.set('jwt-token', null)
+  }
+
+  private useJwtToken(token: any) {
+    http.defaults.headers.common.Authorization = token
+  }
+
+  handshake() {
+    return http.get('/handshake')
+  }
+
+  goHome(router: any) {
+    if (window.location.pathname !== '/') {
+      router.push({ name: 'home' })
+    }
+  }
+
+  shouldBeLoggedIn($router: any) {
+    const interval = setInterval(() => {
+      if (this.response.loaded) {
+        if (!this.isLogin) {
+          Vue.toasted.show('Please Login', { duration: 5000 })
+          $router.back()
+        }
+
+        clearInterval(interval)
+      }
+    }, 50)
   }
 }

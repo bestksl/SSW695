@@ -1,39 +1,56 @@
 <template>
-  <div class="event-thumb">
-    <img src="@/assets/images/logo-200x200.png" class="cover" />
-    <span class="event-title">{{ event.title }}</span>
-    <span class="event-datetime">{{
-      event.datetime | dateFormat('MMM DD hh:mmA')
-    }}</span>
-    <span class="event-location">{{ event.location }}</span>
-  </div>
+  <router-link :to="'/events/view?id=' + event.id">
+    <div class="event-thumb">
+      <img
+        v-if="!event.photoId"
+        src="@/assets/images/logo-200x200.png"
+        class="cover"
+      />
+      <img
+        v-if="event.photoId"
+        :src="'http://localhost:8080/hobbymatcher/files/' + event.photoId"
+        class="cover"
+      />
+      <span class="event-title">{{ event.title }}</span>
+      <span class="event-datetime" v-if="event.onDatetime">
+        {{
+          event.onDatetime
+            | dateParse('YYYY-MM-DDTHH:mm:ss.000+0000')
+            | dateFormat('MMM DD, YYYY h:mma')
+        }}
+      </span>
+      <span class="event-location">{{ event.locationShort }}</span>
+      <router-link
+        v-if="userId == event.createdById"
+        :to="'/events/edit?id=' + event.id"
+        class="edit-btn"
+      >
+        <Button type="button" icon="pi pi-pencil" class="p-button-secondary" />
+      </router-link>
+    </div>
+  </router-link>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
-import { Event } from './event'
+/* eslint-disable space-before-function-paren */
+import { Component, Prop, Vue, Model } from 'vue-property-decorator'
+import { Event } from './Event'
 
 @Component
 export default class EventThumb extends Vue {
-  @Prop() model!: Event
-  event: Event = {
-    title: 'Sunday Jogging',
-    datetime: new Date('2020-10-10'),
-    location: 'Hoboken, NJ',
-    capacity: 10,
-    description: 'This is going to be a fun weekly event.',
-    plus18: false,
-    fee: 0,
-    organizer: 'Stevens Institute of Technology Fun Club',
-    coverPhotoId: '@/assets/images/logo-200x200.png'
-  } as Event
+  @Model() model!: Event
+  @Model() userId!: number
+
+  get event() {
+    return this.model || {}
+  }
 }
 </script>
 
 <style scoped lang="less">
 .event-thumb {
   position: relative;
-  width: 240px;
+  width: 220px;
   height: 160px;
   overflow: hidden;
   border: solid 1px lightgray;
@@ -65,5 +82,10 @@ export default class EventThumb extends Vue {
   right: 0.5rem;
   bottom: 0.5rem;
   font-size: 0.75rem;
+}
+.edit-btn {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
 }
 </style>

@@ -12,12 +12,15 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+//import com.hobbymatcher.properties.SecurityProperties;
+
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 //exclude = SecurityAutoConfiguration.class
 @SpringBootApplication
 @EnableSwagger2
 @RestController
+//@EnableConfigurationProperties(SecurityProperties.class)
 public class HobbymatcherSpringbootApplication {
 
 	public static void main(String[] args) {
@@ -30,7 +33,7 @@ public class HobbymatcherSpringbootApplication {
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
 		// *** URL below needs to match the Vue client URL and port ***
-		config.setAllowedOrigins(Arrays.asList("http://localhost:8081"));
+		config.setAllowedOrigins(Arrays.asList("*")); // http://localhost:808x
 		config.setAllowedMethods(Arrays.asList("*"));
 		config.setAllowedHeaders(Arrays.asList("*"));
 		source.registerCorsConfiguration("/**", config);

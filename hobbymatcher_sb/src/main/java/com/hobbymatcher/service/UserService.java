@@ -1,23 +1,28 @@
 package com.hobbymatcher.service;
 
-import com.hobbymatcher.entity.User;
-
 import java.util.List;
 
-public interface UserService {
-    List<User> getUserList();
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-    boolean register(User user);
+import com.hobbymatcher.entity.User;
 
-    boolean login(String email, String passWord);
+public interface UserService extends UserDetailsService {
 
-    boolean deleteUser(String id);
+	List<User> listUser();
 
-    User findUserByEmail(String email);
+	Boolean register(User user);
 
-    Boolean updateUser(User user);
+	User findUserById(Integer id);
 
-    User findUserById(String id);
+	User findUserByEmail(String email);
 
-    User loadUserByUsername(String email);
+	Boolean login(String email, String password);
+
+	Boolean updateUser(User user);
+
+	Boolean deleteUser(Integer id);
+
+	Boolean updateEmail(Integer id, String newEmail);
+
+	Boolean updatePassword(Integer id, String newone);
 }

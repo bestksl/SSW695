@@ -19,14 +19,39 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path: '/signup',
-    name: 'signup',
-    component: () => import('../views/SignUp.vue')
+    path: '/register',
+    name: 'register',
+    component: () => import('../views/Register.vue')
   },
   {
-    path: '/signin',
-    name: 'signin',
-    component: () => import('../views/SignIn.vue')
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/Login.vue')
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: () => import('../views/Profile.vue')
+  },
+  {
+    path: '/hobbies/create',
+    name: 'create-hobby',
+    component: () => import('../views/CreateHobby.vue')
+  },
+  {
+    path: '/hobbies/view',
+    name: 'view-hobby',
+    component: () => import('../views/ViewHobby.vue')
+  },
+  {
+    path: '/hobbies/edit',
+    name: 'edit-hobby',
+    component: () => import('../views/EditHobby.vue')
+  },
+  {
+    path: '/hobbies',
+    name: 'hobbies',
+    component: () => import('../views/Hobbies.vue')
   },
   {
     path: '/events/create',
@@ -34,9 +59,29 @@ const routes = [
     component: () => import('../views/CreateEvent.vue')
   },
   {
+    path: '/events/edit',
+    name: 'edit-event',
+    component: () => import('../views/EditEvent.vue')
+  },
+  {
     path: '/events/view',
     name: 'view-event',
     component: () => import('../views/ViewEvent.vue')
+  },
+  {
+    path: '/events',
+    name: 'events',
+    component: () => import('../views/Events.vue')
+  },
+  {
+    path: '/blogs/view',
+    name: 'view-blog',
+    component: () => import('../views/ViewBlog.vue')
+  },
+  {
+    path: '/blogs',
+    name: 'blogs',
+    component: () => import('../views/Blogs.vue')
   }
 ]
 

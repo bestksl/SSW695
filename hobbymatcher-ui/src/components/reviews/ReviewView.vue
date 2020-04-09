@@ -2,85 +2,123 @@
   <div class="review p-2">
     <div class="d-flex">
       <div>
+        <!-- when there is photoId -->
         <img
-          src="@/assets/images/profile-photo.png"
+          v-if="review.byUserPhotoId"
+          :src="
+            'http://localhost:8080/hobbymatcher/files/' + review.byUserPhotoId
+          "
+          class="mr-1 user-photo rounded-circle"
+        />
+        <!-- else -->
+        <img
+          v-if="!review.byUserPhotoId"
+          src="@/assets/images/logo-200x200.png"
           class="mr-1 user-photo rounded-circle"
         />
       </div>
       <div class="ml-2">
-        <div>{{ review.userName }}</div>
+        <div>{{ review.byUserFirst }} {{ review.byUserLast }}</div>
         <div class="d-flex align-items-center pt-1">
           <i class="fas fa-comments"></i>
-          <span class="ml-1">{{ review.reviewsCount }}</span>
-          <Rating v-model="review.rating" class="ml-2 pt-1" />
+          <span class="ml-1">{{ (review.comments || []).length }}</span>
+          <Rating v-model="review.rate" class="ml-2 pt-1" :readonly="true" />
         </div>
         <div>
-          <small>{{ review.reviewText }}</small>
-        </div>
-        <div class="mt-2">
-          <Button
-            label="Helpful"
-            icon="pi pi-thumbs-up"
-            class="p-button-secondary py-0 helpful-btn"
-          />
+          <small>{{ review.content }}</small>
         </div>
       </div>
+
+      <span class="flex-grow-1"></span>
+      <div v-if="managable" class="manage-review">
+        <Button
+          type="button"
+          icon="pi pi-pencil"
+          class="p-button-primary"
+          v-on:click="doEdit()"
+        />
+        <Button
+          type="button"
+          icon="pi pi-times"
+          class="p-button-danger"
+          v-on:click="doDelete()"
+        />
+      </div>
     </div>
-    <div :class="['subreviews', 'review-level-' + myIndent]">
-      <hr v-if="review.reviews.length" />
-      <ReviewView
-        v-for="sub of review.reviews"
-        :key="sub.id"
-        :model="sub"
-        :indent="indent + 1"
-        class="mt-3"
+    <div class="ml-5">
+      <hr v-if="review.comments" />
+      <CommentView
+        v-for="comment of review.comments"
+        :key="comment.id"
+        :model="comment"
+        v-on:doReload="doReload()"
       />
     </div>
+    <CommentForm
+      :type="type"
+      :oId="oId"
+      :pId="review.id"
+      v-on:doReload="doReload()"
+      class="ml-5"
+    />
+
+    <Dialog
+      :visible.sync="showEditForm"
+      :style="{ width: '50vw' }"
+      :modal="true"
+    >
+      <ReviewForm :model="review" v-on:doReload="doReload()" />
+    </Dialog>
   </div>
 </template>
 
 <script lang="ts">
+/* eslint-disable space-before-function-paren */
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { Review } from './review'
+import { ReviewService } from './ReviewService'
+import { Review } from './Review'
+import { AuthService } from '../auth/AuthService'
 
 @Component
 export default class ReviewView extends Vue {
+  @Prop() type!: string
+  @Prop() oId!: number
+
   @Prop() indent!: number
   @Prop() model!: Review
 
-  myIndent = 1
-  review: Review = {
-    id: 1,
-    userPhoto: '@/assets/images/profile-photo.png',
-    userName: 'Mohammad Hassany',
-    datetime: new Date('2020-01-10'),
-    rating: 3,
-    reviewText: 'A nice review from someone who support this.',
-    positiveVoteCount: 20,
-    reviewsCount: 1,
-    reviews: [
-      {
-        id: 1,
-        userPhoto: '@/assets/images/profile-photo.png',
-        userName: 'Mohammad Hassany',
-        datetime: new Date('2020-01-10'),
-        rating: 3,
-        reviewText: 'A nice review from someone who support this.',
-        positiveVoteCount: 20,
-        reviewsCount: 1,
-        reviews: []
-      }
-    ]
-  } as Review
+  showEditForm = false
+  review: Review = {} as any
 
-  // eslint-disable-next-line space-before-function-paren
-  constructor() {
-    super()
-    if (this.model) {
-      this.review = this.model
-    }
-    if (this.indent) {
-      this.myIndent = this.indent
+  authApi = AuthService.getInstance()
+  reviewApi = ReviewService.getInstance()
+
+  get managable() {
+    return (
+      this.authApi.isLogin &&
+      this.authApi.response.userId === this.review.byUserId
+    )
+  }
+
+  mounted() {
+    this.review = this.model
+  }
+
+  doReload() {
+    this.showEditForm = false
+    this.$emit('doReload', null)
+  }
+
+  doEdit() {
+    this.showEditForm = true
+  }
+
+  doDelete() {
+    if (confirm('Are you sure?')) {
+      this.reviewApi
+        .delete(this.review.id)
+        .then((resp: any) => this.doReload())
+        .catch((err: any) => console.log(err))
     }
   }
 }
@@ -95,13 +133,8 @@ export default class ReviewView extends Vue {
   height: 48px;
   border: solid 1px lightgray;
 }
-.helpful-btn {
-  font-size: 0.75rem;
-}
-.review-level-1 {
-  padding-left: 1.5rem;
-}
-.review-level-2 {
-  padding-left: 3rem;
+.manage-review button {
+  height: 19px;
+  width: 19px;
 }
 </style>

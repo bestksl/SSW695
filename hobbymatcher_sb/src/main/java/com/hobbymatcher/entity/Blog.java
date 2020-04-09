@@ -1,72 +1,88 @@
 package com.hobbymatcher.entity;
 
+import lombok.Data;
+import lombok.NonNull;
+
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
+@Data
 public class Blog implements Serializable {
-	private static final long serialVersionUID = 303252625304650080L;
+    private static final long serialVersionUID = 303252625304650080L;
 
-	private String blogId;
-	private String title;
-	private String content;
-	private int hobbyId;
-	private int userId;
-	private String createDate;
+    private Integer id;
+    @NotBlank
+    private String title;
+    private String html;
+    private String onDatetime;
+    private Integer clapCount;
+    @NonNull
+    private Integer byUserId;
+    private String byUserFirst;
+    private String byUserLast;
+    private Integer forEventId;
 
-	public User getUser() {
-		return user;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	private User user;
+    public String getTitle() {
+        return title;
+    }
 
-	public String getBlogId() {
-		return blogId;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setBlogId(String blogId) {
-		this.blogId = blogId;
-	}
+    public String getHtml() {
+        return html;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public void setHtml(String html) {
+        this.html = html;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public String getOnDatetime() {
+        return onDatetime;
+    }
 
-	public String getContent() {
-		return content;
-	}
+    public void setOnDatetime(String onDatetime) {
+        this.onDatetime = onDatetime;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public Integer getClapCount() {
+        return clapCount;
+    }
 
-	public int getHobbyId() {
-		return hobbyId;
-	}
+    public void setClapCount(Integer clapCount) {
+        this.clapCount = clapCount;
+    }
 
-	public void setHobbyId(int hobbyId) {
-		this.hobbyId = hobbyId;
-	}
+    public Integer getByUserId() {
+        return byUserId;
+    }
 
-	public int getUserId() {
-		return userId;
-	}
+    public void setByUserId(Integer byUserId) {
+        this.byUserId = byUserId;
+    }
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
+    public String getByUserFirst() {
+        return byUserFirst;
+    }
 
-	public String getCreateDate() {
-		return createDate;
-	}
+    public String getByUserLast() {
+        return byUserLast;
+    }
 
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
-	}
+    public Integer getForEventId() {
+        return forEventId;
+    }
+
+    public void setForEventId(Integer forEventId) {
+        this.forEventId = forEventId;
+    }
 }

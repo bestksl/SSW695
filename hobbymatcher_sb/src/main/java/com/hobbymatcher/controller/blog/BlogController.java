@@ -1,16 +1,22 @@
 package com.hobbymatcher.controller.blog;
 
-import com.hobbymatcher.entity.Blog;
-import com.hobbymatcher.entity.Comment;
-import com.hobbymatcher.service.BlogService;
-import com.hobbymatcher.service.CommentService;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+
+import com.hobbymatcher.entity.Review;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.hobbymatcher.entity.Blog;
+import com.hobbymatcher.service.BlogService;
+import com.hobbymatcher.service.ReviewService;
 
 //import com.sun.deploy.net.HttpResponse;
 
@@ -21,11 +27,11 @@ public class BlogController {
 
 
     private final BlogService blogService;
-    private final CommentService commentService;
+    private final ReviewService reviewService;
 
-    public BlogController(BlogService blogService, CommentService commentService) {
+    public BlogController(BlogService blogService, ReviewService reviewService) {
         this.blogService = blogService;
-        this.commentService = commentService;
+        this.reviewService = reviewService;
     }
 
     //list Blog
@@ -34,7 +40,7 @@ public class BlogController {
     public Map<String, Object> listBlog(String id, HttpServletResponse response) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
         try {
-            if (!"".equals(id)&&id!=null) {
+            if (!"".equals(id) && id != null) {
                 modelMap.put("list", blogService.listBlogByHobbyId(Integer.parseInt(id)));
                 modelMap.put("msg", "list with hobby success");
                 response.setStatus(200);
@@ -97,12 +103,12 @@ public class BlogController {
     //addBlog
     @RequestMapping(value = "/addcomment", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> addcomment(@RequestBody Comment comment, HttpServletResponse response) {
+    public Map<String, Object> addcomment(@RequestBody Review review, HttpServletResponse response) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        if (comment != null) {
+        if (review != null) {
             Boolean result;
             try {
-                result = commentService.addComment(comment);
+                result = reviewService.addReview(review);
             } catch (Exception e) {
                 modelMap.put("status", false);
                 modelMap.put("msg", "the foreign key not exist || the userId and blogId must can be parsed to int");
@@ -120,38 +126,38 @@ public class BlogController {
     }
 
 
-    //findBlogById
-    //update blog
-    @RequestMapping(value = "/findblogandcommentsbyid", method = RequestMethod.GET)
-    @ResponseBody
-    public Map<String, Object> findBlogAndCommentsById(String blogId, HttpServletResponse response) {
-        Map<String, Object> modelMap = new HashMap<String, Object>();
-        try {
-            int id1 = Integer.parseInt(blogId);
-            Blog blog = blogService.findBlogById(id1);
-            if (blog == null) {
-                modelMap.put("status", false);
-                modelMap.put("msg", "no target blog");
-                response.setStatus(400);
-                return modelMap;
-            }
-            modelMap.put("blog", blog);
-            List<Comment> comments = commentService.listCommentsByBlogId(Integer.parseInt(blog.getBlogId()));
-            if (comments != null) {
-                modelMap.put("comments", comments);
-            } else {
-                modelMap.put("msg", "no comments with blogid: " + blog.getBlogId());
-            }
-            response.setStatus(200);
-            return modelMap;
-        } catch (Exception e) {
-            modelMap.put("msg", e.getMessage());
-            e.printStackTrace();
-            modelMap.put("status", false);
-            response.setStatus(400);
-            return modelMap;
-        }
-    }
+//    //findBlogById
+//    //update blog
+//    @RequestMapping(value = "/findblogandcommentsbyid", method = RequestMethod.GET)
+//    @ResponseBody
+//    public Map<String, Object> findBlogAndCommentsById(String blogId, HttpServletResponse response) {
+//        Map<String, Object> modelMap = new HashMap<String, Object>();
+//        try {
+//            int id1 = Integer.parseInt(blogId);
+//            Blog blog = blogService.findBlogById(id1);
+//            if (blog == null) {
+//                modelMap.put("status", false);
+//                modelMap.put("msg", "no target blog");
+//                response.setStatus(400);
+//                return modelMap;
+//            }
+//            modelMap.put("blog", blog);
+//            List<Review> reviews = reviewService.listCommentsByBlogId(Integer.parseInt(blog.getBlogId()));
+//            if (reviews != null) {
+//                modelMap.put("comments", reviews);
+//            } else {
+//                modelMap.put("msg", "no comments with blogid: " + blog.getBlogId());
+//            }
+//            response.setStatus(200);
+//            return modelMap;
+//        } catch (Exception e) {
+//            modelMap.put("msg", e.getMessage());
+//            e.printStackTrace();
+//            modelMap.put("status", false);
+//            response.setStatus(400);
+//            return modelMap;
+//        }
+//    }
 
     @RequestMapping(value = "/updateblog", method = RequestMethod.POST)
     @ResponseBody
@@ -178,7 +184,7 @@ public class BlogController {
         Map<String, Object> modelMap = new HashMap<String, Object>();
         try {
             int idInt = Integer.parseInt(id);
-            Boolean result = commentService.deleteComment(idInt);
+            Boolean result = reviewService.deleteReview(idInt);
             modelMap.put("msg", result ? "delete comment success!" : "delete failed");
             response.setStatus(result ? 200 : 400);
         } catch (Exception e) {

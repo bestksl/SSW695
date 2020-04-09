@@ -1,81 +1,82 @@
 package com.hobbymatcher.entity;
 
+import lombok.Data;
+import lombok.NonNull;
+
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
+@Data
 public class Hobby implements Serializable {
-	private static final long serialVersionUID = 3886854875271518921L;
 
-	private String hobbyId;
-	private String name;
-	private String description;
-	private String classification;
-	private String constrains;
-	private String blogs;
-	private String status;
-	private String hobbyImage;
+    private static final long serialVersionUID = 3886854875271518921L;
 
-	public String getHobbyImage() {
-		return hobbyImage;
-	}
+    private Integer id;
+    @NonNull
+    private String name;
+    @NonNull
+    private Integer categoryId;
+    @NotBlank
+    private String description;
+    private Boolean plus18Only;
+    @NonNull
+    private String photoId;
+    @NonNull
+    private Integer createdById;
 
-	public void setHobbyImage(String hobbyImage) {
-		this.hobbyImage = hobbyImage;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getHobbyId() {
-		return hobbyId;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setHobbyId(String hobbyId) {
-		this.hobbyId = hobbyId;
-	}
+    public Integer getCategoryId() {
+        return categoryId;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public String getClassification() {
-		return classification;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setClassification(String classification) {
+    public Boolean getPlus18Only() {
+        return plus18Only;
+    }
 
-		this.classification = classification;
-	}
+    public void setPlus18Only(Boolean plus18Only) {
+        this.plus18Only = plus18Only;
+    }
 
-	public String getConstrains() {
-		return constrains;
-	}
+    public String getPhotoId() {
+        return photoId;
+    }
 
-	public void setConstrains(String constrains) {
-		this.constrains = constrains;
-	}
+    public void setPhotoId(String photoId) {
+        this.photoId = photoId;
+    }
 
-	public String getBlogs() {
-		return blogs;
-	}
+    public Integer getCreatedById() {
+        return createdById;
+    }
 
-	public void setBlogs(String blogs) {
-		this.blogs = blogs;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public void setCreatedById(Integer createdById) {
+        this.createdById = createdById;
+    }
 }

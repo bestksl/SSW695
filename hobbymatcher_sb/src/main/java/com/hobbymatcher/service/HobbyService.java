@@ -1,19 +1,36 @@
 package com.hobbymatcher.service;
 
-import com.hobbymatcher.entity.Hobby;
-
 import java.util.List;
 
+import com.hobbymatcher.entity.Followship;
+import com.hobbymatcher.entity.Hobby;
+
 public interface HobbyService {
-    List<Hobby> listHobby();
 
-    boolean deleteHobby(int id);
+	List<Hobby> listHobby();
 
-    boolean updateHobby(Hobby hobby);
+	List<Hobby> listHobby(Boolean justCount, //
+			Integer offset, Integer perpage, String[] categoryIds);
 
-    Hobby findHobbyByName(String name);
+	boolean insertHobby(Hobby hobby);
 
-    Hobby findHobbyById(int id);
+	Hobby findHobbyById(int id);
 
-    boolean insertHobby(Hobby hobby);
+	Hobby findHobbyByName(String name);
+
+	boolean updateHobby(Hobby hobby);
+
+	boolean checkHobby(Hobby hobby);
+
+	List<Hobby> listHobbyByCreatedById(int userId);
+
+	List<Hobby> listHobbyByFollowingUserId(int userId);
+
+	Followship getFollowship(int userId, Integer hobbyId);
+
+	void followHobby(int userId, Integer hobbyId);
+
+	void unfollowHobby(int userId, Integer hobbyId);
+
+	Integer countHobby();
 }

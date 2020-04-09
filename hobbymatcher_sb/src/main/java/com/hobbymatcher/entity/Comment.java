@@ -1,59 +1,92 @@
 package com.hobbymatcher.entity;
 
+import lombok.NonNull;
+
+import javax.validation.constraints.NotBlank;
+import java.util.Date;
+
 public class Comment {
-    private int id;
-    private String content;
-    private int userId;
-    private int blogId;
-    private String time;
 
-    public User getUser() {
-        return user;
-    }
+	private Integer id;
+	@NonNull
+	private String ownerType;
+	@NonNull
+	private Integer ownerId;
+	private Integer parentId;
+	@NonNull
+	private Integer byUserId;
+	private String byUserFirst;
+	private String byUserLast;
+	private String byUserPhotoId;
+	@NotBlank
+	private String content;
+	private Date onDatetime;
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    private User user;
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public String getOwnerType() {
+		return ownerType;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setOwnerType(String ownerType) {
+		this.ownerType = ownerType;
+	}
 
-    public String getContent() {
-        return content;
-    }
+	public Integer getOwnerId() {
+		return ownerId;
+	}
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+	public void setOwnerId(Integer ownerId) {
+		this.ownerId = ownerId;
+	}
 
-    public int getUserId() {
-        return userId;
-    }
+	public Integer getParentId() {
+		return parentId;
+	}
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
+	}
 
-    public int getBlogId() {
-        return blogId;
-    }
+	public Integer getByUserId() {
+		return byUserId;
+	}
 
-    public void setBlogId(int blogId) {
-        this.blogId = blogId;
-    }
+	public void setByUserId(Integer byUserId) {
+		this.byUserId = byUserId;
+	}
 
-    public String getTime() {
-        return time;
-    }
+	public String getByUserFirst() {
+		return byUserFirst;
+	}
 
-    public void setTime(String time) {
-        this.time = time;
-    }
+	public String getByUserLast() {
+		return byUserLast;
+	}
+
+	public String getByUserPhotoId() {
+		return byUserPhotoId;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Date getOnDateTime() {
+		return onDatetime;
+	}
+
+	public void setOnDateTime(Date onDateTime) {
+		this.onDatetime = onDateTime;
+	}
 }

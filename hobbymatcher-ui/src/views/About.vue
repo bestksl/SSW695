@@ -1,5 +1,9 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <div class="p-grid">
+      <div class="p-offset-1 p-col-10">
+        we are great guy :)
+      </div>
+    </div>
   </div>
 </template>

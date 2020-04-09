@@ -1,18 +1,43 @@
 package com.hobbymatcher.controller.user;
 
-import com.hobbymatcher.entity.User;
-import com.hobbymatcher.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.websocket.server.PathParam;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.hobbymatcher.authentication.service.JwtUtilService;
+import com.hobbymatcher.entity.PasswordUpdate;
+import com.hobbymatcher.entity.User;
+import com.hobbymatcher.service.BlogService;
+import com.hobbymatcher.service.EventService;
+import com.hobbymatcher.service.HobbyService;
+import com.hobbymatcher.service.UserService;
+import com.hobbymatcher.service.impl.AuthUtilService;
+import com.hobbymatcher.util.FileUtil;
 
 @CrossOrigin
 @SessionAttributes()
@@ -20,141 +45,240 @@ import java.util.Map;
 @RequestMapping("/user")
 public class UserController {
 
+	@Autowired
+	private UserService userService;
 
-    private final UserService userService;
+	@Autowired
+	private AuthUtilService authUtilService;
+	@Autowired
+	private JwtUtilService jwtUtilService;
 
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+	@Autowired
+	private HobbyService hobbyService;
+	@Autowired
+	private EventService eventService;
+	@Autowired
+	private BlogService blogService;
 
-    }
+	// list user
+	@GetMapping("/")
+	private Map<String, Object> listUser(HttpServletResponse response) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		try {
+			resp.put("list", userService.listUser());
+			resp.put("success", true);
+			response.setStatus(200);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			resp.put("success", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
 
-    // list user
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    private Map<String, Object> listUser(HttpServletResponse response) {
-        Map<String, Object> modelMap = new HashMap<String, Object>();
-        List<User> list;
-        try {
-            list = userService.getUserList();
-            modelMap.put("list", list);
-            modelMap.put("msg", "return list success");
-            response.setStatus(200);
-        } catch (Exception e) {
-            e.printStackTrace();
-            modelMap.put("success", false);
-            modelMap.put("msg", e.toString());
-            response.setStatus(422);
-        }
-        return modelMap;
-    }
+	@GetMapping("/{id}")
+	public Map<String, Object> getUser(@PathVariable String id, HttpServletResponse response) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		User user = userService.findUserById(Integer.valueOf(id));
+		if (user != null) {
+			resp.put("status", true);
+			resp.put("user", user);
+			response.setStatus(200);
+		} else {
+			resp.put("status", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
 
+	// update user
+	@ResponseBody
+	@PostMapping("/updateuser")
+	public Map<String, Object> updateUser(@RequestBody User user, HttpServletResponse response) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		if (user != null) {
+			Boolean updated = userService.updateUser(user);
+			resp.put("status", updated);
+			response.setStatus(updated ? 200 : 400);
+		} else {
+			resp.put("status", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
 
-    //login
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    @ResponseBody
-    private Map<String, Object> login(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) {
-        Map<String, Object> modelMap = new HashMap<String, Object>();
-        if (user == null) {
-            modelMap.put("status", false);
-            modelMap.put("msg", "user object is null, login failed");
-            return modelMap;
-        }
-        user = userService.loadUserByUsername(user.getEmail());
-        request.getSession().setAttribute("user", user);
-        Boolean result = userService.login(user.getEmail(), user.getPassword());
-        modelMap.put("status", result);
-        if (result) {
-            user.setPassword(null);
-            modelMap.put("user", user);
-        }
-        modelMap.put("msg", result ? "login success" : "login failed");
-        response.setStatus(result ? 200 : 401);
-        return modelMap;
-    }
+	// delete user
+	@DeleteMapping("/{id}")
+	public Map<String, Object> deleteUser(@PathVariable String id, HttpServletResponse response) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		User user = userService.findUserById(Integer.valueOf(id));
+		if (user != null) {
+			Boolean result = userService.deleteUser(user.getId());
+			resp.put("status", result);
+			response.setStatus(result ? 200 : 400);
+		} else {
+			resp.put("status", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
 
-    //logout
-    @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    @ResponseBody
-    private Map<String, Object> loginOut(HttpServletRequest request, HttpServletResponse response) {
-        Map<String, Object> modelMap = new HashMap<String, Object>();
-        request.getSession().invalidate();
-        modelMap.put("status", true);
-        modelMap.put("msg", "logout success");
-        response.setStatus(200);
-        return modelMap;
-    }
+	@RequestMapping(value = "/general-info", method = RequestMethod.GET)
+	public Map<String, Object> getGeneralInformation(HttpServletRequest req, HttpServletResponse response) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		try {
+			User user = authUtilService.getUser(req);
+			resp.put("username", user.getUsername());
+			resp.put("firstName", user.getFirstName());
+			resp.put("lastName", user.getLastName());
+			resp.put("nickName", user.getNickName());
+			resp.put("dateOfBirth", user.getDateOfBirth());
+			resp.put("gender", user.getGender());
+			resp.put("photoId", user.getPhotoId());
 
+			resp.put("success", true);
+			response.setStatus(200);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			resp.put("success", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
 
-    // register
-    @PostMapping("/")
-    public Map<String, Object> add(@RequestBody User user, HttpServletResponse response) {
-        Map<String, Object> modelMap = new HashMap<String, Object>();
-        if (user != null) {
-            Boolean result = userService.register(user);
-            modelMap.put("status", result);
-            modelMap.put("msg", result ? "add success" : "add failed");
-            response.setStatus(result ? 200 : 400);
-        } else {
-            modelMap.put("status", false);
-            modelMap.put("msg", "user object is null, add failed");
-            response.setStatus(400);
-        }
-        return modelMap;
-    }
+	// update user
+	@ResponseBody
+	@PutMapping("/general-info")
+	public Map<String, Object> updateGeneralInformation(HttpServletRequest req, HttpServletResponse response, //
+			@ModelAttribute User user, @RequestPart(value = "file", required = false) MultipartFile imageFile) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		if (user != null) {
+			user.setId(authUtilService.getUserId(req));
+			if (imageFile != null && !imageFile.isEmpty()) {
+				user.setPhotoId(FileUtil.transferFile(imageFile));
+			}
+			Boolean updated = userService.updateUser(user);
+			resp.put("status", updated);
+			response.setStatus(updated ? 200 : 400);
+		} else {
+			resp.put("status", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
 
-    //delete user
-    @DeleteMapping("/{id}")
-    public Map<String, Object> deleteUser(@PathVariable String id, HttpServletResponse response) {
-        Map<String, Object> modelMap = new HashMap<String, Object>();
-        User user1 = userService.findUserById(id);
-        if (user1 != null) {
-            Boolean result = userService.deleteUser(user1.getId());
-            modelMap.put("status", result);
-            modelMap.put("msg", result ? "delete success" : "delete failed");
-            response.setStatus(result ? 200 : 400);
-            return modelMap;
-        }
-        modelMap.put("status", false);
-        modelMap.put("msg", "user object is null, delete failed");
-        response.setStatus(400);
-        return modelMap;
-    }
+	@RequestMapping(value = "/hobbies", method = RequestMethod.GET)
+	public Map<String, Object> getHobbies(HttpServletRequest req, HttpServletResponse response, //
+			@PathParam("load") String load) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		try {
+			int userId = authUtilService.getUserId(req);
+			if ("created".equals(load)) {
+				resp.put("list", hobbyService.listHobbyByCreatedById(userId));
+			} else if ("followed".equals(load)) {
+				resp.put("list", hobbyService.listHobbyByFollowingUserId(userId));
+			}
+			resp.put("success", true);
+			response.setStatus(200);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			resp.put("success", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
 
-    //update user
-    @RequestMapping(value = "/updateuser", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> updateUser(@RequestBody User user, HttpServletResponse response) {
-        Map<String, Object> modelMap = new HashMap<String, Object>();
-        if (user != null) {
-            Boolean result = userService.updateUser(user);
-            modelMap.put("status", result);
-            modelMap.put("msg", result ? "update success" : "update failed");
-            response.setStatus(result ? 200 : 400);
-            return modelMap;
-        } else {
-            modelMap.put("status", false);
-            modelMap.put("msg", "user object is null, update failed");
-            response.setStatus(400);
-            return modelMap;
-        }
+	@RequestMapping(value = "/events", method = RequestMethod.GET)
+	public Map<String, Object> getEvents(HttpServletRequest req, HttpServletResponse response, //
+			@PathParam("load") String load) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		try {
+			int userId = authUtilService.getUserId(req);
+			if ("past".equals(load)) {
+				// past joined events
+				resp.put("list", eventService.listPastJoinEvents(userId));
+			} else if ("coming".equals(load)) {
+				// joined and happening in future
+				resp.put("list", eventService.listJoinedFutureEvents(userId));
+			} else if ("hold".equals(load)) {
+				// past created events
+				resp.put("list", eventService.listPastHoldEvents(userId));
+			}
+			resp.put("success", true);
+			response.setStatus(200);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			resp.put("success", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
 
-    }
+	@RequestMapping(value = "/blogs", method = RequestMethod.GET)
+	public Map<String, Object> getBlogs(HttpServletRequest req, HttpServletResponse response, //
+			@PathParam("load") String load) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		try {
+			// TODO filter by load => 'mine', 'commented'
+			resp.put("list", blogService.listBlog());
+			resp.put("success", true);
+			response.setStatus(200);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			resp.put("success", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
 
-    @GetMapping("/{id}")
-    public Map<String, Object> getUser(@PathVariable String id, HttpServletResponse response) {
-        Map<String, Object> modelMap = new HashMap<String, Object>();
-        User user = userService.findUserById(id);
-        if (user != null) {
-            modelMap.put("status", true);
-            modelMap.put("msg", "success");
-            modelMap.put("user", user);
-            response.setStatus(200);
-            return modelMap;
-        } else {
-            modelMap.put("status", false);
-            modelMap.put("msg", "no such user");
-            response.setStatus(400);
-            return modelMap;
-        }
-    }
+	@RequestMapping(value = "/email/{newEmail}", method = RequestMethod.PUT)
+	public Map<String, Object> updateEmail(HttpServletRequest req, HttpServletResponse response, //
+			@PathVariable("newEmail") String newEmail) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		try {
+			User user = authUtilService.getUser(req);
+
+			user.setEmail(newEmail);
+			userService.updateEmail(user.getId(), newEmail);
+
+			// refresh jwt token since email is used for authentication
+			resp.put("jwtToken", jwtUtilService.generateToken(user));
+
+			// update spring auth with new user email
+			UsernamePasswordAuthenticationToken userpassAuthToken = //
+					new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+			userpassAuthToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
+			SecurityContextHolder.getContext().setAuthentication(userpassAuthToken);
+
+			resp.put("success", true);
+			response.setStatus(200);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			resp.put("success", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
+
+	@RequestMapping(value = "/password", method = RequestMethod.PUT)
+	public Map<String, Object> updatePassword(HttpServletRequest req, HttpServletResponse response, //
+			@RequestBody PasswordUpdate password) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		try {
+			int userId = authUtilService.getUserId(req);
+
+			// TODO - validate password.getCurrent()
+			// TODO - validate password.getNewone() == password.getConfirmed()
+
+			userService.updatePassword(userId, password.getNewPassword());
+
+			resp.put("success", true);
+			response.setStatus(200);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			resp.put("success", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
 }
