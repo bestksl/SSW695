@@ -1,0 +1,63 @@
+//------------REQUEST------------
+
+localhost:8080/hobbymatcher/event/listevent
+
+//------------RESPONSE------------
+
+{
+    "success": true,
+    "count": 3,
+    "list": [
+        {
+            "id": 3,
+            "hobbyId": 2,
+            "onDatetime": "2020-04-30T04:00:00.000+0000",
+            "location": "Mount Everest, Khumjung, Khumbupasanglahmu, Solukhumbu, Province #1, Nepal",
+            "locationShort": "",
+            "geoLat": 27.9878675,
+            "geoLon": 86.9248308,
+            "capacity": 12,
+            "description": "",
+            "plus18Only": true,
+            "fee": 1200.0,
+            "organizer": "NGO01",
+            "title": "Climbing Mountain",
+            "photoId": "56135de0-c93b-47f5-9327-1f27dfbc2e32",
+            "createdById": 1
+        },
+        {
+            "id": 2,
+            "hobbyId": 3,
+            "onDatetime": "2020-04-06T04:00:00.000+0000",
+            "location": "Hoboken, Hudson County, New Jersey, United States of America",
+            "locationShort": "Hoboken, NJ",
+            "geoLat": 40.7433066,
+            "geoLon": -74.0323752,
+            "capacity": null,
+            "description": "",
+            "plus18Only": false,
+            "fee": 10.0,
+            "organizer": "Nonoe",
+            "title": "Test",
+            "photoId": "09955ba5-d221-49ca-91f8-e1c633850f73",
+            "createdById": 1
+        },
+        {
+            "id": 1,
+            "hobbyId": 3,
+            "onDatetime": "2020-04-10T04:00:00.000+0000",
+            "location": "Hoboken, Hudson County, New Jersey, United States of America",
+            "locationShort": "Hoboken, NJ",
+            "geoLat": 40.7433066,
+            "geoLon": -74.0323752,
+            "capacity": null,
+            "description": "",
+            "plus18Only": false,
+            "fee": null,
+            "organizer": "Noone",
+            "title": "Painting Nature",
+            "photoId": "6da88ce4-9c9c-4fd4-8a9d-1f25f0e74ab6",
+            "createdById": 1
+        }
+    ]
+}

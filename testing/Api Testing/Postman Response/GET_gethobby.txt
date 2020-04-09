@@ -1,0 +1,18 @@
+//------------REQUEST------------
+
+localhost:8080/hobbymatcher/hobby/gethobby?id=1
+
+//------------RESPONSE------------
+
+{
+    "success": true,
+    "hobby": {
+        "id": 1,
+        "name": "Jogging",
+        "categoryId": 4,
+        "description": "",
+        "plus18Only": false,
+        "photoId": "0e784cab-f089-404a-9890-572bb3208d26",
+        "createdById": 1
+    }
+}

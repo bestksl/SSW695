@@ -1,0 +1,16 @@
+//------------REQUEST------------
+
+{
+	"firstName":"Jafar",
+	"lastName":"Abbasi",
+	"dateOfBirth":"1991-03-03T05:00:00.000Z",
+	"nickName":"jafar",
+	"email":"jafar2@gmail.com",
+	"password":"jafarjafar" 
+}
+
+//------------RESPONSE------------
+
+{
+    "status": true
+}

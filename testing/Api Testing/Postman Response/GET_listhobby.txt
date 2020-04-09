@@ -1,0 +1,48 @@
+//------------REQUEST------------
+
+localhost:8080/hobbymatcher/hobby/listhobby
+
+//------------RESPONSE------------
+
+{
+    "success": true,
+    "count": 4,
+    "list": [
+        {
+            "id": 4,
+            "name": "Test",
+            "categoryId": 4,
+            "description": "",
+            "plus18Only": false,
+            "photoId": "f9c2d140-4309-48cc-a8e8-5a3c93ff381b",
+            "createdById": 1
+        },
+        {
+            "id": 3,
+            "name": "Painting",
+            "categoryId": 1,
+            "description": "",
+            "plus18Only": false,
+            "photoId": "0c12ae2c-3758-4b65-ae8f-f7f7ee44d34f",
+            "createdById": 1
+        },
+        {
+            "id": 2,
+            "name": "Climbing",
+            "categoryId": 4,
+            "description": "",
+            "plus18Only": false,
+            "photoId": "fa0c043f-2d02-416d-9154-65fa1d0e8a3c",
+            "createdById": 1
+        },
+        {
+            "id": 1,
+            "name": "Jogging",
+            "categoryId": 4,
+            "description": "",
+            "plus18Only": false,
+            "photoId": "0e784cab-f089-404a-9890-572bb3208d26",
+            "createdById": 1
+        }
+    ]
+}

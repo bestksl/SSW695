@@ -1,0 +1,12 @@
+//------------REQUEST------------
+
+{
+	"email":"jafar2@gmail.com",
+	"password":"jafarjafar"
+}
+
+//------------RESPONSE------------
+
+{
+    "jwt": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYWZhcjJAZ21haWwuY29tIiwiZXhwIjoxNTg2NDIzNTA0LCJpYXQiOjE1ODYzODAzMDR9.28EqBXPALOxmSSdR9_uIYQS2yVW8paXjcoE8kv-tMOM"
+}
