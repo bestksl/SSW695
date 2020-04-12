@@ -11,7 +11,7 @@
         >
           <template #item="value">
             <div class="text-center">
-              <EventThumb :model="value.data" class="d-inline-block" />
+              <GalleryEventThumb :model="value.data" class="d-inline-block" />
             </div>
           </template>
         </Carousel>

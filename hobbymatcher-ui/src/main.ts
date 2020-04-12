@@ -57,6 +57,7 @@ import EventForm from './components/events/EventForm.vue'
 import ManageParticipants from './components/events/ManageParticipants.vue'
 import EventThumb from './components/events/EventThumb.vue'
 import EventThumbs from './components/events/EventThumbs.vue'
+import GalleryEventThumb from './components/events/GalleryEventThumb.vue'
 import RecentEvents from './components/events/RecentEvents.vue'
 import Reviews from './components/reviews/Reviews.vue'
 import ReviewForm from './components/reviews/ReviewForm.vue'
@@ -130,6 +131,7 @@ Vue.component('EventForm', EventForm)
 Vue.component('ManageParticipants', ManageParticipants)
 Vue.component('EventThumb', EventThumb)
 Vue.component('EventThumbs', EventThumbs)
+Vue.component('GalleryEventThumb', GalleryEventThumb)
 Vue.component('RecentEvents', RecentEvents)
 Vue.component('Reviews', Reviews)
 Vue.component('ReviewForm', ReviewForm)
