@@ -25,31 +25,20 @@
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
-import { Component, Prop, Vue } from 'vue-property-decorator'
+/* eslint-disable comma-dangle */
+
+import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Event } from './Event'
 
 @Component
 export default class RecentEvents extends Vue {
-  @Prop() model!: Event
-  events: Event[] = [
-    {
-      title: 'Sunday Jogging',
-      datetime: new Date('2020-10-10'),
-      location: 'Hoboken, NJ',
-      capacity: 10,
-      description: 'This is going to be a fun weekly event.',
-      plus18: false,
-      fee: 0,
-      organizer: 'Stevens Institute of Technology Fun Club',
-      coverPhotoId: '@/assets/images/logo-200x200.png'
-    } as any
-  ]
+  @Model() model!: Event[]
 
-  constructor() {
-    super()
+  events: Event[] = []
 
-    for (let i = 0; i < 9; i++) {
-      this.events.push(this.events[0])
+  mounted() {
+    if (this.model) {
+      this.events = this.model
     }
   }
 }

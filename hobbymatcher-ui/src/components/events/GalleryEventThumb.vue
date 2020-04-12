@@ -20,13 +20,6 @@
         }}
       </span>
       <span class="event-location">{{ event.locationShort }}</span>
-      <router-link
-        v-if="userId == event.createdById"
-        :to="'/events/edit?id=' + event.id"
-        class="edit-btn"
-      >
-        <Button type="button" icon="pi pi-pencil" class="p-button-secondary" />
-      </router-link>
     </div>
   </router-link>
 </template>
@@ -91,10 +84,5 @@ export default class GalleryEventThumb extends Vue {
   background-color: rgba(211, 211, 211, 0.75);
   padding: 0.5rem;
   border-radius: 5px;
-}
-.edit-btn {
-  position: absolute;
-  right: 0.5rem;
-  top: 0.5rem;
 }
 </style>

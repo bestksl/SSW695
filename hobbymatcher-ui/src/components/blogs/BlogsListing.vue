@@ -24,20 +24,13 @@ import { Blog } from './Blog'
 
 @Component
 export default class BlogsListing extends Vue {
+  @Model() model!: Blog[]
+
   blogs: Blog[] = []
 
-  constructor() {
-    super()
-    for (let i = 0; i < 9; i++) {
-      this.blogs.push({
-        id: i,
-        title: 'Sunday Jogging',
-        onDatetime: new Date('2020-10-10'),
-        byUser: {
-          firstName: 'John',
-          lastName: 'Doe',
-        },
-      } as any)
+  mounted() {
+    if (this.model) {
+      this.blogs = this.model
     }
   }
 }

@@ -9,6 +9,14 @@
 		left join user on user.id = blog.by_user_id
 		order by blog.id desc
 	</select>
+	
+	<select id="listBlogByHobbyId" resultType="com.hobbymatcher.entity.Blog">
+        select blog.*
+        from blog
+        join event on event.id = blog.for_event_id
+        where event.hobby_id = #{hobbyId}
+        order by blog.on_datetime desc
+    </select>
     <!-- 
     <update id="updateBlog" parameterType="com.hobbymatcher.entity.Blog">
         update blog
@@ -18,13 +26,6 @@
         </set>
         WHERE blog_id=#{blodId}
     </update>
-
-    <select id="listBlogByHobbyId" resultType="com.hobbymatcher.entity.Blog">
-        SELECT *
-        FROM blog
-        WHERE hobby_id = #{hobbyId}
-        ORDER BY create_date
-    </select>
 
     <insert id="addBlog" useGeneratedKeys="true" keyProperty="blogId">
         insert into blog (title, content, hobby_id, user_id)

@@ -54,4 +54,12 @@ export class HobbyService {
   manageFollowship(id: number, action: string) {
     return http.post(`/hobby/followship?action=${action}&id=${id}`)
   }
+
+  loadRecentEvents(id: number) {
+    return http.get('/hobby/recentevents?id=' + id)
+  }
+
+  loadRecentBlogs(id: number) {
+    return http.get('/hobby/recentblogs?id=' + id)
+  }
 }
