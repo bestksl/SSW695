@@ -100,14 +100,17 @@ export default class Home extends Vue {
 
   model: Filter = {
     searchScope: 'hobby',
-    count: 48,
-    perpage: 10,
-    offset: 0 // zero-based index
+    count: 0,
+    offset: 0, // zero-based index
+    perpage: 10
   } as Filter
 
   hobbies = []
   events = []
   search = {
+    offset: 0, // zero-based index
+    perpage: 10,
+    searchPhrase: '',
     selected: null as any,
     events: []
   }
@@ -125,8 +128,9 @@ export default class Home extends Vue {
   }
 
   doSearch($event: any) {
+    this.search.searchPhrase = $event.query
     this.eventApi
-      .list()
+      .list(this.search as any)
       .then((resp: any) => (this.search.events = resp.data.list))
       .catch((err: any) => console.log(err))
   }
