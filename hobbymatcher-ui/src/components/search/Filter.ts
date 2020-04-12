@@ -8,4 +8,5 @@ export interface Filter {
     offset: number;
     perpage: number;
     count: number;
+    hobbyId: number;
 }

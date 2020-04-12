@@ -38,7 +38,7 @@ import { Event } from '../components/events/Event'
 
 @Component
 export default class Events extends Vue {
-  api = EventService.getInstance()
+  eventApi = EventService.getInstance()
 
   events: Event[] = []
 
@@ -47,7 +47,8 @@ export default class Events extends Vue {
     perpage: 15,
     offset: 0, // zero-based index
     count: 0,
-  } as Filter
+    hobbyId: null
+  } as any
 
   mounted() {
     this.load()
@@ -58,7 +59,10 @@ export default class Events extends Vue {
   }
 
   load() {
-    this.api
+    // set the hobby id
+    this.filter.hobbyId = this.$route.query.hobbyId as any
+
+    this.eventApi
       .list(this.filter)
       .then((resp: any) => {
         this.events = resp.data.list

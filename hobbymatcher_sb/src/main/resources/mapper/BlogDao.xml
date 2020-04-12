@@ -6,14 +6,15 @@
 	<select id="listBlog" resultType="com.hobbymatcher.entity.Blog">
 		select blog.*, user.first_name as by_user_first, user.last_name as by_user_last
 		from blog
-		left join user on user.id = blog.by_user_id
+		join user on user.id = blog.by_user_id
 		order by blog.id desc
 	</select>
 	
 	<select id="listBlogByHobbyId" resultType="com.hobbymatcher.entity.Blog">
-        select blog.*
+        select blog.*, user.first_name as by_user_first, user.last_name as by_user_last
         from blog
         join event on event.id = blog.for_event_id
+        join user on user.id = blog.by_user_id
         where event.hobby_id = #{hobbyId}
         order by blog.on_datetime desc
     </select>

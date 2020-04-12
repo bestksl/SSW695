@@ -19,6 +19,7 @@
 
     <div class="p-inputgroup search-options">
       <Dropdown
+        v-if="model.hobbyId"
         v-model="model.searchScope"
         :options="scopes"
         optionLabel="label"
@@ -28,7 +29,7 @@
         type="text"
         v-model="model.searchPhrase"
         placeholder="Search ..."
-        class="search-txf"
+        :class="'search-txf ' + (model.hobbyId ? 'with-dropdown' : '')"
         size="20"
       />
       <Button
@@ -53,11 +54,11 @@ export default class FilterBar extends Vue {
   options = [
     { value: 'popularity', label: 'Popularity' },
     { value: 'distance', label: 'Distance' },
-    { value: 'newest', label: 'Newest' },
+    { value: 'newest', label: 'Newest' }
   ]
   scopes = [
     { value: 'hobby', label: 'Under Present Hobby' },
-    { value: 'sitewide', label: 'Sitewide' },
+    { value: 'sitewide', label: 'Sitewide' }
   ]
 }
 </script>
@@ -65,7 +66,7 @@ export default class FilterBar extends Vue {
 <!-- scoped -->
 <style lang="less">
 .filter-bar {
-  .search-txf.p-inputtext {
+  .search-txf.with-dropdown.p-inputtext {
     border-radius: 0;
     border-left: none;
     border-right: none;

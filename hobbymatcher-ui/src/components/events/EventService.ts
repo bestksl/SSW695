@@ -44,6 +44,9 @@ export class EventService {
       if (filter.sortBy) {
         query.push('sortBy=' + filter.sortBy)
       }
+      if (filter.hobbyId) {
+        query.push('hobbyId=' + filter.hobbyId)
+      }
     }
     return http.get('/event/listevent' + (query.length ? `?${query.join('&')}` : ''))
   }

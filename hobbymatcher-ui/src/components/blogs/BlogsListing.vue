@@ -2,14 +2,16 @@
   <div class="blogs-list">
     <div class="p-grid">
       <div class="p-offset-1 p-col-10">
-        <BlogsList v-model="blogs" />
+        <BlogsList v-if="(model || []).length" v-model="model" />
       </div>
       <div class="p-col-10 p-offset-1 text-right">
-        <Button
-          label="More Blogs"
-          icon="pi pi-chevron-right"
-          class="p-button-secondary"
-        />
+        <router-link :to="'/blogs?hobbyId=' + hobbyId">
+          <Button
+            label="More Blogs"
+            icon="pi pi-chevron-right"
+            class="p-button-primary"
+          />
+        </router-link>
       </div>
     </div>
   </div>
@@ -25,14 +27,7 @@ import { Blog } from './Blog'
 @Component
 export default class BlogsListing extends Vue {
   @Model() model!: Blog[]
-
-  blogs: Blog[] = []
-
-  mounted() {
-    if (this.model) {
-      this.blogs = this.model
-    }
-  }
+  @Prop() hobbyId!: number
 }
 </script>
 

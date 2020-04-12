@@ -1,7 +1,7 @@
 <template>
   <div class="blogs-list">
     <div
-      v-for="blog of blogs"
+      v-for="blog of model"
       v-bind:key="blog.id"
       class="d-flex align-items-center py-2 blog-record"
     >
@@ -12,7 +12,11 @@
       </strong>
       <strong> By: {{ blog.byUserFirst }} {{ blog.byUserLast }} </strong>
       <small class="ml-4">
-        {{ blog.onDatetime | dateFormat('MMM DD, YYYY h:mma') }}
+        {{
+          blog.onDatetime
+            | dateParse('YYYY-MM-DDTHH:mm:ss.000+0000')
+            | dateFormat('MMM DD, YYYY h:mma')
+        }}
       </small>
     </div>
   </div>
@@ -28,26 +32,6 @@ import { Blog } from './Blog'
 @Component
 export default class BlogsList extends Vue {
   @Model() model!: Blog[]
-  blogs: Blog[] = []
-
-  constructor() {
-    super()
-    if (this.model) {
-      this.blogs = this.model
-    } else {
-      for (let i = 1; i < 9; i++) {
-        this.blogs.push({
-          id: i,
-          title: 'Sunday Jogging',
-          onDatetime: new Date('2020-10-10'),
-          byUser: {
-            firstName: 'John',
-            lastName: 'Doe',
-          },
-        } as any)
-      }
-    }
-  }
 }
 </script>
 

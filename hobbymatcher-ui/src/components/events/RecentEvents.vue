@@ -13,11 +13,13 @@
         />
       </div>
       <div class="p-col-10 p-offset-1 text-right">
-        <Button
-          label="More Events"
-          icon="pi pi-chevron-right"
-          class="p-button-secondary"
-        />
+        <router-link :to="'/events?hobbyId=' + hobbyId">
+          <Button
+            label="More Events"
+            icon="pi pi-chevron-right"
+            class="p-button-primary"
+          />
+        </router-link>
       </div>
     </div>
   </div>
@@ -33,6 +35,7 @@ import { Event } from './Event'
 @Component
 export default class RecentEvents extends Vue {
   @Model() model!: Event[]
+  @Prop() hobbyId!: number
 
   events: Event[] = []
 
