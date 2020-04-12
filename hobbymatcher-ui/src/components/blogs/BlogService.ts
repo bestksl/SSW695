@@ -14,6 +14,10 @@ export class BlogService {
     return BlogService.instance
   }
 
+  list() {
+    return http.get('/blog/listblog')
+  }
+
   post(blog: Blog) {
     return http.post('/blog/postblog', blog)
   }

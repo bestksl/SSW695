@@ -78,7 +78,7 @@
         </div>
       </div>
       <div class="p-offset-1 p-col-10">
-        <BlogsList />
+        <BlogsList v-model="blogs" />
       </div>
     </div>
   </div>
@@ -91,12 +91,14 @@ import { HobbyService } from '../components/hobbies/HobbyService'
 import { EventService } from '../components/events/EventService'
 import { AuthService } from '../components/auth/AuthService'
 import { Filter } from '../components/search/Filter'
+import { BlogService } from '../components/blogs/BlogService'
 
 @Component
 export default class Home extends Vue {
   authApi = AuthService.getInstance()
-  hobbyApi = new HobbyService()
-  eventApi = new EventService()
+  hobbyApi = HobbyService.getInstance()
+  eventApi = EventService.getInstance()
+  blogApi = BlogService.getInstance()
 
   model: Filter = {
     searchScope: 'hobby',
@@ -107,6 +109,7 @@ export default class Home extends Vue {
 
   hobbies = []
   events = []
+  blogs = []
   search = {
     offset: 0, // zero-based index
     perpage: 10,
@@ -124,6 +127,11 @@ export default class Home extends Vue {
     this.eventApi
       .list()
       .then((resp: any) => (this.events = resp.data.list))
+      .catch((err: any) => console.log(err))
+
+    this.blogApi
+      .list()
+      .then((resp: any) => (this.blogs = resp.data.list))
       .catch((err: any) => console.log(err))
   }
 
