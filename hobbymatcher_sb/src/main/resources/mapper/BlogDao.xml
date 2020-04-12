@@ -29,6 +29,18 @@
         limit #{offset}, #{perpage}
     </select>
     
+    
+    <select id="paginateListBlog" resultType="com.hobbymatcher.entity.Blog">
+        select
+        <if test="justCount">count(blog.id) as id</if>
+        <if test="!justCount">blog.*, user.first_name as by_user_first, user.last_name as by_user_last</if> 
+        from blog
+        join hobby on hobby.id = blog.for_hobby_id
+        join user on user.id = blog.by_user_id
+        order by blog.on_datetime desc
+        limit #{offset}, #{perpage}
+    </select>
+    
     <select id="findBlogById" parameterType="map" resultType="com.hobbymatcher.entity.Blog">
         select blog.*, user.first_name as by_user_first, user.last_name as by_user_last
         from blog

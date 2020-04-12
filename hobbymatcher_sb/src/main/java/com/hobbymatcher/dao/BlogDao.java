@@ -1,6 +1,7 @@
 package com.hobbymatcher.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -24,4 +25,6 @@ public interface BlogDao {
 
 	List<Blog> paginateListBlogByHobbyId(@Param("justCount") Boolean justCount, //
 			@Param("hobbyId") Integer hobbyId, @Param("offset") Integer offset, @Param("perpage") Integer perpage);
+
+	List<Blog> paginateListBlog(Boolean justCount, Integer offset, Integer perpage);
 }

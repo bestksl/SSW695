@@ -34,10 +34,10 @@ public class HobbyController {
 
 	@Autowired
 	private AuthUtilService authUtilService;
-	
+
 	@Autowired
 	private EventService eventService;
-	
+
 	@Autowired
 	private BlogService blogService;
 
@@ -182,10 +182,10 @@ public class HobbyController {
 		}
 		return resp;
 	}
-	
+
 	// recentevents
 	@GetMapping("/recentevents")
-	public Map<String, Object> getRecentEvents(HttpServletRequest req, HttpServletResponse response, // 
+	public Map<String, Object> getRecentEvents(HttpServletRequest req, HttpServletResponse response, //
 			@RequestParam("id") Integer id) {
 		Map<String, Object> resp = new HashMap<String, Object>();
 		try {
@@ -199,10 +199,10 @@ public class HobbyController {
 		}
 		return resp;
 	}
-	
+
 	// recentblogs
 	@GetMapping("/recentblogs")
-	public Map<String, Object> getRecentBlogs(HttpServletRequest req, HttpServletResponse response, // 
+	public Map<String, Object> getRecentBlogs(HttpServletRequest req, HttpServletResponse response, //
 			@RequestParam("id") Integer id) {
 		Map<String, Object> resp = new HashMap<String, Object>();
 		try {
@@ -216,17 +216,23 @@ public class HobbyController {
 		}
 		return resp;
 	}
-	
+
 	// blogs
 	@GetMapping("/blogs")
 	public Map<String, Object> getBlogs(HttpServletRequest req, HttpServletResponse response, //
 			@RequestParam(name = "offset", required = false, defaultValue = "0") Integer offset,
 			@RequestParam(name = "perpage", required = false, defaultValue = "10") Integer perpage,
-			@RequestParam(name = "hobbyId") Integer hobbyId) {
+			@RequestParam(name = "hobbyId", required = false) Integer hobbyId) {
 		Map<String, Object> resp = new HashMap<String, Object>();
 		try {
-			resp.put("count", blogService.paginateListBlogByHobbyId(true, hobbyId, 0, Integer.MAX_VALUE).get(0).getId());
-			resp.put("list", blogService.paginateListBlogByHobbyId(false, hobbyId, offset, perpage));
+			if (hobbyId != null) {
+				resp.put("count",
+						blogService.paginateListBlogByHobbyId(true, hobbyId, 0, Integer.MAX_VALUE).get(0).getId());
+				resp.put("list", blogService.paginateListBlogByHobbyId(false, hobbyId, offset, perpage));
+			} else {
+				resp.put("count", blogService.paginateListBlog(true, 0, Integer.MAX_VALUE).get(0).getId());
+				resp.put("list", blogService.paginateListBlog(false, offset, perpage));
+			}
 			resp.put("success", true);
 			response.setStatus(200);
 		} catch (Exception exp) {

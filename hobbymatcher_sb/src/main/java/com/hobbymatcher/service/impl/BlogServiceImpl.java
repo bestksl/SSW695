@@ -1,6 +1,7 @@
 package com.hobbymatcher.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,5 +57,10 @@ public class BlogServiceImpl implements BlogService {
 	@Override
 	public List<Blog> paginateListBlogByHobbyId(Boolean justCount, Integer hobbyId, Integer offset, Integer perpage) {
 		return blogDao.paginateListBlogByHobbyId(justCount, hobbyId, offset, perpage);
+	}
+
+	@Override
+	public List<Blog> paginateListBlog(Boolean justCount, Integer offset, Integer perpage) {
+		return blogDao.paginateListBlog(justCount, offset, perpage);
 	}
 }

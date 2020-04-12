@@ -85,10 +85,12 @@ export default class Blogs extends Vue {
     const hobbyId = this.$route.query.hobbyId
     this.filter.hobbyId = hobbyId as any
 
-    this.hobbyApi
-      .get(hobbyId)
-      .then((resp: any) => (this.hobby = resp.data.hobby))
-      .catch((err: any) => console.log(err))
+    if (hobbyId) {
+      this.hobbyApi
+        .get(hobbyId)
+        .then((resp: any) => (this.hobby = resp.data.hobby))
+        .catch((err: any) => console.log(err))
+    }
 
     this.hobbyApi
       .loadBlogs(this.filter)
