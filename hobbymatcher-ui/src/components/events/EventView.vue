@@ -23,7 +23,15 @@
             <i class="fas fa-share-alt-square"></i>
           </button>
         </div>
-        <div v-if="authApi.response.isLogin" class="mt-2">
+        <div v-if="isEventAdmin" class="mt-2">
+          <Button
+            label="Manage Participants"
+            icon="pi pi-cog"
+            class="p-button-primary"
+            v-on:click="showAdminForm = true"
+          />
+        </div>
+        <div v-if="canManageParticipation" class="mt-2">
           <Button
             v-if="status === ''"
             label="Request to Participate"
@@ -125,6 +133,15 @@
         </div>
       </div>
     </div>
+
+    <Dialog
+      v-if="authApi.isLogin && event.id"
+      :visible.sync="showAdminForm"
+      :style="{ width: '50vw' }"
+      :modal="true"
+    >
+      <ManageParticipants :eventId="event.id" />
+    </Dialog>
   </div>
 </template>
 
@@ -145,6 +162,8 @@ export default class EventView extends Vue {
     return this.model || {}
   }
 
+  showAdminForm = false
+
   authApi = AuthService.getInstance()
   eventApi = EventService.getInstance()
 
@@ -160,10 +179,23 @@ export default class EventView extends Vue {
   }
 
   manageParticipation(action: string) {
-    this.eventApi
-      .manageParticipation(this.event.id, action)
-      .then((resp: any) => (this.status = resp.data.status))
-      .catch((err: any) => console.log(err))
+    if (confirm('Are you sure?')) {
+      this.eventApi
+        .manageParticipation(this.event.id, action)
+        .then((resp: any) => (this.status = resp.data.status))
+        .catch((err: any) => console.log(err))
+    }
+  }
+
+  get canManageParticipation() {
+    return (
+      this.authApi.isLogin &&
+      this.authApi.response.userId !== this.event.createdById
+    )
+  }
+
+  get isEventAdmin() {
+    return this.authApi.response.userId === this.event.createdById
   }
 }
 </script>

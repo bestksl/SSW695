@@ -64,6 +64,14 @@ export class EventService {
     return http.get('/event/getevent?id=' + id)
   }
 
+  loadParticipants(eventId: any) {
+    return http.get('/event/getparticipant?id=' + eventId)
+  }
+
+  manageParticipant(eventId: any, participantId: any, action: any) {
+    return http.post(`/event/participation?action=${action}&id=${eventId}&userId=${participantId}`)
+  }
+
   suggestLocations(key: string) {
     return axios.create().get(`https://nominatim.openstreetmap.org/search/${key}?format=json&addressdetails=1&limit=10`)
   }
