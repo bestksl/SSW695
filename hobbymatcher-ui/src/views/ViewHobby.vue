@@ -25,7 +25,7 @@
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
 
-import { Component, Prop, Vue, Model } from 'vue-property-decorator'
+import { Component, Prop, Vue, Model, Watch } from 'vue-property-decorator'
 import { HobbyService } from '../components/hobbies/HobbyService'
 import { Hobby } from '../components/hobbies/Hobby'
 import { Event } from '../components/events/Event'
@@ -43,7 +43,16 @@ export default class ViewHobby extends Vue {
     window.history.back()
   }
 
+  @Watch('$route', { immediate: true, deep: true })
+  onUrlChange(newVal: any) {
+    this.load()
+  }
+
   mounted() {
+    this.load()
+  }
+
+  load() {
     const id = this.$route.query.id
 
     this.hobbyApi
