@@ -70,18 +70,27 @@ export default class EventThumb extends Vue {
   font-size: 1.25rem;
   max-height: 100px;
   overflow: hidden;
+  background-color: rgba(211, 211, 211, 0.75);
 }
 .event-datetime {
   position: absolute;
   left: 0.5rem;
   bottom: 0.5rem;
   font-size: 0.75rem;
+  background-color: rgba(211, 211, 211, 0.75);
+  padding: 0.25rem;
+  border-radius: 5px;
+  color: black;
 }
 .event-location {
   position: absolute;
   right: 0.5rem;
   bottom: 0.5rem;
   font-size: 0.75rem;
+  background-color: rgba(211, 211, 211, 0.75);
+  padding: 0.25rem;
+  border-radius: 5px;
+  color: black;
 }
 .edit-btn {
   position: absolute;

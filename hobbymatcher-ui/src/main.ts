@@ -33,6 +33,7 @@ import Dialog from 'primevue/dialog'
 import AutoComplete from 'primevue/autocomplete'
 import ToggleButton from 'primevue/togglebutton'
 import SplitButton from 'primevue/splitbutton'
+import Editor from 'primevue/editor'
 
 import 'primevue/resources/themes/nova-light/theme.css'
 import 'primevue/resources/primevue.min.css'
@@ -71,6 +72,8 @@ import HobbyThumbs from './components/hobbies/HobbyThumbs.vue'
 import FilterBar from './components/search/FilterBar.vue'
 import FilterCategories from './components/search/FilterCategories.vue'
 import EventSearchResults from './components/events/EventSearchResults.vue'
+import BlogView from './components/blogs/BlogView.vue'
+import BlogForm from './components/blogs/BlogForm.vue'
 import BlogsList from './components/blogs/BlogsList.vue'
 import BlogsListing from './components/blogs/BlogsListing.vue'
 import HobbyThumbV2 from './components/hobbies/HobbyThumbV2.vue'
@@ -103,6 +106,7 @@ Vue.component('Dialog', Dialog)
 Vue.component('AutoComplete', AutoComplete)
 Vue.component('ToggleButton', ToggleButton)
 Vue.component('SplitButton', SplitButton)
+Vue.component('Editor', Editor)
 
 // This will kick of the initial replacement of i to svg tags
 // and configure a MutationObserver
@@ -145,6 +149,8 @@ Vue.component('HobbyThumbs', HobbyThumbs)
 Vue.component('FilterBar', FilterBar)
 Vue.component('FilterCategories', FilterCategories)
 Vue.component('EventSearchResults', EventSearchResults)
+Vue.component('BlogView', BlogView)
+Vue.component('BlogForm', BlogForm)
 Vue.component('BlogsList', BlogsList)
 Vue.component('BlogsListing', BlogsListing)
 Vue.component('HobbyThumbV2', HobbyThumbV2)

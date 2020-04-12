@@ -62,4 +62,21 @@ export class HobbyService {
   loadRecentBlogs(id: number) {
     return http.get('/hobby/recentblogs?id=' + id)
   }
+
+  loadBlogs(filter: Filter) {
+    let query = []
+    if (filter) {
+      if (filter.offset) {
+        query.push('offset=' + filter.offset)
+      }
+      if (filter.perpage) {
+        query.push('perpage=' + filter.perpage)
+      }
+      if (filter.hobbyId) {
+        query.push('hobbyId=' + filter.hobbyId)
+      }
+    }
+    // /hobby/listhobby?searchPrase=sdfsd&offset=10&perpage=10
+    return http.get('/hobby/blogs' + (query.length ? `?${query.join('&')}` : ''))
+  }
 }

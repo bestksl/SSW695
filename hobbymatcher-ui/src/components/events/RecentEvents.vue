@@ -5,6 +5,9 @@
         <strong>Recent Events</strong>
       </div>
       <div class="p-col-10 p-offset-1">
+        <div v-if="(events || []).length < 1">
+          No Recent Events
+        </div>
         <EventThumb
           v-for="event of events"
           :key="event.id"

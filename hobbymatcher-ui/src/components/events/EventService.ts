@@ -67,6 +67,10 @@ export class EventService {
     return http.get('/event/getevent?id=' + id)
   }
 
+  loadSuggestedEvents(id: any) {
+    return http.get('/event/getsuggestedevents?id=' + id)
+  }
+
   loadParticipants(eventId: any) {
     return http.get('/event/getparticipant?id=' + eventId)
   }

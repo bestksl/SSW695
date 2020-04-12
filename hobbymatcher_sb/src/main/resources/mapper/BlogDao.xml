@@ -13,35 +13,48 @@
 	<select id="listBlogByHobbyId" resultType="com.hobbymatcher.entity.Blog">
         select blog.*, user.first_name as by_user_first, user.last_name as by_user_last
         from blog
-        join event on event.id = blog.for_event_id
+        join hobby on hobby.id = blog.for_hobby_id and hobby.id = #{hobbyId}
         join user on user.id = blog.by_user_id
-        where event.hobby_id = #{hobbyId}
         order by blog.on_datetime desc
     </select>
-    <!-- 
+    
+    <select id="paginateListBlogByHobbyId" resultType="com.hobbymatcher.entity.Blog">
+        select
+        <if test="justCount">count(blog.id) as id</if>
+        <if test="!justCount">blog.*, user.first_name as by_user_first, user.last_name as by_user_last</if> 
+        from blog
+        join hobby on hobby.id = blog.for_hobby_id and hobby.id = #{hobbyId}
+        join user on user.id = blog.by_user_id
+        order by blog.on_datetime desc
+        limit #{offset}, #{perpage}
+    </select>
+    
+    <select id="findBlogById" parameterType="map" resultType="com.hobbymatcher.entity.Blog">
+        select blog.*, user.first_name as by_user_first, user.last_name as by_user_last
+        from blog
+        join user on user.id = blog.by_user_id
+        where blog.id = #{blogId}
+    </select>
+    
+    
+    <insert id="addBlog" useGeneratedKeys="true" keyProperty="id">
+        insert into blog (title, html, for_hobby_id, by_user_id, clap_count, on_datetime)
+        values (#{title}, #{html}, #{forHobbyId}, #{byUserId}, 0, now())
+    </insert>
     <update id="updateBlog" parameterType="com.hobbymatcher.entity.Blog">
         update blog
         <set>
-            <if test="title != null">name=#{name},</if>
-            <if test="content != null">content=#{content},</if>
+            <if test="title != null">title=#{title},</if>
+            <if test="html != null">html=#{html},</if>
+            <if test="clapCount != null">clap_count=#{clapCount},</if>
         </set>
-        WHERE blog_id=#{blodId}
+        WHERE id = #{id}
     </update>
 
-    <insert id="addBlog" useGeneratedKeys="true" keyProperty="blogId">
-        insert into blog (title, content, hobby_id, user_id)
-        values (#{title}, #{content}, #{hobbyId}, #{userId})
-    </insert>
-
-    <select id="findBlogById" parameterType="map" resultType="Blog">
-        select *
-        from blog
-        where blog_id = #{blogId}
-    </select>
 
     <delete id="deleteBlog">
         DELETE
         FROM blog
-        WHERE blog_id = #{blogId}
-    </delete> -->
+        WHERE id = #{blogId}
+    </delete>
 </mapper>

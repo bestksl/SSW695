@@ -1,5 +1,8 @@
 <template>
   <ul class="manage-participants px-2">
+    <li v-if="(participants || []).length < 1">
+      No Participants Yet.
+    </li>
     <li
       v-for="participant of participants"
       :key="participant.email"

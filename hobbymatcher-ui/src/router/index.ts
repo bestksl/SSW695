@@ -79,6 +79,16 @@ const routes = [
     component: () => import('../views/ViewBlog.vue')
   },
   {
+    path: '/blogs/create',
+    name: 'create-blog',
+    component: () => import('../views/CreateBlog.vue')
+  },
+  {
+    path: '/blogs/edit',
+    name: 'edit-blog',
+    component: () => import('../views/EditBlog.vue')
+  },
+  {
     path: '/blogs',
     name: 'blogs',
     component: () => import('../views/Blogs.vue')

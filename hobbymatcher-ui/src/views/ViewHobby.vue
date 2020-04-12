@@ -16,19 +16,9 @@
 
     <HobbyView v-if="hobby.id" v-model="hobby" />
 
-    <RecentEvents
-      v-if="events.length"
-      v-model="events"
-      :hobbyId="hobby.id"
-      class="mt-4"
-    />
+    <RecentEvents v-model="events" :hobbyId="hobby.id" class="mt-4" />
 
-    <BlogsListing
-      v-if="blogs.length"
-      v-model="blogs"
-      :hobbyId="hobby.id"
-      class="mt-4"
-    />
+    <BlogsListing v-model="blogs" :hobbyId="hobby.id" class="mt-4" />
   </div>
 </template>
 

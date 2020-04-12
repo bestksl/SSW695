@@ -216,4 +216,24 @@ public class HobbyController {
 		}
 		return resp;
 	}
+	
+	// blogs
+	@GetMapping("/blogs")
+	public Map<String, Object> getBlogs(HttpServletRequest req, HttpServletResponse response, //
+			@RequestParam(name = "offset", required = false, defaultValue = "0") Integer offset,
+			@RequestParam(name = "perpage", required = false, defaultValue = "10") Integer perpage,
+			@RequestParam(name = "hobbyId") Integer hobbyId) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		try {
+			resp.put("count", blogService.paginateListBlogByHobbyId(true, hobbyId, 0, Integer.MAX_VALUE).get(0).getId());
+			resp.put("list", blogService.paginateListBlogByHobbyId(false, hobbyId, offset, perpage));
+			resp.put("success", true);
+			response.setStatus(200);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			resp.put("success", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
 }

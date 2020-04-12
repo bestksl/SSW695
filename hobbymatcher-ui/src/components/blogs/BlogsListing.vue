@@ -1,7 +1,13 @@
 <template>
   <div class="blogs-list">
     <div class="p-grid">
+      <div class="p-col-10 p-offset-1">
+        <strong>Blogs</strong>
+      </div>
       <div class="p-offset-1 p-col-10">
+        <div v-if="(model || []).length < 1">
+          No Blogs
+        </div>
         <BlogsList v-if="(model || []).length" v-model="model" />
       </div>
       <div class="p-col-10 p-offset-1 text-right">

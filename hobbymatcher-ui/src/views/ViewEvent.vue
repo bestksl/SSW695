@@ -25,7 +25,7 @@
         <strong>Events you may interested in:</strong>
       </div>
       <div class="p-col-10 p-offset-1">
-        <EventThumbs />
+        <EventThumbs v-if="suggesteds.length" :model="suggesteds" />
       </div>
     </div>
   </div>
@@ -40,18 +40,26 @@ import { Event } from '../components/events/Event'
 
 @Component
 export default class ViewEvent extends Vue {
-  api = new EventService()
+  eventApi = EventService.getInstance()
 
   event: Event = {} as any
+  suggesteds: Event[] = []
 
   back() {
     window.history.back()
   }
 
   mounted() {
-    this.api
-      .get(this.$route.query.id)
+    const id = this.$route.query.id
+
+    this.eventApi
+      .get(id)
       .then((resp: any) => (this.event = resp.data.event))
+      .catch((err: any) => console.log(err))
+
+    this.eventApi
+      .loadSuggestedEvents(id)
+      .then((resp: any) => (this.suggesteds = resp.data.list))
       .catch((err: any) => console.log(err))
   }
 }

@@ -8,5 +8,5 @@ export interface Blog {
     byUserFirst: string;
     byUserLast: string;
     byUser: any;
-    forEventId: number;
+    forHobbyId: number;
 }

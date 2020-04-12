@@ -110,6 +110,25 @@ public class EventController {
 		}
 		return resp;
 	}
+	
+	// list event
+	@GetMapping("/getsuggestedevents")
+	public Map<String, Object> getSuggestedEvents(HttpServletRequest req, HttpServletResponse response,
+			@RequestParam("id") String id) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		try {
+			// TODO - suggest your events here
+			List<Event> events = eventService.listEvent();
+			resp.put("list", events.subList(0, Math.min(10, events.size())));
+			resp.put("success", true);
+			response.setStatus(200);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			resp.put("status", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
 
 	@GetMapping("/listRecentEvents")
 	public Map<String, Object> listTop5Events(HttpServletResponse response) {
