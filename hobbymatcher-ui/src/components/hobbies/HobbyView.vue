@@ -41,6 +41,7 @@
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { HobbyService } from './HobbyService'
 import { Hobby } from './Hobby'
+import { AuthService } from '../auth/AuthService'
 
 @Component
 export default class HobbyView extends Vue {
@@ -51,10 +52,11 @@ export default class HobbyView extends Vue {
     return this.model || {}
   }
 
+  authApi = AuthService.getInstance()
   hobbyApi = HobbyService.getInstance()
 
   mounted() {
-    this.doCheckFollowship()
+    this.authApi.ifLogin(() => this.doCheckFollowship())
   }
 
   doCheckFollowship() {

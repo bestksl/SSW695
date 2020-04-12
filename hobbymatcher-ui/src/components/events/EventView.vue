@@ -23,7 +23,7 @@
             <i class="fas fa-share-alt-square"></i>
           </button>
         </div>
-        <div class="mt-2">
+        <div v-if="authApi.response.isLogin" class="mt-2">
           <Button
             v-if="status === ''"
             label="Request to Participate"
@@ -77,9 +77,9 @@
             <a
               :href="
                 'https://www.google.com/maps/search/?api=1&query=' +
-                event.geoLat +
-                ',' +
-                event.geoLon
+                  event.geoLat +
+                  ',' +
+                  event.geoLon
               "
               target="_blank"
             >
@@ -134,6 +134,7 @@
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Event } from './Event'
 import { EventService } from './EventService'
+import { AuthService } from '../auth/AuthService'
 
 @Component
 export default class EventView extends Vue {
@@ -144,10 +145,11 @@ export default class EventView extends Vue {
     return this.model || {}
   }
 
+  authApi = AuthService.getInstance()
   eventApi = EventService.getInstance()
 
   mounted() {
-    this.doCheckParticipation()
+    this.authApi.ifLogin(() => this.doCheckParticipation())
   }
 
   doCheckParticipation() {
