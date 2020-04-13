@@ -25,7 +25,7 @@
         <strong>Events you may interested in:</strong>
       </div>
       <div class="p-col-10 p-offset-1">
-        <EventThumbs />
+        <EventThumbs v-if="suggestions.length" :model="suggestions" />
       </div>
     </div>
   </div>
@@ -34,24 +34,41 @@
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
 
-import { Component, Prop, Vue, Model } from 'vue-property-decorator'
+import { Component, Prop, Vue, Model, Watch } from 'vue-property-decorator'
 import { EventService } from '../components/events/EventService'
 import { Event } from '../components/events/Event'
 
 @Component
 export default class ViewEvent extends Vue {
-  api = new EventService()
+  eventApi = EventService.getInstance()
 
   event: Event = {} as any
+  suggestions: Event[] = []
 
   back() {
     window.history.back()
   }
 
   mounted() {
-    this.api
-      .get(this.$route.query.id)
+    this.load()
+  }
+
+  @Watch('$route', { immediate: true, deep: true })
+  onUrlChange(newVal: any) {
+    this.load()
+  }
+
+  load() {
+    const id = this.$route.query.id
+
+    this.eventApi
+      .get(id)
       .then((resp: any) => (this.event = resp.data.event))
+      .catch((err: any) => console.log(err))
+
+    this.eventApi
+      .loadSuggestedEvents(id)
+      .then((resp: any) => (this.suggestions = resp.data.list))
       .catch((err: any) => console.log(err))
   }
 }

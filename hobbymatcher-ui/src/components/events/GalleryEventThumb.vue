@@ -20,13 +20,6 @@
         }}
       </span>
       <span class="event-location">{{ event.locationShort }}</span>
-      <router-link
-        v-if="userId == event.createdById"
-        :to="'/events/edit?id=' + event.id"
-        class="edit-btn"
-      >
-        <Button type="button" icon="pi pi-pencil" class="p-button-secondary" />
-      </router-link>
     </div>
   </router-link>
 </template>
@@ -37,7 +30,7 @@ import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Event } from './Event'
 
 @Component
-export default class EventThumb extends Vue {
+export default class GalleryEventThumb extends Vue {
   @Model() model!: Event
   @Model() userId!: number
 
@@ -50,10 +43,9 @@ export default class EventThumb extends Vue {
 <style scoped lang="less">
 .event-thumb {
   position: relative;
-  width: 220px;
-  height: 160px;
+  // width: 30%;
+  height: 240px;
   overflow: hidden;
-  border: solid 1px lightgray;
   cursor: pointer;
 }
 .cover {
@@ -71,30 +63,26 @@ export default class EventThumb extends Vue {
   max-height: 100px;
   overflow: hidden;
   background-color: rgba(211, 211, 211, 0.75);
+  padding: 0.5rem;
 }
 .event-datetime {
+  color: black;
   position: absolute;
   left: 0.5rem;
   bottom: 0.5rem;
   font-size: 0.75rem;
   background-color: rgba(211, 211, 211, 0.75);
-  padding: 0.25rem;
+  padding: 0.5rem;
   border-radius: 5px;
-  color: black;
 }
 .event-location {
+  color: black;
   position: absolute;
   right: 0.5rem;
   bottom: 0.5rem;
   font-size: 0.75rem;
   background-color: rgba(211, 211, 211, 0.75);
-  padding: 0.25rem;
+  padding: 0.5rem;
   border-radius: 5px;
-  color: black;
-}
-.edit-btn {
-  position: absolute;
-  right: 0.5rem;
-  top: 0.5rem;
 }
 </style>

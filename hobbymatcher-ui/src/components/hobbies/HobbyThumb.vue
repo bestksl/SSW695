@@ -62,6 +62,7 @@ export default class HobbyThumb extends Vue {
   font-size: 1.25rem;
   max-height: 100px;
   overflow: hidden;
+  background-color: rgba(211, 211, 211, 0.75);
 }
 .edit-btn {
   position: absolute;

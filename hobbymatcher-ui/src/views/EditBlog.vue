@@ -13,7 +13,7 @@
         <hr />
       </div>
     </div>
-    <BlogView />
+    <BlogForm />
   </div>
 </template>
 <script lang="ts">
@@ -22,7 +22,7 @@
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 
 @Component
-export default class ViewBlog extends Vue {
+export default class EditBlog extends Vue {
   back() {
     window.history.back()
   }

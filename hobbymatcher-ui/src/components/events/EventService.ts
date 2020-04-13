@@ -44,6 +44,9 @@ export class EventService {
       if (filter.sortBy) {
         query.push('sortBy=' + filter.sortBy)
       }
+      if (filter.hobbyId) {
+        query.push('hobbyId=' + filter.hobbyId)
+      }
     }
     return http.get('/event/listevent' + (query.length ? `?${query.join('&')}` : ''))
   }
@@ -62,6 +65,18 @@ export class EventService {
 
   get(id: any) {
     return http.get('/event/getevent?id=' + id)
+  }
+
+  loadSuggestedEvents(id: any) {
+    return http.get('/event/getsuggestedevents?id=' + id)
+  }
+
+  loadParticipants(eventId: any) {
+    return http.get('/event/getparticipant?id=' + eventId)
+  }
+
+  manageParticipant(eventId: any, participantId: any, action: any) {
+    return http.post(`/event/participation?action=${action}&id=${eventId}&userId=${participantId}`)
   }
 
   suggestLocations(key: string) {

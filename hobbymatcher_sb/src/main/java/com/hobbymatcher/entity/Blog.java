@@ -5,6 +5,7 @@ import lombok.NonNull;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 public class Blog implements Serializable {
@@ -13,14 +14,14 @@ public class Blog implements Serializable {
     private Integer id;
     @NotBlank
     private String title;
+    @NotBlank
     private String html;
-    private String onDatetime;
+    private Date onDatetime;
     private Integer clapCount;
-    @NonNull
     private Integer byUserId;
     private String byUserFirst;
     private String byUserLast;
-    private Integer forEventId;
+    private Integer forHobbyId;
 
     public Integer getId() {
         return id;
@@ -46,11 +47,11 @@ public class Blog implements Serializable {
         this.html = html;
     }
 
-    public String getOnDatetime() {
+    public Date getOnDatetime() {
         return onDatetime;
     }
 
-    public void setOnDatetime(String onDatetime) {
+    public void setOnDatetime(Date onDatetime) {
         this.onDatetime = onDatetime;
     }
 
@@ -78,11 +79,11 @@ public class Blog implements Serializable {
         return byUserLast;
     }
 
-    public Integer getForEventId() {
-        return forEventId;
+    public Integer getForHobbyId() {
+        return forHobbyId;
     }
 
-    public void setForEventId(Integer forEventId) {
-        this.forEventId = forEventId;
+    public void setForHobbyId(Integer forHobbyId) {
+        this.forHobbyId = forHobbyId;
     }
 }

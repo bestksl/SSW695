@@ -3,6 +3,7 @@ package com.hobbymatcher.service;
 import java.util.List;
 
 import com.hobbymatcher.entity.Event;
+import com.hobbymatcher.entity.Participant;
 import com.hobbymatcher.entity.Participation;
 
 public interface EventService {
@@ -40,6 +41,10 @@ public interface EventService {
 	void approveUser(Integer theUserId, Integer eventId);
 
 	List<Event> listRecentEvents();
+
+	List<Participant> getParticipants(Integer eventId);
+
+	void rejectUser(Integer theUserId, Integer eventId);
 
 //	boolean checkEvent(Event event);
 

@@ -41,6 +41,7 @@
     </div>
 
     <Dialog
+      v-if="authApi.isLogin"
       :visible.sync="showEditForm"
       :style="{ width: '50vw' }"
       :modal="true"

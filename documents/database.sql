@@ -144,18 +144,18 @@ CREATE TABLE IF NOT EXISTS `blog` (
   `on_datetime` DATETIME NOT NULL,
   `clap_count` INT NOT NULL,
   `by_user_id` INT NOT NULL,
-  `for_event_id` INT NOT NULL,
+  `for_hobby_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
   INDEX `fk_blog_user1_idx` (`by_user_id` ASC),
-  INDEX `fk_blog_event1_idx` (`for_event_id` ASC),
+  INDEX `fk_blog_event1_idx` (`for_hobby_id` ASC),
   CONSTRAINT `fk_blog_user1`
     FOREIGN KEY (`by_user_id`)
     REFERENCES `user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_blog_event1`
-    FOREIGN KEY (`for_event_id`)
+    FOREIGN KEY (`for_hobby_id`)
     REFERENCES `event` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

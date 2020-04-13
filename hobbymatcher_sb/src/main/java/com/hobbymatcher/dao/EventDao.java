@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.hobbymatcher.entity.Event;
+import com.hobbymatcher.entity.Participant;
 import com.hobbymatcher.entity.Participation;
 
 @Repository
@@ -46,5 +47,9 @@ public interface EventDao {
 
     void approveUser(@Param("theUserId") int theUserId, @Param("eventId") int eventId);
 
+    void rejectUser(@Param("theUserId") int theUserId, @Param("eventId") int eventId);
+
     List<Event> listRecentEvents();
+
+	List<Participant> getParticipants(@Param("eventId") int eventId);
 }

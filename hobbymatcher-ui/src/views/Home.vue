@@ -11,29 +11,28 @@
         >
           <template #item="value">
             <div class="text-center">
-              <EventThumb :model="value.data" class="d-inline-block" />
+              <GalleryEventThumb :model="value.data" class="d-inline-block" />
             </div>
           </template>
         </Carousel>
       </div>
 
-      <div class="p-offset-1 p-col-10">
-        <div
-          class="p-inputgroup search-options"
-          style="width: fit-content; margin: 0 auto;"
-        >
-          <InputText
-            type="text"
-            placeholder="Search ..."
-            class="search-txf"
-            size="55"
-            id="inputText"
-          />
-
-          <router-link to="/events">
-            <Button icon="pi pi-search" class="p-button-primary" />
-          </router-link>
-        </div>
+      <div class="p-offset-1 p-col-10 text-center">
+        <AutoComplete
+          ref="homeSearch"
+          v-model="search.selected"
+          placeholder="Search ..."
+          :suggestions="search.events"
+          @complete="doSearch($event)"
+          @item-select="navToEvent()"
+          field="title"
+          size="55"
+        />
+        <Button
+          icon="pi pi-search"
+          class="p-button-primary"
+          @click="$refs.homeSearch.focus()"
+        />
       </div>
       <div class="p-offset-1 p-col-10 d-flex align-items-center">
         <h3 class="flex-grow-1">Hobbies</h3>
@@ -79,7 +78,7 @@
         </div>
       </div>
       <div class="p-offset-1 p-col-10">
-        <BlogsList />
+        <BlogsList v-model="blogs" />
       </div>
     </div>
   </div>
@@ -92,38 +91,63 @@ import { HobbyService } from '../components/hobbies/HobbyService'
 import { EventService } from '../components/events/EventService'
 import { AuthService } from '../components/auth/AuthService'
 import { Filter } from '../components/search/Filter'
+import { BlogService } from '../components/blogs/BlogService'
 
 @Component
 export default class Home extends Vue {
   authApi = AuthService.getInstance()
-  hobbyiesApi = new HobbyService()
-  eventsApi = new EventService()
+  hobbyApi = HobbyService.getInstance()
+  eventApi = EventService.getInstance()
+  blogApi = BlogService.getInstance()
 
   model: Filter = {
     searchScope: 'hobby',
-    count: 48,
-    perpage: 10,
-    offset: 0 // zero-based index
+    count: 0,
+    offset: 0, // zero-based index
+    perpage: 10
   } as Filter
 
   hobbies = []
   events = []
+  blogs = []
+  search = {
+    offset: 0, // zero-based index
+    perpage: 10,
+    searchPhrase: '',
+    selected: null as any,
+    events: []
+  }
 
   mounted() {
-    this.hobbyiesApi
+    this.hobbyApi
       .list()
       .then((resp: any) => (this.hobbies = resp.data.list))
       .catch((err: any) => console.log(err))
 
-    this.eventsApi
+    this.eventApi
       .list()
       .then((resp: any) => (this.events = resp.data.list))
       .catch((err: any) => console.log(err))
+
+    this.blogApi
+      .list()
+      .then((resp: any) => (this.blogs = resp.data.list))
+      .catch((err: any) => console.log(err))
   }
 
-  pageChanged($event: any) {
-    console.log($event)
-    // load the 'page' content from backend
+  doSearch($event: any) {
+    this.search.searchPhrase = $event.query
+    this.eventApi
+      .list(this.search as any)
+      .then((resp: any) => (this.search.events = resp.data.list))
+      .catch((err: any) => console.log(err))
+  }
+
+  navToEvent() {
+    this.$router.push({
+      name: 'view-event',
+      query: { id: this.search.selected.id }
+    })
   }
 }
 </script>

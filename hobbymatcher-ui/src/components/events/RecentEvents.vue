@@ -5,6 +5,9 @@
         <strong>Recent Events</strong>
       </div>
       <div class="p-col-10 p-offset-1">
+        <div v-if="(events || []).length < 1">
+          No Recent Events
+        </div>
         <EventThumb
           v-for="event of events"
           :key="event.id"
@@ -13,11 +16,13 @@
         />
       </div>
       <div class="p-col-10 p-offset-1 text-right">
-        <Button
-          label="More Events"
-          icon="pi pi-chevron-right"
-          class="p-button-secondary"
-        />
+        <router-link :to="'/events?hobbyId=' + hobbyId">
+          <Button
+            label="More Events"
+            icon="pi pi-chevron-right"
+            class="p-button-primary"
+          />
+        </router-link>
       </div>
     </div>
   </div>
@@ -25,31 +30,21 @@
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
-import { Component, Prop, Vue } from 'vue-property-decorator'
+/* eslint-disable comma-dangle */
+
+import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Event } from './Event'
 
 @Component
 export default class RecentEvents extends Vue {
-  @Prop() model!: Event
-  events: Event[] = [
-    {
-      title: 'Sunday Jogging',
-      datetime: new Date('2020-10-10'),
-      location: 'Hoboken, NJ',
-      capacity: 10,
-      description: 'This is going to be a fun weekly event.',
-      plus18: false,
-      fee: 0,
-      organizer: 'Stevens Institute of Technology Fun Club',
-      coverPhotoId: '@/assets/images/logo-200x200.png'
-    } as any
-  ]
+  @Model() model!: Event[]
+  @Prop() hobbyId!: number
 
-  constructor() {
-    super()
+  events: Event[] = []
 
-    for (let i = 0; i < 9; i++) {
-      this.events.push(this.events[0])
+  mounted() {
+    if (this.model) {
+      this.events = this.model
     }
   }
 }

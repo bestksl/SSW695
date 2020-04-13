@@ -17,6 +17,8 @@ import com.hobbymatcher.authentication.service.JwtUtilService;
 import com.hobbymatcher.entity.Followship;
 import com.hobbymatcher.entity.Hobby;
 import com.hobbymatcher.entity.Participation;
+import com.hobbymatcher.service.BlogService;
+import com.hobbymatcher.service.EventService;
 import com.hobbymatcher.service.HobbyService;
 import com.hobbymatcher.service.impl.AuthUtilService;
 import com.hobbymatcher.util.FileUtil;
@@ -32,6 +34,12 @@ public class HobbyController {
 
 	@Autowired
 	private AuthUtilService authUtilService;
+
+	@Autowired
+	private EventService eventService;
+
+	@Autowired
+	private BlogService blogService;
 
 	@GetMapping("/listhobby")
 	private Map<String, Object> listHobby(HttpServletResponse response, //
@@ -165,6 +173,66 @@ public class HobbyController {
 				resp.put("status", "");
 			}
 
+			resp.put("success", true);
+			response.setStatus(200);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			resp.put("success", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
+
+	// recentevents
+	@GetMapping("/recentevents")
+	public Map<String, Object> getRecentEvents(HttpServletRequest req, HttpServletResponse response, //
+			@RequestParam("id") Integer id) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		try {
+			resp.put("list", eventService.listEventByHobbyId(id));
+			resp.put("success", true);
+			response.setStatus(200);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			resp.put("success", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
+
+	// recentblogs
+	@GetMapping("/recentblogs")
+	public Map<String, Object> getRecentBlogs(HttpServletRequest req, HttpServletResponse response, //
+			@RequestParam("id") Integer id) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		try {
+			resp.put("list", blogService.listBlogByHobbyId(id));
+			resp.put("success", true);
+			response.setStatus(200);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			resp.put("success", false);
+			response.setStatus(400);
+		}
+		return resp;
+	}
+
+	// blogs
+	@GetMapping("/blogs")
+	public Map<String, Object> getBlogs(HttpServletRequest req, HttpServletResponse response, //
+			@RequestParam(name = "offset", required = false, defaultValue = "0") Integer offset,
+			@RequestParam(name = "perpage", required = false, defaultValue = "10") Integer perpage,
+			@RequestParam(name = "hobbyId", required = false) Integer hobbyId) {
+		Map<String, Object> resp = new HashMap<String, Object>();
+		try {
+			if (hobbyId != null) {
+				resp.put("count",
+						blogService.paginateListBlogByHobbyId(true, hobbyId, 0, Integer.MAX_VALUE).get(0).getId());
+				resp.put("list", blogService.paginateListBlogByHobbyId(false, hobbyId, offset, perpage));
+			} else {
+				resp.put("count", blogService.paginateListBlog(true, 0, Integer.MAX_VALUE).get(0).getId());
+				resp.put("list", blogService.paginateListBlog(false, offset, perpage));
+			}
 			resp.put("success", true);
 			response.setStatus(200);
 		} catch (Exception exp) {

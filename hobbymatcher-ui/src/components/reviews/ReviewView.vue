@@ -46,7 +46,7 @@
       </div>
     </div>
     <div class="ml-5">
-      <hr v-if="review.comments" />
+      <hr v-if="(review.comments || []).length" />
       <CommentView
         v-for="comment of review.comments"
         :key="comment.id"
@@ -54,7 +54,9 @@
         v-on:doReload="doReload()"
       />
     </div>
+
     <CommentForm
+      v-if="authApi.isLogin"
       :type="type"
       :oId="oId"
       :pId="review.id"
@@ -63,6 +65,7 @@
     />
 
     <Dialog
+      v-if="authApi.isLogin"
       :visible.sync="showEditForm"
       :style="{ width: '50vw' }"
       :modal="true"
