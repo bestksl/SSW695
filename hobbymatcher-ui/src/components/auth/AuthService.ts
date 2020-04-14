@@ -25,7 +25,7 @@ export class AuthService {
     if (token) { this.useJwtToken(token) }
   }
 
-  checkLogin() {
+  checkLogin(success?: any, error?: any) {
     this.handshake()
       .then((resp: any) => {
         this.$response = resp.data
@@ -34,8 +34,30 @@ export class AuthService {
           // refresh the token
           this.storeToken(this.$response.jwtToken)
         }
+
+        if (success) {
+          success()
+        }
       })
-      .catch((err: any) => console.log(err))
+      .catch((err: any) => {
+        console.log(err)
+        if (error) {
+          error()
+        }
+      })
+  }
+
+  ifLogin(yes: any, no?: any) {
+    const check = () => {
+      if (this.isLogin) {
+        if (yes) yes()
+      } else {
+        if (no) no()
+      }
+    }
+
+    if (this.response.loaded) check()
+    else this.checkLogin(() => check(), no)
   }
 
   register(newUser: NewUser) {

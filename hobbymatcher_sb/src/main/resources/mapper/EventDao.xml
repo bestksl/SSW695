@@ -118,6 +118,16 @@
         </set>
         where id=#{id}
     </update>
+    
+    <select id="getParticipants" 
+    		resultType="com.hobbymatcher.entity.Participant">
+    	select u.id, u.first_name, u.nick_name, u.last_name,
+    		   u.email, u.gender, u.photo_id, p.requested_on_datetime,
+    		   p.approved_on_datetime
+    	from participation as p
+    	join user as u on u.id = p.user_id and p.event_id = #{eventId}
+    	order by p.requested_on_datetime desc
+    </select>
 
     <select id="getParticipation"
             resultType="com.hobbymatcher.entity.Participation">
@@ -133,8 +143,7 @@
     </insert>
 
     <delete id="cancelEventParticipationRequest">
-        delete
-        from participation
+        delete from participation
         where user_id = #{userId}
           and event_id = #{eventId}
     </delete>
@@ -152,4 +161,10 @@
         where user_id = #{theUserId}
           and event_id = #{eventId}
     </update>
+
+    <delete id="rejectUser">
+        delete from participation
+        where user_id = #{theUserId}
+          and event_id = #{eventId}
+    </delete>
 </mapper>

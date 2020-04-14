@@ -23,7 +23,15 @@
             <i class="fas fa-share-alt-square"></i>
           </button>
         </div>
-        <div class="mt-2">
+        <div v-if="isEventAdmin" class="mt-2">
+          <Button
+            label="Manage Participants"
+            icon="pi pi-cog"
+            class="p-button-primary"
+            v-on:click="showAdminForm = true"
+          />
+        </div>
+        <div v-if="canManageParticipation" class="mt-2">
           <Button
             v-if="status === ''"
             label="Request to Participate"
@@ -77,9 +85,9 @@
             <a
               :href="
                 'https://www.google.com/maps/search/?api=1&query=' +
-                event.geoLat +
-                ',' +
-                event.geoLon
+                  event.geoLat +
+                  ',' +
+                  event.geoLon
               "
               target="_blank"
             >
@@ -125,6 +133,15 @@
         </div>
       </div>
     </div>
+
+    <Dialog
+      v-if="authApi.isLogin && event.id"
+      :visible.sync="showAdminForm"
+      :style="{ width: '50vw' }"
+      :modal="true"
+    >
+      <ManageParticipants :eventId="event.id" />
+    </Dialog>
   </div>
 </template>
 
@@ -134,6 +151,7 @@
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Event } from './Event'
 import { EventService } from './EventService'
+import { AuthService } from '../auth/AuthService'
 
 @Component
 export default class EventView extends Vue {
@@ -144,10 +162,13 @@ export default class EventView extends Vue {
     return this.model || {}
   }
 
+  showAdminForm = false
+
+  authApi = AuthService.getInstance()
   eventApi = EventService.getInstance()
 
   mounted() {
-    this.doCheckParticipation()
+    this.authApi.ifLogin(() => this.doCheckParticipation())
   }
 
   doCheckParticipation() {
@@ -158,10 +179,23 @@ export default class EventView extends Vue {
   }
 
   manageParticipation(action: string) {
-    this.eventApi
-      .manageParticipation(this.event.id, action)
-      .then((resp: any) => (this.status = resp.data.status))
-      .catch((err: any) => console.log(err))
+    if (confirm('Are you sure?')) {
+      this.eventApi
+        .manageParticipation(this.event.id, action)
+        .then((resp: any) => (this.status = resp.data.status))
+        .catch((err: any) => console.log(err))
+    }
+  }
+
+  get canManageParticipation() {
+    return (
+      this.authApi.isLogin &&
+      this.authApi.response.userId !== this.event.createdById
+    )
+  }
+
+  get isEventAdmin() {
+    return this.authApi.response.userId === this.event.createdById
   }
 }
 </script>

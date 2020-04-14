@@ -1,15 +1,23 @@
 <template>
   <div class="blogs-list">
     <div class="p-grid">
+      <div class="p-col-10 p-offset-1">
+        <strong>Blogs</strong>
+      </div>
       <div class="p-offset-1 p-col-10">
-        <BlogsList v-model="blogs" />
+        <div v-if="(model || []).length < 1">
+          No Blogs
+        </div>
+        <BlogsList v-if="(model || []).length" v-model="model" />
       </div>
       <div class="p-col-10 p-offset-1 text-right">
-        <Button
-          label="More Blogs"
-          icon="pi pi-chevron-right"
-          class="p-button-secondary"
-        />
+        <router-link :to="'/blogs?hobbyId=' + hobbyId">
+          <Button
+            label="More Blogs"
+            icon="pi pi-chevron-right"
+            class="p-button-primary"
+          />
+        </router-link>
       </div>
     </div>
   </div>
@@ -24,22 +32,8 @@ import { Blog } from './Blog'
 
 @Component
 export default class BlogsListing extends Vue {
-  blogs: Blog[] = []
-
-  constructor() {
-    super()
-    for (let i = 0; i < 9; i++) {
-      this.blogs.push({
-        id: i,
-        title: 'Sunday Jogging',
-        onDatetime: new Date('2020-10-10'),
-        byUser: {
-          firstName: 'John',
-          lastName: 'Doe',
-        },
-      } as any)
-    }
-  }
+  @Model() model!: Blog[]
+  @Prop() hobbyId!: number
 }
 </script>
 
