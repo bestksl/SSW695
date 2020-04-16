@@ -11,6 +11,7 @@
 1. [Team_HobbyMatcher_Status_2020-03-24 (Google Doc)](https://docs.google.com/document/d/1zYsQBvBI4KVoQZUBuvd6TjUvnJCeWeI6Xz4m-XFxDgU/edit?usp=sharing)
 1. [Team_HobbyMatcher_Status_2020-04-01 (Google Doc)](https://docs.google.com/document/d/1PqGDP9RgqqzxTceM9gdpMVJzNjJO4Axr5_IXf2F8Xv8/edit?usp=sharing)
 1. [Team_HobbyMatcher_Status_2020-04-07 (Google Doc)](https://docs.google.com/document/d/1jZFda_WPrdTOCBHEDTv-lqtx8Kl9X2DzXcqcMCmrLBw/edit?usp=sharing)
+1. [Team_HobbyMatcher_Status_2020-04-15 (Google Doc)](https://docs.google.com/document/d/1dTF5lcSQOKWHVN5WWeImrCUgTM-TO9SlVLJUD28B7TY/edit?usp=sharing)
 
 # HowTo(s): 
 1. [Implement JWT in Spring Boot](https://www.youtube.com/watch?v=X80nJ5T7YpE)
