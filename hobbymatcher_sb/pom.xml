@@ -9,17 +9,16 @@
         <version>2.1.0.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.hobbymatcher_sb</groupId>
-    <artifactId>hobbymatcher_sb</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>hobbymatcher_sb</name>
-    <description>hobbymatcher(Spring Boot)</description>
+    <groupId>com.bestksl</groupId>
+    <artifactId>hobbymatcher</artifactId>
+    <version>1.0</version>
+    <name>hobbymatcher</name>
 
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <docker.image.prefix>HobbyMatcher</docker.image.prefix>
+        <docker.image.prefix>hobbymatcher</docker.image.prefix>
     </properties>
 
     <dependencies>
@@ -181,23 +180,21 @@
                     </imageTags>
                     <!--依赖的基础镜像-->
                     <baseImage>java</baseImage>
-                    <!--Dockerfile的位置 -->
-<!--                    <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>-->
-                    <!-- 这里是复制 jar 包到 docker 容器指定目录配置 -->
+                    <!-- Dockerfile的位置-->
+                    <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                    <!-- 这里是复制 jar 包到 docker 容器指定目录配置-->
                     <workdir>/ROOT</workdir>
                     <entryPoint>["java", "-jar", ${project.build.finalName}.jar]</entryPoint>
                     <resources>
                         <resource>
-                            <targetPath>/ROOT</targetPath>
+                            <targetPath>/</targetPath>
                             <directory>${project.build.directory}</directory>
                             <include>${project.build.finalName}.jar</include>
                         </resource>
                     </resources>
                 </configuration>
             </plugin>
-
             <!-- Docker maven plugin -->
         </plugins>
     </build>
-
 </project>
