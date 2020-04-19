@@ -1,0 +1,10 @@
+//------------REQUEST------------
+
+localhost:8080/hobbymatcher/handshake
+
+//------------RESPONSE------------
+
+{
+    "loaded": true,
+    "isLogin": false
+}

@@ -1,0 +1,467 @@
+{
+	"id": "a614ca37-28e0-4cb9-a08e-f990bdb76837",
+	"name": "HobbyMatcher_API",
+	"timestamp": "2020-04-16T21:19:29.613Z",
+	"collection_id": "c9ff0eb2-7347-4460-81a4-873112ac1a5e",
+	"folder_id": 0,
+	"environment_id": "7523cb80-e705-4f9b-944a-2adcb5f7f754",
+	"totalPass": 27,
+	"totalFail": 2,
+	"results": [
+		{
+			"id": "8139523e-78ee-4211-87cd-1018ee4956c5",
+			"name": "login",
+			"url": "localhost:8080/hobbymatcher/login",
+			"time": 232,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response time is less than 300ms": true,
+				"Status code is 200": true,
+				"Login successful: jwt received": true
+			},
+			"testPassFailCounts": {
+				"Response time is less than 300ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Login successful: jwt received": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				232
+			],
+			"allTests": [
+				{
+					"Response time is less than 300ms": true,
+					"Status code is 200": true,
+					"Login successful: jwt received": true
+				}
+			]
+		},
+		{
+			"id": "02536447-d7bb-4c0b-ae12-9c406d9c1a28",
+			"name": "list of events",
+			"url": "localhost:8080/hobbymatcher/event/listevent",
+			"time": 86,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Body is correct": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body is correct": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				86
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body is correct": true
+				}
+			]
+		},
+		{
+			"id": "746ff1c5-b243-4d14-af43-337901c5b750",
+			"name": "event by id",
+			"url": "localhost:8080/hobbymatcher/event/getevent?id=1",
+			"time": 43,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response time is less than 200ms": true,
+				"Status code is 200": true,
+				"Body is correct": true
+			},
+			"testPassFailCounts": {
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body is correct": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				43
+			],
+			"allTests": [
+				{
+					"Response time is less than 200ms": true,
+					"Status code is 200": true,
+					"Body is correct": true
+				}
+			]
+		},
+		{
+			"id": "fe15e161-e0b3-44f6-b860-cfe20cd1fccc",
+			"name": "list of hobbies",
+			"url": "localhost:8080/hobbymatcher/hobby/listhobby",
+			"time": 60,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response time is less than 200ms": true,
+				"Status code is 200": true,
+				"Body is correct": true
+			},
+			"testPassFailCounts": {
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body is correct": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				60
+			],
+			"allTests": [
+				{
+					"Response time is less than 200ms": true,
+					"Status code is 200": true,
+					"Body is correct": true
+				}
+			]
+		},
+		{
+			"id": "8a720496-86db-4a48-8785-fe66fd9ebc09",
+			"name": "hobby by id",
+			"url": "localhost:8080/hobbymatcher/hobby/gethobby?id=1",
+			"time": 45,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response time is less than 200ms": true,
+				"Status code is 200": true,
+				"Body is correct": true
+			},
+			"testPassFailCounts": {
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body is correct": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				45
+			],
+			"allTests": [
+				{
+					"Response time is less than 200ms": true,
+					"Status code is 200": true,
+					"Body is correct": true
+				}
+			]
+		},
+		{
+			"id": "78bb0777-81f8-43dc-a43c-3f9aa7cc2fb2",
+			"name": "handshake",
+			"url": "localhost:8080/hobbymatcher/handshake",
+			"time": 56,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response time is less than 200ms": true,
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				56
+			],
+			"allTests": [
+				{
+					"Response time is less than 200ms": true,
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "1358b339-cc2b-427f-92d3-b612f59edd7c",
+			"name": "list of categories",
+			"url": "localhost:8080/hobbymatcher/category/listcategory",
+			"time": 81,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response time is less than 200ms": true,
+				"Status code is 200": true,
+				"Body is correct": true
+			},
+			"testPassFailCounts": {
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body is correct": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				81
+			],
+			"allTests": [
+				{
+					"Response time is less than 200ms": true,
+					"Status code is 200": true,
+					"Body is correct": true
+				}
+			]
+		},
+		{
+			"id": "85f2eee3-5b86-4c51-8bd7-4a6777636f12",
+			"name": "list of blogs",
+			"url": "localhost:8080/hobbymatcher/blog/listblog",
+			"time": 89,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response time is less than 200ms": true,
+				"Status code is 200": true,
+				"Body is correct": true
+			},
+			"testPassFailCounts": {
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body is correct": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				89
+			],
+			"allTests": [
+				{
+					"Response time is less than 200ms": true,
+					"Status code is 200": true,
+					"Body is correct": true
+				}
+			]
+		},
+		{
+			"id": "332b2e05-ddce-4128-8a1d-973559a51049",
+			"name": "category by id",
+			"url": "localhost:8080/hobbymatcher/category/getcategory?id=1",
+			"time": 85,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response time is less than 200ms": true,
+				"Status code is 200": true,
+				"Body is correct": true
+			},
+			"testPassFailCounts": {
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body is correct": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				85
+			],
+			"allTests": [
+				{
+					"Response time is less than 200ms": true,
+					"Status code is 200": true,
+					"Body is correct": true
+				}
+			]
+		},
+		{
+			"id": "ac5c4afa-d924-4a74-8887-a7c8e8752ee7",
+			"name": "add event",
+			"url": "localhost:8080/hobbymatcher/event/addevent",
+			"time": 94,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Response time is less than 200ms": true,
+				"Status code is 200": false
+			},
+			"testPassFailCounts": {
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				94
+			],
+			"allTests": [
+				{
+					"Response time is less than 200ms": true,
+					"Status code is 200": false
+				}
+			]
+		},
+		{
+			"id": "802c86c2-41ae-4aa3-9dc3-960e262f8588",
+			"name": "add hobby",
+			"url": "localhost:8080/hobbymatcher/hobby/addhobby",
+			"time": 69,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Response time is less than 200ms": true,
+				"Status code is 200": false
+			},
+			"testPassFailCounts": {
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				69
+			],
+			"allTests": [
+				{
+					"Response time is less than 200ms": true,
+					"Status code is 200": false
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 940,
+	"collection": {
+		"requests": [
+			{
+				"id": "8139523e-78ee-4211-87cd-1018ee4956c5",
+				"method": "POST"
+			},
+			{
+				"id": "02536447-d7bb-4c0b-ae12-9c406d9c1a28",
+				"method": "GET"
+			},
+			{
+				"id": "746ff1c5-b243-4d14-af43-337901c5b750",
+				"method": "GET"
+			},
+			{
+				"id": "fe15e161-e0b3-44f6-b860-cfe20cd1fccc",
+				"method": "GET"
+			},
+			{
+				"id": "8a720496-86db-4a48-8785-fe66fd9ebc09",
+				"method": "GET"
+			},
+			{
+				"id": "78bb0777-81f8-43dc-a43c-3f9aa7cc2fb2",
+				"method": "GET"
+			},
+			{
+				"id": "1358b339-cc2b-427f-92d3-b612f59edd7c",
+				"method": "GET"
+			},
+			{
+				"id": "85f2eee3-5b86-4c51-8bd7-4a6777636f12",
+				"method": "GET"
+			},
+			{
+				"id": "332b2e05-ddce-4128-8a1d-973559a51049",
+				"method": "GET"
+			},
+			{
+				"id": "ac5c4afa-d924-4a74-8887-a7c8e8752ee7",
+				"method": "POST"
+			},
+			{
+				"id": "802c86c2-41ae-4aa3-9dc3-960e262f8588",
+				"method": "POST"
+			}
+		]
+	}
+}

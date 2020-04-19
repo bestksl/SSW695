@@ -1,0 +1,65 @@
+// --- apis ---
+Action  Api                       Data          Headers
+-----------------------------------------------------------
+post    /register                 NewUser
+post    /login                    LoginUser
+post    /logout                   --NA--
+get     /handshake                Handshake
+get     /category/listcategory    Category[]
+get     /event/listevent          Event[]
+post    /event/addevent           Event         content-type=multipart/form-data
+get     /event/getevent?id=1      Event
+get     /hobby/listhobby          Hobby[]
+get     /hobby/gethobby?id=1      Hobby
+post    /hobby/addhobby           Hobby         content-type=multipart/form-data
+
+// --- types ---
+
+Handshake {
+  isLogin: boolean;
+  firstName: string;   // available only if isLogin=true
+  lastName: string;    // available only if isLogin=true
+  nickName: string;    // available only if isLogin=true
+  email: string;       // available only if isLogin=true
+}
+
+Category {
+  id: number;
+  name: string;
+}
+
+NewUser {
+  firstName: string;
+  lastName: string;
+  dateOfBirth: Date;
+  nickName: string;
+  email: string;
+  password: string;
+}
+
+LoginUser {
+  email: string;
+  password: string;
+}
+
+Event {
+    id: number;
+    hobbyId: number;
+    title: string;
+    onDatetime: any; // string | Date;
+    location: string;
+    capacity: number;
+    description: string;
+    plus18Only: boolean;
+    organizer: string;
+    photoId: string;
+}
+
+Hobby {
+    id: number;
+    name: string;
+    description: string;
+    categoryId: string;
+    plus18Only: boolean;
+    photoId: string;
+}

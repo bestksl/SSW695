@@ -1,0 +1,844 @@
+{
+	"info": {
+		"_postman_id": "c9ff0eb2-7347-4460-81a4-873112ac1a5e",
+		"name": "HobbyMatcher_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f2b3701f-b24f-4c99-9e61-997434c21195",
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"pm.environment.set(\"jwt_token\", response.jwt);",
+							"",
+							"pm.test(\"Response time is less than 300ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(300);",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Login successful: jwt received\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"jwt\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer{{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"testuser@gmail.com\",\n\t\"password\":\"testuser123\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/hobbymatcher/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hobbymatcher",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list of events",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "91368c2e-f075-4aae-89e0-51b1ef16e640",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body(",
+							"        {",
+							"    \"success\": true,",
+							"    \"count\": 3,",
+							"    \"list\": [",
+							"        {",
+							"            \"id\": 3,",
+							"            \"hobbyId\": 2,",
+							"            \"onDatetime\": \"2020-04-30T04:00:00.000+0000\",",
+							"            \"location\": \"Mount Everest, Khumjung, Khumbupasanglahmu, Solukhumbu, Province #1, Nepal\",",
+							"            \"locationShort\": \"\",",
+							"            \"geoLat\": 27.9878675,",
+							"            \"geoLon\": 86.9248308,",
+							"            \"capacity\": 12,",
+							"            \"description\": \"\",",
+							"            \"plus18Only\": true,",
+							"            \"fee\": 1200.0,",
+							"            \"organizer\": \"NGO01\",",
+							"            \"title\": \"Climbing Mountain\",",
+							"            \"photoId\": \"56135de0-c93b-47f5-9327-1f27dfbc2e32\",",
+							"            \"createdById\": 1",
+							"        },",
+							"        {",
+							"            \"id\": 2,",
+							"            \"hobbyId\": 3,",
+							"            \"onDatetime\": \"2020-04-06T04:00:00.000+0000\",",
+							"            \"location\": \"Hoboken, Hudson County, New Jersey, United States of America\",",
+							"            \"locationShort\": \"Hoboken, NJ\",",
+							"            \"geoLat\": 40.7433066,",
+							"            \"geoLon\": -74.0323752,",
+							"            \"capacity\": null,",
+							"            \"description\": \"\",",
+							"            \"plus18Only\": false,",
+							"            \"fee\": 10.0,",
+							"            \"organizer\": \"Nonoe\",",
+							"            \"title\": \"Test\",",
+							"            \"photoId\": \"09955ba5-d221-49ca-91f8-e1c633850f73\",",
+							"            \"createdById\": 1",
+							"        },",
+							"        {",
+							"            \"id\": 1,",
+							"            \"hobbyId\": 3,",
+							"            \"onDatetime\": \"2020-04-10T04:00:00.000+0000\",",
+							"            \"location\": \"Hoboken, Hudson County, New Jersey, United States of America\",",
+							"            \"locationShort\": \"Hoboken, NJ\",",
+							"            \"geoLat\": 40.7433066,",
+							"            \"geoLon\": -74.0323752,",
+							"            \"capacity\": null,",
+							"            \"description\": \"\",",
+							"            \"plus18Only\": false,",
+							"            \"fee\": null,",
+							"            \"organizer\": \"Noone\",",
+							"            \"title\": \"Painting Nature\",",
+							"            \"photoId\": \"6da88ce4-9c9c-4fd4-8a9d-1f25f0e74ab6\",",
+							"            \"createdById\": 1",
+							"        }",
+							"    ]",
+							"});});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/hobbymatcher/event/listevent",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hobbymatcher",
+						"event",
+						"listevent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "event by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "37f852a4-6773-45da-8ae3-7cb5c7d8f4b4",
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body(",
+							"        {",
+							"    \"success\": true,",
+							"    \"event\": {",
+							"        \"id\": 1,",
+							"        \"hobbyId\": 3,",
+							"        \"onDatetime\": \"2020-04-10T04:00:00.000+0000\",",
+							"        \"location\": \"Hoboken, Hudson County, New Jersey, United States of America\",",
+							"        \"locationShort\": \"Hoboken, NJ\",",
+							"        \"geoLat\": 40.7433066,",
+							"        \"geoLon\": -74.0323752,",
+							"        \"capacity\": null,",
+							"        \"description\": \"\",",
+							"        \"plus18Only\": false,",
+							"        \"fee\": null,",
+							"        \"organizer\": \"Noone\",",
+							"        \"title\": \"Painting Nature\",",
+							"        \"photoId\": \"6da88ce4-9c9c-4fd4-8a9d-1f25f0e74ab6\",",
+							"        \"createdById\": 1",
+							"    }",
+							"});});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/hobbymatcher/event/getevent?id=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hobbymatcher",
+						"event",
+						"getevent"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list of hobbies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1ad8c586-7af2-4b40-8b1c-1e22c8a367f9",
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body(",
+							"        {",
+							"    \"success\": true,",
+							"    \"count\": 4,",
+							"    \"list\": [",
+							"        {",
+							"            \"id\": 4,",
+							"            \"name\": \"Test\",",
+							"            \"categoryId\": 4,",
+							"            \"description\": \"\",",
+							"            \"plus18Only\": false,",
+							"            \"photoId\": \"f9c2d140-4309-48cc-a8e8-5a3c93ff381b\",",
+							"            \"createdById\": 1",
+							"        },",
+							"        {",
+							"            \"id\": 3,",
+							"            \"name\": \"Painting\",",
+							"            \"categoryId\": 1,",
+							"            \"description\": \"\",",
+							"            \"plus18Only\": false,",
+							"            \"photoId\": \"0c12ae2c-3758-4b65-ae8f-f7f7ee44d34f\",",
+							"            \"createdById\": 1",
+							"        },",
+							"        {",
+							"            \"id\": 2,",
+							"            \"name\": \"Climbing\",",
+							"            \"categoryId\": 4,",
+							"            \"description\": \"\",",
+							"            \"plus18Only\": false,",
+							"            \"photoId\": \"fa0c043f-2d02-416d-9154-65fa1d0e8a3c\",",
+							"            \"createdById\": 1",
+							"        },",
+							"        {",
+							"            \"id\": 1,",
+							"            \"name\": \"Jogging\",",
+							"            \"categoryId\": 4,",
+							"            \"description\": \"\",",
+							"            \"plus18Only\": false,",
+							"            \"photoId\": \"0e784cab-f089-404a-9890-572bb3208d26\",",
+							"            \"createdById\": 1",
+							"        }",
+							"    ]",
+							"});});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/hobbymatcher/hobby/listhobby",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hobbymatcher",
+						"hobby",
+						"listhobby"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hobby by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d93797d1-e2b4-45f9-a3a2-a9b1f94d6eee",
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body(",
+							"        {",
+							"    \"success\": true,",
+							"    \"hobby\": {",
+							"        \"id\": 1,",
+							"        \"name\": \"Jogging\",",
+							"        \"categoryId\": 4,",
+							"        \"description\": \"\",",
+							"        \"plus18Only\": false,",
+							"        \"photoId\": \"0e784cab-f089-404a-9890-572bb3208d26\",",
+							"        \"createdById\": 1",
+							"    }",
+							"});});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/hobbymatcher/hobby/gethobby?id=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hobbymatcher",
+						"hobby",
+						"gethobby"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "handshake",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3511dc7b-1a9b-4283-8542-f413a404b9f5",
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer{{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/hobbymatcher/handshake",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hobbymatcher",
+						"handshake"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list of categories",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "399ef30b-20fc-45a9-8faf-7ab3c11663df",
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body(",
+							"        {",
+							"    \"list\": [",
+							"        {",
+							"            \"id\": 4,",
+							"            \"name\": \"Sports\"",
+							"        },",
+							"        {",
+							"            \"id\": 3,",
+							"            \"name\": \"Entertainment\"",
+							"        },",
+							"        {",
+							"            \"id\": 2,",
+							"            \"name\": \"Education\"",
+							"        },",
+							"        {",
+							"            \"id\": 1,",
+							"            \"name\": \"Art\"",
+							"        }",
+							"    ]",
+							"});});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer{{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/hobbymatcher/category/listcategory",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hobbymatcher",
+						"category",
+						"listcategory"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list of blogs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ad8a3764-2736-4608-963e-8b4baf676625",
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body(",
+							"        {",
+							"    \"msg\": \"list success\",",
+							"    \"list\": [",
+							"        {",
+							"            \"id\": 1019,",
+							"            \"title\": \"Another one\",",
+							"            \"html\": \"<p>sssss</p>\",",
+							"            \"onDatetime\": \"2020-04-12T13:53:21.000+0000\",",
+							"            \"clapCount\": 10,",
+							"            \"byUserId\": 1,",
+							"            \"byUserFirst\": \"Jafar\",",
+							"            \"byUserLast\": \"Abbasi\",",
+							"            \"forHobbyId\": 3",
+							"        },",
+							"        {",
+							"            \"id\": 1016,",
+							"            \"title\": \"Test\",",
+							"            \"html\": \"<p>Test conteent</p>\",",
+							"            \"onDatetime\": \"2020-04-12T13:34:38.000+0000\",",
+							"            \"clapCount\": 0,",
+							"            \"byUserId\": 2,",
+							"            \"byUserFirst\": \"string\",",
+							"            \"byUserLast\": \"string\",",
+							"            \"forHobbyId\": 3",
+							"        }",
+							"    ]",
+							"}",
+							"        );",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/hobbymatcher/blog/listblog",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hobbymatcher",
+						"blog",
+						"listblog"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "category by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a562c1c5-b00e-40fc-88a7-7575085452fa",
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body(",
+							"        {",
+							"    \"success\": true,",
+							"    \"category\": {",
+							"        \"id\": 1,",
+							"        \"name\": \"Art\"",
+							"    }",
+							"}",
+							"        );",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/hobbymatcher/category/getcategory?id=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hobbymatcher",
+						"category",
+						"getcategory"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add event",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e9f3f79d-ca83-4009-9446-04e7ce79ca12",
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "multipart/form-data",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "4",
+							"type": "text"
+						},
+						{
+							"key": "hobbyId",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "Gaming: FIFA",
+							"type": "text"
+						},
+						{
+							"key": "onDatetime",
+							"value": "2020-04-29T04:00:00.000+0000",
+							"type": "text"
+						},
+						{
+							"key": "location",
+							"value": "Hoboken, Hudson County, New Jersey, United States of America",
+							"type": "text"
+						},
+						{
+							"key": "capacity",
+							"value": "20",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "A gaming night",
+							"type": "text"
+						},
+						{
+							"key": "plus18Only",
+							"value": "false",
+							"type": "text"
+						},
+						{
+							"key": "organizer",
+							"value": "Hobbymatcher team",
+							"type": "text"
+						},
+						{
+							"key": "photoId",
+							"value": "56135de0-c93b-47f5-9327-1f27dfbc2e32",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/hobbymatcher/event/addevent",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hobbymatcher",
+						"event",
+						"addevent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add hobby",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "03908647-05e6-47ac-bd0c-28f6030d67d5",
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "multipart/form-data",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "5",
+							"contentType": "",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "New Hobby",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Test",
+							"type": "text"
+						},
+						{
+							"key": "categoryId",
+							"value": "4",
+							"type": "text"
+						},
+						{
+							"key": "plus18Only",
+							"value": "false",
+							"type": "text"
+						},
+						{
+							"key": "photoId",
+							"value": "f9c2d140-4309-48cc-a8e8-5a3c93ff381b",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/hobbymatcher/hobby/addhobby",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hobbymatcher",
+						"hobby",
+						"addhobby"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

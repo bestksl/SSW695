@@ -1,0 +1,26 @@
+//------------REQUEST------------
+
+localhost:8080/hobbymatcher/event/getevent?id=1
+
+//------------RESPONSE------------
+
+{
+    "success": true,
+    "event": {
+        "id": 1,
+        "hobbyId": 3,
+        "onDatetime": "2020-04-10T04:00:00.000+0000",
+        "location": "Hoboken, Hudson County, New Jersey, United States of America",
+        "locationShort": "Hoboken, NJ",
+        "geoLat": 40.7433066,
+        "geoLon": -74.0323752,
+        "capacity": null,
+        "description": "",
+        "plus18Only": false,
+        "fee": null,
+        "organizer": "Noone",
+        "title": "Painting Nature",
+        "photoId": "6da88ce4-9c9c-4fd4-8a9d-1f25f0e74ab6",
+        "createdById": 1
+    }
+}
