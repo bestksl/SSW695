@@ -45,7 +45,7 @@ public class BlogController {
 	public Map<String, Object> listBlog(String id, HttpServletResponse response) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		try {
-			if (!"".equals(id) && id != null) {
+			if (id != null && !id.isEmpty()) {
 				modelMap.put("list", blogService.listBlogByHobbyId(Integer.parseInt(id)));
 				modelMap.put("msg", "list with hobby success");
 				response.setStatus(200);

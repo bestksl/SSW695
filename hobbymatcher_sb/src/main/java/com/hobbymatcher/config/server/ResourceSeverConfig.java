@@ -70,7 +70,9 @@ public class ResourceSeverConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/event/listevent").permitAll()
                 .antMatchers("/event/getevent").permitAll()
                 .antMatchers("/event/listRecentEvents").permitAll()
-
+                // -- blogs
+                .antMatchers("/blog/listblog").permitAll()
+                // -- reviews
                 .antMatchers("/review/**").permitAll()
 
                 // ------------------

@@ -27,4 +27,6 @@ public interface BlogDao {
 			@Param("hobbyId") Integer hobbyId, @Param("offset") Integer offset, @Param("perpage") Integer perpage);
 
 	List<Blog> paginateListBlog(Boolean justCount, Integer offset, Integer perpage);
+
+	List<Blog> listBlogByUserId(@Param("userId") int userId);
 }

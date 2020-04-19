@@ -31,7 +31,7 @@
       />
 
       <strong class="flex-grow-1 ml-4">
-        <router-link to="/blogs/view">
+        <router-link :to="'/blogs/view?id=' + blog.id">
           {{ blog.title }}
         </router-link>
       </strong>
