@@ -1,4 +1,5 @@
 /* eslint-disable space-before-function-paren */
+
 import Vue from 'vue'
 import { http } from '../Api'
 import { Review } from './Review'

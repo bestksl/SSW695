@@ -7,10 +7,10 @@
           :numVisible="4"
           :numScroll="3"
           :circular="true"
-          :autoplayInterval="3000"
+          :autoplayInterval="10000"
         >
           <template #item="value">
-            <div class="text-center">
+            <div class="text-center mx-2">
               <GalleryEventThumb :model="value.data" class="d-inline-block" />
             </div>
           </template>
@@ -86,12 +86,13 @@
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
+
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { HobbyService } from '../components/hobbies/HobbyService'
 import { EventService } from '../components/events/EventService'
 import { AuthService } from '../components/auth/AuthService'
-import { Filter } from '../components/search/Filter'
 import { BlogService } from '../components/blogs/BlogService'
+import { Filter } from '../components/search/Filter'
 
 @Component
 export default class Home extends Vue {

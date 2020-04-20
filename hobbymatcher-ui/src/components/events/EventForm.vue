@@ -198,7 +198,7 @@
               <!-- when there is photoId -->
               <img
                 v-if="!event.url && event.photoId"
-                :src="apiUrl + '/files/' + event.photoId"
+                :src="API_URL + '/files/' + event.photoId"
                 style="
                   width: 12rem;
                   height: 12rem;
@@ -280,6 +280,8 @@ import { apiUrl } from '../Api'
 
 @Component
 export default class EventForm extends Vue {
+  API_URL = apiUrl
+
   @Model() id!: number
 
   event: any /* Event */ = {

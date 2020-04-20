@@ -23,10 +23,11 @@
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
+
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { Review } from './Review'
 import { AuthService } from '../auth/AuthService'
 import { ReviewService } from './ReviewService'
+import { Review } from './Review'
 
 @Component
 export default class Reviews extends Vue {

@@ -88,9 +88,7 @@
               <!-- when there is photoId -->
               <img
                 v-if="!hobby.url && hobby.photoId"
-                :src="
-                  apiUrl + '/files/' + hobby.photoId
-                "
+                :src="API_URL + '/files/' + hobby.photoId"
                 style="
                   width: 12rem;
                   height: 12rem;
@@ -169,14 +167,17 @@ import { CategoryService } from '../category/CategoryService'
 import { Category } from '../category/Category'
 import { HobbyService } from './HobbyService'
 import { Hobby } from './Hobby'
+import { apiUrl } from '../Api'
 
 @Component
 export default class HobbyForm extends Vue {
+  API_URL = apiUrl
+
   @Model() id!: number
 
   hobby: any /* Hobby */ = {
     plus18Only: false,
-    description: '',
+    description: ''
   } as any
   // hobby.file: hobby picture to upload
   // hobby.url: hobby picture preview

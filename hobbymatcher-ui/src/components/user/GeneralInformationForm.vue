@@ -8,9 +8,7 @@
               <!-- when there is photoId -->
               <img
                 v-if="!info.url && info.photoId"
-                :src="
-                  apiUrl + '/files/' + info.photoId
-                "
+                :src="API_URL + '/files/' + info.photoId"
                 style="
                   width: 12rem;
                   height: 12rem;
@@ -158,9 +156,12 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { GeneralInformation } from './GeneralInformation'
 import { ProfileService } from './ProfileService'
+import { apiUrl } from '../Api'
 
 @Component
 export default class GeneralInformationForm extends Vue {
+  API_URL = apiUrl
+
   @Prop() model!: GeneralInformation
   info = {} as any
 
@@ -169,7 +170,7 @@ export default class GeneralInformationForm extends Vue {
   genders = [
     { title: 'Male', value: 'Male' },
     { title: 'Female', value: 'Female' },
-    { title: 'Other', value: 'Other' },
+    { title: 'Other', value: 'Other' }
   ]
 
   profileApi = ProfileService.getInstance()

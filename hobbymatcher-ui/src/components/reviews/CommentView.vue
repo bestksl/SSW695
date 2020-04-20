@@ -5,9 +5,7 @@
         <!-- when there is photoId -->
         <img
           v-if="comment.byUserPhotoId"
-          :src="
-            apiUrl + '/files/' + comment.byUserPhotoId
-          "
+          :src="API_URL + '/files/' + comment.byUserPhotoId"
           class="mr-1 user-photo rounded-circle"
         />
         <!-- else -->
@@ -55,12 +53,15 @@
 /* eslint-disable space-before-function-paren */
 
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { Comment } from './Comment'
-import { ReviewService } from './ReviewService'
 import { AuthService } from '../auth/AuthService'
+import { ReviewService } from './ReviewService'
+import { Comment } from './Comment'
+import { apiUrl } from '../Api'
 
 @Component
 export default class CommentView extends Vue {
+  API_URL = apiUrl
+
   @Prop() model!: Comment
 
   showEditForm = false

@@ -38,10 +38,11 @@
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
+
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { ProfileService } from './ProfileService'
-import { Hobby } from '../hobbies/Hobby'
 import { AuthService } from '../auth/AuthService'
+import { Hobby } from '../hobbies/Hobby'
 
 @Component
 export default class UserHobbies extends Vue {

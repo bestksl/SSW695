@@ -8,7 +8,7 @@
       />
       <img
         v-if="event.photoId"
-        :src="apiUrl + '/files/' + event.photoId"
+        :src="API_URL + '/files/' + event.photoId"
         class="cover"
       />
       <span class="event-title">{{ event.title }}</span>
@@ -33,11 +33,15 @@
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
+
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Event } from './Event'
+import { apiUrl } from '../Api'
 
 @Component
 export default class EventThumb extends Vue {
+  API_URL = apiUrl
+
   @Model() model!: Event
   @Model() userId!: number
 

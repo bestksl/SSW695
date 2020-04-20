@@ -5,13 +5,13 @@
         <div>
           <img
             v-if="event.photoId"
-            :src="apiUrl + '/files/' + event.photoId"
+            :src="API_URL + '/files/' + event.photoId"
             style="width: 12rem; height: 12rem; border: solid 1px lightgray;"
           />
         </div>
         <div class="mt-3">
           <social-sharing
-            :url="apiUrl + '/events/view?id=' + event.id"
+            :url="API_URL + '/events/view?id=' + event.id"
             :title="'Event :' + event.title"
             :description="event.description"
             :quote="event.title + event.description"
@@ -164,12 +164,15 @@
 /* eslint-disable space-before-function-paren */
 
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
-import { Event } from './Event'
-import { EventService } from './EventService'
 import { AuthService } from '../auth/AuthService'
+import { EventService } from './EventService'
+import { Event } from './Event'
+import { apiUrl } from '../Api'
 
 @Component
 export default class EventView extends Vue {
+  API_URL = apiUrl
+
   @Model() model!: Event
 
   status: string = '' // '', 'requested', 'approved'

@@ -8,7 +8,7 @@
       />
       <img
         v-if="event.photoId"
-        :src="apiUrl + '/files/' + event.photoId"
+        :src="API_URL + '/files/' + event.photoId"
         class="cover"
       />
       <span class="event-title">{{ event.title }}</span>
@@ -19,18 +19,24 @@
             | dateFormat('MMM DD, YYYY h:mma')
         }}
       </span>
-      <span class="event-location">{{ event.locationShort }}</span>
+      <span v-if="event.locationShort" class="event-location">
+        {{ event.locationShort }}
+      </span>
     </div>
   </router-link>
 </template>
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
+
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Event } from './Event'
+import { apiUrl } from '../Api'
 
 @Component
 export default class GalleryEventThumb extends Vue {
+  API_URL = apiUrl
+
   @Model() model!: Event
   @Model() userId!: number
 

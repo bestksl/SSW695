@@ -49,6 +49,7 @@
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
+
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { ProfileService } from './ProfileService'
 import { BlogService } from '../blogs/BlogService'
