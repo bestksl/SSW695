@@ -171,12 +171,11 @@ export default class EventView extends Vue {
   API_URL = apiUrl
 
   @Model() model!: Event
-
-  status: string = '' // '', 'requested', 'approved'
   get event() {
     return this.model || {}
   }
 
+  status: string = '' // '', 'requested', 'approved'
   showAdminForm = false
 
   authApi = AuthService.getInstance()

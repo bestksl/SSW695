@@ -23,7 +23,7 @@
             :label="blog.clapCount + ''"
             icon="pi pi-thumbs-up"
             class="p-button-secondary"
-            @click="doLike()"
+            @click="$emit('like', blog.id)"
           />
         </div>
       </div>
@@ -45,24 +45,9 @@ import { Blog } from './Blog'
 
 @Component
 export default class BlogView extends Vue {
-  blogApi = BlogService.getInstance()
-
-  blog: Blog = {} as any
-
-  mounted() {
-    this.reload()
-  }
-
-  doLike() {
-    this.blogApi.like(this.blog.id)
-    this.reload()
-  }
-
-  reload() {
-    this.blogApi
-      .get(this.$route.query.id)
-      .then((resp: any) => (this.blog = resp.data.blog))
-      .catch((err: any) => console.log(err))
+  @Model() model!: Blog
+  get blog() {
+    return this.model || {}
   }
 }
 </script>
