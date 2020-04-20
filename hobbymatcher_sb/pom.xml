@@ -138,14 +138,14 @@
         </dependency>
         <!-- redis -->
         <!-- spring boot 与redis应用基本环境配置 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-data-redis</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-data-redis</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.session</groupId>-->
+<!--            <artifactId>spring-session-data-redis</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -171,7 +171,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <!-- docker私服的地址 -->
+                    <!-- docker目的地的地址 -->
                     <dockerHost>http://3.226.20.89:2375</dockerHost>
                     <!--镜像名称以及版本号-->
                     <imageName>${docker.image.prefix}:1.0.0</imageName>
