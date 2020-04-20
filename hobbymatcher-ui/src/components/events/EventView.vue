@@ -26,9 +26,6 @@
               <network network="facebook" class="mr-2">
                 <i class="fab fa-facebook"></i>
               </network>
-              <network network="googleplus" class="mr-2">
-                <i class="fab fa-google-plus"></i>
-              </network>
               <network network="twitter" class="mr-2">
                 <i class="fab fa-twitter"></i>
               </network>

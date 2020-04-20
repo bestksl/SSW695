@@ -5,7 +5,12 @@
         <strong>Reviews:</strong>
       </div>
       <div v-if="authApi.isLogin" class="p-col-10 p-offset-1">
-        <ReviewForm :type="type" :oId="oId" v-on:doReload="reload()" />
+        <ReviewForm
+          :type="type"
+          :oId="oId"
+          :model="{}"
+          v-on:doReload="reload()"
+        />
       </div>
       <div class="p-col-10 p-offset-1">
         <ReviewView
