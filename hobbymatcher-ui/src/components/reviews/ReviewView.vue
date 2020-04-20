@@ -6,7 +6,7 @@
         <img
           v-if="review.byUserPhotoId"
           :src="
-            'http://localhost:8080/hobbymatcher/files/' + review.byUserPhotoId
+            apiUrl + '/files/' + review.byUserPhotoId
           "
           class="mr-1 user-photo rounded-circle"
         />

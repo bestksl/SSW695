@@ -14,7 +14,7 @@
           <img
             v-if="participant.photoId"
             :src="
-              'http://localhost:8080/hobbymatcher/files/' + participant.photoId
+              apiUrl + '/files/' + participant.photoId
             "
             class="mr-1 user-photo rounded-circle"
           />

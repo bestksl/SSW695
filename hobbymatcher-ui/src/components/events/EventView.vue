@@ -5,23 +5,38 @@
         <div>
           <img
             v-if="event.photoId"
-            :src="'http://localhost:8080/hobbymatcher/files/' + event.photoId"
+            :src="apiUrl + '/files/' + event.photoId"
             style="width: 12rem; height: 12rem; border: solid 1px lightgray;"
           />
         </div>
         <div class="mt-3">
-          <button class="p-button p-button-secondary px-2 py-1 mr-1">
-            <i class="fab fa-google"></i>
-          </button>
-          <button class="p-button p-button-secondary px-2 py-1 mr-1">
-            <i class="fab fa-twitter"></i>
-          </button>
-          <button class="p-button p-button-secondary px-2 py-1 mr-1">
-            <i class="fab fa-facebook"></i>
-          </button>
-          <button class="p-button p-button-secondary px-2 py-1 mr-1">
-            <i class="fas fa-share-alt-square"></i>
-          </button>
+          <social-sharing
+            :url="apiUrl + '/events/view?id=' + event.id"
+            :title="'Event :' + event.title"
+            :description="event.description"
+            :quote="event.title + event.description"
+            hashtags=""
+            twitter-user="hobbymatcher"
+            inline-template
+          >
+            <div>
+              <network network="email" class="mr-2">
+                <i class="fa fa-envelope"></i>
+              </network>
+              <network network="facebook" class="mr-2">
+                <i class="fab fa-facebook"></i>
+              </network>
+              <network network="googleplus" class="mr-2">
+                <i class="fab fa-google-plus"></i>
+              </network>
+              <network network="twitter" class="mr-2">
+                <i class="fab fa-twitter"></i>
+              </network>
+              <network network="whatsapp" class="mr-2">
+                <i class="fab fa-whatsapp"></i>
+              </network>
+            </div>
+          </social-sharing>
         </div>
         <div v-if="isEventAdmin" class="mt-2">
           <Button

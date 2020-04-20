@@ -89,7 +89,7 @@
               <img
                 v-if="!hobby.url && hobby.photoId"
                 :src="
-                  'http://localhost:8080/hobbymatcher/files/' + hobby.photoId
+                  apiUrl + '/files/' + hobby.photoId
                 "
                 style="
                   width: 12rem;

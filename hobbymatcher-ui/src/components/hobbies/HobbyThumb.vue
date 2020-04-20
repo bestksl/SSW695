@@ -8,7 +8,7 @@
       />
       <img
         v-if="hobby.photoId"
-        :src="'http://localhost:8080/hobbymatcher/files/' + hobby.photoId"
+        :src="apiUrl + '/files/' + hobby.photoId"
         class="cover"
       />
       <span class="hobby-title">{{ hobby.name }}</span>

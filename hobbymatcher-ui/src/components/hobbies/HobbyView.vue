@@ -5,7 +5,7 @@
         <div>
           <img
             v-if="hobby.photoId"
-            :src="'http://localhost:8080/hobbymatcher/files/' + hobby.photoId"
+            :src="apiUrl + '/files/' + hobby.photoId"
             style="width: 12rem; height: 12rem; border: solid 1px lightgray;"
           />
         </div>
