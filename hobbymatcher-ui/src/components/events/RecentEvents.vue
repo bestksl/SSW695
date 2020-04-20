@@ -40,12 +40,8 @@ export default class RecentEvents extends Vue {
   @Model() model!: Event[]
   @Prop() hobbyId!: number
 
-  events: Event[] = []
-
-  mounted() {
-    if (this.model) {
-      this.events = this.model
-    }
+  get events() {
+    return this.model || []
   }
 }
 </script>

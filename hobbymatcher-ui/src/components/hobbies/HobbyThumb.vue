@@ -8,7 +8,7 @@
       />
       <img
         v-if="hobby.photoId"
-        :src="'http://localhost:8080/hobbymatcher/files/' + hobby.photoId"
+        :src="API_URL + '/files/' + hobby.photoId"
         class="cover"
       />
       <span class="hobby-title">{{ hobby.name }}</span>
@@ -25,11 +25,15 @@
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
+
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { Hobby } from './Hobby'
+import { apiUrl } from '../Api'
 
 @Component
 export default class HobbyThumb extends Vue {
+  API_URL = apiUrl
+
   @Model() model!: Hobby
   @Model() userId!: number
 

@@ -5,9 +5,7 @@
         <!-- when there is photoId -->
         <img
           v-if="review.byUserPhotoId"
-          :src="
-            'http://localhost:8080/hobbymatcher/files/' + review.byUserPhotoId
-          "
+          :src="API_URL + '/files/' + review.byUserPhotoId"
           class="mr-1 user-photo rounded-circle"
         />
         <!-- else -->
@@ -77,13 +75,17 @@
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
+
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import { AuthService } from '../auth/AuthService'
 import { ReviewService } from './ReviewService'
 import { Review } from './Review'
-import { AuthService } from '../auth/AuthService'
+import { apiUrl } from '../Api'
 
 @Component
 export default class ReviewView extends Vue {
+  API_URL = apiUrl
+
   @Prop() type!: string
   @Prop() oId!: number
 

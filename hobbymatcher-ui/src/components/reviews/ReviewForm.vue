@@ -65,20 +65,17 @@ export default class ReviewForm extends Vue {
   @Prop() oId!: number
 
   @Model() model!: Review
+  review: Review = {} as any
+
+  reviewApi = ReviewService.getInstance()
 
   get hiddenRules() {
     return !this.review.content
   }
 
-  review: Review = {} as Review
-
-  reviewApi = ReviewService.getInstance()
-
-  constructor() {
-    super()
-
+  mounted() {
     if (this.model) {
-      this.review = { ...this.model }
+      this.review = this.model
     }
   }
 

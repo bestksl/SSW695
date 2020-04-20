@@ -8,6 +8,8 @@ import VueCookies from 'vue-cookies'
 import VueFilterDateParse from 'vue-filter-date-parse'
 import VueFilterDateFormat from 'vue-filter-date-format'
 
+import SocialSharing from 'vue-social-sharing'
+
 // -- import fontawesome --
 import { library, dom as fasdom } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -87,6 +89,9 @@ Vue.use(VueCookies)
 
 Vue.use(VueFilterDateParse)
 Vue.use(VueFilterDateFormat)
+
+// -- registring social sharing
+Vue.use(SocialSharing)
 
 // -- registring primevue library --
 Vue.component('Button', Button)

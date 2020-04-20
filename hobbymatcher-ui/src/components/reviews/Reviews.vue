@@ -5,7 +5,12 @@
         <strong>Reviews:</strong>
       </div>
       <div v-if="authApi.isLogin" class="p-col-10 p-offset-1">
-        <ReviewForm :type="type" :oId="oId" v-on:doReload="reload()" />
+        <ReviewForm
+          :type="type"
+          :oId="oId"
+          :model="{}"
+          v-on:doReload="reload()"
+        />
       </div>
       <div class="p-col-10 p-offset-1">
         <ReviewView
@@ -23,10 +28,11 @@
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
+
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { Review } from './Review'
 import { AuthService } from '../auth/AuthService'
 import { ReviewService } from './ReviewService'
+import { Review } from './Review'
 
 @Component
 export default class Reviews extends Vue {

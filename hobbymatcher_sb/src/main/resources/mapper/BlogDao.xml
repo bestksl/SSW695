@@ -18,6 +18,13 @@
         order by blog.on_datetime desc
     </select>
     
+    <select id="listBlogByUserId" resultType="com.hobbymatcher.entity.Blog">
+        select blog.*, user.first_name as by_user_first, user.last_name as by_user_last
+        from blog
+        join user on user.id = blog.by_user_id and blog.by_user_id = #{userId} 
+        order by blog.on_datetime desc
+    </select>
+    
     <select id="paginateListBlogByHobbyId" resultType="com.hobbymatcher.entity.Blog">
         select
         <if test="justCount">count(blog.id) as id</if>

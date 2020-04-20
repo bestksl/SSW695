@@ -1,4 +1,5 @@
 /* eslint-disable space-before-function-paren */
+
 import { http } from '../Api'
 import Vue from 'vue'
 import { NewUser } from './NewUser'

@@ -55,6 +55,11 @@ public class BlogServiceImpl implements BlogService {
 	}
 
 	@Override
+	public List<Blog> listBlogByUserId(int userId) {
+		return blogDao.listBlogByUserId(userId);
+	}
+
+	@Override
 	public List<Blog> paginateListBlogByHobbyId(Boolean justCount, Integer hobbyId, Integer offset, Integer perpage) {
 		return blogDao.paginateListBlogByHobbyId(justCount, hobbyId, offset, perpage);
 	}

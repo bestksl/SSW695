@@ -17,6 +17,8 @@ public interface BlogService {
 
 	Boolean updateBlog(Blog blog);
 
+	List<Blog> listBlogByUserId(int userId);
+
 	List<Blog> listBlogByHobbyId(int id);
 
 	List<Blog> paginateListBlogByHobbyId(Boolean justCount, Integer hobbyId, Integer offset, Integer perpage);

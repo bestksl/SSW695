@@ -13,9 +13,7 @@
           <!-- when there is photoId -->
           <img
             v-if="participant.photoId"
-            :src="
-              'http://localhost:8080/hobbymatcher/files/' + participant.photoId
-            "
+            :src="API_URL + '/files/' + participant.photoId"
             class="mr-1 user-photo rounded-circle"
           />
           <!-- else -->
@@ -80,12 +78,15 @@
 /* eslint-disable space-before-function-paren */
 
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
-import { Event } from './Event'
-import { EventService } from './EventService'
 import { AuthService } from '../auth/AuthService'
+import { EventService } from './EventService'
+import { Event } from './Event'
+import { apiUrl } from '../Api'
 
 @Component
 export default class ManageParticipants extends Vue {
+  API_URL = apiUrl
+
   @Model() eventId!: number
 
   participants = []

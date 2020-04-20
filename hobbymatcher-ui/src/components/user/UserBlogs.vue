@@ -31,7 +31,7 @@
       />
 
       <strong class="flex-grow-1 ml-4">
-        <router-link to="/blogs/view">
+        <router-link :to="'/blogs/view?id=' + blog.id">
           {{ blog.title }}
         </router-link>
       </strong>
@@ -49,6 +49,7 @@
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
+
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { ProfileService } from './ProfileService'
 import { BlogService } from '../blogs/BlogService'

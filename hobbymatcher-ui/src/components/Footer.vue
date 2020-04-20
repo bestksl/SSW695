@@ -55,6 +55,7 @@
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
+
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { AuthService } from './auth/AuthService'
 

@@ -46,22 +46,20 @@ export default class CommentForm extends Vue {
   @Prop() pId!: number
 
   @Model() model!: Comment
+  comment: Comment = {} as any
+
+  commentApi = ReviewService.getInstance()
 
   get hiddenRules() {
     return !this.comment.content
   }
 
-  comment: Comment = {} as Comment
-
-  commentApi = ReviewService.getInstance()
-
-  constructor() {
-    super()
-
+  mounted() {
     if (this.model) {
-      this.comment = { ...this.model }
+      this.comment = this.model
     }
   }
+
   save() {
     this.comment.ownerType = this.type
     this.comment.ownerId = this.oId

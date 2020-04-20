@@ -14,6 +14,7 @@
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
+
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
 import { HobbyService } from './HobbyService'
 import { Hobby } from './Hobby'

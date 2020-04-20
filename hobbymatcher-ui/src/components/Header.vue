@@ -38,10 +38,7 @@
           />
           <img
             v-if="authApi.response.photoId"
-            :src="
-              'http://localhost:8080/hobbymatcher/files/' +
-                authApi.response.photoId
-            "
+            :src="API_URL + '/files/' + authApi.response.photoId"
             class="mr-1 profile-photo"
           />
 
@@ -80,11 +77,15 @@
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
+
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { AuthService } from './auth/AuthService'
+import { apiUrl } from './Api'
 
 @Component
 export default class Header extends Vue {
+  API_URL = apiUrl
+
   authApi = AuthService.getInstance()
 
   doLogout() {

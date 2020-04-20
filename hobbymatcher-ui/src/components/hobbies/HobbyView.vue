@@ -5,7 +5,7 @@
         <div>
           <img
             v-if="hobby.photoId"
-            :src="'http://localhost:8080/hobbymatcher/files/' + hobby.photoId"
+            :src="API_URL + '/files/' + hobby.photoId"
             style="width: 12rem; height: 12rem; border: solid 1px lightgray;"
           />
         </div>
@@ -39,12 +39,15 @@
 /* eslint-disable space-before-function-paren */
 
 import { Component, Prop, Vue, Model } from 'vue-property-decorator'
+import { AuthService } from '../auth/AuthService'
 import { HobbyService } from './HobbyService'
 import { Hobby } from './Hobby'
-import { AuthService } from '../auth/AuthService'
+import { apiUrl } from '../Api'
 
 @Component
 export default class HobbyView extends Vue {
+  API_URL = apiUrl
+
   @Model() model!: Hobby
 
   status: string = '' // '', 'followed'

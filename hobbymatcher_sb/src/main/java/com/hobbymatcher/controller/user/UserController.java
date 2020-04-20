@@ -220,7 +220,8 @@ public class UserController {
 		Map<String, Object> resp = new HashMap<String, Object>();
 		try {
 			// TODO filter by load => 'mine', 'commented'
-			resp.put("list", blogService.listBlog());
+			int userId = authUtilService.getUserId(req);
+			resp.put("list", blogService.listBlogByUserId(userId));
 			resp.put("success", true);
 			response.setStatus(200);
 		} catch (Exception exp) {

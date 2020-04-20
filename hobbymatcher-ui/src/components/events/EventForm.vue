@@ -198,9 +198,7 @@
               <!-- when there is photoId -->
               <img
                 v-if="!event.url && event.photoId"
-                :src="
-                  'http://localhost:8080/hobbymatcher/files/' + event.photoId
-                "
+                :src="API_URL + '/files/' + event.photoId"
                 style="
                   width: 12rem;
                   height: 12rem;
@@ -278,16 +276,19 @@ import { EventService } from './EventService'
 import { Event } from './Event'
 import { HobbyService } from '../hobbies/HobbyService'
 import { Hobby } from '../hobbies/Hobby'
+import { apiUrl } from '../Api'
 
 @Component
 export default class EventForm extends Vue {
+  API_URL = apiUrl
+
   @Model() id!: number
 
   event: any /* Event */ = {
     plus18Only: false,
     capacity: '',
     description: '',
-    fee: '',
+    fee: ''
   } as any
   // event.file: event picture to upload
   // event.url: event picture preview
@@ -353,9 +354,9 @@ export default class EventForm extends Vue {
     const addr = this.event.locationObj.address
     this.event.locationShort = [
       addr.city,
-      this.eventApi.getStateShort(addr.state),
+      this.eventApi.getStateShort(addr.state)
     ]
-      .filter((add) => add)
+      .filter(add => add)
       .join(', ')
     this.event.geoLat = this.event.locationObj.lat
     this.event.geoLon = this.event.locationObj.lon
