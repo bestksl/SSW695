@@ -26,7 +26,7 @@ public class FileController {
 
 	@RequestMapping(value = "/{filename:.+}", method = RequestMethod.GET)
 	@ResponseBody
-	public Object getHobby(@PathVariable String filename) throws FileNotFoundException {
+	public Object getFile(@PathVariable String filename) throws FileNotFoundException {
 		File file = new File(FileUtil.getUploadFolder(), filename);
 
 		if (file.exists()) {
