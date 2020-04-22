@@ -19,9 +19,9 @@ public class Hobby implements Serializable {
     @NotBlank
     private String description;
     private Boolean plus18Only;
-    @NonNull
+    // @NonNull
     private String photoId;
-    @NonNull
+    // @NonNull
     private Integer createdById;
 
     public Integer getId() {
