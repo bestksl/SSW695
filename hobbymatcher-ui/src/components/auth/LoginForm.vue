@@ -74,10 +74,7 @@ import { LoginUser } from './LoginUser'
 export default class LoginForm extends Vue {
   authApi: AuthService = AuthService.getInstance()
 
-  model: LoginUser = {
-    email: 'jafar@gmail.com',
-    password: 'jafarjafar'
-  } as LoginUser
+  model: LoginUser = {} as LoginUser
 
   save() {
     this.authApi

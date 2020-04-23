@@ -122,14 +122,7 @@ import { NewUser } from './NewUser'
 export default class RegisterForm extends Vue {
   api: AuthService = AuthService.getInstance()
 
-  model: NewUser = {
-    firstName: 'Jafar',
-    lastName: 'Abbasi',
-    dateOfBirth: new Date(1991, 2, 3),
-    nickName: 'jafar',
-    email: 'jafar@gmail.com',
-    password: 'jafarjafar'
-  } as NewUser
+  model: NewUser = {} as NewUser
 
   back() {
     window.history.back()
@@ -141,6 +134,7 @@ export default class RegisterForm extends Vue {
       .then((resp: any) => {
         this.model = {} as NewUser
         Vue.toasted.show('You have been registered.', { duration: 5000 })
+        this.$emit('registered')
       })
       .catch((err: any) => {
         Vue.toasted.show('Failed to register.', { duration: 5000 })
