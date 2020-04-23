@@ -44,7 +44,7 @@ public class HobbyController {
 	@GetMapping("/listhobby")
 	private Map<String, Object> listHobby(HttpServletResponse response, //
 			@RequestParam(name = "offset", required = false, defaultValue = "0") Integer offset,
-			@RequestParam(name = "perpage", required = false, defaultValue = "10") Integer perpage,
+			@RequestParam(name = "perpage", required = false, defaultValue = "9999") Integer perpage,
 			@RequestParam(name = "categories", required = false, defaultValue = "") String categories) {
 		Map<String, Object> resp = new HashMap<String, Object>();
 		try {

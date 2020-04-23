@@ -28,9 +28,9 @@ public class Event {
     private String organizer;
     @NotBlank
     private String title;
-    @NotNull
+    // @NotNull
     private String photoId;
-    @NonNull
+    // @NonNull
     private Integer createdById;
 
     public Event() {
