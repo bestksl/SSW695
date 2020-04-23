@@ -13,7 +13,7 @@
         <hr />
       </div>
     </div>
-    <RegisterForm></RegisterForm>
+    <RegisterForm v-on:registered="toLogin()"></RegisterForm>
   </div>
 </template>
 
@@ -26,6 +26,10 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 export default class Register extends Vue {
   back() {
     window.history.back()
+  }
+
+  toLogin() {
+    this.$router.push({ name: 'login' })
   }
 }
 </script>
