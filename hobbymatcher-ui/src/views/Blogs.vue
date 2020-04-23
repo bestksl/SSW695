@@ -16,7 +16,7 @@
 
     <HobbyView v-if="hobby.id" v-model="hobby" />
 
-    <div class="p-col-10 p-offset-1 text-right">
+    <div v-if="hobby.id" class="p-col-10 p-offset-1 text-right">
       <router-link :to="'/blogs/create?hobbyId=' + hobby.id">
         <Button
           label="Write a Post"
